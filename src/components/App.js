@@ -1,13 +1,13 @@
 import MenuLateral from "./MenuLateral";
 import {Routes, Route} from "react-router-dom";
-import Survey from "./Survey";
+import Ligue from "./Ligue";
 
 function App() {
     return (
-        <div className="flex">
+        <div className="flex ">
             <MenuLateral/>
             <Routes>
-                <Route path={"/survey"} element={<Survey/>} />
+                <Route path={"/ligue"} element={<Ligue/>} />
             </Routes>
         </div>
     )
