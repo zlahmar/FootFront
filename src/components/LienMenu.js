@@ -1,5 +1,5 @@
 import {Link} from "react-router-dom";
-import image from '../assets/icon/Line Icon 1.png';
+import image from '../assets/Icon/Line Icon 1.png';
 
 
 function LienMenu({lien, texte}){
