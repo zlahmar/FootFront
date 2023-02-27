@@ -11,8 +11,10 @@ export default function App() {
 }
 
 function Ligue() {
+    const leagues_api_url="http://146.59.151.45:7777/api/leagues"
+
     const { isLoading, error, data } = useQuery('repoData', () =>
-    fetch('http://146.59.151.45:7777/api/leagues').then(res =>
+    fetch(leagues_api_url).then(res =>
         res.json()
         )
     )
@@ -25,8 +27,16 @@ function Ligue() {
             <div>Ligue</div>
             <div className=" h-4/5  ">
                 <div className="w-full h-full ">
-                        {data.map(data => (
-                            <li key={data.id}>{data.id} {data.name}</li>
+                        {data.map(league => (
+                            <div>
+                                <div>
+                                    <img src={leagues_api_url + "/images/" + league.name}></img>
+                                </div>
+                                <div>
+                                    <p key={league.id}>{league.id} {league.name}
+                                    </p>
+                                </div>
+                            </div>
                         ))}
                 </div>
             </div>
