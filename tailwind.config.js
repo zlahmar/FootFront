@@ -12,6 +12,7 @@ module.exports = {
       'tiffanyBlue' : '#A8E1DC',
       'onyx' : '#393a3e',
     },
+    
     extend: {},
   },
   plugins: [],

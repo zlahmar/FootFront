@@ -2,7 +2,7 @@ import '../styles/index.css'
 import LienMenu from "./LienMenu";
 function MenuLateral(){
     return (
-        <div className="h-screen lg:w-2/12 md:w-1/12 sm:w-1/12">
+        <div className="h-screen lg:w-2/12 md:w-1/12 sm:w-1/12 pr-5">
             <div className="w-full h-1/6 bg-eerieBlack text-center flex flex-col justify-center" >
                 <h1 className=" text-tiffanyBlue" > FootStat </h1>
                 <img className="w-100" alt="logo" src="../assets/logo192.png" />
