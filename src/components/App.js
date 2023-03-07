@@ -4,7 +4,7 @@ import Ligue from "./Ligue";
 
 function App() {
     return (
-        <div className="flex bg-aias">
+        <div className="flex bg-gray">
             <MenuLateral/>
             <Routes>
                 <Route path={"/ligue"} element={<Ligue/>} />
