@@ -1,12 +1,10 @@
 import {Link} from "react-router-dom";
-import image from '../assets/icon/Line Icon 1.png';
 
-
-function LienMenu({lien, texte}){
+function LienMenu({lien, texte, image}){
     return (
-        <li>
-            <img alt={texte} className="h-auto max-w-full" src={image} width="10px;"/>
-            <Link  to={lien}  className="font-medium text-tiffanyBlue hover:underline ">{texte}</Link>
+        <li className="text-center flex justify-center">
+            <img alt={texte} className="w-10 h-10" src={image} />
+            <Link  to={lien}  className="ml-5 font-title font-medium self-center text-tiffanyBlue hover:underline ">{texte}</Link>
         </li>
     )
 }
