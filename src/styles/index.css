@@ -1,3 +1,12 @@
+/* Google Fonts */
+/* 1) Philosopher  */
+@import url('https://fonts.googleapis.com/css2?family=Philosopher&display=swap');
+
+/* 2)  Mulish */
+@import url('https://fonts.googleapis.com/css2?family=Mulish&display=swap');
+
+/* Tailwind */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+

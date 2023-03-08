@@ -14,9 +14,11 @@ module.exports = {
       'powderBlue' : '#b2c7f0',
       'white' : '#ffffff',
       'gray':'#4f5459',
-
     },
-    
+    fontFamily: {
+      title : ['Philosopher', 'sans-serif'],
+      content : ['Mulish', 'sans-serif'],
+    },
     extend: {},
   },
   plugins: [],
