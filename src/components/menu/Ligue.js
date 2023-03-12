@@ -37,7 +37,7 @@ function Ligue() {
             <BlocTitre className="mb-5">
                 Ligue (2002 ~ 2022) : 20 ans de football
             </BlocTitre>
-            <div className="flex mb-5">
+            <div className="flex mb-5 h-auto">
                 <BlocContent>
                     <LoadingCarte/>
                 </BlocContent>
@@ -45,9 +45,10 @@ function Ligue() {
                     <LoadingCarte/>
                 </BlocContent>
             </div>
+            <h2 className="font-content text-white mb-5">Cliquez une ligue que vous voulez voir</h2>
             <BlocCarte>
                 {data.map(league => (
-                    <LigueCarte league={league} leagues_img_url={LEAGUES.IMG} />
+                    <LigueCarte key={league.id} league={league} leagues_img_url={LEAGUES.IMG} />
                 ))}       
             </BlocCarte>
         </div>
