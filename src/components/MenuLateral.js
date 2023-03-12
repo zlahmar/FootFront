@@ -17,7 +17,7 @@ function MenuLateral(){
 
             <div className="w-full h-5/6 bg-gunMetal">
                 <nav className=" h-full">
-                    <ul className=" h-full flex flex-col justify-center text-center space-y-10 ">
+                    <ul className=" h-full flex flex-col justify-center text-center space-y-10">
                         <LienMenu lien="/ligue" texte="Ligue" image={ligue}></LienMenu>
                         <LienMenu lien="/club" texte="Club" image={club}></LienMenu>
                         <LienMenu lien="/joueur" texte="Joueur" image={joueur}></LienMenu>
