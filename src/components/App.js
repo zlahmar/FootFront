@@ -4,7 +4,7 @@ import Ligue from "./menu/Ligue";
 
 function App() {
     return (
-        <div className="flex bg-eerieBlack overflow-y-hidden">
+        <div className="flex overflow-y-hidden bg-[url('/src/assets/arriere_plan/site.png')] bg-cover bg-center bg-no-repeat">
             <MenuLateral/>
             <Routes>
                 <Route path={"/ligue"} element={<Ligue/>} />
