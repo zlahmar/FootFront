@@ -5,6 +5,7 @@ import BlocCarte from "../bloc/BlocCarte";
 import BlocTitre from "../bloc/BlocTitre";
 import BlocContent from "../bloc/BlocContent";
 import LoadingCarte from "../carte/LoadingCarte";
+import LineChart from "../graphique/LineChart";
 
 const queryClient = new QueryClient()
 
@@ -35,11 +36,11 @@ function Ligue() {
         ]
     )
 
-    console.log("La Liga Data : ",resultQueries[0].data.filter(element => element.league.name === "La Liga"))
-    console.log("Ligue 1 Data : ",resultQueries[0].data.filter(element => element.league.name === "Ligue 1"))
-    console.log("Premier League Data : ",resultQueries[0].data.filter(element => element.league.name === "Premier League"))
-    console.log("Serie A Data : ",resultQueries[0].data.filter(element => element.league.name === "Serie A"))
-    console.log("Bundes Liga Data : ",resultQueries[0].data.filter(element => element.league.name === "Bundes Liga"))
+    // console.log("La Liga Data : ",resultQueries[0].data.filter(element => element.league.name === "La Liga"))
+    // console.log("Ligue 1 Data : ",resultQueries[0].data.filter(element => element.league.name === "Ligue 1"))
+    // console.log("Premier League Data : ",resultQueries[0].data.filter(element => element.league.name === "Premier League"))
+    // console.log("Serie A Data : ",resultQueries[0].data.filter(element => element.league.name === "Serie A"))
+    // console.log("Bundes Liga Data : ",resultQueries[0].data.filter(element => element.league.name === "Bundes Liga"))
 
 
     if (resultQueries[0].isLoading || resultQueries[1].isLoading) return (
@@ -61,11 +62,9 @@ function Ligue() {
 
             <div className="flex mb-5 h-auto">
                 <BlocContent>
-                    {resultQueries[0].data.map(ranking => (
-                        <div key={ranking.id} className="text-white">
-                            <p>{ranking.id}</p>
-                        </div>))
-                    }
+                {resultQueries[0].data.map(ranking => (
+                    <LineChart key={ranking.id} ranking_data={ranking}/>
+                ))}
                 </BlocContent>
                 <BlocContent>
                     <LoadingCarte/>
