@@ -5,7 +5,7 @@ function LigueCarte({ league, leagues_img_url }){
     return (
             <div className="border-t-2 border-tiffanyBlue pt-3 rounded-3xl bg-[url('/src/assets/arriere_plan/carte.png')] bg-cover bg-center bg-no-repeat">
                 <a
-                href={league.id}
+                href={"ligue/"+league.id}
                 className="block rounded-3xl border-2 border-tiffanyBlue bg-gunMetal transition shadow hover:shadow-lg hover:shadow-tiffanyBlue"
                 >
                     <div className="flex items-start relative">
