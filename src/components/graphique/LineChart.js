@@ -1,11 +1,11 @@
 import '../../styles/index.css'
 
-function LineChart({ranking_data}){
+function LineChart({data}){
     return(
         <div className='text-white'>
-            <p>{ranking_data.id}</p>
-            <p>{ranking_data.year}</p>
-            <p>{ranking_data.league.name}</p>
+            <p>{data.id}</p>
+            <p>{data.year}</p>
+            <p>{data.league.name}</p>
         </div>
     )
 }

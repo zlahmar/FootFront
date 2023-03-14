@@ -63,7 +63,7 @@ function Ligue() {
             <div className="flex mb-5 h-auto">
                 <BlocContent>
                 {resultQueries[0].data.map(ranking => (
-                    <LineChart key={ranking.id} ranking_data={ranking}/>
+                    <LineChart key={ranking.id} data={ranking}/>
                 ))}
                 </BlocContent>
                 <BlocContent>
