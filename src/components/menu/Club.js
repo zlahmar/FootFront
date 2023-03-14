@@ -1,5 +1,5 @@
-import LEAGUES from "../data/Constants"
-
+import LEAGUES from "../../data/Constants"
+import { useParams } from "react-router";
 
 function Club(){
     const { id } = useParams();
