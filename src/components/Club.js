@@ -1,8 +1,9 @@
+import LEAGUES from "../data/Constants"
 
-function Club({id}){
 
-
-    fetch(`https://footstatsapi-footapi.azuremicroservices.io/api/leagues/${id}`)
+function Club(){
+    const { id } = useParams();
+    fetch(`${LEAGUES.DATA}/${id}`)
         .then(response => console.log(response))
     return (
         <div>
