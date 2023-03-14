@@ -1,4 +1,4 @@
-import { QueryClient, QueryClientProvider, useQuery } from "react-query"
+import { QueryClient, QueryClientProvider,  useQueries,  useQuery } from "react-query"
 import LEAGUES from "../../data/Constants"
 import LigueCarte from "../carte/LigueCarte";
 import BlocCarte from "../bloc/BlocCarte";
@@ -7,6 +7,17 @@ import BlocContent from "../bloc/BlocContent";
 import LoadingCarte from "../carte/LoadingCarte";
 
 const queryClient = new QueryClient()
+
+const fetchLeagues = async () => {
+    const res = await fetch(LEAGUES.DATA)
+    return res.json()
+}
+
+const fetchRankingsLeague = async () => {
+    const res = await fetch(LEAGUES.RANKING)
+    return res.json()
+}
+
 
 export default function App() {
     return (
@@ -17,12 +28,15 @@ export default function App() {
 }
 
 function Ligue() {
-    const { isLoading, error, data } = useQuery('repoData', async () =>
-    await fetch(LEAGUES.DATA).then(res =>
-        res.json()
-        )
+    const resultQueries = useQueries(
+        [
+            { queryKey: ['rankingsLeague',1], queryFn: fetchRankingsLeague },
+            { queryKey: ['leagues',2], queryFn: fetchLeagues },
+        ]
     )
-    if (isLoading) return (
+
+    console.log("results", resultQueries)
+    if (resultQueries[0].isLoading || resultQueries[1].isLoading) return (
         <div className="bg-gunMetal flex flex-col justify-center lg:w-10/12 md:w-11/12 sm:w-11/12">
             <BlocCarte>
                     <LoadingCarte/>
@@ -30,16 +44,22 @@ function Ligue() {
         </div>
     )
 
-    if (error) return 'An error has occured : ' + error.message
+    if (resultQueries[0].error ||resultQueries[1].error) return 'An error has occured '
 
     return (
         <div className="h-full w-screen flex flex-col justify-between lg:w-10/12 md:w-11/12 sm:w-11/12">
             <BlocTitre className="mb-5">
                 Ligue (2002 ~ 2022) : 20 ans de football
             </BlocTitre>
+
+
             <div className="flex mb-5 h-auto">
                 <BlocContent>
-                    <LoadingCarte/>
+                    {resultQueries[0].data.map(ranking => (
+                        <div key={ranking.id} className="text-white">
+                            <p>{ranking.id}</p>
+                        </div>))
+                    }
                 </BlocContent>
                 <BlocContent>
                     <LoadingCarte/>
@@ -47,7 +67,7 @@ function Ligue() {
             </div>
             <h2 className="font-content text-white mb-5">Cliquez une ligue que vous voulez voir</h2>
             <BlocCarte>
-                {data.map(league => (
+                {resultQueries[1].data.map(league => (
                     <LigueCarte key={league.id} league={league} leagues_img_url={LEAGUES.IMG} />
                 ))}       
             </BlocCarte>
