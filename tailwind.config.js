@@ -5,6 +5,8 @@ module.exports = {
   ],
   theme: {
     colors: {
+      'odysseus': '#154284',
+      'aias' : '#ee5d72',
       'gunMetal' : '#2B3132',
       'eerieBlack' : '#18181C',
       'tiffanyBlue' : '#A8E1DC',
