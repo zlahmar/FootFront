@@ -6,46 +6,48 @@ import * as d3 from 'd3'
 function LineChart(props){
     // console.log("dataArray : ",props.array[0])
     const svgRef = useRef();
-
-    const createGraph = () => {
-    // # 1. Access data
     let data = props.array 
-    let parseTime = d3.timeParse("%Y");
-
-    data.forEach((d) => {
-        d.date = parseTime(d.date);
-        d.value = +d.value;
-    });
-    console.log("data : ", data)
-
-
-    // # 2. Create chart dimensions
-    // set the dimensions and margins of the graph
-    var margin = { top: 20, right: 20, bottom: 50, left: 70 },
-    width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;    // append the svg object to the body of the page
-    var svg = d3.select("body").append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-        .append("g")
-        .attr("transform", `translate(${margin.left},     ${margin.top})`);
-
-    // # 3. Create scales
-       // Add X axis and Y axis
-    var x = d3.scaleTime().range([0, width]);
-    var y = d3.scaleLinear().range([height, 0]);   x.domain(d3.extent(data, (d) => { return d.date; }));
-    y.domain([0, d3.max(data, (d) => { return d.value; })]);   svg.append("g")
-    .attr("transform", `translate(0, ${height})`)
-    .call(d3.axisBottom(x));   svg.append("g")
-    .call(d3.axisLeft(y)); 
     
-    
-
-    }
+    console.log("Data : ", data)
+    let ligue_1_rank = data.map(value => value.league.name === "Ligue 1" ? {year : value.year, rank : value.rank} : null);
+    ligue_1_rank = ligue_1_rank.filter(element => element !== null) 
+    console.log("Ligue 1 Rank : ", ligue_1_rank)
+    console.log("Ligue 1 Rank 2002 : ", ligue_1_rank[0].year, ligue_1_rank[0].rank)    
+    console.log(data[0].year, data.slice(-1)[0].year)
 
     useEffect(() => {
-        createGraph()
-    },[])
+        // 1. Setting up the svg
+        const w = 700;
+        const h = 500;
+        const svg = d3.select(svgRef.current)
+            .attr("width", w)
+            .attr("height", h)
+            .style("background-color", "white")
+            .style("border-radius", "10px")
+        
+        // 2. Setting up the scales
+        const first_year = data[0].year
+        const last_year = data.slice(-1)[0].year
+
+        const xScale = d3.scaleLinear()
+            .domain([first_year,last_year])
+            .range([0,w]);
+
+        const yScale = d3.scaleLinear()
+            .domain([0,10])
+            .range([h,0]);
+        
+        const generateScaledLine = d3.line()     
+            .x((d,number) => xScale(number)) 
+            .y(yScale)
+            .curve(d3.curveCardinal);  
+
+        // 3. Setting up the axis
+        // svg.selectAll('.line')
+        //     .data(data.forEach((element) => element.rank))
+
+        // 4. Setting up the data for the svg
+    },[data])
 
     return(
         <div className='text-white'>

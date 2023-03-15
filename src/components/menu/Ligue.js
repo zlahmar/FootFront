@@ -19,7 +19,6 @@ const fetchRankingsLeague = async () => {
     return res.json()
 }
 
-
 export default function App() {
     return (
         <QueryClientProvider client={queryClient}>
