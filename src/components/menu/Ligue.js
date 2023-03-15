@@ -42,7 +42,6 @@ function Ligue() {
     // console.log("Serie A Data : ",resultQueries[0].data.filter(element => element.league.name === "Serie A"))
     // console.log("Bundes Liga Data : ",resultQueries[0].data.filter(element => element.league.name === "Bundes Liga"))
 
-
     if (resultQueries[0].isLoading || resultQueries[1].isLoading) return (
         <div className="bg-gunMetal flex flex-col justify-center lg:w-10/12 md:w-11/12 sm:w-11/12">
             <BlocCarte>
@@ -62,9 +61,7 @@ function Ligue() {
 
             <div className="flex mb-5 h-auto">
                 <BlocContent>
-                {resultQueries[0].data.map(ranking => (
-                    <LineChart key={ranking.id} data={ranking}/>
-                ))}
+                    <LineChart  array={resultQueries[0].data}/>
                 </BlocContent>
                 <BlocContent>
                     <LoadingCarte/>

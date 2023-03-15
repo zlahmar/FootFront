@@ -1,15 +1,13 @@
 import '../../styles/index.css'
 
-function LineChart({data}){
+function LineChart(props){
+    console.log("dataArray : ",props.array[0])
+    
     return(
         <div className='text-white'>
-            <p>{data.id}</p>
-            <p>{data.year}</p>
-            <p>{data.league.name}</p>
+            Hello
         </div>
     )
 }
 
-export default LineChart
-
-
+export default LineChart;
