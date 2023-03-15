@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider,  useQueries } from "react-query"
-import LEAGUES from "../../data/Constants"
+import LEAGUES from "../../data/Api"
 import LigueCarte from "../carte/LigueCarte";
 import BlocCarte from "../bloc/BlocCarte";
 import BlocTitre from "../bloc/BlocTitre";
@@ -34,12 +34,6 @@ function Ligue() {
             { queryKey: ['leagues',2], queryFn: fetchLeagues },
         ]
     )
-
-    // console.log("La Liga Data : ",resultQueries[0].data.filter(element => element.league.name === "La Liga"))
-    // console.log("Ligue 1 Data : ",resultQueries[0].data.filter(element => element.league.name === "Ligue 1"))
-    // console.log("Premier League Data : ",resultQueries[0].data.filter(element => element.league.name === "Premier League"))
-    // console.log("Serie A Data : ",resultQueries[0].data.filter(element => element.league.name === "Serie A"))
-    // console.log("Bundes Liga Data : ",resultQueries[0].data.filter(element => element.league.name === "Bundes Liga"))
 
     if (resultQueries[0].isLoading || resultQueries[1].isLoading) return (
         <div className="bg-gunMetal flex flex-col justify-center lg:w-10/12 md:w-11/12 sm:w-11/12">
