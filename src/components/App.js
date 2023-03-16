@@ -2,7 +2,6 @@ import MenuLateral from "./MenuLateral";
 import {Routes, Route} from "react-router-dom";
 import Ligue from "./menu/Ligue";
 import Club from "./menu/Club";
-import { useParams } from "react-router-dom";
 
 function App() {
     return (

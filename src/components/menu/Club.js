@@ -1,14 +1,24 @@
 import LEAGUES from "../../data/Constants"
-import { useParams } from "react-router";
+import {useState} from "react";
 
 function Club(){
-    const { id } = useParams();
-    fetch(`${LEAGUES.DATA}/${id}`)
-        .then(response => console.log(response))
+
+    const id = window.location.pathname.slice(-1);
+    const URL = `${LEAGUES.DATA}/${id}`;
+    const[data, setData] = useState();
+
+
+
+
+    fetch(URL)
+        .then(response => response.text)
+        .then(data => console.log(data))
+
+
+
     return (
         <div>
             Appel a API
-            {id}
         </div>
     )
 }
