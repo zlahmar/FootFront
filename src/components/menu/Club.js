@@ -1,4 +1,4 @@
-import LEAGUES from "../../data/Constants"
+import LEAGUES from "../../data/Api"
 import { useParams } from "react-router";
 
 function Club(){
