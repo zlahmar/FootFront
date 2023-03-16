@@ -1,8 +1,9 @@
 import { ResponsiveBump } from '@nivo/bump'
+import '../../styles/index.css'
 
 
   const BumpChart = ({ data }) => (
-    <div className="flex justify-center" style={{ height: 350, width: 1400 }}>
+    <div className="div-bump-chart flex justify-center">
         <ResponsiveBump
             data={data}
             colors={{ scheme: 'nivo' }}
