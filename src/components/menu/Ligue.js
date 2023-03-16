@@ -1,11 +1,13 @@
 import { QueryClient, QueryClientProvider,  useQueries } from "react-query"
 import LEAGUES from "../../data/Api"
+import LEAGUE from "../../data/Constants";
 import LigueCarte from "../carte/LigueCarte";
 import BlocCarte from "../bloc/BlocCarte";
 import BlocTitre from "../bloc/BlocTitre";
 import BlocContent from "../bloc/BlocContent";
 import LoadingCarte from "../carte/LoadingCarte";
-import LineChart from "../graphique/LineChart";
+import BumpChart from "../graphique/BumpChart";
+
 
 const queryClient = new QueryClient()
 
@@ -45,27 +47,48 @@ function Ligue() {
 
     if (resultQueries[0].error ||resultQueries[1].error) return 'An error has occured '
 
+    const getLeagueArrayRankByYear = (obj_array, league) => {
+        let array = obj_array.map(value => value.league.name === league ? 
+                    {x : value.year, y : value.rank} : null);
+        array = array.filter(value => value !== null)
+        return array
+    }
+
+    const UEFA_LEAGUES_RANKING = [
+        {id : LEAGUE.FRANCE, data : getLeagueArrayRankByYear(resultQueries[0].data, LEAGUE.FRANCE)},
+        {id : LEAGUE.ENGLAND, data : getLeagueArrayRankByYear(resultQueries[0].data, LEAGUE.ENGLAND)},
+        {id : LEAGUE.SPAIN, data : getLeagueArrayRankByYear(resultQueries[0].data, LEAGUE.SPAIN)},
+        {id : LEAGUE.ITALY, data : getLeagueArrayRankByYear(resultQueries[0].data, LEAGUE.ITALY)},
+        {id : LEAGUE.GERMANY, data : getLeagueArrayRankByYear(resultQueries[0].data, LEAGUE.GERMANY)},
+    ]
+
+
     return (
-        <div className="h-full w-screen flex flex-col justify-between lg:w-10/12 md:w-11/12 sm:w-11/12">
-            <BlocTitre className="mb-5">
-                Ligue (2002 ~ 2022) : 20 ans de football
+        <div className="w-screen flex flex-col justify-between lg:w-10/12 md:w-11/12 sm:w-11/12">
+            <BlocTitre>
+                <p className="font-title text-2xl">Ligue (2002 ~ 2022) : 20 ans de football</p>
             </BlocTitre>
 
+            <div className="flex h-full">
+                <BlocContent>
+                    <BlocTitre>
+                        <p className="font-title text-white mb-3 text-xl">UEFA Coefficients des pays (2002 ~ 2022)</p>
+                    </BlocTitre>
+                    <BumpChart data={UEFA_LEAGUES_RANKING} />
 
-            <div className="flex mb-5 h-auto">
-                <BlocContent>
-                    <LineChart  array={resultQueries[0].data}/>
                 </BlocContent>
-                <BlocContent>
-                    <LoadingCarte/>
-                </BlocContent>
+
             </div>
-            <h2 className="font-content text-white mb-5">Cliquez une ligue que vous voulez voir</h2>
-            <BlocCarte>
-                {resultQueries[1].data.map(league => (
-                    <LigueCarte key={league.id} league={league} leagues_img_url={LEAGUES.IMG} />
-                ))}       
-            </BlocCarte>
+            <BlocTitre>
+                <p className="font-title text-white mb-3 text-xl">Cliquez une ligue que vous voulez voir</p>
+            </BlocTitre>
+            <div className="h-full w-full">
+                <BlocCarte>
+                    {resultQueries[1].data.map(league => (
+                        <LigueCarte key={league.id} league={league} leagues_img_url={LEAGUES.IMG} />
+                    ))}       
+                </BlocCarte>
+            </div>
         </div>
         
     )
