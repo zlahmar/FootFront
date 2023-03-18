@@ -8,7 +8,6 @@ import BlocContent from "../bloc/BlocContent";
 import LoadingCarte from "../carte/LoadingCarte";
 import BumpChart from "../graphique/BumpChart";
 
-
 const queryClient = new QueryClient()
 
 const fetchLeagues = async () => {
