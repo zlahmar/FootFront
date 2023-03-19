@@ -1,3 +1,5 @@
+import '../../styles/index.css'
+
 import { QueryClient, QueryClientProvider,  useQueries } from "react-query"
 import LEAGUES from "../../data/Api"
 import LEAGUE from "../../data/Constants";
@@ -7,6 +9,7 @@ import BlocTitre from "../bloc/BlocTitre";
 import BlocContent from "../bloc/BlocContent";
 import LoadingCarte from "../carte/LoadingCarte";
 import BumpChart from "../graphique/BumpChart";
+import MuiTabs from "../mui_component/MuiTabs";
 
 const queryClient = new QueryClient()
 
@@ -28,7 +31,7 @@ export default function App() {
     )
 }
 
-function Ligue() {
+export function Ligue() {    
     const resultQueries = useQueries(
         [
             { queryKey: ['rankingsLeague',1], queryFn: fetchRankingsLeague },
@@ -61,19 +64,28 @@ function Ligue() {
         {id : LEAGUE.GERMANY, data : getLeagueArrayRankByYear(resultQueries[0].data, LEAGUE.GERMANY)},
     ]
 
-
     return (
-        <div className="w-screen flex flex-col justify-between lg:w-10/12 md:w-11/12 sm:w-11/12">
+        <div className="lg:w-10/12 md:w-9/12 sm:w-12/12 flex flex-col justify-between">
             <BlocTitre>
                 <p className="font-title text-2xl">Ligue (2002 ~ 2022) : 20 ans de football</p>
             </BlocTitre>
-
             <div className="flex h-full">
                 <BlocContent>
-                    <BlocTitre>
+                    <MuiTabs>
+                        <div className="chart flex justify-center">
+                            <BumpChart data={UEFA_LEAGUES_RANKING} />
+                        </div>
+                        <div  className="chart">
+                            TEST 2 
+                        </div>
+                        <div  className="chart">
+                            TEST 3 
+                        </div>
+                    </MuiTabs>
+                    
+                    {/* <BlocTitre>
                         <p className="font-title text-white mb-3 text-xl">UEFA Coefficients des pays (2002 ~ 2022)</p>
-                    </BlocTitre>
-                    <BumpChart data={UEFA_LEAGUES_RANKING} />
+                    </BlocTitre> */}
 
                 </BlocContent>
 
@@ -88,6 +100,8 @@ function Ligue() {
                     ))}       
                 </BlocCarte>
             </div>
+
+ 
         </div>
         
     )

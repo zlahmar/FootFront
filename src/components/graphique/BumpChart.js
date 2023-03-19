@@ -3,7 +3,7 @@ import '../../styles/index.css'
 
 
   const BumpChart = ({ data }) => (
-    <div className="div-bump-chart flex justify-center">
+    
         <ResponsiveBump
             data={data}
             colors={{ scheme: 'nivo' }}
@@ -44,7 +44,6 @@ import '../../styles/index.css'
             axisRight={null}
             axisTop={null}
         />
-    </div>
 
 )
 
