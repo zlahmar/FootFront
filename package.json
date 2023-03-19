@@ -3,7 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
     "@mui/material": "^5.11.13",
+    "@mui/styled-engine-sc": "^5.11.11",
     "@nivo/bar": "^0.80.0",
     "@nivo/bump": "^0.80.0",
     "@nivo/core": "^0.80.0",
