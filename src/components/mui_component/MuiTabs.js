@@ -25,7 +25,7 @@ export default function MuiTabs(props) {
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" 
         sx={{
           '& .MuiTabs-indicator': { backgroundColor: grey[50] },
-          '& .MuiTab-root': { color: grey[400] },
+          '& .MuiTab-root': { color: grey[500] },
           '& .Mui-selected': { color: grey[100] },
         }}
         >

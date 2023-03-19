@@ -22,12 +22,5 @@ module.exports = {
     },
     extend: {},
   },
-  plugins: [require('flowbite/plugin')],
-  variants: {
-    fill: [],
-    extend: {
-      borderColor: ['focus-visible'],
-      opacity: ['disabled'],
-    }
-  },
+  plugins: [],
 }
