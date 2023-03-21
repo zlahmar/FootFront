@@ -31,7 +31,7 @@ export default function App() {
     )
 }
 
-export function Ligue() {    
+function Ligue (){
     const resultQueries = useQueries(
         [
             { queryKey: ['rankingsLeague',1], queryFn: fetchRankingsLeague },
@@ -64,45 +64,36 @@ export function Ligue() {
         {id : LEAGUE.GERMANY, data : getLeagueArrayRankByYear(resultQueries[0].data, LEAGUE.GERMANY)},
     ]
 
-    return (
-        <div className="lg:w-10/12 md:w-9/12 sm:w-12/12 flex flex-col justify-between">
-            <BlocTitre>
-                <p className="font-title text-2xl">Ligue (2002 ~ 2022) : 20 ans de football</p>
-            </BlocTitre>
-            <div className="flex h-full">
-                <BlocContent>
-                    <MuiTabs>
-                        <div className="chart flex justify-center">
-                            <BumpChart data={UEFA_LEAGUES_RANKING} />
-                        </div>
-                        <div  className="chart">
-                            TEST 2 
-                        </div>
-                        <div  className="chart">
-                            TEST 3 
-                        </div>
-                    </MuiTabs>
-                    
-                    {/* <BlocTitre>
-                        <p className="font-title text-white mb-3 text-xl">UEFA Coefficients des pays (2002 ~ 2022)</p>
-                    </BlocTitre> */}
-
-                </BlocContent>
-
-            </div>
-            <BlocTitre>
-                <p className="font-title text-white mb-3 text-xl">Cliquez une ligue que vous voulez voir</p>
-            </BlocTitre>
-            <div className="h-full w-full">
-                <BlocCarte>
-                    {resultQueries[1].data.map(league => (
-                        <LigueCarte key={league.id} league={league} leagues_img_url={LEAGUES.IMG} />
-                    ))}       
-                </BlocCarte>
-            </div>
-
- 
-        </div>
-        
+    return (    
+            <div className="lg:w-10/12 md:w-9/12 sm:w-12/12 flex flex-col justify-between">
+                <BlocTitre>
+                    <p className="font-title text-2xl">Ligue (2002 ~ 2022) : 20 ans de football</p>
+                </BlocTitre>
+                <div className="flex h-full">
+                    <BlocContent>
+                        <MuiTabs>
+                            <div className="chart flex justify-center">
+                                <BumpChart data={UEFA_LEAGUES_RANKING} />
+                            </div>
+                            <div  className="chart">
+                                TEST 2 
+                            </div>
+                            <div  className="chart">
+                                TEST 3 
+                            </div>
+                        </MuiTabs>
+                    </BlocContent>
+                </div>
+                <BlocTitre>
+                    <p className="font-title text-white mb-3 text-xl">Cliquez une ligue que vous voulez voir</p>
+                </BlocTitre>
+                <div className="h-full w-full">
+                    <BlocCarte>
+                        {resultQueries[1].data.map(league => (
+                            <LigueCarte key={league.id} league={league} leagues_img_url={LEAGUES.IMG} />
+                        ))}       
+                    </BlocCarte>
+                </div> 
+            </div>        
     )
 }
