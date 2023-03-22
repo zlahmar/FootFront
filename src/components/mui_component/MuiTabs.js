@@ -29,9 +29,9 @@ export default function MuiTabs(props) {
           '& .Mui-selected': { color: grey[100] },
         }}
         >
-          <Tab label="UEFA Coefficients des pays (2002 ~ 2022)" {...a11yProps(0)} />
-          <Tab label="Item Two" {...a11yProps(1)} />
-          <Tab label="Item Three" {...a11yProps(2)} />
+          <Tab label="Exemple 1" {...a11yProps(0)} />
+          <Tab label="Exemple 2" {...a11yProps(1)} />
+          <Tab label="Exemple 3" {...a11yProps(2)} />
         </Tabs>
       </Box>
       <MuiTabPanel value={value} index={0}>

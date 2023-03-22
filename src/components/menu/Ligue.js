@@ -65,20 +65,21 @@ function Ligue (){
     ]
 
     return (    
-            <div className="lg:w-10/12 md:w-9/12 sm:w-12/12 flex flex-col justify-between">
+            <div className="lg:h-screen md:h-full sm:h-full sm:ml-64 flex flex-col justify-between border-2 border-eerieBlack">
                 <BlocTitre>
                     <p className="font-title text-2xl">Ligue (2002 ~ 2022) : 20 ans de football</p>
                 </BlocTitre>
                 <div className="flex h-full">
                     <BlocContent>
                         <MuiTabs>
-                            <div className="chart flex justify-center">
+                            <div className="2xl:w-[80rem] xl:w-[60rem] lg:w-[40rem] md:w-0 sm:w-0 max-[767px]:w-0 h-96 flex flex-col justify-center">
+                                <h3 className='text-white pb-2 md:hidden max-[767px]:hidden'> UEFA Coefficients des pays (2002 ~ 2022)</h3>
                                 <BumpChart data={UEFA_LEAGUES_RANKING} />
                             </div>
-                            <div  className="chart">
+                            <div  className="2xl:w-[80rem] xl:w-[60rem] lg:w-[40rem] md:w-0 sm:w-0 max-[767px]:w-0 h-96 flex flex-col justify-center">
                                 TEST 2 
                             </div>
-                            <div  className="chart">
+                            <div  className="2xl:w-[80rem] xl:w-[60rem] lg:w-[40rem] md:w-0 sm:w-0 max-[767px]:w-0 h-96 flex flex-col justify-center">
                                 TEST 3 
                             </div>
                         </MuiTabs>
