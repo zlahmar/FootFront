@@ -1,5 +1,4 @@
 import {Link} from "react-router-dom";
-import image from '../assets/icon/Line Icon 1.png';
 
 function LienMenu({lien, texte, image}){
     return (
