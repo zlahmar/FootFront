@@ -1,13 +1,10 @@
-import LEAGUES from "../../data/Constants"
+import LEAGUES from "../../data/Api"
 import {Component} from "react";
 
 const id = window.location.pathname.slice(-1);
 const URL = `${LEAGUES.DATA}/${id}`;
 
-
-
 class Club extends Component {
-
     constructor(props) {
         super(props);
         this.state = {
@@ -35,7 +32,7 @@ class Club extends Component {
 
     render() {
         return (
-            <div className="h-full w-full flex-row">
+            <div className="lg:h-screen md:h-full sm:h-full sm:ml-64 flex flex-col justify-between border-2 border-eerieBlack">
                 <div className="w-1/2 bg-tiffanyBlue  ">
                     <p>Pays : {this.state.nationalityData.nameOriginal}</p>
                     <p>Nom championnat : {this.state.nationalityData.name}</p>
