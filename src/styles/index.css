@@ -10,3 +10,43 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Chart */
+@media screen and (min-width: 1800px) {
+    .div-bump-chart{
+        width: 1500px;
+        height: 350px;
+    }
+  }
+@media screen and (max-width: 1800px) {
+    .div-bump-chart{
+        width: 1400px;
+        height: 350px;
+    }
+  }
+@media screen and (max-width: 1700px) {
+    .div-bump-chart{
+        width: 1200px;
+        height: 350px;
+    }
+  }
+@media screen and (max-width: 1500px) {
+    .div-bump-chart{
+        width: 800px;
+        height: 300px;
+    }
+  }
+@media screen and (max-width: 1000px) {
+    .div-bump-chart{
+        width: 600px;
+        height: 300px;
+    }
+  }
+@media screen and (max-width: 500px) {
+    .div-bump-chart{
+        width: 400px;
+        height: 250px;
+    }
+}
+
+  
+
