@@ -72,14 +72,14 @@ function Ligue (){
                 <div className="flex h-full">
                     <BlocContent>
                         <MuiTabs>
-                            <div className="2xl:w-[80rem] xl:w-[60rem] lg:w-[40rem] md:w-0 sm:w-0 max-[767px]:w-0 h-96 flex flex-col justify-center">
+                            <div className="2xl:w-[75rem] xl:w-[55rem] lg:w-[40rem] md:w-0 sm:w-0 max-[767px]:w-0 h-96 flex flex-col justify-center">
                                 <h3 className='text-white pb-2 max-[1023px]:hidden'> UEFA Coefficients des pays (2002 ~ 2022)</h3>
                                 <BumpChart data={UEFA_LEAGUES_RANKING} />
                             </div>
-                            <div  className="2xl:w-[80rem] xl:w-[60rem] lg:w-[40rem] md:w-0 sm:w-0 max-[767px]:w-0 h-96 flex flex-col justify-center">
+                            <div  className="2xl:w-[75rem] xl:w-[55rem] lg:w-[40rem] md:w-0 sm:w-0 max-[767px]:w-0 h-96 flex flex-col justify-center">
                                 TEST 2 
                             </div>
-                            <div  className="2xl:w-[80rem] xl:w-[60rem] lg:w-[40rem] md:w-0 sm:w-0 max-[767px]:w-0 h-96 flex flex-col justify-center">
+                            <div  className="2xl:w-[75rem] xl:w-[55rem] lg:w-[40rem] md:w-0 sm:w-0 max-[767px]:w-0 h-96 flex flex-col justify-center">
                                 TEST 3 
                             </div>
                         </MuiTabs>
