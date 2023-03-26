@@ -40,7 +40,7 @@ function Ligue (){
     )
 
     if (resultQueries[0].isLoading || resultQueries[1].isLoading) return (
-        <div className="bg-gunMetal flex flex-col justify-center lg:w-10/12 md:w-11/12 sm:w-11/12">
+        <div className="lg:h-screen md:h-full sm:h-full sm:ml-64 flex flex-col justify-between border-2 border-eerieBlack">
             <BlocCarte>
                     <LoadingCarte/>
             </BlocCarte>
