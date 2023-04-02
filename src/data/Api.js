@@ -4,6 +4,7 @@ const LEAGUES = {
     DATA : API_URL + "leagues",
     RANKING : API_URL + "rankingsleague",
     IMG : API_URL + "images/leagues",
+    TOTAL : API_URL + "statsleagueclub/total",
 }
 
 export default LEAGUES 
