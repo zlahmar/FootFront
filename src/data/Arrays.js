@@ -1,8 +1,17 @@
 export const getLeagueArrayTotalData = (obj_array) => {
     let array = obj_array.map(value => ( 
-                {league : value.name + ' (' + value.totalMatches + ' Mts)',
-                 goal : value.totalGoals,
-                 assist : value.totalAssists,
+                {league : value.name + ' (' + value.allMatches + ' Mts)',
+                 goal : value.allGoals,
+                 assist : value.allAssists,
+                }));
+    return array
+}
+
+export const getLeagueArrayTotalCardsData = (obj_array) => {
+    let array = obj_array.map(value => ( 
+                {league : value.name + ' (' + value.allMatches + ' Mts)',
+                 yellowcard : value.allYellowCards,
+                 redcard : value.allRedCards,
                 }));
     return array
 }
