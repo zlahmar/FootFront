@@ -110,7 +110,7 @@ function Ligue (){
     // 4-3) LOADING / ERROR
     // ---------------------------------------------
     if (resultQueries[0].isLoading || resultQueries[1].isLoading || resultQueries[2].isLoading) return (
-        <div className="lg:h-screen md:h-full sm:h-full sm:ml-64 flex flex-col justify-between border-2 border-eerieBlack">
+        <div className="lg:h-screen md:h-full sm:h-full sm:ml-64 flex flex-col justify-between border-2 border-eerieBlack pt-3 pb-3">
             <BlocCarte>
                     <LoadingCarte/>
             </BlocCarte>
