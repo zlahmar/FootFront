@@ -20,13 +20,13 @@ function SideBar({onChildClick, visible}){
             )}
             </button>
 
-            <aside id="logo-sidebar" className="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
+            <aside id="logo-sidebar" className="w-64 fixed top-0 left-0 z-40 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
                 <div className="h-full px-3 py-4 flex flex-col overflow-y-auto bg-gunMetal border-r-2 border-tiffanyBlue">
-                    <div className="flex items-center pl-2.5 mb-5">
-                        <img src={logo} className="h-6 mr-3 sm:h-7" alt="FOOT Logo" />
-                        <span className="self-center text-3xl font-semibold whitespace-nowrap text-white">FootStat</span>
+                    <div className="flex items-center pl-2.5 mb-20">
+                        <img src={logo} className="mr-3 h-11" alt="FOOT Logo" />
+                        <span className="font-title self-center text-4xl font-bold whitespace-nowrap text-white">FootStat</span>
                     </div>
-                    <ul className="space-y-5">
+                    <ul className="space-y-10">
                         <li>
                             <LienMenu lien="/ligue" texte="Ligue" image={ligue}></LienMenu>
                         </li>
