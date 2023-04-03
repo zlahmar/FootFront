@@ -14,7 +14,7 @@ function App() {
         setVisible((visible) => !visible);
     }
     return (
-            <div className="pl-4 pr-2 bg-[url('/src/assets/arriere_plan/site.png')]">
+            <div className="pl-4 pr-2 h-screen bg-[url('/src/assets/arriere_plan/site.png')] overflow-y-auto overflow-hidden">
                 <SideBar onChildClick={handleButton} visible={visible}/>
                 <Routes>
                     <Route path="ligue" element={<Ligue/>}/>
