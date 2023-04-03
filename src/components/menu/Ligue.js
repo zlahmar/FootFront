@@ -1,26 +1,43 @@
+// CSS
 import '../../styles/index.css'
+
+// React
 import React, { useState, useEffect } from 'react';
 import { QueryClient, QueryClientProvider,  useQueries } from "react-query"
+
+// API / DATA
 import LEAGUES from "../../data/Api"
 import LEAGUE from "../../data/Constants";
 import { getLeagueArrayRankByYear, getLeagueArrayTotalData, getLeagueArrayTotalCardsData } from '../../data/Arrays';
+
+// Components
 import LigueCarte from "../carte/LigueCarte";
 import BlocCarte from "../bloc/BlocCarte";
 import BlocTitre from "../bloc/BlocTitre";
 import BlocContent from "../bloc/BlocContent";
 import LoadingCarte from "../carte/LoadingCarte";
+
+// Graphique
 import BumpChart from "../graphique/BumpChart";
 import BarGroupedChart from '../graphique/BarGroupedChart';
 import CircleGroupedChart from '../graphique/CircleGroupedChart';
+
+// MUI
 import MuiTabs from "../mui_component/MuiTabs";
+
+// Icons
 import cup from '../../assets/icon/cup.png'
 import goal from '../../assets/icon/goal.png'
 import yellow_card from '../../assets/icon/yellow_card.png'
 import red_card from '../../assets/icon/red_card.png'
+
+// -----------------------
+// 1) QUERY CLIENT
+// -----------------------
 const queryClient = new QueryClient()
 
 // -----------------------
-// FETCHING DATA FROM API
+// 2) FETCHING DATA FROM API
 // -----------------------
 const fetchLeagues = async () => {
     const res = await fetch(LEAGUES.DATA)
@@ -36,10 +53,11 @@ const fetchTotalLeague = async () => {
     const res = await fetch(LEAGUES.TOTAL)
     return res.json()
 }
-// -----------------------
-// / Fetching data from API
-// -----------------------
 
+
+// -----------------------
+// 3) QUERY CLIENT PROVIDER
+// -----------------------
 export default function App() {
     return (
         <QueryClientProvider client={queryClient}>
@@ -48,7 +66,13 @@ export default function App() {
     )
 }
 
+// -----------------------
+// 4) LIGUE COMPONENT
+// ----------------------- 
 function Ligue (){
+    // -----------------------------------------------------------------------
+    // 4-1) USE STATE / USE EFFECT : WIDTH RESPONSIVE FOR GRAPH CircleGroupedChart
+    // -----------------------------------------------------------------------
     const [width, setWidth] = useState(null);
     useEffect(() => {
       function handleResize() {
@@ -71,6 +95,9 @@ function Ligue (){
       return () => window.removeEventListener('resize', handleResize);
     }, []);
 
+    // ---------------------------------------------
+    // 4-2) USE QUERIES : FETCHING DATA FROM API
+    // ---------------------------------------------
     const resultQueries = useQueries(
         [
             { queryKey: ['rankingsLeague',1], queryFn: fetchRankingsLeague},
@@ -78,7 +105,10 @@ function Ligue (){
             { queryKey: ['totalLeague',3], queryFn: fetchTotalLeague},
         ]
     )
-
+    
+    // ---------------------------------------------
+    // 4-3) LOADING / ERROR
+    // ---------------------------------------------
     if (resultQueries[0].isLoading || resultQueries[1].isLoading || resultQueries[2].isLoading) return (
         <div className="lg:h-screen md:h-full sm:h-full sm:ml-64 flex flex-col justify-between border-2 border-eerieBlack">
             <BlocCarte>
@@ -89,6 +119,11 @@ function Ligue (){
 
     if (resultQueries[0].error ||resultQueries[1].error ||resultQueries[2].error) return 'An error has occured '
 
+    // ---------------------------------------------
+    // 4-4) SUCCESS
+    // ---------------------------------------------
+
+    // (1) DATA : UEFA LEAGUES_RANKING FOR GRAPH BumpChart
     const UEFA_LEAGUES_RANKING = [
         {id : LEAGUE.FRANCE, data : getLeagueArrayRankByYear(resultQueries[0].data, LEAGUE.FRANCE)},
         {id : LEAGUE.ENGLAND, data : getLeagueArrayRankByYear(resultQueries[0].data, LEAGUE.ENGLAND)},
@@ -97,10 +132,16 @@ function Ligue (){
         {id : LEAGUE.GERMANY, data : getLeagueArrayRankByYear(resultQueries[0].data, LEAGUE.GERMANY)},
     ]
 
+    // (2) DATA : LEAGUES_TOTAL_DATA FOR GRAPH BarGroupedChart
     const LEAGUES_TOTAL_DATA = getLeagueArrayTotalData(resultQueries[2].data)
+
+    // (3) DATA : LEAGUES_TOTAL_CARDS_DATA FOR GRAPH CircleGroupedChart
     const LEAGUES_TOTAL_CARDS_DATA = getLeagueArrayTotalCardsData(resultQueries[2].data)
 
-    console.log("color : ", LEAGUES_TOTAL_CARDS_DATA)
+
+    // ---------------------------------------------
+    // 5) RETURN
+    // ---------------------------------------------
     return (    
             <div className="lg:h-screen md:h-full sm:h-full sm:ml-64 flex flex-col justify-between border-2 border-eerieBlack">
                 <BlocTitre>

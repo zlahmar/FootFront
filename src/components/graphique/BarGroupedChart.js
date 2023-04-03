@@ -1,6 +1,6 @@
 import { ResponsiveBar } from '@nivo/bar'
 
-const BarGroupedChart = ({ data /* see data tab */ }) => (
+const BarGroupedChart = ({ data }) => (
     <ResponsiveBar
         data={data}
         keys={[

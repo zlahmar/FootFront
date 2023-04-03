@@ -4,6 +4,9 @@ import Club from "./menu/Club";
 import { useState } from 'react';
 import SideBar from "./SideBar";
 function App() {
+    // ----------------------------------
+    // Button to open/close the Sidebar
+    // ----------------------------------
     const [visible, setVisible] = useState(true);
     const handleButton = () => {
         let drawer = document.getElementById("logo-sidebar");
