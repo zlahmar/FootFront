@@ -1,12 +1,12 @@
 import { Children } from 'react';
 
 
-function BlocCarte({children}){
+function BlocCarte({children, width_basis}){
     return (
-        <div className="bg-gunMetal flex justify-center items-center rounded-3xl h-full">
+        <div className="bg-gunMetal flex flex-wrap justify-center items-center rounded-3xl">
             <div className="flex flex-row flex-wrap justify-center w-4/5 ">
             {Children.map(children, child =>
-                <div className="lg:basis-1/3 md:basis-full sm:basis-full min-[320px]:basis-full text-center px-3 pb-3">        
+                <div className={`lg:basis-1/${width_basis} md:basis-full sm:basis-full min-[320px]:basis-full text-center px-3 pt-3`}>        
                     {child}
                 </div>
             )}

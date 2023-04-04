@@ -137,7 +137,6 @@ function Ligue (){
     // (3) DATA : LEAGUES_TOTAL_CARDS_DATA FOR GRAPH CircleGroupedChart
     const LEAGUES_TOTAL_CARDS_DATA = getLeagueArrayTotalCardsData(resultQueries[2].data)
 
-
     // ---------------------------------------------
     // 5) RETURN
     // ---------------------------------------------
@@ -171,7 +170,7 @@ function Ligue (){
                     </MuiTabs>
                 </BlocContent>
                 <BlocTitre text="Cliquez une ligue que vous voulez voir"/>
-                <BlocCarte>
+                <BlocCarte width_basis={3}>
                     {resultQueries[1].data.map(league => (
                         <LigueCarte key={league.id} league={league} leagues_img_url={LEAGUES.IMG} />
                     ))}       
