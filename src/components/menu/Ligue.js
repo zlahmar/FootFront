@@ -12,7 +12,7 @@ import { getLeagueArrayRankByYear, getLeagueArrayTotalData, getLeagueArrayTotalC
 
 // Components
 import LigueCarte from "../carte/LigueCarte";
-import BlocCarte from "../bloc/BlocCarte";
+import BlocLigueCarte from "../bloc/BlocLigueCarte";
 import BlocTitre from "../bloc/BlocTitre";
 import BlocContent from "../bloc/BlocContent";
 import LoadingCarte from "../carte/LoadingCarte";
@@ -110,9 +110,7 @@ function Ligue (){
     // ---------------------------------------------
     if (resultQueries[0].isLoading || resultQueries[1].isLoading || resultQueries[2].isLoading) return (
         <div className="lg:h-screen md:h-full sm:h-full sm:ml-64 flex flex-col justify-between border-2 border-eerieBlack pt-3 pb-3">
-            <BlocCarte>
-                    <LoadingCarte/>
-            </BlocCarte>
+                <LoadingCarte/>
         </div>
     )
 
@@ -170,11 +168,11 @@ function Ligue (){
                     </MuiTabs>
                 </BlocContent>
                 <BlocTitre text="Cliquez une ligue que vous voulez voir"/>
-                <BlocCarte width_basis={3}>
+                <BlocLigueCarte>
                     {resultQueries[1].data.map(league => (
                         <LigueCarte key={league.id} league={league} leagues_img_url={LEAGUES.IMG} />
                     ))}       
-                </BlocCarte>
+                </BlocLigueCarte>
             </div>        
     )
 }

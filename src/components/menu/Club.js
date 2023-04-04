@@ -14,14 +14,12 @@ import MuiTabs from "../mui_component/MuiTabs";
 
 // Components
 import ClubCarte from "../carte/ClubCarte";
-import BlocCarte from '../bloc/BlocCarte';
+import BlocClubCarte from '../bloc/BlocClubCarte';
 import BlocTitre from '../bloc/BlocTitre';
 import BlocContent from '../bloc/BlocContent';
 
 export default function Club() {
-    const { ligue_id } = useParams();
-    console.log("ligue_id", ligue_id)
-
+    // const { ligue_id } = useParams();
     return (
         <div className="lg:h-screen md:h-full sm:h-full sm:ml-64 flex flex-col justify-between border-2 border-eerieBlack">
             <div className="lg:flex lg:flex-row sm:max-md:flex-col">
@@ -83,7 +81,7 @@ export default function Club() {
                 </div>
             </div>
             <BlocTitre text="Cliquez un club que vous voulez voir"/>
-            <BlocCarte width_basis={6}>
+            <BlocClubCarte>
                 <ClubCarte/>
                 <ClubCarte/>
                 <ClubCarte/>
@@ -126,7 +124,7 @@ export default function Club() {
                 <ClubCarte/>
                 <ClubCarte/>
                 <ClubCarte/>                
-            </BlocCarte>
+            </BlocClubCarte>
         </div>
     )
 }
