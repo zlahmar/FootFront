@@ -19,7 +19,7 @@ function App() {
 
                 <Routes>
                     <Route path="ligue" element={<Ligue/>}/>
-                    <Route path="ligue/:id" element={<Club />} />
+                    <Route path="ligue/:ligue_id" element={<Club />} />
                 </Routes>
             </div>
     )

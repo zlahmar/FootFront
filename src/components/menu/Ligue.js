@@ -54,7 +54,6 @@ const fetchTotalLeague = async () => {
     return res.json()
 }
 
-
 // -----------------------
 // 3) QUERY CLIENT PROVIDER
 // -----------------------
