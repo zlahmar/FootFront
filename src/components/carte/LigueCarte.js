@@ -1,10 +1,11 @@
 import '../../styles/index.css'
+import {Link} from "react-router-dom";
 
 function LigueCarte({ league, leagues_img_url }){
     return (
             <div className="border-t-2 border-tiffanyBlue pt-3 mb-5 rounded-3xl bg-[url('/src/assets/arriere_plan/carte.png')] bg-cover bg-center bg-no-repeat">
-                <a
-                href={"ligue/"+league.id}
+                <Link
+                to={"ligue/"+league.id}
                 className="block rounded-3xl border-2 border-tiffanyBlue bg-gunMetal transition shadow hover:shadow-lg hover:shadow-tiffanyBlue"
                 >
                     <div className="flex items-start relative">
@@ -16,7 +17,7 @@ function LigueCarte({ league, leagues_img_url }){
 
                         <p className="mt-1 font-mono text-xs text-white font-content">{league.clubs.length} Clubs</p>
                     </div>
-                </a>
+                </Link>
             </div>
     )
 }

@@ -4,7 +4,6 @@ export default function Club() {
     let { ligue_id } = useParams();
     console.log("ligue_id", ligue_id)
 }
-
 // import LEAGUES from "../../data/Api"
 // import {Component} from "react";
 
