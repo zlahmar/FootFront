@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 import { QueryClient, QueryClientProvider,  useQueries } from "react-query"
 
 // API / DATA
-// import LEAGUES from "../../data/Api"
+import {LEAGUES,CLUBS} from "../../data/Api"
 
 // MUI
 import MuiTabs from "../mui_component/MuiTabs";
@@ -18,15 +18,71 @@ import BlocClubCarte from '../bloc/BlocClubCarte';
 import BlocTitre from '../bloc/BlocTitre';
 import BlocContent from '../bloc/BlocContent';
 
-export default function Club() {
-    // const { ligue_id } = useParams();
+// --------------------------------
+// 0) URL PARAMS FOR LEAGUE ID
+// --------------------------------
+const searchParams = new URLSearchParams(window.location.search);
+const leagueId = searchParams.get('league_id');
+
+// -----------------------
+// 1) QUERY CLIENT
+// -----------------------
+const queryClient = new QueryClient()
+
+// -----------------------
+// 2) FETCHING DATA FROM API
+// -----------------------
+const fetchClubs = async () => {
+    const res = await fetch(LEAGUES.DATA+'/'+leagueId)
+    return res.json()
+}
+
+const fetchAllTimeBestClub = async () => {
+    const res = await fetch(LEAGUES.DATA+'/'+leagueId)
+    return res.json()
+}
+
+const fetchAllTimeBestStriker = async () => {
+    const res = await fetch(LEAGUES.DATA+'/'+leagueId)
+    return res.json()
+}
+
+const fetchAllTimeBestPlaymaker = async () => {
+    const res = await fetch(LEAGUES.DATA+'/'+leagueId)
+    return res.json()
+}
+
+const fetchAllTimeBestGoalkeeper = async () => {
+    const res = await fetch(LEAGUES.DATA+'/'+leagueId)
+    return res.json()
+}
+
+
+// -----------------------
+// 3) QUERY CLIENT PROVIDER
+// -----------------------
+export default function App() {
+    return (
+        <QueryClientProvider client={queryClient}>
+            <Club/>
+        </QueryClientProvider>
+    )
+}
+
+// -----------------------
+// 4) LIGUE COMPONENT
+// -----------------------
+function Club() {
+    const { ligue_id } = useParams();
+    console.log(ligue_id)
+    
     return (
         <div className="lg:h-screen md:h-full sm:h-full sm:ml-64 flex flex-col justify-between border-2 border-eerieBlack">
             <div className="lg:flex lg:flex-row sm:max-md:flex-col">
-                <div className="basis-2/6 w-full pr-1">
-                    <ClubCarte/>
+                <div className="basis-1/6 w-full pr-1">
+                    {/* <LigueCarte key={league.id} league={league} /> */}
                 </div>    
-                <div className="basis-4/6  w-full pr-1">
+                <div className="basis-5/6  w-full pr-1">
                     <ClubCarte/>
                 </div>    
             </div>

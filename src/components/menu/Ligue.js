@@ -6,7 +6,7 @@ import React, { useState, useEffect } from 'react';
 import { QueryClient, QueryClientProvider,  useQueries } from "react-query"
 
 // API / DATA
-import LEAGUES from "../../data/Api"
+import {LEAGUES} from "../../data/Api"
 import LEAGUE from "../../data/Constants";
 import { getLeagueArrayRankByYear, getLeagueArrayTotalData, getLeagueArrayTotalCardsData } from '../../data/Arrays';
 
