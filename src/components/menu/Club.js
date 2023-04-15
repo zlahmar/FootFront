@@ -89,10 +89,11 @@ function Club() {
     return (
         <div className="lg:h-screen md:h-full sm:h-full sm:ml-64 flex flex-col justify-between border-2 border-eerieBlack">
             <div className="lg:flex lg:flex-row sm:max-md:flex-col">
-                <div className="basis-1/6 w-full pr-1">
+                <div className="basis-2/6 w-full pr-1">
+                    <ClubCarte className="h-32"/>
                     {/* <LigueCarte key={league.id} league={league} /> */}
                 </div>    
-                <div className="basis-5/6  w-full pr-1">
+                <div className="basis-4/6  w-full pr-1">
                     <ClubCarte/>
                 </div>    
             </div>
