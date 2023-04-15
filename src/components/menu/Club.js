@@ -2,12 +2,11 @@
 import '../../styles/index.css'
 
 // React
-import React, { useState, useEffect } from 'react';
-import { useParams } from "react-router-dom";
+import React from 'react';
 import { QueryClient, QueryClientProvider,  useQueries } from "react-query"
 
 // API / DATA
-import {LEAGUES,CLUBS} from "../../data/Api"
+import {LEAGUES,CLUBS, PLAYERS} from "../../data/Api"
 
 // MUI
 import MuiTabs from "../mui_component/MuiTabs";
@@ -17,45 +16,12 @@ import ClubCarte from "../carte/ClubCarte";
 import BlocClubCarte from '../bloc/BlocClubCarte';
 import BlocTitre from '../bloc/BlocTitre';
 import BlocContent from '../bloc/BlocContent';
-
-// --------------------------------
-// 0) URL PARAMS FOR LEAGUE ID
-// --------------------------------
-const searchParams = new URLSearchParams(window.location.search);
-const leagueId = searchParams.get('league_id');
+import LoadingCarte from "../carte/LoadingCarte";
 
 // -----------------------
 // 1) QUERY CLIENT
 // -----------------------
 const queryClient = new QueryClient()
-
-// -----------------------
-// 2) FETCHING DATA FROM API
-// -----------------------
-const fetchClubs = async () => {
-    const res = await fetch(LEAGUES.DATA+'/'+leagueId)
-    return res.json()
-}
-
-const fetchAllTimeBestClub = async () => {
-    const res = await fetch(LEAGUES.DATA+'/'+leagueId)
-    return res.json()
-}
-
-const fetchAllTimeBestStriker = async () => {
-    const res = await fetch(LEAGUES.DATA+'/'+leagueId)
-    return res.json()
-}
-
-const fetchAllTimeBestPlaymaker = async () => {
-    const res = await fetch(LEAGUES.DATA+'/'+leagueId)
-    return res.json()
-}
-
-const fetchAllTimeBestGoalkeeper = async () => {
-    const res = await fetch(LEAGUES.DATA+'/'+leagueId)
-    return res.json()
-}
 
 
 // -----------------------
@@ -73,9 +39,53 @@ export default function App() {
 // 4) LIGUE COMPONENT
 // -----------------------
 function Club() {
-    const { ligue_id } = useParams();
-    console.log(ligue_id)
+    const league_id = window.location.pathname.slice(-1);
+    // ---------------------------------------------
+    // 4-1) USE QUERIES : FETCHING DATA FROM API
+    // ---------------------------------------------
+    const resultQueries = useQueries(
+        [
+            { queryKey: ['clubs',1], queryFn: () => fetch(LEAGUES.DATA+'/'+league_id).then(res => res.json())},
+            { queryKey: ['allTimeBestClub',2], queryFn: () => fetch(CLUBS.ALL_TIME_BEST+'?league_id='+league_id)},
+            { queryKey: ['allTimeBestStriker',3], queryFn: () => fetch(PLAYERS.ALL_TIME_BEST_STRIKER+'?league_id='+league_id)},
+            { queryKey: ['allTimeBestPlaymaker',4], queryFn: () => fetch(PLAYERS.ALL_TIME_BEST_PLAYMAKER+'?league_id='+league_id)},
+            { queryKey: ['allTimeBestGoalkeeper',5], queryFn: () => fetch(PLAYERS.ALL_TIME_BEST_GOALKEEPER+'?league_id='+league_id)},
+        ]
+    )
     
+    // ---------------------------------------------
+    // 4-2) LOADING / ERROR
+    // ---------------------------------------------
+    if (resultQueries[0].isLoading || 
+        resultQueries[1].isLoading || 
+        resultQueries[2].isLoading ||
+        resultQueries[3].isLoading ||
+        resultQueries[4].isLoading ) return (
+        <div className="lg:h-screen md:h-full sm:h-full sm:ml-64 flex flex-col justify-between border-2 border-eerieBlack pt-3 pb-3">
+                <LoadingCarte/>
+        </div>
+    )
+
+    if (resultQueries[0].error ||
+        resultQueries[1].error ||
+        resultQueries[2].error ||
+        resultQueries[3].error ||
+        resultQueries[4].error ) 
+        return 'An error has occured '
+
+    // ---------------------------------------------
+    // 4-3) SUCCESS
+    // ---------------------------------------------
+
+    // console.log("0 : ",resultQueries[0])
+    // console.log("1 : ",resultQueries[1])
+    // console.log("2 : ",resultQueries[2])
+    // console.log("3 : ",resultQueries[3])
+    // console.log("4 : ",resultQueries[4])
+
+    // ---------------------------------------------
+    // 5) RETURN
+    // ---------------------------------------------
     return (
         <div className="lg:h-screen md:h-full sm:h-full sm:ml-64 flex flex-col justify-between border-2 border-eerieBlack">
             <div className="lg:flex lg:flex-row sm:max-md:flex-col">
@@ -138,107 +148,10 @@ function Club() {
             </div>
             <BlocTitre text="Cliquez un club que vous voulez voir"/>
             <BlocClubCarte>
-                <ClubCarte/>
-                <ClubCarte/>
-                <ClubCarte/>
-                <ClubCarte/>
-                <ClubCarte/>
-                <ClubCarte/>
-                <ClubCarte/>
-                <ClubCarte/>
-                <ClubCarte/>
-                <ClubCarte/>
-                <ClubCarte/>
-                <ClubCarte/>
-                <ClubCarte/>
-                <ClubCarte/>
-                <ClubCarte/>
-                <ClubCarte/>
-                <ClubCarte/>
-                <ClubCarte/>
-                <ClubCarte/>
-                <ClubCarte/>
-                <ClubCarte/>
-                <ClubCarte/>
-                <ClubCarte/>
-                <ClubCarte/>
-                <ClubCarte/>
-                <ClubCarte/>
-                <ClubCarte/>
-                <ClubCarte/>
-                <ClubCarte/>
-                <ClubCarte/>
-                <ClubCarte/>
-                <ClubCarte/>
-                <ClubCarte/>
-                <ClubCarte/>
-                <ClubCarte/>
-                <ClubCarte/>    
-                <ClubCarte/>
-                <ClubCarte/>
-                <ClubCarte/>
-                <ClubCarte/>
-                <ClubCarte/>
-                <ClubCarte/>                
+                {resultQueries[0].data.clubs.map(club => (
+                    <ClubCarte key={club.id} name={club.name} clubs_img_url={CLUBS.IMG}/>
+                ))}
             </BlocClubCarte>
         </div>
     )
 }
-
-
-// import LEAGUES from "../../data/Api"
-// import {Component} from "react";
-
-// const league_id = window.location.pathname.slice(-1);
-// const LEAGUE = `${LEAGUES.DATA}/${league_id}`;
-
-// class Club extends Component {
-//     constructor(props) {
-//         super(props);
-//         this.state = {
-//             nationalityData: {},
-//             clubs: [] // Ajout de la propriété "clubs" initialisée à une liste vide
-//         };
-//     }
-
-
-//     componentDidMount() {
-//         this.fetchNationalityData();
-//     }
-
-//     fetchNationalityData() {
-//         fetch(LEAGUE)
-//             .then(response => response.json())
-//             .then(data => {
-//                 const nameOriginal = data.nationality.name_original;
-//                 const name = data.name;
-//                 const clubs = data.clubs; // Extraction de la liste des clubs
-//                 this.setState({ nationalityData: { nameOriginal, name }, clubs }); // Mise à jour de l'état avec la liste des clubs
-//             })
-//             .catch(error => console.error(error));
-//     }
-
-//     render() {
-//         return (
-//             <div className="lg:h-screen md:h-full sm:h-full sm:ml-64 flex flex-col justify-between border-2 border-eerieBlack">
-//                 <div className=" bg-tiffanyBlue h-full ">
-//                     <p>Pays : {this.state.nationalityData.nameOriginal}</p>
-//                     <p>Nom championnat : {this.state.nationalityData.name}</p>
-//                 </div>
-
-//                 <div className=" bg-tiffanyBlue">
-//                     <ul className="list-disc ">
-//                         {this.state.clubs.map(club => (
-//                             <li className="" key={club.id}>{club.name}</li>
-//                         ))}
-//                     </ul>
-
-//                 </div>
-
-
-//             </div>
-//         );
-//     }
-// }
-
-// export default Club;

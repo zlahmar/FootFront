@@ -20,7 +20,10 @@ const PLAYERS = {
     ALL_TIME_BEST_STRIKER : API_URL + "stats_player/all_time_best_strikers",
     ALL_TIME_BEST_PLAYMAKER : API_URL + "stats_player/all_time_best_playmakers",
     ALL_TIME_BEST_GOALKEEPER : API_URL + "stats_gk_player/all_time_best_goalkeepers",
+    BEST_STRIKER_BY_SEASON : API_URL + "stats_player/best_strikers",
+    BEST_PLAYMAKER_BY_SEASON : API_URL + "stats_player/best_playmakers",
+    BEST_GOALKEEPER_BY_SEASON : API_URL + "stats_gk_player/best_goalkeepers",
 }
 
-export { LEAGUES, CLUBS } 
+export { LEAGUES, CLUBS, PLAYERS } 
 
