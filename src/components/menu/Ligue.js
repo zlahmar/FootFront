@@ -99,7 +99,7 @@ function Ligue (){
     // ---------------------------------------------
     const resultQueries = useQueries(
         [
-            { queryKey: ['rankingsLeague',1], queryFn: fetchRankingsLeague},
+            { queryKey: ['rankingsLeague',1], queryFn:  fetchRankingsLeague},
             { queryKey: ['leagues',2], queryFn: fetchLeagues},
             { queryKey: ['totalLeague',3], queryFn: fetchTotalLeague},
         ]
