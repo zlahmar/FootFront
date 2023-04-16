@@ -93,9 +93,6 @@ function Club() {
     // 5) RETURN
     // ---------------------------------------------
     const isDisabled = true
-    console.log("allTimeBestStriker : ",allTimeBestStriker)
-
-    console.log("allTimeBestPlaymaker : ",allTimeBestPlaymaker)
 
     return (
         <div className="lg:h-screen md:h-full sm:h-full sm:ml-64 flex flex-col justify-between border-2 border-eerieBlack">
@@ -181,46 +178,22 @@ function Club() {
                 </div>    
             </div>
             <div className="lg:flex lg:flex-row sm:max-md:flex-col" >
-                <div className="2xl:w-1/2 md:w-full ml-1 mr-1">
+                <div className="2xl:w-full md:w-full ml-1 mr-1">
                     <BlocContent>
                         <MuiTabs>
-                            <div className="2xl:w-[40rem] xl:w-[30rem] lg:w-[22rem] md:w-0 sm:w-0 max-[767px]:w-0 h-48 flex flex-col justify-center">
+                            <div className="2xl:w-[60rem] xl:w-[40rem] lg:w-[30rem] md:w-0 sm:w-0 max-[767px]:w-0 h-56 flex flex-col justify-center">
                                     <h3 className='flex items-center text-white pb-3 max-[1023px]:hidden'> 
                                         {/* <img className="w-12 h-12 mr-3"/> */}
                                         1
                                     </h3>
                             </div>
-                            <div className="2xl:w-[40rem] xl:w-[30rem] lg:w-[22rem] md:w-0 sm:w-0 max-[767px]:w-0 h-48 flex flex-col justify-center">
+                            <div className="2xl:w-[60rem] xl:w-[40rem] lg:w-[30rem] md:w-0 sm:w-0 max-[767px]:w-0 h-56 flex flex-col justify-center">
                                     <h3 className='flex items-center text-white pb-3 max-[1023px]:hidden'> 
                                         {/* <img className="w-12 h-12 mr-3"/> */}
                                         2
                                     </h3>
                             </div>
-                            <div className="2xl:w-[40rem] xl:w-[30rem] lg:w-[22rem] md:w-0 sm:w-0 max-[767px]:w-0 h-48 flex flex-col justify-center">
-                                    <h3 className='flex items-center text-white pb-3 max-[1023px]:hidden'> 
-                                        {/* <img className="w-12 h-12 mr-3"/> */}
-                                        3
-                                    </h3>
-                            </div>                                        
-                        </MuiTabs>
-                    </BlocContent>
-                </div>
-                <div className="2xl:w-1/2 md:w-full mr-1 ml-1">
-                    <BlocContent>
-                        <MuiTabs>
-                            <div className="2xl:w-[40rem] xl:w-[30rem] lg:w-[22rem] md:w-0 sm:w-0 max-[767px]:w-0 h-48 flex flex-col justify-center">
-                                    <h3 className='flex items-center text-white pb-3 max-[1023px]:hidden'> 
-                                        {/* <img className="w-12 h-12 mr-3"/> */}
-                                        1
-                                    </h3>
-                            </div>
-                            <div className="2xl:w-[40rem] xl:w-[30rem] lg:w-[22rem] md:w-0 sm:w-0 max-[767px]:w-0 h-48 flex flex-col justify-center">
-                                    <h3 className='flex items-center text-white pb-3 max-[1023px]:hidden'> 
-                                        {/* <img className="w-12 h-12 mr-3"/> */}
-                                        2
-                                    </h3>
-                            </div>
-                            <div className="2xl:w-[40rem] xl:w-[30rem] lg:w-[22rem] md:w-0 sm:w-0 max-[767px]:w-0 h-48 flex flex-col justify-center">
+                            <div className="2xl:w-[60rem] xl:w-[40rem] lg:w-[30rem] md:w-0 sm:w-0 max-[767px]:w-0 h-56 flex flex-col justify-center">
                                     <h3 className='flex items-center text-white pb-3 max-[1023px]:hidden'> 
                                         {/* <img className="w-12 h-12 mr-3"/> */}
                                         3
