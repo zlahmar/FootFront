@@ -13,10 +13,12 @@ import MuiTabs from "../mui_component/MuiTabs";
 
 // Components
 import LigueCarte from '../carte/LigueCarte';
+import LigueLeMeilleur from '../carte/LigueLeMeilleur';
 import ClubCarte from "../carte/ClubCarte";
 import BlocClubCarte from '../bloc/BlocClubCarte';
 import BlocTitre from '../bloc/BlocTitre';
 import BlocContent from '../bloc/BlocContent';
+import BlocLigueLeMeilleur from '../bloc/BlocLigueLeMeilleur';
 import LoadingCarte from "../carte/LoadingCarte";
 
 // -----------------------
@@ -78,17 +80,20 @@ function Club() {
     // 4-3) SUCCESS
     // ---------------------------------------------
 
-    // console.log("0 : ",resultQueries[0])
-    // console.log("1 : ",resultQueries[1])
-    // console.log("2 : ",resultQueries[2])
-    // console.log("3 : ",resultQueries[3])
-    // console.log("4 : ",resultQueries[4])
     const league = resultQueries[0].data
     const clubs = resultQueries[0].data.clubs
     const allTimeBestClub = resultQueries[1].data[0]
     const allTimeBestStriker = resultQueries[2].data[0]
     const allTimeBestPlaymaker = resultQueries[3].data[0]
     const allTimeBestGoalkeeper = resultQueries[4].data[0]
+
+    const BESTS = [
+        {title:"Meilleur Club", key:allTimeBestClub.clubId, img_url:CLUBS.IMG +"/" + allTimeBestClub.clubName, data_name:allTimeBestClub.clubName, data_value1:allTimeBestClub.rankAverage + " ème", data_value2:allTimeBestClub.nbWin + " x champs"},
+        {title:"Meilleur Buteur", key:allTimeBestStriker.playerId, img_url:PLAYERS.IMG +"/" + allTimeBestStriker.playerId, data_name:allTimeBestStriker.playerName, data_value1:allTimeBestStriker.totalGoals + " buts", data_value2:allTimeBestStriker.totalMatches + " matchs"},
+        {title:"Meilleur Passeur", key:(allTimeBestPlaymaker.playerId)*99, img_url:PLAYERS.IMG +"/" + allTimeBestPlaymaker.playerId, data_name:allTimeBestPlaymaker.playerName, data_value1:allTimeBestPlaymaker.totalAssists + " passes décisives", data_value2:allTimeBestPlaymaker.totalMatches + " matchs"},
+        {title:"Meilleur Gardien", key:allTimeBestGoalkeeper.playerId, img_url:PLAYERS.IMG +"/" + allTimeBestGoalkeeper.playerId, data_name:allTimeBestGoalkeeper.playerName, data_value1:allTimeBestGoalkeeper.totalGoalsAgainst + " clean sheets", data_value2:allTimeBestGoalkeeper.totalMatches + " matchs"},
+    ]
+    
     // ---------------------------------------------
     // 5) RETURN
     // ---------------------------------------------
@@ -96,85 +101,16 @@ function Club() {
 
     return (
         <div className="lg:h-screen md:h-full sm:h-full sm:ml-64 flex flex-col justify-between border-2 border-eerieBlack">
-            <div className="lg:flex lg:flex-row sm:max-md:flex-col pt-3 items-stretch">
-                <div className="basis-2/6 w-full pr-1 self-stretch">
+            <div className="lg:flex lg:flex-row sm:max-md:flex-col pt-3">
+                <div className="basis-2/6 w-full pr-1 mb-5">
                     <LigueCarte key={league.id} league={league} leagues_img_url={LEAGUES.IMG} isDisabled={isDisabled}/>
                 </div>    
                 <div className="basis-4/6 w-full pr-1 mb-5">
-                    {/* BlocMeilleur */}
-                    <div className="h-full border-t-2 border-tiffanyBlue pt-4 mb-5 rounded-3xl">
-                        <div className="h-full block rounded-3xl border-2 border-tiffanyBlue bg-gunMetal">
-                            <div class="h-full grid lg:grid-cols-4 sm:max-md:grid-rows-4 lg:divide-x max-sm:max-md:divide-y sm:max-lg:divide-y divide-tiffanyBlue">
-                                <div className="flex flex-col text-white">
-                                    <div className="text-center">
-                                        <p className="text-lg font-bold font-title">Meilleur Club</p>
-                                        <hr className="w-1/2 m-auto border-tiffanyBlue"/>
-                                    </div>
-                                    <div className="flex md:max-xl:flex-col sm:max-md:flex-col max-sm:flex-col justify-evenly lg:mx-2 lg:mt-5 md:max-xl:mt-1 sm:max-md:mt-0 max-sm:mt-0">
-                                        <div className='basis-2/6 text-center'>
-                                            <img className="m-auto w-12 max-sm:max-md:w-20 sm:max-lg:w-20 sm:max-md:w-0 max-sm:w-0 rounded-2xl border-2 border-onyx" src={CLUBS.IMG +"/" + allTimeBestClub.clubName} alt="" />
-                                        </div>
-                                        <div className='basis-4/6 text-center'>
-                                            <p className="text-lg font-bold font-content text-tiffanyBlue">{allTimeBestClub.clubName}</p>
-                                            <p className="font-content text-white">{allTimeBestClub.rankAverage} ème</p>   
-                                            <p className="text-xs font-content text-white">({allTimeBestClub.nbWin} x champs)</p>   
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="flex flex-col text-white">
-                                    <div className="text-center">
-                                        <p className="text-lg font-bold font-title">Meilleur Buteur</p>
-                                        <hr className="w-1/2 m-auto border-tiffanyBlue"/>
-                                    </div>
-                                    <div className="flex md:max-xl:flex-col sm:max-md:flex-col max-sm:flex-col justify-evenly lg:mx-2 lg:mt-5 md:max-xl:mt-1 sm:max-md:mt-0 max-sm:mt-0">
-                                        <div className='basis-2/6 text-center'>
-                                            <img className="m-auto w-12 max-sm:max-md:w-20 sm:max-lg:w-20 sm:max-md:w-0 max-sm:w-0 rounded-2xl border-2 border-onyx" src={PLAYERS.IMG +"/" + allTimeBestStriker.playerId} alt="" />
-                                        </div>
-                                        <div className='basis-4/6 text-center'>
-                                            <p className="text-lg font-bold font-content text-tiffanyBlue">{allTimeBestStriker.playerName}</p>
-                                            <p className="font-content text-white">{allTimeBestStriker.totalGoals} buts </p>   
-                                            <p className="text-xs font-content text-white">({allTimeBestStriker.totalMatches} matches)</p>   
-
-                                        </div>
-                                    </div>                                    
-                                </div>                                
-                                <div className="flex flex-col text-white">
-                                    <div className="text-center">
-                                        <p className="text-lg font-bold font-title">Meilleur Passeur</p>
-                                        <hr className="w-1/2 m-auto border-tiffanyBlue"/>
-                                    </div>
-                                    <div className="flex md:max-xl:flex-col sm:max-md:flex-col max-sm:flex-col justify-evenly lg:mx-2 lg:mt-5 md:max-xl:mt-1 sm:max-md:mt-0 max-sm:mt-0">
-                                        <div className='basis-2/6 text-center'>
-                                            <img className="m-auto w-12 max-sm:max-md:w-20 sm:max-lg:w-20 sm:max-md:w-0 max-sm:w-0 rounded-2xl border-2 border-onyx" src={PLAYERS.IMG +"/" + allTimeBestPlaymaker.playerId} alt="" />
-                                        </div>
-                                        <div className='basis-4/6 text-center'>
-                                            <p className="text-lg font-bold font-content text-tiffanyBlue">{allTimeBestPlaymaker.playerName}</p>
-                                            <p className="font-content text-white">{allTimeBestPlaymaker.totalAssists} passes décisives</p>   
-                                            <p className="text-xs font-content text-white">({allTimeBestPlaymaker.totalMatches} matches)</p>   
-                                        </div>
-                                    </div>                                    
-                                </div>                                
-                                <div className="flex flex-col text-white">
-                                    <div className="text-center">
-                                        <p className="text-lg font-bold font-title">Meilleur Gardien</p>
-                                        <hr className="w-1/2 m-auto border-tiffanyBlue"/>
-                                    </div>
-                                    <div className="flex md:max-xl:flex-col sm:max-md:flex-col max-sm:flex-col justify-evenly lg:mx-2 lg:mt-5 md:max-xl:mt-1 sm:max-md:mt-0 max-sm:mt-0">
-                                        <div className='basis-2/6 text-center'>
-                                            <img className="m-auto w-12 max-sm:max-md:w-20 sm:max-lg:w-20 sm:max-md:w-0 max-sm:w-0 rounded-2xl border-2 border-onyx" src={PLAYERS.IMG +"/" + allTimeBestGoalkeeper.playerId} alt="" />
-                                        </div>
-                                        <div className='basis-4/6 text-center'>
-                                        <p className="text-lg font-bold font-content text-tiffanyBlue">{allTimeBestGoalkeeper.playerName}</p>
-                                            <p className="font-content text-white">{allTimeBestGoalkeeper.totalGoalsAgainst} buts encaissés</p>   
-                                            <p className="text-xs font-content text-white">({allTimeBestGoalkeeper.totalMatches} matches)</p>
-                                        </div>
-                                    </div>                                    
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {/* /BlocMeilleur */}
+                    <BlocLigueLeMeilleur>
+                        {BESTS.map(best => (
+                            <LigueLeMeilleur title={best.title} key={best.key}  img_url={best.img_url} data_name={best.data_name} data_value1 = {best.data_value1} data_value2= {best.data_value2}/>
+                        ))}
+                    </BlocLigueLeMeilleur>
                 </div>    
             </div>
             <div className="lg:flex lg:flex-row sm:max-md:flex-col" >
@@ -182,22 +118,22 @@ function Club() {
                     <BlocContent>
                         <MuiTabs>
                             <div className="2xl:w-[60rem] xl:w-[40rem] lg:w-[30rem] md:w-0 sm:w-0 max-[767px]:w-0 h-56 flex flex-col justify-center">
-                                    <h3 className='flex items-center text-white pb-3 max-[1023px]:hidden'> 
-                                        {/* <img className="w-12 h-12 mr-3"/> */}
-                                        1
-                                    </h3>
+                                <h3 className='flex items-center text-white pb-3 max-[1023px]:hidden'> 
+                                    {/* <img className="w-12 h-12 mr-3"/> */}
+                                    1
+                                </h3>
                             </div>
                             <div className="2xl:w-[60rem] xl:w-[40rem] lg:w-[30rem] md:w-0 sm:w-0 max-[767px]:w-0 h-56 flex flex-col justify-center">
-                                    <h3 className='flex items-center text-white pb-3 max-[1023px]:hidden'> 
-                                        {/* <img className="w-12 h-12 mr-3"/> */}
-                                        2
-                                    </h3>
+                                <h3 className='flex items-center text-white pb-3 max-[1023px]:hidden'> 
+                                    {/* <img className="w-12 h-12 mr-3"/> */}
+                                    2
+                                </h3>
                             </div>
                             <div className="2xl:w-[60rem] xl:w-[40rem] lg:w-[30rem] md:w-0 sm:w-0 max-[767px]:w-0 h-56 flex flex-col justify-center">
-                                    <h3 className='flex items-center text-white pb-3 max-[1023px]:hidden'> 
-                                        {/* <img className="w-12 h-12 mr-3"/> */}
-                                        3
-                                    </h3>
+                                <h3 className='flex items-center text-white pb-3 max-[1023px]:hidden'> 
+                                    {/* <img className="w-12 h-12 mr-3"/> */}
+                                    3
+                                </h3>
                             </div>                                        
                         </MuiTabs>
                     </BlocContent>
