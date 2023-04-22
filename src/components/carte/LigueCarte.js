@@ -10,7 +10,7 @@ function LigueCarte({ league, leagues_img_url, isDisabled = false }){
                     className={` ${isDisabled ? 'pointer-events-none h-full mb-5' : ''} block rounded-3xl border-2 border-tiffanyBlue bg-gunMetal transition shadow hover:shadow-lg hover:shadow-tiffanyBlue`}
                 >
                     <div className="flex items-start relative">
-                        <img className="w-20 rounded-2xl absolute -left-5 -top-7 border-2 border-onyx" src={leagues_img_url +"/" + league.name} alt="" />
+                        <img className="w-20 rounded-2xl absolute left-3 -top-7 border-2 border-onyx" src={leagues_img_url +"/" + league.name} alt="" />
                     </div>
 
                     <div className={`${isDisabled ? 'h-full flex flex-col justify-center' : ''} text-center p-3 sm:p-5 lg:p-7`}>
