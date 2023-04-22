@@ -1,4 +1,4 @@
-const API_URL = "http://146.59.151.45:7777/api/"
+const API_URL = "https://footstatsapi.sangmin.fr/api/"
 
 const LEAGUES = {
     DATA : API_URL + "leagues",
