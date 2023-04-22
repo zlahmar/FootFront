@@ -7,9 +7,10 @@ import { QueryClient, QueryClientProvider,  useQueries } from "react-query"
 
 // API / DATA
 import {LEAGUES,CLUBS, PLAYERS} from "../../data/Api"
+import { getBestClubBySeason } from '../../data/Arrays';
 
-// MUI
-import MuiTabs from "../mui_component/MuiTabs";
+// Graphique
+import WaffleChart from '../graphique/WaffleChart';
 
 // Components
 import LigueCarte from '../carte/LigueCarte';
@@ -21,6 +22,7 @@ import BlocContent from '../bloc/BlocContent';
 import BlocLigueLeMeilleur from '../bloc/BlocLigueLeMeilleur';
 import LoadingCarte from "../carte/LoadingCarte";
 
+import ligue from '../../assets/icon/cup.png'
 // -----------------------
 // 1) QUERY CLIENT
 // -----------------------
@@ -53,6 +55,7 @@ function Club() {
             { queryKey: ['allTimeBestStriker',3], queryFn: () => fetch(PLAYERS.ALL_TIME_BEST_STRIKER+'?league_id='+league_id).then(res => res.json())},
             { queryKey: ['allTimeBestPlaymaker',4], queryFn: () => fetch(PLAYERS.ALL_TIME_BEST_PLAYMAKER+'?league_id='+league_id).then(res => res.json())},
             { queryKey: ['allTimeBestGoalkeeper',5], queryFn: () => fetch(PLAYERS.ALL_TIME_BEST_GOALKEEPER+'?league_id='+league_id).then(res => res.json())},
+            { queryKey: ['bestClubySeason',6], queryFn: () => fetch(CLUBS.BEST_BY_SEASON+'?league_id='+league_id).then(res => res.json())},
         ]
     )
     
@@ -63,7 +66,8 @@ function Club() {
         resultQueries[1].isLoading || 
         resultQueries[2].isLoading ||
         resultQueries[3].isLoading ||
-        resultQueries[4].isLoading ) return (
+        resultQueries[4].isLoading ||
+        resultQueries[5].isLoading ) return (
         <div className="lg:h-screen md:h-full sm:h-full sm:ml-64 flex flex-col justify-between border-2 border-eerieBlack pt-3 pb-3">
                 <LoadingCarte/>
         </div>
@@ -73,7 +77,8 @@ function Club() {
         resultQueries[1].error ||
         resultQueries[2].error ||
         resultQueries[3].error ||
-        resultQueries[4].error ) 
+        resultQueries[4].error || 
+        resultQueries[5].error ) 
         return 'An error has occured '
 
     // ---------------------------------------------
@@ -86,6 +91,7 @@ function Club() {
     const allTimeBestStriker = resultQueries[2].data[0]
     const allTimeBestPlaymaker = resultQueries[3].data[0]
     const allTimeBestGoalkeeper = resultQueries[4].data[0]
+    const bestClubySeason = resultQueries[5].data
 
     const BESTS = [
         {title:"Meilleur Club", key:allTimeBestClub.clubId, img_url:CLUBS.IMG +"/" + allTimeBestClub.clubName, data_name:allTimeBestClub.clubName, data_value1:allTimeBestClub.rankAverage + " ème", data_value2:allTimeBestClub.nbWin + " x champs"},
@@ -94,6 +100,8 @@ function Club() {
         {title:"Meilleur Gardien", key:allTimeBestGoalkeeper.playerId, img_url:PLAYERS.IMG +"/" + allTimeBestGoalkeeper.playerId, data_name:allTimeBestGoalkeeper.playerName, data_value1:allTimeBestGoalkeeper.totalGoalsAgainst + " clean sheets", data_value2:allTimeBestGoalkeeper.totalMatches + " matchs"},
     ]
     
+    const BEST_CLUBS_BY_SEASON = getBestClubBySeason(bestClubySeason)
+
     // ---------------------------------------------
     // 5) RETURN
     // ---------------------------------------------
@@ -114,28 +122,31 @@ function Club() {
                 </div>    
             </div>
             <div className="lg:flex lg:flex-row sm:max-md:flex-col" >
-                <div className="2xl:w-full md:w-full ml-1 mr-1">
+                <div className="flex basis-1/2 w-full ml-1 mr-1">
                     <BlocContent>
-                        <MuiTabs>
-                            <div className="2xl:w-[60rem] xl:w-[40rem] lg:w-[30rem] md:w-0 sm:w-0 max-[767px]:w-0 h-56 flex flex-col justify-center">
-                                <h3 className='flex items-center text-white pb-3 max-[1023px]:hidden'> 
-                                    {/* <img className="w-12 h-12 mr-3"/> */}
-                                    1
+                        <div>
+                            <div className='flex justify-center text-white pb-3 pt-3 max-[1023px]:hidden'>
+                                <img className="w-12 h-12 mr-3" src={ligue} />
+                                <h3> 
+                                    Champions de ligue <br/>(2002 ~ 2022)
                                 </h3>
                             </div>
-                            <div className="2xl:w-[60rem] xl:w-[40rem] lg:w-[30rem] md:w-0 sm:w-0 max-[767px]:w-0 h-56 flex flex-col justify-center">
-                                <h3 className='flex items-center text-white pb-3 max-[1023px]:hidden'> 
-                                    {/* <img className="w-12 h-12 mr-3"/> */}
-                                    2
-                                </h3>
-                            </div>
-                            <div className="2xl:w-[60rem] xl:w-[40rem] lg:w-[30rem] md:w-0 sm:w-0 max-[767px]:w-0 h-56 flex flex-col justify-center">
-                                <h3 className='flex items-center text-white pb-3 max-[1023px]:hidden'> 
-                                    {/* <img className="w-12 h-12 mr-3"/> */}
-                                    3
-                                </h3>
-                            </div>                                        
-                        </MuiTabs>
+                            <div className="2xl:w-1/2 xl:w-[40rem] lg:w-[30rem] md:w-0 sm:w-0 max-[767px]:w-0 h-72">
+                                
+                                <WaffleChart data={BEST_CLUBS_BY_SEASON}/>
+                            </div> 
+                        </div>   
+                    </BlocContent>
+                </div>
+                <div className="basis-1/2 w-full ml-1 mr-1">
+                        <BlocContent>
+                        <div className="2xl:w-1/2 xl:w-[40rem] lg:w-[30rem] md:w-0 sm:w-0 max-[767px]:w-0 h-96 flex flex-col justify-center">
+                            <h3 className='flex items-center text-white pb-3 pt-5 max-[1023px]:hidden'> 
+                                {/* <img className="w-12 h-12 mr-3"/> */}
+                                1
+                            </h3>
+                            {/* <WaffleChart/> */}
+                        </div>    
                     </BlocContent>
                 </div>
             </div>

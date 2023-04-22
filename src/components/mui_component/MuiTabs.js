@@ -22,11 +22,11 @@ export default function MuiTabs(props) {
   return (
     <Box sx={{ width: '100%' }}>
       <Box sx={{ borderBottom: 4, borderColor: 'divider' }}>
-        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" 
+        <Tabs value={value} onChange={handleChange}  
         sx={{
-          '& .MuiTabs-indicator': { backgroundColor: grey[50] },
-          '& .MuiTab-root': { color: grey[400] },
-          '& .Mui-selected': { color: grey[100] },
+          '& .MuiTabs-indicator': { backgroundColor: '#A8E1DC' },
+          '& .MuiTab-root': { color: '#f5f5f5' },
+          '& .Mui-selected': { color: '#A8E1DC' },
         }}
         >
           <Tab label="Exemple 1" {...a11yProps(0)} />
