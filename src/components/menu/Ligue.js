@@ -81,12 +81,12 @@ function Ligue (){
         if (window.innerWidth < lg ) {
             setWidth(null);
         } else if (window.innerWidth < xl) {
-            setWidth(700);
+            setWidth(1100);
         } else if (window.innerWidth < xl2) {
-            setWidth(1000);
+            setWidth(1100);
         } else 
         {
-            setWidth(1200);
+            setWidth(1300);
         }
       }
       handleResize();
@@ -139,25 +139,25 @@ function Ligue (){
     // 5) RETURN
     // ---------------------------------------------
     return (    
-            <div className="lg:h-screen md:h-full sm:h-full sm:ml-64 flex flex-col justify-between border-2 border-eerieBlack">
+            <div className="lg:h-screen md:h-full sm:h-full xl:ml-64 flex flex-col justify-between border-2 border-eerieBlack">
                 <BlocTitre text="Ligue (2002 ~ 2022) : 20 ans de football"/> 
                 <BlocContent>
                     <MuiTabs>
-                        <div className="2xl:w-[75rem] xl:w-[55rem] lg:w-[40rem] md:w-0 sm:w-0 max-[767px]:w-0 h-96 flex flex-col justify-center">
+                        <div className="2xl:w-[80rem] xl:w-[70rem] lg:w-[63rem] md:w-0 sm:w-0 max-[767px]:w-0 h-96 flex flex-col justify-center">
                             <h3 className='flex items-center text-white pb-3 max-[1023px]:hidden'> 
                                 <img className="w-12 h-12 mr-3" src={cup} />
                                 UEFA Coefficients des pays (2002 ~ 2022)
                             </h3>
                             <BumpChart data={UEFA_LEAGUES_RANKING} />
                         </div>
-                        <div  className="2xl:w-[75rem] xl:w-[55rem] lg:w-[40rem] md:w-0 sm:w-0 max-[767px]:w-0 h-96 flex flex-col justify-center">
+                        <div  className="2xl:w-[75rem] xl:w-[70rem] lg:w-[63rem] md:w-0 sm:w-0 max-[767px]:w-0 h-96 flex flex-col justify-center">
                             <h3 className='flex items-center text-white pb-2 max-[1023px]:hidden'> 
                                 <img className="w-12 h-12 mr-3" src={goal} />
                                 Goals & Assists (2002 ~ 2022)
                             </h3>
                             <BarGroupedChart data={LEAGUES_TOTAL_DATA}/>
                         </div>
-                        <div className='2xl:w-[75rem] xl:w-[55rem] lg:w-[40rem] md:w-0 sm:w-0 max-[767px]:w-0 h-96 flex flex-col justify-center'>
+                        <div className='2xl:w-[75rem] xl:w-[70rem] lg:w-[63rem] md:w-0 sm:w-0 max-[767px]:w-0 h-96 flex flex-col justify-center'>
                             <h3 className='flex items-center text-white pb-2 max-[1023px]:hidden'> 
                                 <img className="w-10 h-10" src={yellow_card} />
                                 <img className="w-10 h-10 mr-3" src={red_card} />

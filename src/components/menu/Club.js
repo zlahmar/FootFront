@@ -2,7 +2,7 @@
 import '../../styles/index.css'
 
 // React
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { QueryClient, QueryClientProvider,  useQueries } from "react-query"
 
 // API / DATA
@@ -45,6 +45,31 @@ export default function App() {
 // -----------------------
 function Club() {
     const league_id = window.location.pathname.slice(-1);
+    // -----------------------------------------------------------------------
+    // 4-0) USE STATE / USE EFFECT : WIDTH RESPONSIVE FOR GRAPH CircleGroupedChart
+    // -----------------------------------------------------------------------
+    const [width, setWidth] = useState(null);
+    useEffect(() => {
+      function handleResize() {
+        const xl2 = 1536;
+        const xl = 1280;
+        const lg = 1024;
+        if (window.innerWidth < lg ) {
+            setWidth(null);
+        } else if (window.innerWidth < xl) {
+            setWidth(500);
+        } else if (window.innerWidth < xl2) {
+            setWidth(600);
+        } else 
+        {
+            setWidth(600);
+        }
+      }
+      handleResize();
+      window.addEventListener('resize', handleResize);
+      return () => window.removeEventListener('resize', handleResize);
+      }, []);
+    
     // ---------------------------------------------
     // 4-1) USE QUERIES : FETCHING DATA FROM API
     // ---------------------------------------------
@@ -108,7 +133,7 @@ function Club() {
     const isDisabled = true
 
     return (
-        <div className="lg:h-screen md:h-full sm:h-full sm:ml-64 flex flex-col justify-between border-2 border-eerieBlack">
+        <div className="lg:h-screen md:h-full sm:h-full xl:ml-64 flex flex-col justify-between border-2 border-eerieBlack">
             <div className="lg:flex lg:flex-row sm:max-md:flex-col pt-3">
                 <div className="basis-2/6 w-full pr-1 mb-5">
                     <LigueCarte key={league.id} league={league} leagues_img_url={LEAGUES.IMG} isDisabled={isDisabled}/>
@@ -121,8 +146,8 @@ function Club() {
                     </BlocLigueLeMeilleur>
                 </div>    
             </div>
-            <div className="lg:flex lg:flex-row sm:max-md:flex-col" >
-                <div className="flex basis-1/2 w-full ml-1 mr-1">
+            <div className="lg:flex lg:flex-row xl:max-2xl:flex-col" >
+                <div className="flex basis-1/2 w-full ml-1 mr-1 mb-1">
                     <BlocContent>
                         <div>
                             <div className='flex justify-center text-white pb-3 pt-3 max-[1023px]:hidden'>
@@ -132,21 +157,24 @@ function Club() {
                                 </h3>
                             </div>
                             <div className="2xl:w-1/2 xl:w-[40rem] lg:w-[30rem] md:w-0 sm:w-0 max-[767px]:w-0 h-72">
-                                
-                                <WaffleChart data={BEST_CLUBS_BY_SEASON}/>
+                            {width && <WaffleChart width={width} data={BEST_CLUBS_BY_SEASON}/>}
                             </div> 
                         </div>   
                     </BlocContent>
                 </div>
                 <div className="basis-1/2 w-full ml-1 mr-1">
-                        <BlocContent>
-                        <div className="2xl:w-1/2 xl:w-[40rem] lg:w-[30rem] md:w-0 sm:w-0 max-[767px]:w-0 h-96 flex flex-col justify-center">
-                            <h3 className='flex items-center text-white pb-3 pt-5 max-[1023px]:hidden'> 
-                                {/* <img className="w-12 h-12 mr-3"/> */}
-                                1
-                            </h3>
-                            {/* <WaffleChart/> */}
-                        </div>    
+                    <BlocContent>
+                        <div>
+                            <div className='flex justify-center text-white pb-3 pt-3 max-[1023px]:hidden'>
+                                <img className="w-12 h-12 mr-3" src={ligue} />
+                                <h3> 
+                                    Champions de ligue <br/>(2002 ~ 2022)
+                                </h3>
+                            </div>
+                            <div className="2xl:w-1/2 xl:w-[40rem] lg:w-[30rem] md:w-0 sm:w-0 max-[767px]:w-0 h-72">
+                            {width && <WaffleChart width={width} data={BEST_CLUBS_BY_SEASON}/>}
+                            </div> 
+                        </div>   
                     </BlocContent>
                 </div>
             </div>

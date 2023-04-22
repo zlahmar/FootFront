@@ -22,7 +22,9 @@ export default function MuiTabs(props) {
   return (
     <Box sx={{ width: '100%' }}>
       <Box sx={{ borderBottom: 4, borderColor: 'divider' }}>
-        <Tabs value={value} onChange={handleChange}  
+        <Tabs
+        className="xl:ml-32 lg:ml-24 sm:m-0"
+        value={value} onChange={handleChange}  
         sx={{
           '& .MuiTabs-indicator': { backgroundColor: '#A8E1DC' },
           '& .MuiTab-root': { color: '#f5f5f5' },

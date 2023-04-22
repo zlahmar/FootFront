@@ -13,7 +13,7 @@ function ClubCarte({ id, name, clubs_img_url}){
                     <img className="w-10 rounded-2xl absolute left-1 -top-7 border-2 border-onyx" src={clubs_img_url +"/" + name} alt="" />
                 </div>
 
-                <div className="p-1 sm:p-1 lg:p-3">
+                <div className="w-full p-1 sm:p-1 lg:p-3">
                     <p className="text-lg font-bold text-white font-title">{name}</p>
                 </div>
             </Link>

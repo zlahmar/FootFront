@@ -46,16 +46,19 @@ const CustomTooltip = node => (
     </div>
 )
 
-const WaffleChart = ({ data }) => (
+const WaffleChart = ({ data, width }) => {
+    const translateX = width === 500 ? -100 : -80;
+
+    return(
     <ResponsiveWaffle
         data={data}
         total={20}
         rows={4}
         columns={5}
-        width={550} 
+        width={width} 
         height={310} 
         fillDirection="left"
-        margin={{ top: 10, right: -10, bottom: 10, left: 80 }}
+        margin={{ top: 10, right: -10, bottom: 20, left: 80 }}
         colors={{ scheme: 'accent' }}
         borderColor={{
             from: 'color',
@@ -75,7 +78,7 @@ const WaffleChart = ({ data }) => (
                 anchor: 'top-left',
                 direction: 'column',
                 justify: false,
-                translateX: -80,
+                translateX: translateX,
                 translateY: 0,
                 itemsSpacing: 4,
                 itemWidth: 100,
@@ -88,6 +91,7 @@ const WaffleChart = ({ data }) => (
             }
         ]}
     />
-)
+    )
+    }
 
 export default WaffleChart
