@@ -1,5 +1,3 @@
-import { Children } from 'react';
-
 function BlocLigueLeMeilleur({children}){
     return (
             <div className="h-full border-t-2 border-tiffanyBlue pt-4 mb-5 rounded-3xl">
