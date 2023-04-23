@@ -30,9 +30,9 @@ export default function MuiTabs(props) {
           '& .Mui-selected': { color: '#A8E1DC' },
         }}
         >
-          <Tab label="Exemple 1" {...a11yProps(0)} />
-          <Tab label="Exemple 2" {...a11yProps(1)} />
-          <Tab label="Exemple 3" {...a11yProps(2)} />
+          <Tab label="Graphe 1" {...a11yProps(0)} />
+          <Tab label="Graphe 2" {...a11yProps(1)} />
+          <Tab label="Graphe 3" {...a11yProps(2)} />
         </Tabs>
       </Box>
       <MuiTabPanel value={value} index={0}>

@@ -165,7 +165,7 @@ function Club() {
                             <div className='flex justify-center text-white pb-3 pt-3 max-[1023px]:hidden'>
                                 <img className="w-12 h-12 mr-3" src={ligue} />
                                 <h3> 
-                                    Champions de ligue <br/> <strong>(2002 ~ 2022)</strong>
+                                    Champions de <strong>{league.name}</strong> <br/> (2002 ~ 2022)
                                 </h3>
                             </div>
                             <div className="2xl:w-1/2 xl:w-[40rem] lg:w-[30rem] md:w-[30rem] sm:w-0 max-[767px]:w-0 h-72">
@@ -180,7 +180,7 @@ function Club() {
                             <div className='flex justify-center text-white pb-3 pt-3 max-[1023px]:hidden'>
                                 <img className="w-12 h-12 mr-3" src={nationality} />
                                 <h3> 
-                                    Nationalités de joueurs <br/> à <strong>{league.name}</strong> (2002 ~ 2022)
+                                    Nationalités des joueurs <br/> en <strong>{league.name}</strong> (2002 ~ 2022)
                                 </h3>
                             </div>
                             <div className="2xl:w-1/2 xl:w-[40rem] lg:w-[30rem] md:w-[30rem] sm:w-0 max-[767px]:w-0 h-72">
@@ -190,7 +190,7 @@ function Club() {
                     </BlocContent>
                 </div>
             </div>
-            <BlocTitre text="Cliquez un club que vous voulez voir"/>
+            <BlocTitre text="Cliquez sur le club que vous voulez voir ci-dessous"/>
             <BlocClubCarte>
                 {clubs.map(club => (
                     <ClubCarte key={club.id} id={club.id} name={club.name} clubs_img_url={CLUBS.IMG}/>

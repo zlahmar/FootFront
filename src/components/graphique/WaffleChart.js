@@ -29,7 +29,7 @@ const CustomTooltip = node => (
         <span>{node.label}</span>
         
         <span className='flex flex-col justify-center align-center' style={{ fontWeight: 600 }}>
-            Season
+            Saison
             <div className='ml-12 mb-3'>
                 <img className='w-8 h-8' src={stadium}/>
             </div>  

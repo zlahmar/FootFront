@@ -124,7 +124,7 @@ function Ligue (){
     // ---------------------------------------------
     return (    
             <div className="lg:h-screen md:h-full sm:h-full xl:ml-64 flex flex-col justify-between border-2 border-eerieBlack">
-                <BlocTitre text="Ligue (2002 ~ 2022) : 20 ans de football"/> 
+                <BlocTitre text="Ligue (2002 ~ 2022) : 20 ans de 5 ligues principales"/> 
                 <BlocContent>
                     <MuiTabs>
                         <div className="2xl:w-[75rem] xl:w-[70rem] lg:w-[63rem] md:w-0 sm:w-0 max-[767px]:w-0 h-96 flex flex-col justify-center">
@@ -137,21 +137,21 @@ function Ligue (){
                         <div  className="2xl:w-[75rem] xl:w-[70rem] lg:w-[63rem] md:w-0 sm:w-0 max-[767px]:w-0 h-96 flex flex-col justify-center">
                             <h3 className='flex items-center text-white pb-2 max-[1023px]:hidden'> 
                                 <img className="w-12 h-12 mr-3" src={goal} />
-                                Goals & Assists (2002 ~ 2022)
+                                Buts & Passes décisives (2002 ~ 2022)
                             </h3>
                             <BarGroupedChart data={LEAGUES_TOTAL_DATA}/>
                         </div>
                         <div className='2xl:w-[75rem] xl:w-[70rem] lg:w-[63rem] md:w-0 sm:w-0 max-[767px]:w-0 h-96 flex flex-col justify-center'>
-                            <h3 className='flex items-center text-white pb-2 max-[1023px]:hidden'> 
+                            <h3 className='flex items-center text-white pt-4 max-[1023px]:hidden'> 
                                 <img className="w-10 h-10" src={yellow_card} />
                                 <img className="w-10 h-10 mr-3" src={red_card} />
-                                Yellow & Red Cards (2002 ~ 2022)
+                                Cartons jaunes et rouges (2002 ~ 2022)
                             </h3>
                             {width && <CircleGroupedChart width={width} data={LEAGUES_TOTAL_CARDS_DATA}/>}
                         </div>
                     </MuiTabs>
                 </BlocContent>
-                <BlocTitre text="Cliquez une ligue que vous voulez voir"/>
+                <BlocTitre text="Cliquez sur la ligue que vous voulez voir ci-dessous"/>
                 <BlocLigueCarte>
                     {leagues.map(league => (
                         <LigueCarte key={league.id} league={league} leagues_img_url={LEAGUES.IMG} />
