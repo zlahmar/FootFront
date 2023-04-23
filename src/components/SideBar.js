@@ -25,7 +25,7 @@ function SideBar({onChildClick, visible}){
                 <div className="h-full px-3 py-4 flex flex-col overflow-y-auto bg-gunMetal border-r-2 border-tiffanyBlue">
                     <div className="flex items-center pl-2.5 mb-20">
                         <img src={logo} className="mr-3 h-11" alt="FOOT Logo" />
-                        <span className="font-title self-center text-4xl font-bold whitespace-nowrap text-white">FootStat</span>
+                        <span className="font-title self-center text-4xl font-bold whitespace-nowrap text-white">FootStats</span>
                     </div>
                     <ul className="space-y-10">
                         <li>
