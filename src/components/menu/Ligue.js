@@ -26,7 +26,7 @@ import CircleGroupedChart from '../graphique/CircleGroupedChart';
 import MuiTabs from "../mui_component/MuiTabs";
 
 // Icons
-import cup from '../../assets/icon/cup.png'
+import kickball from '../../assets/icon/kickball.png'
 import goal from '../../assets/icon/goal.png'
 import yellow_card from '../../assets/icon/yellow_card.png'
 import red_card from '../../assets/icon/red_card.png'
@@ -128,21 +128,21 @@ function Ligue (){
                 <BlocContent>
                     <MuiTabs>
                         <div className="2xl:w-[75rem] xl:w-[70rem] lg:w-[63rem] md:w-0 sm:w-0 max-[767px]:w-0 h-96 flex flex-col justify-center">
-                            <h3 className='flex items-center text-white pb-3 max-[1023px]:hidden'> 
-                                <img className="w-12 h-12 mr-3" src={cup} alt="cup" />
+                            <h3 className='flex items-center text-white pb-3 max-[1023px]:hidden font-title text-lg'> 
+                                <img className="w-14 h-14 mr-3" src={kickball} alt="kickball" />
                                 UEFA Coefficients des pays (2002 ~ 2022)
                             </h3>
                             <BumpChart data={UEFA_LEAGUES_RANKING} />
                         </div>
                         <div  className="2xl:w-[75rem] xl:w-[70rem] lg:w-[63rem] md:w-0 sm:w-0 max-[767px]:w-0 h-96 flex flex-col justify-center">
-                            <h3 className='flex items-center text-white pb-2 max-[1023px]:hidden'> 
+                            <h3 className='flex items-center text-white pb-2 max-[1023px]:hidden font-title text-lg'> 
                                 <img className="w-12 h-12 mr-3" src={goal} alt="goal" />
                                 Buts & Passes décisives (2002 ~ 2022)
                             </h3>
                             <BarGroupedChart data={LEAGUES_TOTAL_DATA}/>
                         </div>
                         <div className='2xl:w-[75rem] xl:w-[70rem] lg:w-[63rem] md:w-0 sm:w-0 max-[767px]:w-0 h-96 flex flex-col justify-center'>
-                            <h3 className='flex items-center text-white pt-4 max-[1023px]:hidden'> 
+                            <h3 className='flex items-center text-white pt-4 max-[1023px]:hidden font-title text-lg'> 
                                 <img className="w-10 h-10" src={yellow_card} alt="yellowcard"/>
                                 <img className="w-10 h-10 mr-3" src={red_card} alt="redcard"/>
                                 Cartons jaunes et rouges (2002 ~ 2022)
