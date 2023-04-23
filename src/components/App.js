@@ -1,6 +1,7 @@
 import {Routes, Route} from "react-router-dom";
 import Ligue from "./menu/Ligue";
 import Club from "./menu/Club";
+import APropos from "./menu/APropos";
 import { useState } from 'react';
 import SideBar from "./SideBar";
 function App() {
@@ -18,6 +19,7 @@ function App() {
                 <SideBar onChildClick={handleButton} visible={visible}/>
 
                 <Routes>
+                    <Route path="a_propos" element={<APropos/>}/>
                     <Route path="ligue" element={<Ligue/>}/>
                     <Route path="ligue/:ligue_id" element={<Club/>}/>
                 </Routes>

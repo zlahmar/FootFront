@@ -2,6 +2,7 @@ import logo from '../assets/icon/logo.png';
 import ligue from '../assets/icon/ligue.png';
 import club from '../assets/icon/club.png';
 import joueur from '../assets/icon/joueur.png';
+import annonce from '../assets/icon/annonce.png';
 import LienMenu from "./LienMenu";
 import '../styles/index.css'
 
@@ -37,6 +38,9 @@ function SideBar({onChildClick, visible}){
                             <LienMenu lien="/joueur" texte="Joueur" image={joueur}></LienMenu>                        
                         </li>
                     </ul>
+                    <div className="absolute bottom-5">
+                        <LienMenu lien="/a_propos" texte="A propos" image={annonce}></LienMenu>                        
+                    </div>
                 </div>
             </aside>
         </div>

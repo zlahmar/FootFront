@@ -5,7 +5,7 @@ function BlocContent({children}){
         <div className="w-full bg-gunMetal flex justify-center rounded-3xl">
             <div className="flex flex-row flex-wrap justify-center w-full ">
             {Children.map(children, child =>
-                <div className="text-center px-3 pb-3">        
+                <div className="text-center px-3">        
                     {child}
                 </div>
             )}
