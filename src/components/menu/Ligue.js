@@ -143,7 +143,7 @@ function Ligue (){
                 <BlocTitre text="Ligue (2002 ~ 2022) : 20 ans de football"/> 
                 <BlocContent>
                     <MuiTabs>
-                        <div className="2xl:w-[80rem] xl:w-[70rem] lg:w-[63rem] md:w-0 sm:w-0 max-[767px]:w-0 h-96 flex flex-col justify-center">
+                        <div className="2xl:w-[75rem] xl:w-[70rem] lg:w-[63rem] md:w-0 sm:w-0 max-[767px]:w-0 h-96 flex flex-col justify-center">
                             <h3 className='flex items-center text-white pb-3 max-[1023px]:hidden'> 
                                 <img className="w-12 h-12 mr-3" src={cup} />
                                 UEFA Coefficients des pays (2002 ~ 2022)

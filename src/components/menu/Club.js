@@ -7,11 +7,11 @@ import { QueryClient, QueryClientProvider,  useQueries } from "react-query"
 
 // API / DATA
 import {LEAGUES,CLUBS, PLAYERS} from "../../data/Api"
-import { getBestClubBySeason } from '../../data/Arrays';
+import { getBestClubBySeason, getNationalities } from '../../data/Arrays';
 
 // Graphique
 import WaffleChart from '../graphique/WaffleChart';
-
+import TreeMapChart from '../graphique/TreeMapChart';
 // Components
 import LigueCarte from '../carte/LigueCarte';
 import LigueLeMeilleur from '../carte/LigueLeMeilleur';
@@ -23,6 +23,7 @@ import BlocLigueLeMeilleur from '../bloc/BlocLigueLeMeilleur';
 import LoadingCarte from "../carte/LoadingCarte";
 
 import ligue from '../../assets/icon/cup.png'
+import nationality from '../../assets/icon/nationality.png'
 // -----------------------
 // 1) QUERY CLIENT
 // -----------------------
@@ -55,7 +56,7 @@ function Club() {
         const xl = 1280;
         const lg = 1024;
         if (window.innerWidth < lg ) {
-            setWidth(null);
+            setWidth(500);
         } else if (window.innerWidth < xl) {
             setWidth(500);
         } else if (window.innerWidth < xl2) {
@@ -81,6 +82,7 @@ function Club() {
             { queryKey: ['allTimeBestPlaymaker',4], queryFn: () => fetch(PLAYERS.ALL_TIME_BEST_PLAYMAKER+'?league_id='+league_id).then(res => res.json())},
             { queryKey: ['allTimeBestGoalkeeper',5], queryFn: () => fetch(PLAYERS.ALL_TIME_BEST_GOALKEEPER+'?league_id='+league_id).then(res => res.json())},
             { queryKey: ['bestClubySeason',6], queryFn: () => fetch(CLUBS.BEST_BY_SEASON+'?league_id='+league_id).then(res => res.json())},
+            { queryKey: ['nationalities', 7], queryFn: () => fetch(LEAGUES.NATIONALITIES+'?league_id='+league_id).then(res => res.json())}
         ]
     )
     
@@ -92,7 +94,8 @@ function Club() {
         resultQueries[2].isLoading ||
         resultQueries[3].isLoading ||
         resultQueries[4].isLoading ||
-        resultQueries[5].isLoading ) return (
+        resultQueries[5].isLoading ||
+        resultQueries[6].isLoading) return (
         <div className="lg:h-screen md:h-full sm:h-full sm:ml-64 flex flex-col justify-between border-2 border-eerieBlack pt-3 pb-3">
                 <LoadingCarte/>
         </div>
@@ -103,7 +106,8 @@ function Club() {
         resultQueries[2].error ||
         resultQueries[3].error ||
         resultQueries[4].error || 
-        resultQueries[5].error ) 
+        resultQueries[5].error ||
+        resultQueries[6].error) 
         return 'An error has occured '
 
     // ---------------------------------------------
@@ -117,6 +121,7 @@ function Club() {
     const allTimeBestPlaymaker = resultQueries[3].data[0]
     const allTimeBestGoalkeeper = resultQueries[4].data[0]
     const bestClubySeason = resultQueries[5].data
+    const nationalities = resultQueries[6].data
 
     const BESTS = [
         {title:"Meilleur Club", key:allTimeBestClub.clubId, img_url:CLUBS.IMG +"/" + allTimeBestClub.clubName, data_name:allTimeBestClub.clubName, data_value1:allTimeBestClub.rankAverage + " ème", data_value2:allTimeBestClub.nbWin + " x champs"},
@@ -126,6 +131,7 @@ function Club() {
     ]
     
     const BEST_CLUBS_BY_SEASON = getBestClubBySeason(bestClubySeason)
+    const NATIONALITIES = getNationalities(nationalities)
 
     // ---------------------------------------------
     // 5) RETURN
@@ -153,11 +159,11 @@ function Club() {
                             <div className='flex justify-center text-white pb-3 pt-3 max-[1023px]:hidden'>
                                 <img className="w-12 h-12 mr-3" src={ligue} />
                                 <h3> 
-                                    Champions de ligue <br/>(2002 ~ 2022)
+                                    Champions de ligue <br/> <strong>(2002 ~ 2022)</strong>
                                 </h3>
                             </div>
-                            <div className="2xl:w-1/2 xl:w-[40rem] lg:w-[30rem] md:w-0 sm:w-0 max-[767px]:w-0 h-72">
-                            {width && <WaffleChart width={width} data={BEST_CLUBS_BY_SEASON}/>}
+                            <div className="2xl:w-1/2 xl:w-[40rem] lg:w-[30rem] md:w-[30rem] sm:w-0 max-[767px]:w-0 h-72">
+                                {width && <WaffleChart width={width} data={BEST_CLUBS_BY_SEASON}/>}
                             </div> 
                         </div>   
                     </BlocContent>
@@ -166,13 +172,13 @@ function Club() {
                     <BlocContent>
                         <div>
                             <div className='flex justify-center text-white pb-3 pt-3 max-[1023px]:hidden'>
-                                <img className="w-12 h-12 mr-3" src={ligue} />
+                                <img className="w-12 h-12 mr-3" src={nationality} />
                                 <h3> 
-                                    Champions de ligue <br/>(2002 ~ 2022)
+                                    Nationalités de joueurs <br/> à <strong>{league.name}</strong> (2002 ~ 2022)
                                 </h3>
                             </div>
-                            <div className="2xl:w-1/2 xl:w-[40rem] lg:w-[30rem] md:w-0 sm:w-0 max-[767px]:w-0 h-72">
-                            {width && <WaffleChart width={width} data={BEST_CLUBS_BY_SEASON}/>}
+                            <div className="2xl:w-1/2 xl:w-[40rem] lg:w-[30rem] md:w-[30rem] sm:w-0 max-[767px]:w-0 h-72">
+                                {width && <TreeMapChart width={width} data={NATIONALITIES}/>}
                             </div> 
                         </div>   
                     </BlocContent>

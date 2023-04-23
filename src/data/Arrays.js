@@ -26,7 +26,7 @@ export const getLeagueArrayRankByYear = (obj_array, league) => {
     return array
 }
 
-// CircleGroupedChart
+// WaffleChart
 export const getBestClubBySeason = (obj_array) => {
     const data = {}
     let best_club_array = obj_array.reduce((previous,current) => {
@@ -55,4 +55,21 @@ export const getBestClubBySeason = (obj_array) => {
         return data[club]
     })
     return array2
+}
+
+// TreeMapChart
+export const getNationalities = (obj_array) => {
+    let result = {}
+    let array = obj_array.map(value => ({
+            
+            nationality : value.nationalityName,
+            numberOfPlayers: value.nbNationalities
+            
+    }))
+
+    result = {
+        nationality : obj_array[0].leagueName,
+        children : array
+    }
+    return result
 }
