@@ -46,7 +46,7 @@ export default function APropos() {
                             <br/>
                             <span className="text-sm">Développeur Fullstack</span>
                         </p>
-                        <img className="w-8 h-8 mr-3 mt-3" src={logo} />
+                        <img className="w-8 h-8 mr-3 mt-3" src={logo} alt="logo" />
                     </div>
                 </div>
             </div>

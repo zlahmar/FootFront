@@ -163,7 +163,7 @@ function Club() {
                     <BlocContent>
                         <div>
                             <div className='flex justify-center text-white pb-3 pt-3 max-[1023px]:hidden'>
-                                <img className="w-12 h-12 mr-3" src={ligue} />
+                                <img className="w-12 h-12 mr-3" src={ligue} alt="ligue" />
                                 <h3> 
                                     Champions de <strong>{league.name}</strong> <br/> (2002 ~ 2022)
                                 </h3>
@@ -178,7 +178,7 @@ function Club() {
                     <BlocContent>
                         <div>
                             <div className='flex justify-center text-white pb-3 pt-3 max-[1023px]:hidden'>
-                                <img className="w-12 h-12 mr-3" src={nationality} />
+                                <img className="w-12 h-12 mr-3" src={nationality} alt="nationalitiy"/>
                                 <h3> 
                                     Nationalités des joueurs <br/> en <strong>{league.name}</strong> (2002 ~ 2022)
                                 </h3>

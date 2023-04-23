@@ -58,7 +58,7 @@ const WaffleChart = ({ data, width }) => {
         width={width} 
         height={310} 
         fillDirection="left"
-        margin={{ top: 10, right: -10, bottom: 20, left: 80 }}
+        margin={{ top: 10, right: -10, bottom: 30, left: 80 }}
         colors={{ scheme: 'accent' }}
         borderColor={{
             from: 'color',
