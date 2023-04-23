@@ -3,7 +3,6 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import MuiTabPanel from './MuiTabPanel';
-import { grey } from '@mui/material/colors';
 
 function a11yProps(index) {
   return {

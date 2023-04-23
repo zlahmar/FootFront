@@ -37,25 +37,7 @@ import red_card from '../../assets/icon/red_card.png'
 const queryClient = new QueryClient()
 
 // -----------------------
-// 2) FETCHING DATA FROM API
-// -----------------------
-const fetchLeagues = async () => {
-    const res = await fetch(LEAGUES.DATA)
-    return res.json()
-}
-
-const fetchRankingsLeague = async () => {
-    const res = await fetch(LEAGUES.RANKING)
-    return res.json()
-}
-
-const fetchTotalLeague = async () => {
-    const res = await fetch(LEAGUES.TOTAL)
-    return res.json()
-}
-
-// -----------------------
-// 3) QUERY CLIENT PROVIDER
+// 2) QUERY CLIENT PROVIDER
 // -----------------------
 export default function App() {
     return (
@@ -66,11 +48,11 @@ export default function App() {
 }
 
 // -----------------------
-// 4) LIGUE COMPONENT
+// 3) LIGUE COMPONENT
 // ----------------------- 
 function Ligue (){
     // -----------------------------------------------------------------------
-    // 4-1) USE STATE / USE EFFECT : WIDTH RESPONSIVE FOR GRAPH CircleGroupedChart
+    // 3-1) USE STATE / USE EFFECT : WIDTH RESPONSIVE FOR GRAPH CircleGroupedChart
     // -----------------------------------------------------------------------
     const [width, setWidth] = useState(null);
     useEffect(() => {
@@ -95,18 +77,18 @@ function Ligue (){
     }, []);
 
     // ---------------------------------------------
-    // 4-2) USE QUERIES : FETCHING DATA FROM API
+    // 3-2) USE QUERIES : FETCHING DATA FROM API
     // ---------------------------------------------
     const resultQueries = useQueries(
         [
-            { queryKey: ['rankingsLeague',1], queryFn:  fetchRankingsLeague},
-            { queryKey: ['leagues',2], queryFn: fetchLeagues},
-            { queryKey: ['totalLeague',3], queryFn: fetchTotalLeague},
+            { queryKey: ['rankingsLeague',1], queryFn: () => fetch(LEAGUES.RANKING).then(res => res.json())},
+            { queryKey: ['leagues',2], queryFn: () => fetch(LEAGUES.DATA).then(res => res.json())},
+            { queryKey: ['totalLeague',3], queryFn: () => fetch(LEAGUES.TOTAL).then(res => res.json())},
         ]
     )
     
     // ---------------------------------------------
-    // 4-3) LOADING / ERROR
+    // 3-3) LOADING / ERROR
     // ---------------------------------------------
     if (resultQueries[0].isLoading || resultQueries[1].isLoading || resultQueries[2].isLoading) return (
         <div className="lg:h-screen md:h-full sm:h-full sm:ml-64 flex flex-col justify-between border-2 border-eerieBlack pt-3 pb-3">
@@ -117,8 +99,10 @@ function Ligue (){
     if (resultQueries[0].error ||resultQueries[1].error ||resultQueries[2].error) return 'An error has occured '
 
     // ---------------------------------------------
-    // 4-4) SUCCESS
+    // 3-4) SUCCESS
     // ---------------------------------------------
+    // (1) DATA : LEAGUES LIST
+    const leagues = resultQueries[1].data
 
     // (1) DATA : UEFA LEAGUES_RANKING FOR GRAPH BumpChart
     const UEFA_LEAGUES_RANKING = [
@@ -136,7 +120,7 @@ function Ligue (){
     const LEAGUES_TOTAL_CARDS_DATA = getLeagueArrayTotalCardsData(resultQueries[2].data)
 
     // ---------------------------------------------
-    // 5) RETURN
+    // 4) RETURN
     // ---------------------------------------------
     return (    
             <div className="lg:h-screen md:h-full sm:h-full xl:ml-64 flex flex-col justify-between border-2 border-eerieBlack">
@@ -169,7 +153,7 @@ function Ligue (){
                 </BlocContent>
                 <BlocTitre text="Cliquez une ligue que vous voulez voir"/>
                 <BlocLigueCarte>
-                    {resultQueries[1].data.map(league => (
+                    {leagues.map(league => (
                         <LigueCarte key={league.id} league={league} leagues_img_url={LEAGUES.IMG} />
                     ))}       
                 </BlocLigueCarte>

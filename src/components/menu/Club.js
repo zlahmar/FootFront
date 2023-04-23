@@ -12,6 +12,7 @@ import { getBestClubBySeason, getNationalities } from '../../data/Arrays';
 // Graphique
 import WaffleChart from '../graphique/WaffleChart';
 import TreeMapChart from '../graphique/TreeMapChart';
+
 // Components
 import LigueCarte from '../carte/LigueCarte';
 import LigueLeMeilleur from '../carte/LigueLeMeilleur';
@@ -22,8 +23,10 @@ import BlocContent from '../bloc/BlocContent';
 import BlocLigueLeMeilleur from '../bloc/BlocLigueLeMeilleur';
 import LoadingCarte from "../carte/LoadingCarte";
 
+// Icons
 import ligue from '../../assets/icon/cup.png'
 import nationality from '../../assets/icon/nationality.png'
+
 // -----------------------
 // 1) QUERY CLIENT
 // -----------------------
@@ -31,7 +34,7 @@ const queryClient = new QueryClient()
 
 
 // -----------------------
-// 3) QUERY CLIENT PROVIDER
+// 2) QUERY CLIENT PROVIDER
 // -----------------------
 export default function App() {
     return (
@@ -42,12 +45,12 @@ export default function App() {
 }
 
 // -----------------------
-// 4) LIGUE COMPONENT
+// 3) CLUB COMPONENT
 // -----------------------
 function Club() {
     const league_id = window.location.pathname.slice(-1);
     // -----------------------------------------------------------------------
-    // 4-0) USE STATE / USE EFFECT : WIDTH RESPONSIVE FOR GRAPH CircleGroupedChart
+    // 3-1) USE STATE / USE EFFECT : WIDTH RESPONSIVE FOR GRAPH WaffleChart, TreeMapChart
     // -----------------------------------------------------------------------
     const [width, setWidth] = useState(null);
     useEffect(() => {
@@ -72,7 +75,7 @@ function Club() {
       }, []);
     
     // ---------------------------------------------
-    // 4-1) USE QUERIES : FETCHING DATA FROM API
+    // 3-2) USE QUERIES : FETCHING DATA FROM API
     // ---------------------------------------------
     const resultQueries = useQueries(
         [
@@ -87,7 +90,7 @@ function Club() {
     )
     
     // ---------------------------------------------
-    // 4-2) LOADING / ERROR
+    // 3-3) LOADING / ERROR
     // ---------------------------------------------
     if (resultQueries[0].isLoading || 
         resultQueries[1].isLoading || 
@@ -111,9 +114,10 @@ function Club() {
         return 'An error has occured '
 
     // ---------------------------------------------
-    // 4-3) SUCCESS
+    // 3-4) SUCCESS
     // ---------------------------------------------
 
+    // (1) DATA : DATA FROM API
     const league = resultQueries[0].data
     const clubs = resultQueries[0].data.clubs
     const allTimeBestClub = resultQueries[1].data[0]
@@ -123,6 +127,7 @@ function Club() {
     const bestClubySeason = resultQueries[5].data
     const nationalities = resultQueries[6].data
 
+    // (2) DATA : DATA FOR BESTS
     const BESTS = [
         {title:"Meilleur Club", key:allTimeBestClub.clubId, img_url:CLUBS.IMG +"/" + allTimeBestClub.clubName, data_name:allTimeBestClub.clubName, data_value1:allTimeBestClub.rankAverage + " ème", data_value2:allTimeBestClub.nbWin + " x champs"},
         {title:"Meilleur Buteur", key:allTimeBestStriker.playerId, img_url:PLAYERS.IMG +"/" + allTimeBestStriker.playerId, data_name:allTimeBestStriker.playerName, data_value1:allTimeBestStriker.totalGoals + " buts", data_value2:allTimeBestStriker.totalMatches + " matchs"},
@@ -130,11 +135,12 @@ function Club() {
         {title:"Meilleur Gardien", key:allTimeBestGoalkeeper.playerId, img_url:PLAYERS.IMG +"/" + allTimeBestGoalkeeper.playerId, data_name:allTimeBestGoalkeeper.playerName, data_value1:allTimeBestGoalkeeper.totalGoalsAgainst + " clean sheets", data_value2:allTimeBestGoalkeeper.totalMatches + " matchs"},
     ]
     
+    // (3) DATA : DATA FOR GRAPH WaffleChart, TreeMapChart
     const BEST_CLUBS_BY_SEASON = getBestClubBySeason(bestClubySeason)
     const NATIONALITIES = getNationalities(nationalities)
 
     // ---------------------------------------------
-    // 5) RETURN
+    // 4) RETURN
     // ---------------------------------------------
     const isDisabled = true
 
