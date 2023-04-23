@@ -14,11 +14,12 @@ function App() {
         setVisible((visible) => !visible);
     }
     return (
-            <div className="pl-4 pr-2 bg-[url('/src/assets/arriere_plan/site.png')]">
+            <div className="pl-2 pr-2 h-screen bg-[url('/src/assets/arriere_plan/site.png')] bg-no-repeat bg-cover overflow-y-auto overflow-hidden">
                 <SideBar onChildClick={handleButton} visible={visible}/>
+
                 <Routes>
                     <Route path="ligue" element={<Ligue/>}/>
-                    <Route path="ligue/:id" element={<Club />} />
+                    <Route path="ligue/:ligue_id" element={<Club/>}/>
                 </Routes>
             </div>
     )

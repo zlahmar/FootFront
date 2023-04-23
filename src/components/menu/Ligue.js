@@ -6,13 +6,13 @@ import React, { useState, useEffect } from 'react';
 import { QueryClient, QueryClientProvider,  useQueries } from "react-query"
 
 // API / DATA
-import LEAGUES from "../../data/Api"
+import {LEAGUES} from "../../data/Api"
 import LEAGUE from "../../data/Constants";
 import { getLeagueArrayRankByYear, getLeagueArrayTotalData, getLeagueArrayTotalCardsData } from '../../data/Arrays';
 
 // Components
 import LigueCarte from "../carte/LigueCarte";
-import BlocCarte from "../bloc/BlocCarte";
+import BlocLigueCarte from "../bloc/BlocLigueCarte";
 import BlocTitre from "../bloc/BlocTitre";
 import BlocContent from "../bloc/BlocContent";
 import LoadingCarte from "../carte/LoadingCarte";
@@ -54,7 +54,6 @@ const fetchTotalLeague = async () => {
     return res.json()
 }
 
-
 // -----------------------
 // 3) QUERY CLIENT PROVIDER
 // -----------------------
@@ -82,12 +81,12 @@ function Ligue (){
         if (window.innerWidth < lg ) {
             setWidth(null);
         } else if (window.innerWidth < xl) {
-            setWidth(700);
+            setWidth(1100);
         } else if (window.innerWidth < xl2) {
-            setWidth(1000);
+            setWidth(1100);
         } else 
         {
-            setWidth(1200);
+            setWidth(1300);
         }
       }
       handleResize();
@@ -100,7 +99,7 @@ function Ligue (){
     // ---------------------------------------------
     const resultQueries = useQueries(
         [
-            { queryKey: ['rankingsLeague',1], queryFn: fetchRankingsLeague},
+            { queryKey: ['rankingsLeague',1], queryFn:  fetchRankingsLeague},
             { queryKey: ['leagues',2], queryFn: fetchLeagues},
             { queryKey: ['totalLeague',3], queryFn: fetchTotalLeague},
         ]
@@ -111,9 +110,7 @@ function Ligue (){
     // ---------------------------------------------
     if (resultQueries[0].isLoading || resultQueries[1].isLoading || resultQueries[2].isLoading) return (
         <div className="lg:h-screen md:h-full sm:h-full sm:ml-64 flex flex-col justify-between border-2 border-eerieBlack pt-3 pb-3">
-            <BlocCarte>
-                    <LoadingCarte/>
-            </BlocCarte>
+                <LoadingCarte/>
         </div>
     )
 
@@ -138,53 +135,44 @@ function Ligue (){
     // (3) DATA : LEAGUES_TOTAL_CARDS_DATA FOR GRAPH CircleGroupedChart
     const LEAGUES_TOTAL_CARDS_DATA = getLeagueArrayTotalCardsData(resultQueries[2].data)
 
-
     // ---------------------------------------------
     // 5) RETURN
     // ---------------------------------------------
     return (    
-            <div className="lg:h-screen md:h-full sm:h-full sm:ml-64 flex flex-col justify-between border-2 border-eerieBlack">
-                <BlocTitre>
-                    <p className="font-title text-2xl">Ligue (2002 ~ 2022) : 20 ans de football</p>
-                </BlocTitre>
-                <div className="flex h-full">
-                    <BlocContent>
-                        <MuiTabs>
-                            <div className="2xl:w-[75rem] xl:w-[55rem] lg:w-[40rem] md:w-0 sm:w-0 max-[767px]:w-0 h-96 flex flex-col justify-center">
-                                <h3 className='flex items-center text-white pb-3 max-[1023px]:hidden'> 
-                                    <img className="w-12 h-12 mr-3" src={cup} />
-                                    UEFA Coefficients des pays (2002 ~ 2022)
-                                </h3>
-                                <BumpChart data={UEFA_LEAGUES_RANKING} />
-                            </div>
-                            <div  className="2xl:w-[75rem] xl:w-[55rem] lg:w-[40rem] md:w-0 sm:w-0 max-[767px]:w-0 h-96 flex flex-col justify-center">
-                                <h3 className='flex items-center text-white pb-2 max-[1023px]:hidden'> 
-                                    <img className="w-12 h-12 mr-3" src={goal} />
-                                    Goals & Assists (2002 ~ 2022)
-                                </h3>
-                                <BarGroupedChart data={LEAGUES_TOTAL_DATA}/>
-                            </div>
-                            <div className='2xl:w-[75rem] xl:w-[55rem] lg:w-[40rem] md:w-0 sm:w-0 max-[767px]:w-0 h-96 flex flex-col justify-center'>
-                                <h3 className='flex items-center text-white pb-2 max-[1023px]:hidden'> 
-                                    <img className="w-10 h-10" src={yellow_card} />
-                                    <img className="w-10 h-10 mr-3" src={red_card} />
-                                    Yellow & Red Cards (2002 ~ 2022)
-                                </h3>
-                                {width && <CircleGroupedChart width={width} data={LEAGUES_TOTAL_CARDS_DATA}/>}
-                            </div>
-                        </MuiTabs>
-                    </BlocContent>
-                </div>
-                <BlocTitre>
-                    <p className="font-title text-white mb-3 text-xl">Cliquez une ligue que vous voulez voir</p>
-                </BlocTitre>
-                <div className="h-full w-full">
-                    <BlocCarte>
-                        {resultQueries[1].data.map(league => (
-                            <LigueCarte key={league.id} league={league} leagues_img_url={LEAGUES.IMG} />
-                        ))}       
-                    </BlocCarte>
-                </div> 
+            <div className="lg:h-screen md:h-full sm:h-full xl:ml-64 flex flex-col justify-between border-2 border-eerieBlack">
+                <BlocTitre text="Ligue (2002 ~ 2022) : 20 ans de football"/> 
+                <BlocContent>
+                    <MuiTabs>
+                        <div className="2xl:w-[75rem] xl:w-[70rem] lg:w-[63rem] md:w-0 sm:w-0 max-[767px]:w-0 h-96 flex flex-col justify-center">
+                            <h3 className='flex items-center text-white pb-3 max-[1023px]:hidden'> 
+                                <img className="w-12 h-12 mr-3" src={cup} />
+                                UEFA Coefficients des pays (2002 ~ 2022)
+                            </h3>
+                            <BumpChart data={UEFA_LEAGUES_RANKING} />
+                        </div>
+                        <div  className="2xl:w-[75rem] xl:w-[70rem] lg:w-[63rem] md:w-0 sm:w-0 max-[767px]:w-0 h-96 flex flex-col justify-center">
+                            <h3 className='flex items-center text-white pb-2 max-[1023px]:hidden'> 
+                                <img className="w-12 h-12 mr-3" src={goal} />
+                                Goals & Assists (2002 ~ 2022)
+                            </h3>
+                            <BarGroupedChart data={LEAGUES_TOTAL_DATA}/>
+                        </div>
+                        <div className='2xl:w-[75rem] xl:w-[70rem] lg:w-[63rem] md:w-0 sm:w-0 max-[767px]:w-0 h-96 flex flex-col justify-center'>
+                            <h3 className='flex items-center text-white pb-2 max-[1023px]:hidden'> 
+                                <img className="w-10 h-10" src={yellow_card} />
+                                <img className="w-10 h-10 mr-3" src={red_card} />
+                                Yellow & Red Cards (2002 ~ 2022)
+                            </h3>
+                            {width && <CircleGroupedChart width={width} data={LEAGUES_TOTAL_CARDS_DATA}/>}
+                        </div>
+                    </MuiTabs>
+                </BlocContent>
+                <BlocTitre text="Cliquez une ligue que vous voulez voir"/>
+                <BlocLigueCarte>
+                    {resultQueries[1].data.map(league => (
+                        <LigueCarte key={league.id} league={league} leagues_img_url={LEAGUES.IMG} />
+                    ))}       
+                </BlocLigueCarte>
             </div>        
     )
 }
