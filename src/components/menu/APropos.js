@@ -28,11 +28,11 @@ export default function APropos() {
                                 <p className="text-[20px] font-content">
                                 &nbsp; Nous sommes une équipe de passionnés de football et de visualisation de données. Nous avons créé ce site pour partager notre passion avec vous. Cependant, la création d'un site n'est pas facile et nous avons eu besoin de l'aide de nos collègues de <strong>EPSI Bordeaux</strong>.
 
-                                <br/><br/>&nbsp;Nous remercions <strong className="text-tiffanyBlue underline decoration-solid">Gaston PALLAS</strong> pour avoir développé la première partie du frontend en React et Tailwind. Grâce à son travail, nous sommes sur la bonne voie de développement.
+                                <br/><br/>&nbsp;Nous remercions <a href="https://github.com/Gastonpallas"><strong className="text-tiffanyBlue underline decoration-solid">Gaston PALLAS</strong></a> pour avoir développé la première partie du frontend en React et Tailwind. Grâce à son travail, nous sommes sur la bonne voie de développement.
 
-                                <br/><br/>&nbsp;Nous sommes également reconnaissants envers <strong className="text-tiffanyBlue underline decoration-solid">Zainab LAHMAR</strong> qui a effectué des recherches approfondies sur la modélisation des données. Elle a travaillé dur pour trouver les meilleurs moyens de visualiser les données sur la page web.
+                                <br/><br/>&nbsp;Nous sommes également reconnaissants envers <a href="https://github.com/zlahmar"><strong className="text-tiffanyBlue underline decoration-solid">Zainab LAHMAR</strong></a> qui a effectué des recherches approfondies sur la modélisation des données. Elle a travaillé dur pour trouver les meilleurs moyens de visualiser les données sur la page web.
 
-                                <br/><br/>&nbsp;Enfin, nous n'aurions pas pu déployer ce site sans l'aide de <strong className="text-tiffanyBlue underline decoration-solid">Julien FLUSIN</strong>. De l'intégration continue au serveur de nom de domaine, il nous a énormément aidés et nous sommes très reconnaissants pour son soutien.
+                                <br/><br/>&nbsp;Enfin, nous n'aurions pas pu déployer ce site sans l'aide de <a href="https://github.com/jul-fls"><strong className="text-tiffanyBlue underline decoration-solid">Julien FLUSIN</strong></a>. De l'intégration continue au serveur de nom de domaine, il nous a énormément aidés et nous sommes très reconnaissants pour son soutien.
 
                                 <br/><br/>&nbsp;Nous sommes fiers de ce que nous avons créé ensemble et espérons que vous apprécierez notre site autant que nous avons apprécié de le créer.
 
@@ -41,11 +41,13 @@ export default function APropos() {
                         </div>
                     </div>
                     <div className="mt-5 pb-2 pr-8 flex flex-row-reverse w-full">
-                        <p className="text-lg text-tiffanyBlue">
-                            Sangmin SHIM 
-                            <br/>
-                            <span className="text-sm">Développeur Fullstack</span>
-                        </p>
+                        <a href="https://github.com/Sangmin-SHIM">
+                            <p className="text-lg text-tiffanyBlue">
+                                Sangmin SHIM 
+                                <br/>
+                                <span className="text-sm">Développeur Fullstack</span>
+                            </p>
+                        </a>
                         <img className="w-8 h-8 mr-3 mt-3" src={logo} alt="logo" />
                     </div>
                 </div>
