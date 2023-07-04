@@ -16,14 +16,14 @@ const CustomTooltip = node => (
     >
         <span style={{ fontWeight: 600 }}>
             <div className='ml-12 my-3'>
-                <img className='w-8 h-8' src={champion}/>
+                <img className='w-8 h-8' src={champion} alt="img-champion"/>
             </div>
         </span>
         <span className='my-3'>{node.value} fois</span>
 
         <span style={{ fontWeight: 600 }}>
             <div className='ml-12 mb-3'>
-                <img className='w-8 h-8' src={fc}/>
+                <img className='w-8 h-8' src={fc} alt="img-club"/>
             </div>            
         </span>
         <span>{node.label}</span>
@@ -31,12 +31,12 @@ const CustomTooltip = node => (
         <span className='flex flex-col justify-center align-center' style={{ fontWeight: 600 }}>
             Saison
             <div className='ml-12 mb-3'>
-                <img className='w-8 h-8' src={stadium}/>
+                <img className='w-8 h-8' src={stadium} alt="img-stadium"/>
             </div>  
         </span>
         
         <span>{node.season.map((value,index) => {
-                if(index == node.season.length-1) {
+                if(index === node.season.length-1) {
                   return  value 
                 }  
                 return  value + ', ' 
