@@ -1,14 +1,11 @@
-import { Children } from 'react';
 
-function BlocTitre({children}){
+function BlocTitre({text}){
     return (
-        <div className="bg-eerieBlack flex pt-6 pb-5">
+        <div className="flex pt-3 pb-3 pl-3">
             <div className="flex flex-row flex-wrap w-4/5 ">
-            {Children.map(children, child =>
-                <p className='text-white text-2xl font-title'>    
-                    {child}
+                <p className="font-title text-white text-2xl">
+                    {text}
                 </p>
-            )}
             </div>
         </div>
     )
