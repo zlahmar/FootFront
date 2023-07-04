@@ -2,7 +2,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
 export default function MuiTabPanel(props) {
-    const { children, value, index, ...other } = props;
+    const { children, value, index } = props;
     return (
       <div
         role="tabpanel"
