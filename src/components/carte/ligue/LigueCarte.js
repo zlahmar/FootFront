@@ -1,19 +1,19 @@
-import '../../styles/index.css'
+import '../../../styles/index.css'
 import {Link} from "react-router-dom";
 
-function LigueCarte({ league, leagues_img_url, isDisabled = false }){
+function LigueCarte({ league, leagues_img_url, isClickDisabled = false }){
     return (
-            <div className={` ${isDisabled ? 'h-full' : ''} border-t-2 border-tiffanyBlue pt-4 rounded-3xl bg-[url('/src/assets/arriere_plan/carte.png')] bg-cover bg-center bg-no-repeat`}>
+            <div className={` ${isClickDisabled ? 'h-full' : ''} border-t-2 border-tiffanyBlue pt-4 rounded-3xl bg-[url('/src/assets/arriere_plan/carte.png')] bg-cover bg-center bg-no-repeat transition shadow hover:shadow-lg hover:shadow-tiffanyBlue`}>
                 <Link
-                to={{pathname : `${league.id}`,
+                to={{pathname : `${league.id}/clubs`,
                     state: { leagueId: league.id }}}
-                    className={` ${isDisabled ? 'pointer-events-none h-full mb-5' : ''} block rounded-3xl border-2 border-tiffanyBlue bg-gunMetal transition shadow hover:shadow-lg hover:shadow-tiffanyBlue`}
+                    className={` ${isClickDisabled ? 'pointer-events-none h-full mb-5' : ''} block rounded-3xl border-2 border-tiffanyBlue bg-gunMetal `}
                 >
                     <div className="flex items-start relative">
                         <img className="w-20 rounded-2xl absolute left-3 -top-7 border-2 border-onyx" src={leagues_img_url +"/" + league.name} alt="" />
                     </div>
 
-                    <div className={`${isDisabled ? 'h-full flex flex-col justify-center' : ''} text-center p-3 sm:p-5 lg:p-7`}>
+                    <div className={`${isClickDisabled ? 'h-full flex flex-col justify-center' : ''} text-center p-3 sm:p-5 lg:p-7`}>
                         <p className="text-lg font-bold text-white font-title">{league.name}</p>
 
                         <p className="mt-1 font-mono text-xs text-white font-content">{league.clubs.length} Clubs</p>

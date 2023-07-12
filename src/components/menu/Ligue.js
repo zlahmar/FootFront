@@ -11,7 +11,7 @@ import LEAGUE from "../../data/Constants";
 import { getLeagueArrayRankByYear, getLeagueArrayTotalData, getLeagueArrayTotalCardsData } from '../../data/Arrays';
 
 // Components
-import LigueCarte from "../carte/LigueCarte";
+import LigueCarte from "../carte/ligue/LigueCarte";
 import BlocLigueCarte from "../bloc/BlocLigueCarte";
 import BlocTitre from "../bloc/BlocTitre";
 import BlocContent from "../bloc/BlocContent";
@@ -128,25 +128,25 @@ function Ligue (){
                 <BlocContent>
                     <MuiTabs>
                         <div className="2xl:w-[75rem] xl:w-[70rem] lg:w-[63rem] md:w-0 sm:w-0 max-[767px]:w-0 h-96 flex flex-col justify-center">
-                            <h3 className='flex items-center text-white pb-3 max-[1023px]:hidden font-title text-lg'> 
+                            <span className='flex items-center text-white pb-3 max-[1023px]:hidden font-title text-lg'> 
                                 <img className="w-14 h-14 mr-3" src={kickball} alt="kickball" />
                                 UEFA Coefficients des pays (2002 ~ 2022)
-                            </h3>
+                            </span>
                             <BumpChart data={UEFA_LEAGUES_RANKING} />
                         </div>
                         <div  className="2xl:w-[75rem] xl:w-[70rem] lg:w-[63rem] md:w-0 sm:w-0 max-[767px]:w-0 h-96 flex flex-col justify-center">
-                            <h3 className='flex items-center text-white pb-2 max-[1023px]:hidden font-title text-lg'> 
+                            <span className='flex items-center text-white pb-2 max-[1023px]:hidden font-title text-lg'> 
                                 <img className="w-12 h-12 mr-3" src={goal} alt="goal" />
                                 Buts & Passes décisives (2002 ~ 2022)
-                            </h3>
+                            </span>
                             <BarGroupedChart data={LEAGUES_TOTAL_DATA}/>
                         </div>
                         <div className='2xl:w-[75rem] xl:w-[70rem] lg:w-[63rem] md:w-0 sm:w-0 max-[767px]:w-0 h-96 flex flex-col justify-center'>
-                            <h3 className='flex items-center text-white pt-4 max-[1023px]:hidden font-title text-lg'> 
+                            <span className='flex items-center text-white pt-4 max-[1023px]:hidden font-title text-lg'> 
                                 <img className="w-10 h-10" src={yellow_card} alt="yellowcard"/>
                                 <img className="w-10 h-10 mr-3" src={red_card} alt="redcard"/>
                                 Cartons jaunes et rouges (2002 ~ 2022)
-                            </h3>
+                            </span>
                             {width && <CircleGroupedChart width={width} data={LEAGUES_TOTAL_CARDS_DATA}/>}
                         </div>
                     </MuiTabs>
