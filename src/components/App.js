@@ -1,6 +1,6 @@
 import {Routes, Route} from "react-router-dom";
 import Ligue from "./menu/Ligue";
-import Club from "./menu/Club";
+import ClubsDansLigue from "./menu/ClubsDansLigue";
 import APropos from "./menu/APropos";
 import { useState } from 'react';
 import SideBar from "./SideBar";
@@ -20,8 +20,8 @@ function App() {
 
                 <Routes>
                     <Route path="a_propos" element={<APropos/>}/>
-                    <Route path="ligue" element={<Ligue/>}/>
-                    <Route path="ligue/:ligue_id" element={<Club/>}/>
+                    <Route path="ligues" element={<Ligue/>}/>
+                    <Route path="ligues/:ligue_id/clubs" element={<ClubsDansLigue/>}/>
                 </Routes>
             </div>
     )

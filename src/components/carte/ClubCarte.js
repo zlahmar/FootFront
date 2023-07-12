@@ -14,7 +14,7 @@ function ClubCarte({ id, name, clubs_img_url}){
                 </div>
 
                 <div className="w-full p-1 sm:p-1 lg:p-3">
-                    <p className="text-lg font-bold text-white font-title">{name}</p>
+                    <span className="text-lg font-bold text-white font-title">{name}</span>
                 </div>
             </Link>
         </div>

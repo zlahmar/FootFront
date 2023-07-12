@@ -39,7 +39,7 @@ const queryClient = new QueryClient()
 export default function App() {
     return (
         <QueryClientProvider client={queryClient}>
-            <Club/>
+            <ClubsDansLigue/>
         </QueryClientProvider>
     )
 }
@@ -47,8 +47,10 @@ export default function App() {
 // -----------------------
 // 3) CLUB COMPONENT
 // -----------------------
-function Club() {
-    const league_id = window.location.pathname.slice(-1);
+function ClubsDansLigue() {
+    const url =new URL(window.location.href);    
+    const league_id = url.pathname.split('/')[2];
+    
     // -----------------------------------------------------------------------
     // 3-1) USE STATE / USE EFFECT : WIDTH RESPONSIVE FOR GRAPH WaffleChart, TreeMapChart
     // -----------------------------------------------------------------------
