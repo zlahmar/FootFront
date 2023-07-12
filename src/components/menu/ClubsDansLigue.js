@@ -15,12 +15,12 @@ import TreeMapChart from '../graphique/TreeMapChart';
 
 // Components
 import LigueCarte from '../carte/ligue/LigueCarte';
-import LigueLeMeilleur from '../carte/ligue/LigueLeMeilleur';
+import LeMeilleur from '../carte/LeMeilleur';
 import ClubCarte from "../carte/club/ClubCarte";
 import BlocClubCarte from '../bloc/BlocClubCarte';
 import BlocTitre from '../bloc/BlocTitre';
 import BlocContent from '../bloc/BlocContent';
-import BlocLigueLeMeilleur from '../bloc/BlocLigueLeMeilleur';
+import BlocLeMeilleur from '../bloc/BlocLeMeilleur';
 import LoadingCarte from "../carte/LoadingCarte";
 import useWindowWidth from '../utility/utility';
 
@@ -125,20 +125,20 @@ function ClubsDansLigue() {
     // ---------------------------------------------
     // 4) RETURN
     // ---------------------------------------------
-    const isDisabled = true
+    const isClickDisabled = true
 
     return (
         <div className="lg:h-screen md:h-full sm:h-full xl:ml-64 flex flex-col justify-between border-2 border-eerieBlack">
             <div className="lg:flex lg:flex-row sm:max-md:flex-col pt-3">
                 <div className="basis-2/6 w-full pr-1 mb-5">
-                    <LigueCarte key={league.id} league={league} leagues_img_url={LEAGUES.IMG} isDisabled={isDisabled}/>
+                    <LigueCarte key={league.id} league={league} leagues_img_url={LEAGUES.IMG} isClickDisabled={isClickDisabled}/>
                 </div>    
                 <div className="basis-4/6 w-full pr-1 mb-5">
-                    <BlocLigueLeMeilleur>
+                    <BlocLeMeilleur>
                         {BESTS.map(best => (
-                            <LigueLeMeilleur title={best.title} key={best.key}  img_url={best.img_url} data_name={best.data_name} data_value1 = {best.data_value1} data_value2= {best.data_value2}/>
+                            <LeMeilleur title={best.title} key={best.key}  img_url={best.img_url} data_name={best.data_name} data_value1 = {best.data_value1} data_value2= {best.data_value2}/>
                         ))}
-                    </BlocLigueLeMeilleur>
+                    </BlocLeMeilleur>
                 </div>    
             </div>
             <div className="lg:flex lg:flex-row xl:max-2xl:flex-col" >
@@ -176,7 +176,7 @@ function ClubsDansLigue() {
             <BlocTitre text="Cliquez sur le club que vous voulez voir ci-dessous"/>
             <BlocClubCarte>
                 {clubs.map(club => (
-                    <ClubCarte key={club.id} club={club} clubs_img_url={CLUBS.IMG} isDisabled={false}/>
+                    <ClubCarte key={club.id} club={club} clubs_img_url={CLUBS.IMG} isClickDisabled={false}/>
                 ))}
             </BlocClubCarte>
         </div>

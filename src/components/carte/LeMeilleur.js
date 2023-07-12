@@ -1,6 +1,6 @@
-import '../../../styles/index.css'
+import '../../styles/index.css'
 
-function LigueLeMeilleur({id,title, img_url, data_name, data_value1, data_value2}){
+function LeMeilleur({id,title, img_url, data_name, data_value1, data_value2}){
     return (
         <div className="flex flex-col text-white">
         <div className="text-center">
@@ -21,4 +21,4 @@ function LigueLeMeilleur({id,title, img_url, data_name, data_value1, data_value2
     )
 }
 
-export default LigueLeMeilleur
+export default LeMeilleur

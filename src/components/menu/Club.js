@@ -11,6 +11,8 @@ import ClubCarte from '../carte/club/ClubCarte';
 
 // Components
 import LoadingCarte from "../carte/LoadingCarte";
+import LeMeilleur from '../carte/LeMeilleur';
+import BlocLeMeilleur from '../bloc/BlocLeMeilleur';
 
 // -----------------------
 // 1) QUERY CLIENT
@@ -79,8 +81,17 @@ function Club() {
         <div className="lg:h-screen md:h-full sm:h-full xl:ml-64 flex flex-col justify-between border-2 border-eerieBlack">
         <div className="lg:flex lg:flex-row sm:max-md:flex-col pt-3">
             <div className="basis-2/6 w-full pr-1 mb-5">
-                <ClubCarte key={club.id} club={club} clubs_img_url={CLUBS.IMG} isDisabled={true}/>
-            </div>      
+                <ClubCarte key={club.id} club={club} clubs_img_url={CLUBS.IMG} isClickDisabled={true}/>
+            </div>  
+            <div className="basis-4/6 w-full pr-1 mb-5">
+                    <BlocLeMeilleur>
+                        {/* {BESTS.map(best => ( */}
+                            <LeMeilleur title={"Meilleur Buteur"} key={"1"}  img_url={""} data_name={"TEST"} data_value1 = {"TEST"} data_value2= {"TEST"}/>
+                            <LeMeilleur title={"Meilleur Passeur"} key={"1"}  img_url={""} data_name={"TEST"} data_value1 = {"TEST"} data_value2= {"TEST"}/>
+                            <LeMeilleur title={"Meilleur Gardien"} key={"1"}  img_url={""} data_name={"TEST"} data_value1 = {"TEST"} data_value2= {"TEST"}/>
+                        {/* ))}*/}
+                    </BlocLeMeilleur>
+                </div>    
         </div>
     </div>
     )
