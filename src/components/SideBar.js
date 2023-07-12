@@ -5,6 +5,7 @@ import joueur from '../assets/icon/joueur.png';
 import annonce from '../assets/icon/annonce.png';
 import LienMenu from "./LienMenu";
 import '../styles/index.css'
+import {Link} from "react-router-dom";
 
 
 function SideBar({onChildClick, visible}){
@@ -24,18 +25,20 @@ function SideBar({onChildClick, visible}){
             <aside id="logo-sidebar" className="w-64 fixed top-0 left-0 z-40 h-screen transition-transform -translate-x-full xl:translate-x-0" aria-label="Sidebar">
                 <div className="h-full px-3 py-4 flex flex-col overflow-y-auto bg-gunMetal border-r-2 border-tiffanyBlue">
                     <div className="flex items-center pl-2.5 mb-20">
-                        <img src={logo} className="mr-3 h-11" alt="FOOT Logo" />
-                        <span className="font-title self-center text-4xl font-bold whitespace-nowrap text-white">FootStats</span>
+                        <Link to='/' className='flex'>
+                            <img src={logo} className="mr-3 h-11" alt="FOOT Logo" />
+                            <span className="font-title self-center text-4xl font-bold whitespace-nowrap text-white">FootStats</span>
+                        </Link>
                     </div>
                     <ul className="space-y-10">
                         <li>
-                            <LienMenu lien="/ligue" texte="Ligue" image={ligue}></LienMenu>
+                            <LienMenu lien="/ligues" texte="Ligue" image={ligue}></LienMenu>
                         </li>
                         <li>
-                            <LienMenu lien="/club" texte="Club" image={club}></LienMenu>
+                            <LienMenu lien="/clubs" texte="Club" image={club}></LienMenu>
                         </li>
                         <li>
-                            <LienMenu lien="/joueur" texte="Joueur" image={joueur}></LienMenu>                        
+                            <LienMenu lien="/joueurs" texte="Joueur" image={joueur}></LienMenu>                        
                         </li>
                         <li className="absolute w-[230px] bottom-5">
                             <LienMenu lien="/a_propos" texte="A propos" image={annonce}></LienMenu>    

@@ -5,7 +5,7 @@ function LigueCarte({ league, leagues_img_url, isDisabled = false }){
     return (
             <div className={` ${isDisabled ? 'h-full' : ''} border-t-2 border-tiffanyBlue pt-4 rounded-3xl bg-[url('/src/assets/arriere_plan/carte.png')] bg-cover bg-center bg-no-repeat`}>
                 <Link
-                to={{pathname : `${league.id}`,
+                to={{pathname : `${league.id}/clubs`,
                     state: { leagueId: league.id }}}
                     className={` ${isDisabled ? 'pointer-events-none h-full mb-5' : ''} block rounded-3xl border-2 border-tiffanyBlue bg-gunMetal transition shadow hover:shadow-lg hover:shadow-tiffanyBlue`}
                 >
