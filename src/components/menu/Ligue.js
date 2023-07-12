@@ -11,7 +11,7 @@ import LEAGUE from "../../data/Constants";
 import { getLeagueArrayRankByYear, getLeagueArrayTotalData, getLeagueArrayTotalCardsData } from '../../data/Arrays';
 
 // Components
-import LigueCarte from "../carte/LigueCarte";
+import LigueCarte from "../carte/ligue/LigueCarte";
 import BlocLigueCarte from "../bloc/BlocLigueCarte";
 import BlocTitre from "../bloc/BlocTitre";
 import BlocContent from "../bloc/BlocContent";

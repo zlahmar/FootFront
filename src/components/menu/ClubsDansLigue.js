@@ -14,14 +14,15 @@ import WaffleChart from '../graphique/WaffleChart';
 import TreeMapChart from '../graphique/TreeMapChart';
 
 // Components
-import LigueCarte from '../carte/LigueCarte';
-import LigueLeMeilleur from '../carte/LigueLeMeilleur';
-import ClubCarte from "../carte/ClubCarte";
+import LigueCarte from '../carte/ligue/LigueCarte';
+import LigueLeMeilleur from '../carte/ligue/LigueLeMeilleur';
+import ClubCarte from "../carte/club/ClubCarte";
 import BlocClubCarte from '../bloc/BlocClubCarte';
 import BlocTitre from '../bloc/BlocTitre';
 import BlocContent from '../bloc/BlocContent';
 import BlocLigueLeMeilleur from '../bloc/BlocLigueLeMeilleur';
 import LoadingCarte from "../carte/LoadingCarte";
+import useWindowWidth from '../utility/utility';
 
 // Icons
 import ligue from '../../assets/icon/cup.png'
@@ -31,7 +32,6 @@ import nationality from '../../assets/icon/nationality.png'
 // 1) QUERY CLIENT
 // -----------------------
 const queryClient = new QueryClient()
-
 
 // -----------------------
 // 2) QUERY CLIENT PROVIDER
@@ -53,27 +53,8 @@ function ClubsDansLigue() {
     // -----------------------------------------------------------------------
     // 3-1) USE STATE / USE EFFECT : WIDTH RESPONSIVE FOR GRAPH WaffleChart, TreeMapChart
     // -----------------------------------------------------------------------
-    const [width, setWidth] = useState(null);
-    useEffect(() => {
-      function handleResize() {
-        const xl2 = 1536;
-        const xl = 1280;
-        const lg = 1024;
-        if (window.innerWidth < lg ) {
-            setWidth(500);
-        } else if (window.innerWidth < xl) {
-            setWidth(500);
-        } else if (window.innerWidth < xl2) {
-            setWidth(600);
-        } else 
-        {
-            setWidth(600);
-        }
-      }
-      handleResize();
-      window.addEventListener('resize', handleResize);
-      return () => window.removeEventListener('resize', handleResize);
-      }, []);
+    const width = useWindowWidth();
+
     
     // ---------------------------------------------
     // 3-2) USE QUERIES : FETCHING DATA FROM API
@@ -93,26 +74,27 @@ function ClubsDansLigue() {
     // ---------------------------------------------
     // 3-3) LOADING / ERROR
     // ---------------------------------------------
-    if (resultQueries[0].isLoading || 
-        resultQueries[1].isLoading || 
-        resultQueries[2].isLoading ||
-        resultQueries[3].isLoading ||
-        resultQueries[4].isLoading ||
-        resultQueries[5].isLoading ||
-        resultQueries[6].isLoading) return (
+    let isLoading = false;
+    let isError = false;
+
+    resultQueries.forEach(query => {
+        if (query.isLoading) {
+            isLoading = true;
+        }
+
+        if (query.isError) {
+            isError = true;
+        }    
+    });
+
+    if (isLoading) return 
+        (
         <div className="lg:h-screen md:h-full sm:h-full sm:ml-64 flex flex-col justify-between border-2 border-eerieBlack pt-3 pb-3">
                 <LoadingCarte/>
         </div>
-    )
+        )
 
-    if (resultQueries[0].error ||
-        resultQueries[1].error ||
-        resultQueries[2].error ||
-        resultQueries[3].error ||
-        resultQueries[4].error || 
-        resultQueries[5].error ||
-        resultQueries[6].error) 
-        return 'An error has occured '
+    if (isLoading) return 'An error has occured '
 
     // ---------------------------------------------
     // 3-4) SUCCESS
@@ -194,7 +176,7 @@ function ClubsDansLigue() {
             <BlocTitre text="Cliquez sur le club que vous voulez voir ci-dessous"/>
             <BlocClubCarte>
                 {clubs.map(club => (
-                    <ClubCarte key={club.id} id={club.id} name={club.name} clubs_img_url={CLUBS.IMG}/>
+                    <ClubCarte key={club.id} club={club} clubs_img_url={CLUBS.IMG} isDisabled={false}/>
                 ))}
             </BlocClubCarte>
         </div>

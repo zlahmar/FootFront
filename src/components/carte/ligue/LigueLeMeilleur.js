@@ -1,4 +1,4 @@
-import '../../styles/index.css'
+import '../../../styles/index.css'
 
 function LigueLeMeilleur({id,title, img_url, data_name, data_value1, data_value2}){
     return (

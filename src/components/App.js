@@ -20,11 +20,22 @@ function App() {
                 <SideBar onChildClick={handleButton} visible={visible}/>
 
                 <Routes>
-                    <Route path="a_propos" element={<APropos/>}/>
+                    {/*---------------------------
+                    1) Ligue -------------------
+                    */}
                     <Route path="ligues" element={<Ligue/>}/>
                     <Route path="ligues/:ligue_id/clubs" element={<ClubsDansLigue/>}/>
                     <Route path="ligues/:ligue_id/clubs/:club_id" element={<Club/>}/>
                     
+                    {/* --------------------------
+                    2) Club -------------------
+                    */}
+
+                    {/* --------------------------
+                    3) A propos ----------------
+                    */}
+                    <Route path="a_propos" element={<APropos/>}/>
+
                 </Routes>
             </div>
     )
