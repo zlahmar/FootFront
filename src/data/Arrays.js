@@ -73,3 +73,13 @@ export const getNationalities = (obj_array) => {
     }
     return result
 }
+
+// getIdFromUrl
+export const getIdFromUrl = (value) => {
+    const url = new URL(window.location.href);
+    const path = url.pathname.split('/')
+    const index = path.indexOf(value)
+
+    const id = path[index+1]
+    return id;
+}

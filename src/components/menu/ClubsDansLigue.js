@@ -7,7 +7,7 @@ import { QueryClient, QueryClientProvider,  useQueries } from "react-query"
 
 // API / DATA
 import {LEAGUES,CLUBS, PLAYERS} from "../../data/Api"
-import { getBestClubBySeason, getNationalities } from '../../data/Arrays';
+import {getIdFromUrl ,getBestClubBySeason, getNationalities } from '../../data/Arrays';
 
 // Graphique
 import WaffleChart from '../graphique/WaffleChart';
@@ -45,11 +45,10 @@ export default function App() {
 }
 
 // -----------------------
-// 3) CLUB COMPONENT
+// 3) CLUBS COMPONENT
 // -----------------------
 function ClubsDansLigue() {
-    const url =new URL(window.location.href);    
-    const league_id = url.pathname.split('/')[2];
+    const league_id = getIdFromUrl("ligues");
     
     // -----------------------------------------------------------------------
     // 3-1) USE STATE / USE EFFECT : WIDTH RESPONSIVE FOR GRAPH WaffleChart, TreeMapChart
