@@ -22,11 +22,14 @@ import BlocTitre from '../bloc/BlocTitre';
 import BlocContent from '../bloc/BlocContent';
 import BlocLeMeilleur from '../bloc/BlocLeMeilleur';
 import LoadingCarte from "../carte/LoadingCarte";
-import useWindowWidth from '../utility/utility';
+import {useWindowWidth, selectSeasons} from '../utility/utility';
 
 // Icons
 import ligue from '../../assets/icon/cup.png'
 import nationality from '../../assets/icon/nationality.png'
+
+// MUI
+import { Box, TextField, MenuItem } from '@mui/material';
 
 // -----------------------
 // 1) QUERY CLIENT
@@ -49,13 +52,13 @@ export default function App() {
 // -----------------------
 function ClubsDansLigue() {
     const league_id = getIdFromUrl("ligues");
+    const [season, setSeason] = useState(["2002-2003"]);
     
     // -----------------------------------------------------------------------
     // 3-1) USE STATE / USE EFFECT : WIDTH RESPONSIVE FOR GRAPH WaffleChart, TreeMapChart
     // -----------------------------------------------------------------------
     const width = useWindowWidth();
 
-    
     // ---------------------------------------------
     // 3-2) USE QUERIES : FETCHING DATA FROM API
     // ---------------------------------------------
@@ -67,9 +70,14 @@ function ClubsDansLigue() {
             { queryKey: ['allTimeBestPlaymaker',4], queryFn: () => fetch(PLAYERS.ALL_TIME_BEST_PLAYMAKER+'?league_id='+league_id).then(res => res.json())},
             { queryKey: ['allTimeBestGoalkeeper',5], queryFn: () => fetch(PLAYERS.ALL_TIME_BEST_GOALKEEPER+'?league_id='+league_id).then(res => res.json())},
             { queryKey: ['bestClubySeason',6], queryFn: () => fetch(CLUBS.BEST_BY_SEASON+'?league_id='+league_id).then(res => res.json())},
-            { queryKey: ['nationalities', 7], queryFn: () => fetch(LEAGUES.NATIONALITIES+'?league_id='+league_id).then(res => res.json())}
+            { queryKey: ['nationalities', 7], queryFn: () => fetch(LEAGUES.NATIONALITIES+'?league_id='+league_id+'&season='+season).then(res => res.json())}
         ]
     )
+    
+    const handleSeasonChange = (insertedSeason) => {
+        setSeason(insertedSeason);
+        resultQueries[6].refetch();
+    }
     
     // ---------------------------------------------
     // 3-3) LOADING / ERROR
@@ -162,9 +170,66 @@ function ClubsDansLigue() {
                         <div>
                             <div className='flex justify-center text-white pb-3 pt-3 max-[1023px]:hidden'>
                                 <img className="w-12 h-12 mr-3" src={nationality} alt="nationalitiy"/>
-                                <h3 className='font-title text-lg'> 
-                                    Nationalités des joueurs <br/> en <strong>{league.name}</strong> (2002 ~ 2022)
-                                </h3>
+                                <div className='flex'>
+                                    <h3 className='font-title text-lg'> 
+                                        Nationalités des joueurs <br/> en <strong>{league.name}</strong> ({season})
+                                    </h3>
+                                    <Box className="pt-2">
+                                        <Box mx={5}>
+                                            <TextField 
+                                            label="Saississez une saison"
+                                            value={season}
+                                            onChange={e=>handleSeasonChange(e.target.value)}
+                                            select
+                                            sx={{
+                                                    'width':"200px",
+                                                    '& label': {
+                                                        color: 'white', // Change the label color
+                                                        fontSize: '1rem',
+                                                    },
+                                                    '&:hover label': {
+                                                        color: '#A8E1DC'
+                                                    },
+                                                    "& label.Mui-focused": {
+                                                        color: '#A8E1DC'
+                                                    },
+                                                    '& .MuiOutlinedInput-root': {
+                                                        '& fieldset': {
+                                                        borderColor: 'white',
+                                                        },
+                                                        '&:hover fieldset': {
+                                                        borderColor: '#A8E1DC',
+                                                        },
+                                                        '&.Mui-focused fieldset': {
+                                                        borderColor: '#A8E1DC',
+                                                        },
+                                                    }
+                                                }}
+                                            InputProps={
+                                                    {style: {color: 'white'}}
+                                                }
+                                            SelectProps={{
+                                                MenuProps: {
+                                                PaperProps: {
+                                                    style: {
+                                                    maxHeight: 250, // Adjust this value as needed to limit the displayed height
+                                                    backgroundColor: '#2B3132',
+                                                    color: 'white',
+                                                    },
+                                                },
+                                                },
+                                            }}
+                                            >
+                                                {selectSeasons("2002-2003", 20).map(season => (
+                                                    <MenuItem 
+                                                    value={season} 
+                                                    key={season}
+                                                    >{season}</MenuItem>
+                                                ))}
+                                            </TextField>
+                                        </Box>
+                                    </Box>
+                                </div>
                             </div>
                             <div className="2xl:w-1/2 xl:w-[40rem] lg:w-[30rem] md:w-[30rem] sm:w-0 max-[767px]:w-0 h-72">
                                 {width && <TreeMapChart width={width} data={NATIONALITIES}/>}

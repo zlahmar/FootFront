@@ -5,7 +5,7 @@ const LEAGUES = {
     RANKING : API_URL + "rankings_league",
     IMG : API_URL + "images/leagues",
     TOTAL : API_URL + "stats_league_club/total",
-    NATIONALITIES : API_URL + "stats_league_club/nationalities", // ?league_id=
+    NATIONALITIES : API_URL + "stats_league_club/nationalities_by_season", // ?league_id= &season=
 }
 
 const CLUBS = {

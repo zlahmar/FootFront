@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-function useWindowWidth() {
+export function useWindowWidth() {
   const [width, setWidth] = useState(null);
 
   useEffect(() => {
@@ -30,4 +30,16 @@ function useWindowWidth() {
   return width;
 }
 
-export default useWindowWidth;
+export function selectSeasons(season, numberOfSeasons) {
+  const seasonsArray=[];
+  const [startYear, endYear] = season.split('-').map(Number);
+
+  for (let i=0; i<numberOfSeasons; i++) {
+    const currentStartYear = startYear + i;
+    const currentEndYear = endYear + i;
+
+    seasonsArray.push(`${currentStartYear}-${currentEndYear}`);
+  }
+
+  return seasonsArray;
+}
