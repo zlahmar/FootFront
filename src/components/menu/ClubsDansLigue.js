@@ -2,7 +2,7 @@
 import '../../styles/index.css'
 
 // React
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import { QueryClient, QueryClientProvider,  useQueries } from "react-query"
 
 // API / DATA
@@ -22,14 +22,13 @@ import BlocTitre from '../bloc/BlocTitre';
 import BlocContent from '../bloc/BlocContent';
 import BlocLeMeilleur from '../bloc/BlocLeMeilleur';
 import LoadingCarte from "../carte/LoadingCarte";
-import {useWindowWidth, selectSeasons} from '../utility/utility';
+import {useWindowWidth} from '../utility/utility';
 
 // Icons
 import ligue from '../../assets/icon/cup.png'
 import nationality from '../../assets/icon/nationality.png'
 
 // MUI
-import { Box, TextField, MenuItem } from '@mui/material';
 import MuiSeasonSelectBox from '../mui_component/MuiSeasonSelectBox';
 
 // -----------------------
