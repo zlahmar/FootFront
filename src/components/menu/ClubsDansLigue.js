@@ -2,7 +2,7 @@
 import '../../styles/index.css'
 
 // React
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { QueryClient, QueryClientProvider,  useQueries } from "react-query"
 
 // API / DATA
@@ -31,6 +31,8 @@ import nationality from '../../assets/icon/nationality.png'
 // MUI
 import MuiSeasonSelectBox from '../mui_component/MuiSeasonSelectBox';
 
+import { selectSeasons } from '../utility/utility';
+
 // -----------------------
 // 1) QUERY CLIENT
 // -----------------------
@@ -52,8 +54,11 @@ export default function App() {
 // -----------------------
 function ClubsDansLigue() {
     const league_id = getIdFromUrl("ligues");
-    const [season, setSeason] = useState(["2002-2003"]);
-    
+    const startSeason = "2002-2003"
+    const numberOfSeasons = 20
+ 
+    let [season, setSeason] = useState([selectSeasons(startSeason, numberOfSeasons)[numberOfSeasons-1]]);
+
     // -----------------------------------------------------------------------
     // 3-1) USE STATE / USE EFFECT : WIDTH RESPONSIVE FOR GRAPH WaffleChart, TreeMapChart
     // -----------------------------------------------------------------------
@@ -74,10 +79,15 @@ function ClubsDansLigue() {
         ]
     )
     
-    const handleSeasonChange = (insertedSeason) => {
-        setSeason(insertedSeason);
+    useEffect(() => {
+        // This code will execute every time the season state changes
         resultQueries[6].refetch();
-    }
+      }, [season]); // The effect depends on the season state
+    
+      const handleSeasonChange = (insertedSeason) => {
+        setSeason(insertedSeason);
+        // The useEffect above will run after this function, and the new season value will be updated.
+      };
     
     // ---------------------------------------------
     // 3-3) LOADING / ERROR
