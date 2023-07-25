@@ -127,7 +127,7 @@ function Ligue (){
     // 4) RETURN
     // ---------------------------------------------
     return (    
-            <div className="lg:h-screen md:h-full sm:h-full xl:ml-64 flex flex-col justify-between border-2 border-eerieBlack">
+            <div className="lg:h-screen md:h-full sm:h-full xl:ml-64 flex flex-col justify-around border-2 border-eerieBlack">
                 <BlocTitre text="Ligue (2002 ~ 2022) : 20 ans de 5 ligues principales"/> 
                 <BlocContent>
                     <MuiTabs>
@@ -162,5 +162,5 @@ function Ligue (){
                     ))}       
                 </BlocLigueCarte>
             </div>        
-    )
+            )
 }
