@@ -146,60 +146,60 @@ function ClubsDansLigue() {
     const isClickDisabled = true
 
     return (
-        <div className="lg:h-screen md:h-full sm:h-full xl:ml-64 flex flex-col justify-between border-2 border-eerieBlack">
-            <div className="lg:flex lg:flex-row sm:max-md:flex-col pt-3">
-                <div className="basis-2/6 w-full pr-1 mb-5">
-                    <LigueCarte key={league.id} league={league} leagues_img_url={LEAGUES.IMG} isClickDisabled={isClickDisabled}/>
-                </div>    
-                <div className="basis-4/6 w-full pr-1 mb-5">
-                    <BlocLeMeilleur>
-                        {BESTS.map(best => (
-                            <LeMeilleur title={best.title} key={best.key}  img_url={best.img_url} data_name={best.data_name} data_value1 = {best.data_value1} data_value2= {best.data_value2}/>
-                        ))}
-                    </BlocLeMeilleur>
-                </div>    
-            </div>
-            <div className="lg:flex lg:flex-row xl:max-2xl:flex-col" >
-                <div className="flex basis-1/2 w-full ml-1 mr-1 mb-1">
-                    <BlocContent>
-                        <div>
-                            <div className='flex justify-center text-white pb-3 pt-3 max-[1023px]:hidden'>
-                                <img className="w-12 h-12 mr-3" src={ligue} alt="ligue" />
-                                <h3 className="font-title text-lg"> 
-                                    Champions de <strong>{league.name}</strong> <br/> (2002-2022)
-                                </h3>
-                            </div>
-                            <div className="2xl:w-1/2 xl:w-[40rem] lg:w-[30rem] md:w-[30rem] sm:w-0 max-[767px]:w-0 h-72">
-                                {width && <WaffleChart width={width} data={BEST_CLUBS_BY_SEASON}/>}
-                            </div> 
-                        </div>   
-                    </BlocContent>
+            <div className="pb-3 xl:ml-64 flex flex-col justify-between border-2 border-eerieBlack">
+                <div className="lg:flex lg:flex-row sm:max-md:flex-col pt-3">
+                    <div className="basis-2/6 w-full pr-1 mb-5">
+                        <LigueCarte key={league.id} league={league} leagues_img_url={LEAGUES.IMG} isClickDisabled={isClickDisabled}/>
+                    </div>    
+                    <div className="basis-4/6 w-full pr-1 mb-5">
+                        <BlocLeMeilleur>
+                            {BESTS.map(best => (
+                                <LeMeilleur title={best.title} key={best.key}  img_url={best.img_url} data_name={best.data_name} data_value1 = {best.data_value1} data_value2= {best.data_value2}/>
+                            ))}
+                        </BlocLeMeilleur>
+                    </div>    
                 </div>
-                <div className="basis-1/2 w-full ml-1 mr-1">
-                    <BlocContent>
-                        <div>
-                            <div className='flex justify-center text-white pb-3 pt-3 max-[1023px]:hidden'>
-                                <img className="w-12 h-12 mr-3" src={nationality} alt="nationalitiy"/>
-                                <div className='flex'>
-                                    <h3 className='font-title text-lg'> 
-                                        Nationalités des joueurs <br/> en <strong>{league.name}</strong> ({season})
+                <div className="lg:flex lg:flex-row xl:max-2xl:flex-col" >
+                    <div className="flex basis-1/2 w-full ml-0 mr-1 mb-1">
+                        <BlocContent>
+                            <div>
+                                <div className='flex justify-center text-white pb-3 pt-3 max-[1023px]:hidden'>
+                                    <img className="w-12 h-12 mr-3" src={ligue} alt="ligue" />
+                                    <h3 className="font-title text-lg"> 
+                                        Champions de <strong>{league.name}</strong> <br/> (2002-2022)
                                     </h3>
-                                    <MuiSeasonSelectBox season={season} handleSeasonChange={handleSeasonChange}/>
                                 </div>
-                            </div>
-                            <div className="2xl:w-1/2 xl:w-[40rem] lg:w-[30rem] md:w-[30rem] sm:w-0 max-[767px]:w-0 h-72">
-                                {width && <TreeMapChart width={width} data={NATIONALITIES}/>}
-                            </div> 
-                        </div>   
-                    </BlocContent>
+                                <div className="2xl:w-1/2 xl:w-[40rem] lg:w-[30rem] md:w-[30rem] sm:w-0 max-[767px]:w-0 h-72">
+                                    {width && <WaffleChart width={width} data={BEST_CLUBS_BY_SEASON}/>}
+                                </div> 
+                            </div>   
+                        </BlocContent>
+                    </div>
+                    <div className="basis-1/2 w-full ml-0 mr-0">
+                        <BlocContent>
+                            <div>
+                                <div className='flex justify-center text-white pb-3 pt-3 max-[1023px]:hidden'>
+                                    <img className="w-12 h-12 mr-3" src={nationality} alt="nationalitiy"/>
+                                    <div className='flex'>
+                                        <h3 className='font-title text-lg'> 
+                                            Nationalités des joueurs <br/> en <strong>{league.name}</strong> ({season})
+                                        </h3>
+                                        <MuiSeasonSelectBox season={season} handleSeasonChange={handleSeasonChange}/>
+                                    </div>
+                                </div>
+                                <div className="2xl:w-1/2 xl:w-[40rem] lg:w-[30rem] md:w-[30rem] sm:w-0 max-[767px]:w-0 h-72">
+                                    {width && <TreeMapChart width={width} data={NATIONALITIES}/>}
+                                </div> 
+                            </div>   
+                        </BlocContent>
+                    </div>
                 </div>
+                <BlocTitre text="Cliquez sur le club que vous voulez voir ci-dessous"/>
+                <BlocClubCarte>
+                    {clubs.map(club => (
+                        <ClubCarte key={club.id} club={club} clubs_img_url={CLUBS.IMG} isClickDisabled={false}/>
+                    ))}
+                </BlocClubCarte>
             </div>
-            <BlocTitre text="Cliquez sur le club que vous voulez voir ci-dessous"/>
-            <BlocClubCarte>
-                {clubs.map(club => (
-                    <ClubCarte key={club.id} club={club} clubs_img_url={CLUBS.IMG} isClickDisabled={false}/>
-                ))}
-            </BlocClubCarte>
-        </div>
-    )
+            )
 }
