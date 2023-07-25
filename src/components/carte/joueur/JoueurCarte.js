@@ -56,7 +56,7 @@ function JoueurCarte({ isClickDisabled = false}){
                                         <Tooltip title="All Games" arrow placement="left">
                                             <Box className="flex" sx={{color: '#2B3132'}}>
                                                 <div className='mr-2 '>
-                                                    <img className='w-8' src={match}/>
+                                                    <img className='w-8' src={match} alt="match"/>
                                                 </div>
                                                 <div className='flex items-center'>
                                                     <p className='text-white font-content'>125 matchs</p>
@@ -68,7 +68,7 @@ function JoueurCarte({ isClickDisabled = false}){
                                         <Tooltip title="Average Minutes" arrow placement="right">
                                             <Box className="flex" sx={{color: '#2B3132'}}>
                                                 <div className='mr-2'>
-                                                    <img className='w-8' src={time}/>
+                                                    <img className='w-8' src={time} alt="time"/>
                                                 </div>
                                                 <div className='flex items-center'>
                                                     <p className='text-white font-content'>90.3 min.</p>
@@ -83,7 +83,7 @@ function JoueurCarte({ isClickDisabled = false}){
                                         <Tooltip title="All Goals" arrow placement="left">
                                             <Box className="flex" sx={{color: '#2B3132'}}>
                                                 <div className='mr-2'>
-                                                    <img className='w-8' src={shoot}/>
+                                                    <img className='w-8' src={shoot} alt="shoot"/>
                                                 </div>
                                                 <div className='flex items-center'>
                                                     <p className='text-white font-content'>455 buts</p>
@@ -95,7 +95,7 @@ function JoueurCarte({ isClickDisabled = false}){
                                         <Tooltip title="All Assists" arrow placement="right">
                                             <Box className="flex" sx={{color: '#2B3132'}}>
                                                 <div className='mr-2'>
-                                                    <img className='w-8' src={kickball}/>
+                                                    <img className='w-8' src={kickball} alt="keecball"/>
                                                 </div>
                                                 <div className='flex items-center'>
                                                     <p className='text-white font-content'>145 passes</p>
@@ -110,7 +110,7 @@ function JoueurCarte({ isClickDisabled = false}){
                                         <Tooltip title="All Games" arrow placement="left">
                                             <Box className="flex" sx={{color: '#2B3132'}}>
                                                 <div className='mr-2'>
-                                                    <img className='w-8' src={yellow_card}/>
+                                                    <img className='w-8' src={yellow_card} alt="yellow_card"/>
                                                 </div>
                                                 <div className='flex items-center'>
                                                     <p className='text-white font-content'>125</p>
@@ -122,7 +122,7 @@ function JoueurCarte({ isClickDisabled = false}){
                                         <Tooltip title="Average Minutes" arrow placement="right">
                                             <Box className="flex" sx={{color: '#2B3132'}}>
                                                 <div className='mr-2'>
-                                                    <img className='w-8' src={red_card}/>
+                                                    <img className='w-8' src={red_card} alt="red_card"/>
                                                 </div>
                                                 <div className='flex items-center'>
                                                     <p className='text-white font-content'>5</p>
