@@ -160,7 +160,7 @@ function ClubsDansLigue() {
                 </div>    
             </div>
             <div className="lg:flex lg:flex-row xl:max-2xl:flex-col" >
-                <div className="flex basis-1/2 w-full ml-1 mr-1 mb-1">
+                <div className="flex basis-1/2 w-full ml-0 mr-1 mb-1">
                     <BlocContent>
                         <div>
                             <div className='flex justify-center text-white pb-3 pt-3 max-[1023px]:hidden'>
@@ -175,7 +175,7 @@ function ClubsDansLigue() {
                         </div>   
                     </BlocContent>
                 </div>
-                <div className="basis-1/2 w-full ml-1 mr-1">
+                <div className="basis-1/2 w-full ml-0 mr-0">
                     <BlocContent>
                         <div>
                             <div className='flex justify-center text-white pb-3 pt-3 max-[1023px]:hidden'>
