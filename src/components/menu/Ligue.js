@@ -90,14 +90,18 @@ function Ligue (){
     // ---------------------------------------------
     // 3-3) LOADING / ERROR
     // ---------------------------------------------
-    if (resultQueries[0].isLoading || resultQueries[1].isLoading || resultQueries[2].isLoading) return (
-        <div className="lg:h-screen md:h-full sm:h-full sm:ml-64 flex flex-col justify-between border-2 border-eerieBlack pt-3 pb-3">
-                <LoadingCarte/>
-        </div>
-    )
-
-    if (resultQueries[0].error ||resultQueries[1].error ||resultQueries[2].error) return 'An error has occured '
-
+    if (resultQueries.some((query) => query.isLoading)) {
+        return (
+          <div className="lg:h-screen md:h-full sm:h-full sm:ml-64 flex flex-col justify-between border-2 border-eerieBlack pt-3 pb-3">
+            <LoadingCarte />
+          </div>
+        );
+    }
+      
+      if (resultQueries.some((query) => query.error)) {
+        return 'An error has occurred';
+    }
+      
     // ---------------------------------------------
     // 3-4) SUCCESS
     // ---------------------------------------------

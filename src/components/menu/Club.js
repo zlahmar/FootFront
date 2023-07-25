@@ -14,6 +14,9 @@ import LoadingCarte from "../carte/LoadingCarte";
 import LeMeilleur from '../carte/LeMeilleur';
 import BlocLeMeilleur from '../bloc/BlocLeMeilleur';
 
+// Icons
+import player_card from '../../assets/icon/player_card.png'
+
 // -----------------------
 // 1) QUERY CLIENT
 // -----------------------
@@ -48,27 +51,17 @@ function Club() {
     // ---------------------------------------------
     // 3-2) LOADING / ERROR
     // ---------------------------------------------
-    let isLoading = false;
-    let isError = false;
-
-    resultQueries.forEach(query => {
-        if (query.isLoading) {
-            isLoading = true;
-        }
-
-        if (query.isError) {
-            isError = true;
-        }    
-    });
-
-    if (isLoading) return 
-        (
-        <div className="lg:h-screen md:h-full sm:h-full sm:ml-64 flex flex-col justify-between border-2 border-eerieBlack pt-3 pb-3">
-                <LoadingCarte/>
-        </div>
-        )
-
-    if (isLoading) return 'An error has occured '
+    if (resultQueries.some((query) => query.isLoading)) {
+        return (
+          <div className="lg:h-screen md:h-full sm:h-full sm:ml-64 flex flex-col justify-between border-2 border-eerieBlack pt-3 pb-3">
+            <LoadingCarte />
+          </div>
+        );
+    }
+      
+      if (resultQueries.some((query) => query.error)) {
+        return 'An error has occurred';
+    }
 
     // ---------------------------------------------
     // 3-3) SUCCESS
