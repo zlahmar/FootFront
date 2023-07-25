@@ -6,7 +6,7 @@ function BlocJoueurCarte({children}){
         <div className="bg-gunMetal flex flex-wrap rounded-3xl">
             <div className="flex flex-row flex-wrap w-5/5 pb-5">
             {Children.map(children, child =>
-                <div className={`lg:basis-1/4 min-[320px]:basis-full text-center px-3 pt-3 pb-3`}>        
+                <div className={`lg:basis-1/4 md:basis-1/2 min-[320px]:basis-full text-center py-3 font-title`}>        
                     {child}
                 </div>
             )}
