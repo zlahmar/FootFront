@@ -8,11 +8,14 @@ import argentina from '../../../assets/argentina.png'
 import match from '../../../assets/icon/match.png'
 import time from '../../../assets/icon/time.png'
 
+import Box from '@mui/material/Box';
+import { Tooltip } from '@mui/material';
+
 function JoueurCarte({ isClickDisabled = false}){
     return(
         <div className={`${isClickDisabled ? 'h-full' : ''} flex justify-evenly`}>
-            <div className="mt-5">
-                    <div className={` ${isClickDisabled ? 'h-full' : ''}  pt-4 mb-1 bg-[url('/src/assets/arriere_plan/player_card.png')] w-[15rem] h-[30rem] bg-contain bg-center bg-no-repeat`}>
+            <div className="mt-1">
+                    <div className={` ${isClickDisabled ? 'h-full' : ''}  pt-4 mb-5 bg-[url('/src/assets/arriere_plan/player_card.png')] w-[20rem] h-[30rem] bg-contain bg-center bg-no-repeat`}>
                         <Link
                             to={{pathname : "/joueurs",
                             state: { joueurId: "good" }}}
@@ -42,22 +45,31 @@ function JoueurCarte({ isClickDisabled = false}){
                             </div>
 
                             {/* (4) Stats */}
-                            <div className="flex flex-col justify-center border-solid border-2 border-onyx translate-y-[4rem] px-2">
+                            <div className="flex flex-col justify-center translate-y-[4rem] px-2">
                                 {/* 1) all_nb_games / all_avg_minutes */}
-                                <div className="flex justify-between">
+                                <div className="flex justify-start">
                                     <div className="flex items-center">
                                         <img className='w-7 h-7 pr-1' src={match} title="match description"/>
                                         <p title="match description">255 matchs</p>    
                                     </div>    
-                                    <div className="flex items-center">
-                                        <img className='w-7 h-7 pr-1' src={time}/>
-                                        <p>80.3' (/90')</p>
-                                        
+                                    <div className="flex items-center pl-3">
+                                        <Tooltip title="Average Minutes" arrow placement="right">
+                                            <Box className="flex" sx={{color: '#2B3132'}}>
+                                                <img className='w-7 h-7 pr-1' src={time}/>
+                                                <p className='text-base font-bold'>80.3'</p>
+                                            </Box>
+                                        </Tooltip>                                        
                                     </div>
                                 </div>
                                 {/* 2) all_goals / all_assists */}
                                 <div className="flex justify-between">
-                                    <div>3</div>    
+                                    <div className="flex items-center">
+                                        <Tooltip title="All Goals" followCursor>
+                                            <Box sx={{color: '#2B3132'}}>
+                                                254 buts
+                                            </Box>
+                                        </Tooltip>
+                                    </div>    
                                     <div>4</div>
                                 </div>
                                 {/* 3) all_yellow_cards / all_red_cards */}
