@@ -22,17 +22,19 @@ export default function MuiTabs(props) {
     <Box sx={{ width: '100%' }}>
       <Box sx={{ borderBottom: 4, borderColor: 'divider' }}>
         <Tabs
-        className="xl:ml-32 lg:ml-24 sm:m-0"
-        value={value} onChange={handleChange}  
-        sx={{
-          '& .MuiTabs-indicator': { backgroundColor: '#A8E1DC' },
-          '& .MuiTab-root': { color: '#f5f5f5' },
-          '& .Mui-selected': { color: '#A8E1DC' },
-        }}
+          centered
+          className="xl:ml-32 lg:ml-24 sm:m-0"
+          value={value} onChange={handleChange}  
+          sx={{
+            '& .MuiTabs-indicator': { backgroundColor: '#A8E1DC' },
+            '& .MuiTab-root': { color: '#f5f5f5' },
+            '& .Mui-selected': { color: '#A8E1DC' },
+            "& label.Mui-focused": { color: '#A8E1DC'},
+          }}
         >
           <Tab label="Graphe 1" {...a11yProps(0)} />
           <Tab label="Graphe 2" {...a11yProps(1)} />
-          <Tab label="Graphe 3" {...a11yProps(2)} />
+          {children[2] && <Tab label="Graphe 3" {...a11yProps(2)} />}
         </Tabs>
       </Box>
       <MuiTabPanel value={value} index={0}>
@@ -41,9 +43,11 @@ export default function MuiTabs(props) {
       <MuiTabPanel value={value} index={1}>
         {children[value]}
       </MuiTabPanel>
-      <MuiTabPanel value={value} index={2}>
-        {children[value]}
-      </MuiTabPanel>
+      {children[2] && (
+        <MuiTabPanel value={value} index={2}>
+          {children[2]}
+        </MuiTabPanel>
+      )}
     </Box>
   );
 }
