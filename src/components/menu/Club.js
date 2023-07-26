@@ -18,6 +18,9 @@ import BlocTitre from '../bloc/BlocTitre';
 import BlocJoueurCarte from '../bloc/BlocJoueurCarte';
 import JoueurCarte from '../carte/joueur/JoueurCarte';
 
+// Graphique
+import LineChart from '../graphique/LineChart';
+
 // MUI
 import MuiTabs from "../mui_component/MuiTabs";
 
@@ -94,7 +97,7 @@ function Club() {
                 <BlocContent>
                     <MuiTabs>
                         <div className="2xl:w-[75rem] xl:w-[70rem] lg:w-[63rem] md:w-0 sm:w-0 max-[767px]:w-0 h-96 flex flex-col justify-center">
-                            1
+                            <LineChart/>
                         </div>
                         <div  className="2xl:w-[75rem] xl:w-[70rem] lg:w-[63rem] md:w-0 sm:w-0 max-[767px]:w-0 h-96 flex flex-col justify-center">
                             2

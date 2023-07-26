@@ -72,7 +72,10 @@ function Ligue (){
         }
       }
       handleResize();
+      console.log("width : ", width)
+
       window.addEventListener('resize', handleResize);
+
       return () => window.removeEventListener('resize', handleResize);
     }, []);
 
