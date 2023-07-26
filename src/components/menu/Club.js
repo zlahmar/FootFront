@@ -16,11 +16,17 @@ import BlocLeMeilleur from '../bloc/BlocLeMeilleur';
 import BlocContent from "../bloc/BlocContent";
 import BlocTitre from '../bloc/BlocTitre';
 import BlocJoueurCarte from '../bloc/BlocJoueurCarte';
+import BlocTitreGraphe from '../bloc/BlocTitreGraphe';
 import JoueurCarte from '../carte/joueur/JoueurCarte';
+
+// Graphique
+import LineChart from '../graphique/LineChart';
 
 // MUI
 import MuiTabs from "../mui_component/MuiTabs";
 
+// Icons
+import champion from '../../assets/icon/champion.png'
 
 // -----------------------
 // 1) QUERY CLIENT
@@ -85,8 +91,8 @@ function Club() {
                         <BlocLeMeilleur>
                             {/* {BESTS.map(best => ( */}
                                 <LeMeilleur title={"Meilleur Buteur"} key={"1"}  img_url={""} data_name={"TEST"} data_value1 = {"TEST"} data_value2= {"TEST"}/>
-                                <LeMeilleur title={"Meilleur Passeur"} key={"1"}  img_url={""} data_name={"TEST"} data_value1 = {"TEST"} data_value2= {"TEST"}/>
-                                <LeMeilleur title={"Meilleur Gardien"} key={"1"}  img_url={""} data_name={"TEST"} data_value1 = {"TEST"} data_value2= {"TEST"}/>
+                                <LeMeilleur title={"Meilleur Passeur"} key={"2"}  img_url={""} data_name={"TEST"} data_value1 = {"TEST"} data_value2= {"TEST"}/>
+                                <LeMeilleur title={"Meilleur Gardien"} key={"3"}  img_url={""} data_name={"TEST"} data_value1 = {"TEST"} data_value2= {"TEST"}/>
                             {/* ))}*/}
                         </BlocLeMeilleur>
                     </div>   
@@ -94,14 +100,15 @@ function Club() {
                 <BlocContent>
                     <MuiTabs>
                         <div className="2xl:w-[75rem] xl:w-[70rem] lg:w-[63rem] md:w-0 sm:w-0 max-[767px]:w-0 h-96 flex flex-col justify-center">
-                            1
+                            <BlocTitreGraphe img={[champion]} title={"Classement en ligue du <strong>[nom du club]</strong> (2002 ~ 2022)"}/>
+                            <LineChart/>
                         </div>
                         <div  className="2xl:w-[75rem] xl:w-[70rem] lg:w-[63rem] md:w-0 sm:w-0 max-[767px]:w-0 h-96 flex flex-col justify-center">
                             2
                         </div>
                     </MuiTabs>    
                 </BlocContent> 
-                <BlocTitre text="Cliquez sur le joueur que vous voulez voir ci-dessous"/>
+                <BlocTitre title="Cliquez sur le joueur que vous voulez voir ci-dessous"/>
                 <BlocJoueurCarte>
                     <JoueurCarte></JoueurCarte>
                     <JoueurCarte></JoueurCarte>

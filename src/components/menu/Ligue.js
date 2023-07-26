@@ -15,6 +15,7 @@ import LigueCarte from "../carte/ligue/LigueCarte";
 import BlocLigueCarte from "../bloc/BlocLigueCarte";
 import BlocTitre from "../bloc/BlocTitre";
 import BlocContent from "../bloc/BlocContent";
+import BlocTitreGraphe from "../bloc/BlocTitreGraphe";
 import LoadingCarte from "../carte/LoadingCarte";
 
 // Graphique
@@ -72,9 +73,12 @@ function Ligue (){
         }
       }
       handleResize();
+      console.log("width : ", width)
+
       window.addEventListener('resize', handleResize);
+
       return () => window.removeEventListener('resize', handleResize);
-    }, []);
+    }, [width]);
 
     // ---------------------------------------------
     // 3-2) USE QUERIES : FETCHING DATA FROM API
@@ -128,34 +132,24 @@ function Ligue (){
     // ---------------------------------------------
     return (    
             <div className="lg:h-screen md:h-full sm:h-full xl:ml-64 flex flex-col justify-around border-2 border-eerieBlack">
-                <BlocTitre text="Ligue (2002 ~ 2022) : 20 ans de 5 ligues principales"/> 
+                <BlocTitre title="Ligue (2002 ~ 2022) : 20 ans de 5 ligues principales"/> 
                 <BlocContent>
                     <MuiTabs>
                         <div className="2xl:w-[75rem] xl:w-[70rem] lg:w-[63rem] md:w-0 sm:w-0 max-[767px]:w-0 h-96 flex flex-col justify-center">
-                            <span className='flex items-center text-white pb-3 max-[1023px]:hidden font-title text-lg'> 
-                                <img className="w-14 h-14 mr-3" src={kickball} alt="kickball" />
-                                UEFA Coefficients des pays (2002 ~ 2022)
-                            </span>
+                            <BlocTitreGraphe img={[kickball]} title="UEFA Coefficients des pays (2002 ~ 2022)"/>
                             <BumpChart data={UEFA_LEAGUES_RANKING} />
                         </div>
                         <div  className="2xl:w-[75rem] xl:w-[70rem] lg:w-[63rem] md:w-0 sm:w-0 max-[767px]:w-0 h-96 flex flex-col justify-center">
-                            <span className='flex items-center text-white pb-2 max-[1023px]:hidden font-title text-lg'> 
-                                <img className="w-12 h-12 mr-3" src={goal} alt="goal" />
-                                Buts & Passes décisives (2002 ~ 2022)
-                            </span>
+                            <BlocTitreGraphe img={[goal]} title="Buts & Passes décisives (2002 ~ 2022)"/>
                             <BarGroupedChart data={LEAGUES_TOTAL_DATA}/>
                         </div>
                         <div className='2xl:w-[75rem] xl:w-[70rem] lg:w-[63rem] md:w-0 sm:w-0 max-[767px]:w-0 h-96 flex flex-col justify-center'>
-                            <span className='flex items-center text-white pt-4 max-[1023px]:hidden font-title text-lg'> 
-                                <img className="w-10 h-10" src={yellow_card} alt="yellowcard"/>
-                                <img className="w-10 h-10 mr-3" src={red_card} alt="redcard"/>
-                                Cartons jaunes et rouges (2002 ~ 2022)
-                            </span>
+                            <BlocTitreGraphe img={[yellow_card, red_card]} title="Cartons jaunes et rouges (2002 ~ 2022)"/>
                             {width && <CircleGroupedChart width={width} data={LEAGUES_TOTAL_CARDS_DATA}/>}
                         </div>
                     </MuiTabs>
                 </BlocContent>
-                <BlocTitre text="Cliquez sur la ligue que vous voulez voir ci-dessous"/>
+                <BlocTitre title="Cliquez sur la ligue que vous voulez voir ci-dessous"/>
                 <BlocLigueCarte>
                     {leagues.map(league => (
                         <LigueCarte key={league.id} league={league} leagues_img_url={LEAGUES.IMG} />

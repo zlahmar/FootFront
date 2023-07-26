@@ -4,7 +4,7 @@ import { selectSeasons } from '../utility/utility';
 
 const MuiSeasonSelectBox = ({ season, handleSeasonChange }) => {
   return (
-    <Box className="pt-2">
+    <Box className="pt-3">
       <Box mx={5}>
         <TextField
           label="Saississez une saison"

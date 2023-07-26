@@ -43,3 +43,11 @@ export function selectSeasons(season, numberOfSeasons) {
 
   return seasonsArray;
 }
+
+export function createImage(image_source, width=20, height=20){
+  const image = new Image();
+  image.src = image_source;
+  image.width = width;
+  image.height = height;
+  return image;
+}

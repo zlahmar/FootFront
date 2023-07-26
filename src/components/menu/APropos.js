@@ -6,7 +6,7 @@ export default function APropos() {
 
     return (
         <div className="lg:h-screen md:h-full sm:h-full xl:ml-64 flex flex-col border-2 border-eerieBlack">
-            <BlocTitre text="A Propos de nous"/> 
+            <BlocTitre title="A Propos de nous"/> 
             <div className="w-full h-full bg-gunMetal flex justify-center rounded-3xl overflow-y-auto overflow-hidden">
                 <div className="flex flex-row flex-wrap justify-center w-full ">
                     <div className="text-left px-3">      
