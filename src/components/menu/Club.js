@@ -110,26 +110,26 @@ function Club() {
                 </BlocContent> 
                 <BlocTitre title="Cliquez sur le joueur que vous voulez voir ci-dessous"/>
                 <BlocJoueurCarte>
-                    <JoueurCarte></JoueurCarte>
-                    <JoueurCarte></JoueurCarte>
-                    <JoueurCarte></JoueurCarte>
-                    <JoueurCarte></JoueurCarte>
-                    <JoueurCarte></JoueurCarte>
-                    <JoueurCarte></JoueurCarte>
-                    <JoueurCarte></JoueurCarte>
-                    <JoueurCarte></JoueurCarte>
-                    <JoueurCarte></JoueurCarte>
-                    <JoueurCarte></JoueurCarte>
-                    <JoueurCarte></JoueurCarte>
-                    <JoueurCarte></JoueurCarte>
-                    <JoueurCarte></JoueurCarte>
-                    <JoueurCarte></JoueurCarte>
-                    <JoueurCarte></JoueurCarte>
-                    <JoueurCarte></JoueurCarte>
-                    <JoueurCarte></JoueurCarte>
-                    <JoueurCarte></JoueurCarte>
-                    <JoueurCarte></JoueurCarte>
-                    <JoueurCarte></JoueurCarte>
+                    <JoueurCarte/>
+                    <JoueurCarte/>
+                    <JoueurCarte/>
+                    <JoueurCarte/>
+                    <JoueurCarte/>
+                    <JoueurCarte/>
+                    <JoueurCarte/>
+                    <JoueurCarte/>
+                    <JoueurCarte/>
+                    <JoueurCarte/>
+                    <JoueurCarte/>
+                    <JoueurCarte/>
+                    <JoueurCarte/>
+                    <JoueurCarte/>
+                    <JoueurCarte/>
+                    <JoueurCarte/>
+                    <JoueurCarte/>
+                    <JoueurCarte/>
+                    <JoueurCarte/>
+                    <JoueurCarte/>
                 </BlocJoueurCarte>
             </div>
             )
