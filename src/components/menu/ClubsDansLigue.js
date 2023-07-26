@@ -19,6 +19,7 @@ import LeMeilleur from '../carte/LeMeilleur';
 import ClubCarte from "../carte/club/ClubCarte";
 import BlocClubCarte from '../bloc/BlocClubCarte';
 import BlocTitre from '../bloc/BlocTitre';
+import BlocTitreGraphe from '../bloc/BlocTitreGraphe';
 import BlocContent from '../bloc/BlocContent';
 import BlocLeMeilleur from '../bloc/BlocLeMeilleur';
 import LoadingCarte from "../carte/LoadingCarte";
@@ -163,12 +164,7 @@ function ClubsDansLigue() {
                     <div className="flex basis-1/2 w-full ml-0 mr-1 mb-1">
                         <BlocContent>
                             <div>
-                                <div className='flex justify-center text-white pb-3 pt-3 max-[1023px]:hidden'>
-                                    <img className="w-12 h-12 mr-3" src={ligue} alt="ligue" />
-                                    <h3 className="font-title text-lg"> 
-                                        Champions de <strong>{league.name}</strong> <br/> (2002-2022)
-                                    </h3>
-                                </div>
+                                <BlocTitreGraphe img={[ligue]} title={`Champions <strong>${league.name}</strong> <br/> (2002-2022)`}/>
                                 <div className="2xl:w-1/2 xl:w-[40rem] lg:w-[30rem] md:w-[30rem] sm:w-0 max-[767px]:w-0 h-72">
                                     {width && <WaffleChart width={width} data={BEST_CLUBS_BY_SEASON}/>}
                                 </div> 
@@ -178,15 +174,11 @@ function ClubsDansLigue() {
                     <div className="basis-1/2 w-full ml-0 mr-0">
                         <BlocContent>
                             <div>
-                                <div className='flex justify-center text-white pb-3 pt-3 max-[1023px]:hidden'>
-                                    <img className="w-12 h-12 mr-3" src={nationality} alt="nationalitiy"/>
-                                    <div className='flex'>
-                                        <h3 className='font-title text-lg'> 
-                                            Nationalités des joueurs <br/> en <strong>{league.name}</strong> ({season})
-                                        </h3>
-                                        <MuiSeasonSelectBox season={season} handleSeasonChange={handleSeasonChange}/>
-                                    </div>
+                                <div className='flex justify-center pt-4'>
+                                    <BlocTitreGraphe img={[nationality]} title={`Nationalités des joueurs <br/> en <strong>${league.name}</strong> (${season})`}/>
+                                    <MuiSeasonSelectBox season={season} handleSeasonChange={handleSeasonChange}/>
                                 </div>
+           
                                 <div className="2xl:w-1/2 xl:w-[40rem] lg:w-[30rem] md:w-[30rem] sm:w-0 max-[767px]:w-0 h-72">
                                     {width && <TreeMapChart width={width} data={NATIONALITIES}/>}
                                 </div> 
@@ -194,7 +186,7 @@ function ClubsDansLigue() {
                         </BlocContent>
                     </div>
                 </div>
-                <BlocTitre text="Cliquez sur le club que vous voulez voir ci-dessous"/>
+                <BlocTitre title="Cliquez sur le club que vous voulez voir ci-dessous"/>
                 <BlocClubCarte>
                     {clubs.map(club => (
                         <ClubCarte key={club.id} club={club} clubs_img_url={CLUBS.IMG} isClickDisabled={false}/>

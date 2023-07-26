@@ -6,8 +6,8 @@ import {
     CategoryScale,
     LinearScale,
     Tooltip,
-    Legend,
-    elements
+    Legend
+
   } from "chart.js";
 import { createImage } from "../utility/utility";
 import logo from "../../assets/icon/ball.png";
@@ -33,8 +33,8 @@ export default function LineChart(){
     const skippedArea = {
         id: 'skippedArea',
         beforeDatasetsDraw(chart){
-            const {ctx, data, chartArea: { left, right, top, bottom, width, height },
-                    scales: {x,y} } = chart;
+            const {ctx, data, chartArea: { top, width, height },
+                    scales: {x} } = chart;
             const tickWidth = width / x.max;
 
             ctx.save();
@@ -44,9 +44,10 @@ export default function LineChart(){
                     ctx.fillStyle = 'rgba(57, 58, 62, 1)';
                     ctx.fillRect(x.getPixelForValue(index) - tickWidth,top,x.getPixelForValue(index+1) -(x.getPixelForValue(index)-tickWidth),height);
                 }
+                ctx.restore();
+                return null;
             })
 
-            ctx.restore(); // Move the ctx.restore() call outside the forEach loop
         }
     }
 
