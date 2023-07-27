@@ -7,7 +7,7 @@ import { QueryClient, QueryClientProvider,  useQueries } from "react-query"
 
 // API / DATA
 import {LEAGUES,CLUBS, PLAYERS} from "../../data/Api"
-import {getIdFromUrl ,getBestClubBySeason, getNationalities } from '../../data/Arrays';
+import {getIdFromUrl ,getBestClubBySeason, getNationalities, selectSeasons } from '../../data/Arrays';
 
 // Graphique
 import WaffleChart from '../graphique/WaffleChart';
@@ -32,8 +32,7 @@ import nationality from '../../assets/icon/nationality.png'
 // MUI
 import MuiSeasonSelectBox from '../mui_component/MuiSeasonSelectBox';
 
-import { selectSeasons } from '../utility/utility';
-
+// Util
 // -----------------------
 // 1) QUERY CLIENT
 // -----------------------
@@ -68,6 +67,8 @@ function ClubsDansLigue() {
     // ---------------------------------------------
     // 3-2) USE QUERIES : FETCHING DATA FROM API
     // ---------------------------------------------
+    
+    // (1) Fetching data from API (React-Queries)
     const resultQueries = useQueries(
         [
             { queryKey: ['clubs',1], queryFn: () => fetch(LEAGUES.DATA+'/'+league_id).then(res => res.json())},
@@ -80,8 +81,10 @@ function ClubsDansLigue() {
         ]
     )
     
+    // (2) Season change (MUISeasonSelectBox)
     useEffect(() => {
         // This code will execute every time the season state changes
+        // resultQueries[6] : nationalities
         resultQueries[6].refetch();
       }, [season]); // The effect depends on the season state
     
@@ -140,7 +143,7 @@ function ClubsDansLigue() {
             <div className="pb-3 xl:ml-64 flex flex-col justify-between border-2 border-eerieBlack">
                 <div className="lg:flex lg:flex-row sm:max-md:flex-col pt-3">
                     <div className="basis-2/6 w-full pr-1 mb-5">
-                        <LigueCarte key={league.id} league={league} leagues_img_url={LEAGUES.IMG} isClickDisabled={isClickDisabled}/>
+                        <LigueCarte key={league.id} league={league} leagues_img={LEAGUES.IMG} isClickDisabled={isClickDisabled}/>
                     </div>    
                     <div className="basis-4/6 w-full pr-1 mb-5">
                         <BlocLeMeilleur>
@@ -179,7 +182,7 @@ function ClubsDansLigue() {
                 <BlocTitre title="Cliquez sur le club que vous voulez voir ci-dessous"/>
                 <BlocClubCarte>
                     {clubs.map(club => (
-                        <ClubCarte key={club.id} club={club} clubs_img_url={CLUBS.IMG} isClickDisabled={false}/>
+                        <ClubCarte key={club.id} club={club} clubs_img={CLUBS.IMG} isClickDisabled={false}/>
                     ))}
                 </BlocClubCarte>
             </div>

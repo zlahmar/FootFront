@@ -150,7 +150,7 @@ function Ligue (){
                 <BlocTitre title="Cliquez sur la ligue que vous voulez voir ci-dessous"/>
                 <BlocLigueCarte>
                     {leagues.map(league => (
-                        <LigueCarte key={league.id} league={league} leagues_img_url={LEAGUES.IMG} />
+                        <LigueCarte key={league.id} league={league} leagues_img={LEAGUES.IMG} />
                     ))}       
                 </BlocLigueCarte>
             </div>        

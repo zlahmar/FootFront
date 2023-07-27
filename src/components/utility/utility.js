@@ -30,24 +30,21 @@ export function useWindowWidth() {
   return width;
 }
 
-export function selectSeasons(season, numberOfSeasons) {
-  const seasonsArray=[];
-  const [startYear, endYear] = season.split('-').map(Number);
-
-  for (let i=0; i<numberOfSeasons; i++) {
-    const currentStartYear = startYear + i;
-    const currentEndYear = endYear + i;
-
-    seasonsArray.push(`${currentStartYear}-${currentEndYear}`);
-  }
-
-  return seasonsArray;
-}
-
 export function createImage(image_source, width=20, height=20){
   const image = new Image();
   image.src = image_source;
   image.width = width;
   image.height = height;
   return image;
+}
+
+export function generateBestData(title, key, img_url, data_name, data_value1, data_value2){
+  return {
+    title: title,
+    key: key,
+    img_url: img_url,
+    data_name: data_name,
+    data_value1: data_value1,
+    data_value2: data_value2
+  }
 }

@@ -5,7 +5,7 @@ import '../../styles/index.css'
 import { QueryClient, QueryClientProvider,  useQueries } from "react-query"
 
 // API / DATA
-import {CLUBS} from "../../data/Api"
+import {CLUBS, PLAYERS} from "../../data/Api"
 import { getIdFromUrl } from '../../data/Arrays';
 import ClubCarte from '../carte/club/ClubCarte';
 
@@ -58,6 +58,9 @@ function Club() {
     const resultQueries = useQueries(
         [
             { queryKey: ['club',1], queryFn: () => fetch(CLUBS.DATA+'/'+club_id).then(res => res.json())},
+            { queryKey: ['bestTop10Strikers',2], queryFn: () => fetch(PLAYERS.BEST_TOP_10_STRIKERS+'?club_id='+club_id).then(res => res.json())},
+            { queryKey: ['bestTop10Playmakers',3], queryFn: () => fetch(PLAYERS.BEST_TOP_10_PLAYMAKERS+'?club_id='+club_id).then(res => res.json())},
+            { queryKey: ['bestTop10Goalkeepers',4], queryFn: () => fetch(PLAYERS.BEST_TOP_10_GOALKEEPERS+'?club_id='+club_id).then(res => res.json())},
         ]
     )
 
@@ -82,12 +85,15 @@ function Club() {
 
     // (1) DATA : DATA FROM API
     const club = resultQueries[0].data;
+    const bestTop10Strikers = resultQueries[1].data;
+    const bestTop10Playmakers = resultQueries[2].data;
+    const bestTop10Goalkeepers = resultQueries[3].data;
 
     return (
             <div className="pb-3 xl:ml-64 flex flex-col border-2 border-eerieBlack">
                 <div className="lg:flex lg:flex-row sm:max-md:flex-col pt-3">
                     <div className="basis-2/6 w-full pr-1 mb-5">
-                        <ClubCarte key={club.id} club={club} clubs_img_url={CLUBS.IMG} isClickDisabled={true}/>
+                        <ClubCarte key={club.id} club={club} clubs_img={CLUBS.IMG} isClickDisabled={true}/>
                     </div>  
                     <div className="basis-4/6 w-full pr-1 mb-5">
                         <BlocLeMeilleur>
