@@ -1,7 +1,7 @@
 import Graph from 'react-vis-network-graph';
 import { COLOR } from '../../data/Constants';
 import messi from '../../assets/messi.png';
-
+import argentina from '../../assets/argentina.png';
 
 export default function NetworkChart(){
     const graph = {
@@ -14,41 +14,35 @@ export default function NetworkChart(){
             shape: "circularImage"},
 
             // 2nd level - Role
-            {id: 2, label: 'Buteur', color: COLOR.POWDERBLUE},
-            {id: 3, label: 'Passeur', color: COLOR.POWDERBLUE},
-            {id: 4, label: 'Gardien', color: COLOR.POWDERBLUE},
+            {id: 2, label: 'Buteur', color: COLOR.POWDERBLUE, font: {color: COLOR.POWDERBLUE}},
+            {id: 3, label: 'Passeur', color: COLOR.POWDERBLUE, font: {color: COLOR.POWDERBLUE}},
+            {id: 4, label: 'Gardien', color: COLOR.POWDERBLUE, font: {color: COLOR.POWDERBLUE}},
 
             // 3rd level - 10 Buteurs
-            {id: 5, label: 'Node 5', color: COLOR.TIFFANYBLUE},
-            {id: 6, label: 'Node 6', color: COLOR.TIFFANYBLUE},
+            {id: 5, label: 'Node 5', color: COLOR.TIFFANYBLUE, font: {color: COLOR.TIFFANYBLUE}},
+            {id: 6, label: 'Node 6', color: COLOR.TIFFANYBLUE, font: {color: COLOR.TIFFANYBLUE}},
 
             // 3rd level - 10 Passeurs
-            {id: 7, label: 'Node 7', color: COLOR.TIFFANYBLUE},
-            {id: 8, label: 'Node 8', color: COLOR.TIFFANYBLUE},
+            {id: 7, label: 'Node 7', color: COLOR.TIFFANYBLUE, font: {color: COLOR.TIFFANYBLUE}},
+            {id: 8, label: 'Node 8', color: COLOR.TIFFANYBLUE, font: {color: COLOR.TIFFANYBLUE}},
 
             // 3rd level - 10 Gardiens
-            {id: 9, label: 'Node 9', color: COLOR.TIFFANYBLUE},
-            {id: 10, label: 'Node 10', color: COLOR.TIFFANYBLUE},
+            {id: 9, label: 'Node 9', color: COLOR.TIFFANYBLUE, font: {color: COLOR.TIFFANYBLUE}},
+            {id: 10, label: 'Node 10', color: COLOR.TIFFANYBLUE, font: {color: COLOR.TIFFANYBLUE}},
         ],
         edges: [
             // for Club (id=1) from Role (id=2,3,4)
             {
             from: 2, to: 1, 
-            arrows: {from: {enabled: true, type: "circle"}, 
-                        to: {enabled: true, type: "circle"}
-                     }
+            arrows: {from: {enabled: true, type: "circle"},}
             },
             {
             from: 3, to: 1, 
-            arrows: {from: {enabled: true, type: "circle"}, 
-                        to: {enabled: true, type: "circle"}
-                    }
+            arrows: {from: {enabled: true, type: "circle"},}
             },
             {
             from: 4, to: 1,
-            arrows: {from: {enabled: true, type: "circle"}, 
-                        to: {enabled: true, type: "circle"}
-                    }
+            arrows: {from: {enabled: true, type: "circle"},}
             },
 
             // for Buteur (id=2) from Player (id=5,6)

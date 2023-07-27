@@ -14,9 +14,9 @@ function LigueCarte({ league, leagues_img_url, isClickDisabled = false }){
                     </div>
 
                     <div className={`${isClickDisabled ? 'h-full flex flex-col justify-center' : ''} text-center p-3 sm:p-5 lg:p-7`}>
-                        <p className="text-lg font-bold text-white font-title">{league.name}</p>
+                        <p className="text-2xl text-white font-title">{league.name}</p>
 
-                        <p className="mt-1 font-mono text-xs text-white font-content">{league.clubs.length} Clubs</p>
+                        <p className="mt-1 text-xs text-white font-content">{league.clubs.length} Clubs</p>
                     </div>
                 </Link>
             </div>

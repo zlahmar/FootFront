@@ -93,27 +93,17 @@ function ClubsDansLigue() {
     // ---------------------------------------------
     // 3-3) LOADING / ERROR
     // ---------------------------------------------
-    let isLoading = false;
-    let isError = false;
-
-    resultQueries.forEach(query => {
-        if (query.isLoading) {
-            isLoading = true;
-        }
-
-        if (query.isError) {
-            isError = true;
-        }    
-    });
-
-    if (isLoading) return 
-        (
-        <div className="lg:h-screen md:h-full sm:h-full sm:ml-64 flex flex-col justify-between border-2 border-eerieBlack pt-3 pb-3">
-                <LoadingCarte/>
-        </div>
-        )
-
-    if (isLoading) return 'An error has occured '
+    if (resultQueries.some((query) => query.isLoading)) {
+        return (
+          <div className="lg:h-screen md:h-full sm:h-full sm:ml-64 flex flex-col justify-between border-2 border-eerieBlack pt-3 pb-3">
+            <LoadingCarte />
+          </div>
+        );
+    }
+      
+      if (resultQueries.some((query) => query.error)) {
+        return 'An error has occurred';
+    }
 
     // ---------------------------------------------
     // 3-4) SUCCESS
