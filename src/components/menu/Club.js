@@ -30,6 +30,9 @@ import MuiTabs from "../mui_component/MuiTabs";
 import champion from '../../assets/icon/champion.png'
 import best_player from '../../assets/icon/best_player.png'
 
+// Utility
+import { getBestData } from '../utility/utility';
+
 // -----------------------
 // 1) QUERY CLIENT
 // -----------------------
@@ -89,6 +92,13 @@ function Club() {
     const bestTop10Playmakers = resultQueries[2].data;
     const bestTop10Goalkeepers = resultQueries[3].data;
 
+    // (2) DATA : DATA FOR BESTS
+    const BESTS = [
+        getBestData("Le Meilleur Buteur", bestTop10Strikers[0].playerId, PLAYERS.IMG+"/"+bestTop10Strikers[0].playerId, bestTop10Strikers[0].playerName, bestTop10Strikers[0].allGoals + " buts", bestTop10Strikers[0].allNbGames+ " matchs"), 
+        getBestData("Le Meilleur Passeur", (bestTop10Playmakers[0].playerId)*99, PLAYERS.IMG+"/"+bestTop10Playmakers[0].playerId, bestTop10Playmakers[0].playerName, bestTop10Playmakers[0].allAssists + " passes", bestTop10Playmakers[0].allNbGames+ " matchs"),
+        getBestData("Le Meilleur Gardien", bestTop10Goalkeepers[0].playerId, PLAYERS.IMG+"/"+bestTop10Goalkeepers[0].playerId, bestTop10Goalkeepers[0].playerName, bestTop10Goalkeepers[0].allGas + " buts encaissés", bestTop10Goalkeepers[0].allNbGames+ " matchs")
+    ]
+
     return (
             <div className="pb-3 xl:ml-64 flex flex-col border-2 border-eerieBlack">
                 <div className="lg:flex lg:flex-row sm:max-md:flex-col pt-3">
@@ -97,11 +107,9 @@ function Club() {
                     </div>  
                     <div className="basis-4/6 w-full pr-1 mb-5">
                         <BlocLeMeilleur>
-                            {/* {BESTS.map(best => ( */}
-                                <LeMeilleur title={"Meilleur Buteur"} key={"1"}  img_url={""} data_name={"TEST"} data_value1 = {"TEST"} data_value2= {"TEST"}/>
-                                <LeMeilleur title={"Meilleur Passeur"} key={"2"}  img_url={""} data_name={"TEST"} data_value1 = {"TEST"} data_value2= {"TEST"}/>
-                                <LeMeilleur title={"Meilleur Gardien"} key={"3"}  img_url={""} data_name={"TEST"} data_value1 = {"TEST"} data_value2= {"TEST"}/>
-                            {/* ))}*/}
+                            {BESTS.map(best => ( 
+                                <LeMeilleur title={best.title} key={best.key}  img_url={best.img_url} data_name={best.data_name} data_value1 = {best.data_value1} data_value2= {best.data_value2}/>
+                            ))}
                         </BlocLeMeilleur>
                     </div>   
                 </div>

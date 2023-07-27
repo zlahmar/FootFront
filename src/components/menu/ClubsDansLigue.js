@@ -126,10 +126,10 @@ function ClubsDansLigue() {
 
     // (2) DATA : DATA FOR BESTS
     const BESTS = [
-        getBestData("Meilleur Club", allTimeBestClub.clubId, CLUBS.IMG +"/" + allTimeBestClub.clubName, allTimeBestClub.clubName, allTimeBestClub.rankAverage + " ème", allTimeBestClub.nbWin + " x champs"),
-        getBestData("Meilleur Buteur", allTimeBestStriker.playerId, PLAYERS.IMG +"/" + allTimeBestStriker.playerId, allTimeBestStriker.playerName, allTimeBestStriker.totalGoals + " buts", allTimeBestStriker.totalMatches + " matchs"),
-        getBestData("Meilleur Passeur", (allTimeBestPlaymaker.playerId)*99, PLAYERS.IMG +"/" + allTimeBestPlaymaker.playerId, allTimeBestPlaymaker.playerName, allTimeBestPlaymaker.totalAssists + " passes", allTimeBestPlaymaker.totalMatches + " matchs"),
-        getBestData("Meilleur Gardien", (allTimeBestGoalkeeper.playerId)*999, PLAYERS.IMG +"/" + allTimeBestGoalkeeper.playerId, allTimeBestGoalkeeper.playerName, allTimeBestGoalkeeper.totalCleanSheets + " cleansheets", allTimeBestGoalkeeper.totalMatches + " matchs"),
+        getBestData("Le Meilleur Club", allTimeBestClub.clubId, CLUBS.IMG +"/" + allTimeBestClub.clubName, allTimeBestClub.clubName, allTimeBestClub.rankAverage + " ème", allTimeBestClub.nbWin + " x champs"),
+        getBestData("Le Meilleur Buteur", allTimeBestStriker.playerId, PLAYERS.IMG +"/" + allTimeBestStriker.playerId, allTimeBestStriker.playerName, allTimeBestStriker.totalGoals + " buts", allTimeBestStriker.totalMatches + " matchs"),
+        getBestData("Le Meilleur Passeur", (allTimeBestPlaymaker.playerId)*99, PLAYERS.IMG +"/" + allTimeBestPlaymaker.playerId, allTimeBestPlaymaker.playerName, allTimeBestPlaymaker.totalAssists + " passes", allTimeBestPlaymaker.totalMatches + " matchs"),
+        getBestData("Le Meilleur Gardien", (allTimeBestGoalkeeper.playerId)*999, PLAYERS.IMG +"/" + allTimeBestGoalkeeper.playerId, allTimeBestGoalkeeper.playerName, allTimeBestGoalkeeper.totalCleanSheets + " cleansheets", allTimeBestGoalkeeper.totalMatches + " matchs"),
     ]
     
     // (3) DATA : DATA FOR GRAPH WaffleChart, TreeMapChart
