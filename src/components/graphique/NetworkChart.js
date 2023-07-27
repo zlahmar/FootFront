@@ -1,11 +1,12 @@
 import Graph from 'react-vis-network-graph';
+import { COLOR } from '../../data/Constants';
 
 
 export default function NetworkChart(){
     const graph = {
         nodes : [
             // 1st level
-            {id: 1, label: 'Club', title:"<strong>title club</strong><hr><p>description club</p>",
+            {id: 1, label: 'Club', title:"<div className='p-3 border border-3 border-black'><strong>title club</strong><hr><p>description club</p></div>",
             shape: "box"},
 
             // 2nd level
@@ -56,7 +57,10 @@ export default function NetworkChart(){
             hoverConnectedEdges: true,
             selectConnectedEdges: false,
             zoomView: true,
-        }
+        },
+        edges: {
+            color: COLOR.TIFFANYBLUE,
+        },
     }
 
     return(
