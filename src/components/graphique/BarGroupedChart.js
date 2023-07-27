@@ -1,5 +1,5 @@
 import { ResponsiveBar } from '@nivo/bar'
-
+import { COLOR } from '../../data/Constants'
 const BarGroupedChart = ({ data }) => (
     <ResponsiveBar
         data={data}
@@ -13,10 +13,10 @@ const BarGroupedChart = ({ data }) => (
         padding={0.5}
         valueScale={{ type: 'linear' }}
         indexScale={{ type: 'band', round: true }}
-        colors={['#b2c7f0', '#a8e1dc']}
+        colors={[COLOR.POWDERBLUE, COLOR.TIFFANYBLUE]}
         theme={{
                 fontSize: '14px',
-                textColor: 'white',
+                textColor: COLOR.WHITE,
             }}
         borderColor={{
             from: 'color',
@@ -47,7 +47,7 @@ const BarGroupedChart = ({ data }) => (
         }}
         labelSkipWidth={12}
         labelSkipHeight={12}
-        labelTextColor="black"
+        labelTextColor= {COLOR.EERIEBLACK}
         legends={[
             {
                 dataFrom: 'keys',

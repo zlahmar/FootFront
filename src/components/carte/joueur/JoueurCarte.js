@@ -14,6 +14,7 @@ import red_card from '../../../assets/icon/red_card.png'
 
 import Box from '@mui/material/Box';
 import { Tooltip } from '@mui/material';
+import { COLOR } from '../../../data/Constants';
 
 function JoueurCarte({ isClickDisabled = false}){
     return(
@@ -54,7 +55,7 @@ function JoueurCarte({ isClickDisabled = false}){
                                 <div className="flex justify-normal px-3 pb-1">
                                     <div className="flex items-center pl-2">  
                                         <Tooltip title="All Games" arrow placement="left">
-                                            <Box className="flex" sx={{color: '#2B3132'}}>
+                                            <Box className="flex" sx={{color: COLOR.GUNMETAL}}>
                                                 <div className='mr-2 '>
                                                     <img className='w-8' src={match} alt="match"/>
                                                 </div>
@@ -66,7 +67,7 @@ function JoueurCarte({ isClickDisabled = false}){
                                     </div>    
                                     <div className="flex items-center ml-5">
                                         <Tooltip title="Average Minutes" arrow placement="right">
-                                            <Box className="flex" sx={{color: '#2B3132'}}>
+                                            <Box className="flex" sx={{color: COLOR.GUNMETAL}}>
                                                 <div className='mr-2'>
                                                     <img className='w-8' src={time} alt="time"/>
                                                 </div>
@@ -81,7 +82,7 @@ function JoueurCarte({ isClickDisabled = false}){
                                 <div className="flex justify-normal px-3 pb-1">
                                     <div className="flex items-center pl-2">  
                                         <Tooltip title="All Goals" arrow placement="left">
-                                            <Box className="flex" sx={{color: '#2B3132'}}>
+                                            <Box className="flex" sx={{color: COLOR.GUNMETAL}}>
                                                 <div className='mr-2'>
                                                     <img className='w-8' src={shoot} alt="shoot"/>
                                                 </div>
@@ -93,7 +94,7 @@ function JoueurCarte({ isClickDisabled = false}){
                                     </div>    
                                     <div className="flex items-center ml-[2.5rem]">
                                         <Tooltip title="All Assists" arrow placement="right">
-                                            <Box className="flex" sx={{color: '#2B3132'}}>
+                                            <Box className="flex" sx={{color: COLOR.GUNMETAL}}>
                                                 <div className='mr-2'>
                                                     <img className='w-8' src={kickball} alt="keecball"/>
                                                 </div>
@@ -108,7 +109,7 @@ function JoueurCarte({ isClickDisabled = false}){
                                 <div className="flex justify-normal px-3">
                                     <div className="flex items-center pl-2">  
                                         <Tooltip title="All Games" arrow placement="left">
-                                            <Box className="flex" sx={{color: '#2B3132'}}>
+                                            <Box className="flex" sx={{color: COLOR.GUNMETAL}}>
                                                 <div className='mr-2'>
                                                     <img className='w-8' src={yellow_card} alt="yellow_card"/>
                                                 </div>
@@ -120,7 +121,7 @@ function JoueurCarte({ isClickDisabled = false}){
                                     </div>    
                                     <div className="flex items-center ml-[5rem]">
                                         <Tooltip title="Average Minutes" arrow placement="right">
-                                            <Box className="flex" sx={{color: '#2B3132'}}>
+                                            <Box className="flex" sx={{color: COLOR.GUNMETAL}}>
                                                 <div className='mr-2'>
                                                     <img className='w-8' src={red_card} alt="red_card"/>
                                                 </div>

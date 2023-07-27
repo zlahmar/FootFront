@@ -7,7 +7,7 @@ import { QueryClient, QueryClientProvider,  useQueries } from "react-query"
 
 // API / DATA
 import {LEAGUES,CLUBS, PLAYERS} from "../../data/Api"
-import {getIdFromUrl ,getBestClubBySeason, getNationalities } from '../../data/Arrays';
+import {getIdFromUrl ,getBestClubBySeason, getNationalities, selectSeasons } from '../../data/Arrays';
 
 // Graphique
 import WaffleChart from '../graphique/WaffleChart';
@@ -32,7 +32,8 @@ import nationality from '../../assets/icon/nationality.png'
 // MUI
 import MuiSeasonSelectBox from '../mui_component/MuiSeasonSelectBox';
 
-import { selectSeasons } from '../utility/utility';
+// Utility
+import { getBestData } from '../utility/utility';
 
 // -----------------------
 // 1) QUERY CLIENT
@@ -68,6 +69,8 @@ function ClubsDansLigue() {
     // ---------------------------------------------
     // 3-2) USE QUERIES : FETCHING DATA FROM API
     // ---------------------------------------------
+    
+    // (1) Fetching data from API (React-Queries)
     const resultQueries = useQueries(
         [
             { queryKey: ['clubs',1], queryFn: () => fetch(LEAGUES.DATA+'/'+league_id).then(res => res.json())},
@@ -80,8 +83,10 @@ function ClubsDansLigue() {
         ]
     )
     
+    // (2) Season change (MUISeasonSelectBox)
     useEffect(() => {
         // This code will execute every time the season state changes
+        // resultQueries[6] : nationalities
         resultQueries[6].refetch();
       }, [season]); // The effect depends on the season state
     
@@ -93,27 +98,17 @@ function ClubsDansLigue() {
     // ---------------------------------------------
     // 3-3) LOADING / ERROR
     // ---------------------------------------------
-    let isLoading = false;
-    let isError = false;
-
-    resultQueries.forEach(query => {
-        if (query.isLoading) {
-            isLoading = true;
-        }
-
-        if (query.isError) {
-            isError = true;
-        }    
-    });
-
-    if (isLoading) return 
-        (
-        <div className="lg:h-screen md:h-full sm:h-full sm:ml-64 flex flex-col justify-between border-2 border-eerieBlack pt-3 pb-3">
-                <LoadingCarte/>
-        </div>
-        )
-
-    if (isLoading) return 'An error has occured '
+    if (resultQueries.some((query) => query.isLoading)) {
+        return (
+          <div className="lg:h-screen md:h-full sm:h-full sm:ml-64 flex flex-col justify-between border-2 border-eerieBlack pt-3 pb-3">
+            <LoadingCarte />
+          </div>
+        );
+    }
+      
+      if (resultQueries.some((query) => query.error)) {
+        return 'An error has occurred';
+    }
 
     // ---------------------------------------------
     // 3-4) SUCCESS
@@ -131,10 +126,10 @@ function ClubsDansLigue() {
 
     // (2) DATA : DATA FOR BESTS
     const BESTS = [
-        {title:"Meilleur Club", key:allTimeBestClub.clubId, img_url:CLUBS.IMG +"/" + allTimeBestClub.clubName, data_name:allTimeBestClub.clubName, data_value1:allTimeBestClub.rankAverage + " ème", data_value2:allTimeBestClub.nbWin + " x champs"},
-        {title:"Meilleur Buteur", key:allTimeBestStriker.playerId, img_url:PLAYERS.IMG +"/" + allTimeBestStriker.playerId, data_name:allTimeBestStriker.playerName, data_value1:allTimeBestStriker.totalGoals + " buts", data_value2:allTimeBestStriker.totalMatches + " matchs"},
-        {title:"Meilleur Passeur", key:(allTimeBestPlaymaker.playerId)*99, img_url:PLAYERS.IMG +"/" + allTimeBestPlaymaker.playerId, data_name:allTimeBestPlaymaker.playerName, data_value1:allTimeBestPlaymaker.totalAssists + " passes décisives", data_value2:allTimeBestPlaymaker.totalMatches + " matchs"},
-        {title:"Meilleur Gardien", key:allTimeBestGoalkeeper.playerId, img_url:PLAYERS.IMG +"/" + allTimeBestGoalkeeper.playerId, data_name:allTimeBestGoalkeeper.playerName, data_value1:allTimeBestGoalkeeper.totalGoalsAgainst + " clean sheets", data_value2:allTimeBestGoalkeeper.totalMatches + " matchs"},
+        getBestData("Le Meilleur Club", allTimeBestClub.clubId, CLUBS.IMG +"/" + allTimeBestClub.clubName, allTimeBestClub.clubName, allTimeBestClub.rankAverage + " ème", allTimeBestClub.nbWin + " x champs"),
+        getBestData("Le Meilleur Buteur", allTimeBestStriker.playerId, PLAYERS.IMG +"/" + allTimeBestStriker.playerId, allTimeBestStriker.playerName, allTimeBestStriker.totalGoals + " buts", allTimeBestStriker.totalMatches + " matchs"),
+        getBestData("Le Meilleur Passeur", (allTimeBestPlaymaker.playerId)*99, PLAYERS.IMG +"/" + allTimeBestPlaymaker.playerId, allTimeBestPlaymaker.playerName, allTimeBestPlaymaker.totalAssists + " passes", allTimeBestPlaymaker.totalMatches + " matchs"),
+        getBestData("Le Meilleur Gardien", (allTimeBestGoalkeeper.playerId)*999, PLAYERS.IMG +"/" + allTimeBestGoalkeeper.playerId, allTimeBestGoalkeeper.playerName, allTimeBestGoalkeeper.totalCleanSheets + " cleansheets", allTimeBestGoalkeeper.totalMatches + " matchs"),
     ]
     
     // (3) DATA : DATA FOR GRAPH WaffleChart, TreeMapChart
@@ -150,7 +145,7 @@ function ClubsDansLigue() {
             <div className="pb-3 xl:ml-64 flex flex-col justify-between border-2 border-eerieBlack">
                 <div className="lg:flex lg:flex-row sm:max-md:flex-col pt-3">
                     <div className="basis-2/6 w-full pr-1 mb-5">
-                        <LigueCarte key={league.id} league={league} leagues_img_url={LEAGUES.IMG} isClickDisabled={isClickDisabled}/>
+                        <LigueCarte key={league.id} league={league} leagues_img={LEAGUES.IMG} isClickDisabled={isClickDisabled}/>
                     </div>    
                     <div className="basis-4/6 w-full pr-1 mb-5">
                         <BlocLeMeilleur>
@@ -189,7 +184,7 @@ function ClubsDansLigue() {
                 <BlocTitre title="Cliquez sur le club que vous voulez voir ci-dessous"/>
                 <BlocClubCarte>
                     {clubs.map(club => (
-                        <ClubCarte key={club.id} club={club} clubs_img_url={CLUBS.IMG} isClickDisabled={false}/>
+                        <ClubCarte key={club.id} club={club} clubs_img={CLUBS.IMG} isClickDisabled={false}/>
                     ))}
                 </BlocClubCarte>
             </div>

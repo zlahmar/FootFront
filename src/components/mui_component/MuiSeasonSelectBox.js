@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, TextField, MenuItem } from '@mui/material';
-import { selectSeasons } from '../utility/utility';
+import { selectSeasons } from '../../data/Arrays';
+import { COLOR } from '../../data/Constants';
 
 const MuiSeasonSelectBox = ({ season, handleSeasonChange }) => {
   return (
@@ -14,37 +15,37 @@ const MuiSeasonSelectBox = ({ season, handleSeasonChange }) => {
           sx={{
             width: "200px",
             '& label': {
-              color: 'white', // Change the label color
+              color: COLOR.WHITE, // Change the label color
               fontSize: '1rem',
             },
             '&:hover label': {
-              color: '#A8E1DC',
+              color: COLOR.TIFFANYBLUE,
             },
             "& label.Mui-focused": {
-              color: '#A8E1DC',
+              color: COLOR.TIFFANYBLUE,
             },
             '& .MuiOutlinedInput-root': {
               '& fieldset': {
-                borderColor: 'white',
+                borderColor: COLOR.WHITE,
               },
               '&:hover fieldset': {
-                borderColor: '#A8E1DC',
+                borderColor: COLOR.TIFFANYBLUE,
               },
               '&.Mui-focused fieldset': {
-                borderColor: '#A8E1DC',
+                borderColor: COLOR.TIFFANYBLUE,
               },
             },
           }}
           InputProps={{
-            style: { color: 'white' },
+            style: { color: COLOR.WHITE },
           }}
           SelectProps={{
             MenuProps: {
               PaperProps: {
                 style: {
                   maxHeight: 250, // Adjust this value as needed to limit the displayed height
-                  backgroundColor: '#2B3132',
-                  color: 'white',
+                  backgroundColor: COLOR.GUNMETAL,
+                  color: COLOR.WHITE,
                 },
               },
             },

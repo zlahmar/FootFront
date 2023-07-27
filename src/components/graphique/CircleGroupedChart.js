@@ -1,6 +1,8 @@
 import { Bar } from '@nivo/bar'
+import { COLOR } from '../../data/Constants'
 
 const keys = ['redcard', 'yellowcard']
+const colors = [COLOR.RED, COLOR.YELLOW]
 const commonProps = {
     margin : { top: 10, right: 130, bottom: 50, left: 60 },
     indexBy: 'league',
@@ -19,12 +21,12 @@ const CircleGroupedChart = ({data, width}) => (
     barComponent={CustomBarComponent} 
     theme={{
         fontSize: '14px',
-        textColor: 'white',
+        textColor: COLOR.TIFFANYBLUE,
     }}
     width={width}
     height={350}
     data={data}
-    colors={['#fa2a2a', '#ffea80']}
+    colors={colors}
     {...commonProps} 
     />
 )

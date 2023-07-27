@@ -1,5 +1,4 @@
 import BlocTitre from "../bloc/BlocTitre"
-
 import logo from '../../assets/icon/logo.png'
 
 export default function APropos() {
@@ -40,6 +39,36 @@ export default function APropos() {
                             </div>
                         </div>
                     </div>
+
+                    <div className="text-center text-white px-3 pt-5 mr-auto">
+                        <table className="table-fixed border-separate border-spacing-2 border border-tiffanyBlue">
+                            <thead>
+                                <tr >
+                                    <th>Version</th>
+                                    <th>Description</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>V1</td>
+                                    <td>Malcolm Lockyer</td>
+                                    <td>1961</td>
+                                </tr>
+                                <tr>
+                                    <td>V2</td>
+                                    <td>The Eagles</td>
+                                    <td>1972</td>
+                                </tr>
+                                <tr>
+                                    <td>V3</td>
+                                    <td>Earth, Wind, and Fire</td>
+                                    <td>1975</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
                     <div className="mt-5 pb-2 pr-8 flex flex-row-reverse w-full">
                         <a href="https://github.com/Sangmin-SHIM">
                             <p className="text-lg text-tiffanyBlue">
@@ -52,6 +81,8 @@ export default function APropos() {
                     </div>
                 </div>
             </div>
+
+
         </div>
     )
 }

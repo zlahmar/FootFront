@@ -3,6 +3,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import MuiTabPanel from './MuiTabPanel';
+import { COLOR } from '../../data/Constants';
 
 
 function a11yProps(index) {
@@ -27,9 +28,9 @@ export default function MuiTabs(props) {
           className="xl:ml-32 lg:ml-24 sm:m-0"
           value={value} onChange={handleChange}  
           sx={{
-            '& .MuiTabs-indicator': { backgroundColor: '#A8E1DC'},
-            '& .MuiTab-root': { color: '#f5f5f5' },
-            '& .MuiTab-root.Mui-selected': { color: '#A8E1DC' },
+            '& .MuiTabs-indicator': { backgroundColor: COLOR.TIFFANYBLUE},
+            '& .MuiTab-root': { color: COLOR.WHITE },
+            '& .MuiTab-root.Mui-selected': { color: COLOR.TIFFANYBLUE },
           }}
 
         >

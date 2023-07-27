@@ -12,8 +12,9 @@ import {
 import { createImage } from "../utility/utility";
 import logo from "../../assets/icon/ball.png";
 import cup from "../../assets/icon/cup.png";
+import { COLOR } from "../../data/Constants";
 // 1) CHARTJS
-Chartjs.defaults.color = "#fff";
+Chartjs.defaults.color = COLOR.WHITE;
 Chartjs.register(
     LineElement,
     PointElement,
@@ -90,13 +91,13 @@ export default function LineChart(){
         maintainAspectRatio: false,
         scales: {
             x: {
-              ticks: {color:"white"},
-              grid: {color:"white"}
+              ticks: {color:COLOR.WHITE},
+              grid: {color:COLOR.WHITE}
             },
             y: {
               beginAtZero: true,
-              ticks: {color:"white"},
-              grid: {color:"white"}
+              ticks: {color:COLOR.WHITE},
+              grid: {color:COLOR.WHITE}
             }
         },
         elements: {

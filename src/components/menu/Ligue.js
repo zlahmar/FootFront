@@ -7,7 +7,7 @@ import { QueryClient, QueryClientProvider,  useQueries } from "react-query"
 
 // API / DATA
 import {LEAGUES} from "../../data/Api"
-import LEAGUE from "../../data/Constants";
+import {LEAGUE} from "../../data/Constants";
 import { getLeagueArrayRankByYear, getLeagueArrayTotalData, getLeagueArrayTotalCardsData } from '../../data/Arrays';
 
 // Components
@@ -31,6 +31,9 @@ import kickball from '../../assets/icon/kickball.png'
 import goal from '../../assets/icon/goal.png'
 import yellow_card from '../../assets/icon/yellow_card.png'
 import red_card from '../../assets/icon/red_card.png'
+
+// Utility
+import { getUefaLeaguesRanking } from '../utility/utility';
 
 // -----------------------
 // 1) QUERY CLIENT
@@ -112,11 +115,11 @@ function Ligue (){
 
     // (1) DATA : UEFA LEAGUES_RANKING FOR GRAPH BumpChart
     const UEFA_LEAGUES_RANKING = [
-        {id : LEAGUE.FRANCE, data : getLeagueArrayRankByYear(resultQueries[0].data, LEAGUE.FRANCE)},
-        {id : LEAGUE.ENGLAND, data : getLeagueArrayRankByYear(resultQueries[0].data, LEAGUE.ENGLAND)},
-        {id : LEAGUE.SPAIN, data : getLeagueArrayRankByYear(resultQueries[0].data, LEAGUE.SPAIN)},
-        {id : LEAGUE.ITALY, data : getLeagueArrayRankByYear(resultQueries[0].data, LEAGUE.ITALY)},
-        {id : LEAGUE.GERMANY, data : getLeagueArrayRankByYear(resultQueries[0].data, LEAGUE.GERMANY)},
+        getUefaLeaguesRanking(LEAGUE.FRANCE, getLeagueArrayRankByYear(resultQueries[0].data, LEAGUE.FRANCE)),
+        getUefaLeaguesRanking(LEAGUE.ENGLAND, getLeagueArrayRankByYear(resultQueries[0].data, LEAGUE.ENGLAND)),
+        getUefaLeaguesRanking(LEAGUE.SPAIN, getLeagueArrayRankByYear(resultQueries[0].data, LEAGUE.SPAIN)),
+        getUefaLeaguesRanking(LEAGUE.ITALY, getLeagueArrayRankByYear(resultQueries[0].data, LEAGUE.ITALY)),
+        getUefaLeaguesRanking(LEAGUE.GERMANY, getLeagueArrayRankByYear(resultQueries[0].data, LEAGUE.GERMANY)),
     ]
 
     // (2) DATA : LEAGUES_TOTAL_DATA FOR GRAPH BarGroupedChart
@@ -150,7 +153,7 @@ function Ligue (){
                 <BlocTitre title="Cliquez sur la ligue que vous voulez voir ci-dessous"/>
                 <BlocLigueCarte>
                     {leagues.map(league => (
-                        <LigueCarte key={league.id} league={league} leagues_img_url={LEAGUES.IMG} />
+                        <LigueCarte key={league.id} league={league} leagues_img={LEAGUES.IMG} />
                     ))}       
                 </BlocLigueCarte>
             </div>        

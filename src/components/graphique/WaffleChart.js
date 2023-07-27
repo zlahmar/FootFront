@@ -3,6 +3,7 @@ import '../../styles/index.css'
 import champion from '../../assets/icon/champion.png'
 import fc from '../../assets/icon/fc.png'
 import stadium from '../../assets/icon/stadium.png'
+import { COLOR } from '../../data/Constants'
 
 const CustomTooltip = node => (
     <div className='px-2 '
@@ -11,7 +12,7 @@ const CustomTooltip = node => (
             display: 'grid',
             gridTemplateColumns: '1fr 1fr',
             gridColumnGap: '1px',
-            backgroundColor: '#393a3e',
+            backgroundColor: COLOR.ONYX,
         }}
     >
         <span style={{ fontWeight: 600 }}>
@@ -85,7 +86,7 @@ const WaffleChart = ({ data, width }) => {
                 itemHeight: 30,
                 itemDirection: 'left-to-right',
                 itemOpacity: 1,
-                itemTextColor: '#A8E1DC',
+                itemTextColor: COLOR.WHITE,
                 symbolSize: 30,
 
             }

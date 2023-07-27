@@ -83,3 +83,18 @@ export const getIdFromUrl = (value) => {
     const id = path[index+1]
     return id;
 }
+
+// selectSeasons
+export function selectSeasons(season, numberOfSeasons) {
+    const seasonsArray=[];
+    const [startYear, endYear] = season.split('-').map(Number);
+  
+    for (let i=0; i<numberOfSeasons; i++) {
+      const currentStartYear = startYear + i;
+      const currentEndYear = endYear + i;
+  
+      seasonsArray.push(`${currentStartYear}-${currentEndYear}`);
+    }
+  
+    return seasonsArray;
+  }

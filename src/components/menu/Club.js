@@ -5,7 +5,7 @@ import '../../styles/index.css'
 import { QueryClient, QueryClientProvider,  useQueries } from "react-query"
 
 // API / DATA
-import {CLUBS} from "../../data/Api"
+import {CLUBS, PLAYERS} from "../../data/Api"
 import { getIdFromUrl } from '../../data/Arrays';
 import ClubCarte from '../carte/club/ClubCarte';
 
@@ -29,6 +29,9 @@ import MuiTabs from "../mui_component/MuiTabs";
 // Icons
 import champion from '../../assets/icon/champion.png'
 import best_player from '../../assets/icon/best_player.png'
+
+// Utility
+import { getBestData } from '../utility/utility';
 
 // -----------------------
 // 1) QUERY CLIENT
@@ -58,6 +61,9 @@ function Club() {
     const resultQueries = useQueries(
         [
             { queryKey: ['club',1], queryFn: () => fetch(CLUBS.DATA+'/'+club_id).then(res => res.json())},
+            { queryKey: ['bestTop10Strikers',2], queryFn: () => fetch(PLAYERS.BEST_TOP_10_STRIKERS+'?club_id='+club_id).then(res => res.json())},
+            { queryKey: ['bestTop10Playmakers',3], queryFn: () => fetch(PLAYERS.BEST_TOP_10_PLAYMAKERS+'?club_id='+club_id).then(res => res.json())},
+            { queryKey: ['bestTop10Goalkeepers',4], queryFn: () => fetch(PLAYERS.BEST_TOP_10_GOALKEEPERS+'?club_id='+club_id).then(res => res.json())},
         ]
     )
 
@@ -82,20 +88,28 @@ function Club() {
 
     // (1) DATA : DATA FROM API
     const club = resultQueries[0].data;
+    const bestTop10Strikers = resultQueries[1].data;
+    const bestTop10Playmakers = resultQueries[2].data;
+    const bestTop10Goalkeepers = resultQueries[3].data;
+
+    // (2) DATA : DATA FOR BESTS
+    const BESTS = [
+        getBestData("Le Meilleur Buteur", bestTop10Strikers[0].playerId, PLAYERS.IMG+"/"+bestTop10Strikers[0].playerId, bestTop10Strikers[0].playerName, bestTop10Strikers[0].allGoals + " buts", bestTop10Strikers[0].allNbGames+ " matchs"), 
+        getBestData("Le Meilleur Passeur", (bestTop10Playmakers[0].playerId)*99, PLAYERS.IMG+"/"+bestTop10Playmakers[0].playerId, bestTop10Playmakers[0].playerName, bestTop10Playmakers[0].allAssists + " passes", bestTop10Playmakers[0].allNbGames+ " matchs"),
+        getBestData("Le Meilleur Gardien", bestTop10Goalkeepers[0].playerId, PLAYERS.IMG+"/"+bestTop10Goalkeepers[0].playerId, bestTop10Goalkeepers[0].playerName, bestTop10Goalkeepers[0].allGas + " buts encaissés", bestTop10Goalkeepers[0].allNbGames+ " matchs")
+    ]
 
     return (
             <div className="pb-3 xl:ml-64 flex flex-col border-2 border-eerieBlack">
                 <div className="lg:flex lg:flex-row sm:max-md:flex-col pt-3">
                     <div className="basis-2/6 w-full pr-1 mb-5">
-                        <ClubCarte key={club.id} club={club} clubs_img_url={CLUBS.IMG} isClickDisabled={true}/>
+                        <ClubCarte key={club.id} club={club} clubs_img={CLUBS.IMG} isClickDisabled={true}/>
                     </div>  
                     <div className="basis-4/6 w-full pr-1 mb-5">
                         <BlocLeMeilleur>
-                            {/* {BESTS.map(best => ( */}
-                                <LeMeilleur title={"Meilleur Buteur"} key={"1"}  img_url={""} data_name={"TEST"} data_value1 = {"TEST"} data_value2= {"TEST"}/>
-                                <LeMeilleur title={"Meilleur Passeur"} key={"2"}  img_url={""} data_name={"TEST"} data_value1 = {"TEST"} data_value2= {"TEST"}/>
-                                <LeMeilleur title={"Meilleur Gardien"} key={"3"}  img_url={""} data_name={"TEST"} data_value1 = {"TEST"} data_value2= {"TEST"}/>
-                            {/* ))}*/}
+                            {BESTS.map(best => ( 
+                                <LeMeilleur title={best.title} key={best.key}  img_url={best.img_url} data_name={best.data_name} data_value1 = {best.data_value1} data_value2= {best.data_value2}/>
+                            ))}
                         </BlocLeMeilleur>
                     </div>   
                 </div>

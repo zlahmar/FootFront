@@ -1,5 +1,6 @@
 import { ResponsiveBump } from '@nivo/bump'
 import '../../styles/index.css'
+import { COLOR } from '../../data/Constants'
 
 
 const BumpChart = ({ data }) => (
@@ -20,7 +21,7 @@ const BumpChart = ({ data }) => (
             pointBorderColor={{ from: 'serie.color' }}
             theme={{
                 fontSize: '14px',
-                textColor: 'white',
+                textColor: COLOR.WHITE,
             }}
             
             axisBottom={{
