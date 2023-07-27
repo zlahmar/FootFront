@@ -13,6 +13,8 @@ const COLOR = {
     EERIEBLACK: '#18181C',
     WHITE : '#ffffff',
     ONYX : '#393a3e',
+    AIAS : '#ee5d72',
+    ODYSSEUS : '#154284',
 
     YELLOW : '#ffea80',
     RED : '#fa2a2a'
