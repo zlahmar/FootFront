@@ -2,7 +2,7 @@ import { Bar } from '@nivo/bar'
 
 const keys = ['redcard', 'yellowcard']
 const commonProps = {
-    margin : { top: 50, right: 130, bottom: 50, left: 60 },
+    margin : { top: 10, right: 130, bottom: 50, left: 60 },
     indexBy: 'league',
     keys,
     labelTextColor: 'inherit:darker(1.4)',

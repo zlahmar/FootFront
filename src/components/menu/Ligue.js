@@ -73,8 +73,6 @@ function Ligue (){
         }
       }
       handleResize();
-      console.log("width : ", width)
-
       window.addEventListener('resize', handleResize);
 
       return () => window.removeEventListener('resize', handleResize);
@@ -143,7 +141,7 @@ function Ligue (){
                             <BlocTitreGraphe img={[goal]} title="Buts & Passes décisives (2002 ~ 2022)"/>
                             <BarGroupedChart data={LEAGUES_TOTAL_DATA}/>
                         </div>
-                        <div className='2xl:w-[75rem] xl:w-[70rem] lg:w-[63rem] md:w-0 sm:w-0 max-[767px]:w-0 h-96 flex flex-col justify-center'>
+                        <div className='2xl:w-[75rem] xl:w-[70rem] lg:w-[63rem] md:w-0 sm:w-0 max-[767px]:w-0 h-96 flex flex-col justify-center pt-3'>
                             <BlocTitreGraphe img={[yellow_card, red_card]} title="Cartons jaunes et rouges (2002 ~ 2022)"/>
                             {width && <CircleGroupedChart width={width} data={LEAGUES_TOTAL_CARDS_DATA}/>}
                         </div>

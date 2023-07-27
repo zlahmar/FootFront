@@ -21,12 +21,14 @@ import JoueurCarte from '../carte/joueur/JoueurCarte';
 
 // Graphique
 import LineChart from '../graphique/LineChart';
+import NetworkChart from '../graphique/NetworkChart';
 
 // MUI
 import MuiTabs from "../mui_component/MuiTabs";
 
 // Icons
 import champion from '../../assets/icon/champion.png'
+import best_player from '../../assets/icon/best_player.png'
 
 // -----------------------
 // 1) QUERY CLIENT
@@ -104,7 +106,8 @@ function Club() {
                             <LineChart/>
                         </div>
                         <div  className="2xl:w-[75rem] xl:w-[70rem] lg:w-[63rem] md:w-0 sm:w-0 max-[767px]:w-0 h-96 flex flex-col justify-center">
-                            2
+                            <BlocTitreGraphe img={[best_player]} title={"Network Chart example"}/>
+                            <NetworkChart/>
                         </div>
                     </MuiTabs>    
                 </BlocContent> 

@@ -49,7 +49,7 @@ function JoueurCarte({ isClickDisabled = false}){
                             </div>
 
                             {/* (4) Stats */}
-                            <div className="flex flex-col justify-center -translate-y-[2.5rem]">
+                            <div className="flex flex-col justify-center -translate-y-[2.8rem] translate-x-[0.4rem]">
                                 {/* 1) all_nb_games / all_avg_minutes */}
                                 <div className="flex justify-normal px-3 pb-1">
                                     <div className="flex items-center pl-2">  
@@ -59,7 +59,7 @@ function JoueurCarte({ isClickDisabled = false}){
                                                     <img className='w-8' src={match} alt="match"/>
                                                 </div>
                                                 <div className='flex items-center'>
-                                                    <p className='text-white font-content'>125 matchs</p>
+                                                    <p className='text-eerieBlack font-bold font-content'>125 matchs</p>
                                                 </div>
                                             </Box>
                                         </Tooltip>                                         
@@ -71,7 +71,7 @@ function JoueurCarte({ isClickDisabled = false}){
                                                     <img className='w-8' src={time} alt="time"/>
                                                 </div>
                                                 <div className='flex items-center'>
-                                                    <p className='text-white font-content'>90.3 min.</p>
+                                                    <p className='text-eerieBlack font-bold font-content'>90.3 min.</p>
                                                 </div>
                                             </Box>
                                         </Tooltip>                                        
@@ -86,7 +86,7 @@ function JoueurCarte({ isClickDisabled = false}){
                                                     <img className='w-8' src={shoot} alt="shoot"/>
                                                 </div>
                                                 <div className='flex items-center'>
-                                                    <p className='text-white font-content'>455 buts</p>
+                                                    <p className='text-eerieBlack font-bold font-content'>455 buts</p>
                                                 </div>
                                             </Box>
                                         </Tooltip>                                         
@@ -98,7 +98,7 @@ function JoueurCarte({ isClickDisabled = false}){
                                                     <img className='w-8' src={kickball} alt="keecball"/>
                                                 </div>
                                                 <div className='flex items-center'>
-                                                    <p className='text-white font-content'>145 passes</p>
+                                                    <p className='text-eerieBlack font-bold font-content'>145 passes</p>
                                                 </div>
                                             </Box>
                                         </Tooltip>                                        
@@ -113,7 +113,7 @@ function JoueurCarte({ isClickDisabled = false}){
                                                     <img className='w-8' src={yellow_card} alt="yellow_card"/>
                                                 </div>
                                                 <div className='flex items-center'>
-                                                    <p className='text-white font-content'>125</p>
+                                                    <p className='text-eerieBlack font-bold font-content'>125</p>
                                                 </div>
                                             </Box>
                                         </Tooltip>                                         
@@ -125,7 +125,7 @@ function JoueurCarte({ isClickDisabled = false}){
                                                     <img className='w-8' src={red_card} alt="red_card"/>
                                                 </div>
                                                 <div className='flex items-center'>
-                                                    <p className='text-white font-content'>5</p>
+                                                    <p className='text-eerieBlack font-bold font-content'>5</p>
                                                 </div>
                                             </Box>
                                         </Tooltip>                                        
