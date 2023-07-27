@@ -38,7 +38,7 @@ export function createImage(image_source, width=20, height=20){
   return image;
 }
 
-export function generateBestData(title, key, img_url, data_name, data_value1, data_value2){
+export function getBestData(title, key, img_url, data_name, data_value1, data_value2){
   return {
     title: title,
     key: key,
@@ -46,5 +46,12 @@ export function generateBestData(title, key, img_url, data_name, data_value1, da
     data_name: data_name,
     data_value1: data_value1,
     data_value2: data_value2
+    }
+  }
+
+export function getUefaLeaguesRanking(id, data){
+  return {
+    id: id,
+    data: data
   }
 }
