@@ -174,7 +174,7 @@ function ClubsDansLigue() {
                     <div className="basis-1/2 w-full ml-0 mr-0">
                         <BlocContent>
                             <div>
-                                <div className='flex justify-center pt-4'>
+                                <div className='flex justify-center'>
                                     <BlocTitreGraphe img={[nationality]} title={`Nationalités des joueurs <br/> en <strong>${league.name}</strong> (${season})`}/>
                                     <MuiSeasonSelectBox season={season} handleSeasonChange={handleSeasonChange}/>
                                 </div>

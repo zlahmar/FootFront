@@ -41,7 +41,7 @@ export default function LineChart(){
 
             data.datasets[0].data.map((datapoint, index) =>{
                 if(datapoint === null){
-                    ctx.fillStyle = 'rgba(57, 58, 62, 1)';
+                    ctx.fillStyle = 'rgba(79, 84, 89, 1)';
                     ctx.fillRect(x.getPixelForValue(index) - tickWidth,top,x.getPixelForValue(index+1) -(x.getPixelForValue(index)-tickWidth),height);
                 }
                 ctx.restore();
@@ -58,7 +58,7 @@ export default function LineChart(){
           label: ['Ranks'],
           data: [15, 12, 15, 9, null, 4, 9, null,1, 15, 9, 2, 4, 9,1, 15, 9, 2, 4, 20],
           backgroundColor: [
-            'rgba(255, 255, 255, 0.7)',
+            'rgba(255, 255, 255, 1)',
           ],
           borderColor: [
             'rgba(255, 255, 255, 1)',
@@ -72,10 +72,10 @@ export default function LineChart(){
           {
             label: ['No Data in {league_name}'],
             backgroundColor: [
-              'rgba(57, 58, 62, 0.3)',
+              'rgba(79, 84, 89, 1)',
             ],
             borderColor: [
-              'rgba(57, 58, 62, 1)',
+              'rgba(79, 84, 89, 1)',
             ],
           },
         ],
