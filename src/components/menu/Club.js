@@ -129,6 +129,7 @@ function Club() {
                         <div  className="2xl:w-[75rem] xl:w-[70rem] lg:w-[63rem] md:w-0 sm:w-0 max-[767px]:w-0 h-96 flex flex-col justify-center">
                             <BlocTitreGraphe img={[best_player]} title={"Network Chart example"}/>
                             <NetworkChart/>
+                            <p className='text-white'>Zoomer / Dézoomer</p>
                         </div>
                     </MuiTabs>    
                 </BlocContent> 

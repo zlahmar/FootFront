@@ -17,8 +17,8 @@ module.exports = {
       'gray':'#4f5459',
     },
     fontFamily: {
-      title : ['Philosopher', 'sans-serif'],
-      content : ['Montserrat', 'sans-serif'],
+      title : ['Montserrat', 'sans-serif'],
+      content : ['Karla', 'sans-serif'],
     },
     extend: {},
   },
