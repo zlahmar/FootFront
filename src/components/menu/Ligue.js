@@ -123,6 +123,8 @@ function Ligue (){
     ]
 
     // (2) DATA : LEAGUES_TOTAL_DATA FOR GRAPH BarGroupedChart
+    console.log("resultQueries[2].data : ", resultQueries[2].data)
+
     const LEAGUES_TOTAL_DATA = getLeagueArrayTotalData(resultQueries[2].data)
 
     // (3) DATA : LEAGUES_TOTAL_CARDS_DATA FOR GRAPH CircleGroupedChart
@@ -132,7 +134,7 @@ function Ligue (){
     // 4) RETURN
     // ---------------------------------------------
     return (    
-            <div className="lg:h-screen md:h-full sm:h-full xl:ml-64 flex flex-col justify-around border-2 border-eerieBlack">
+            <div className="xl:ml-64 flex flex-col justify-around border-2 border-eerieBlack">
                 <BlocTitre title="Ligue (2002 ~ 2022) : 20 ans de 5 ligues principales"/> 
                 <BlocContent>
                     <MuiTabs>

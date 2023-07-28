@@ -1,4 +1,5 @@
 const API_URL = "https://footstatsapi.sangmin.fr/api/"
+// const API_URL = "http://localhost:7777/api/"
 
 const LEAGUES = {
     DATA : API_URL + "leagues",
