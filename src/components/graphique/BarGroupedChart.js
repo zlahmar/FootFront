@@ -41,12 +41,13 @@ const BarGroupedChart = ({ data }) => (
             tickSize: 5,
             tickPadding: 5,
             tickRotation: 0,
-            legend: 'stats',
-            legendPosition: 'middle',
-            legendOffset: -40
+            legend: 'total',
+            legendPosition: 'top',
+            legendOffset: -40,
+            legendRotation: 90
         }}
-        labelSkipWidth={12}
-        labelSkipHeight={12}
+        labelSkipWidth={15}
+        labelSkipHeight={0}
         labelTextColor= {COLOR.EERIEBLACK}
         legends={[
             {
