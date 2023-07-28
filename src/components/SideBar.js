@@ -40,7 +40,7 @@ function SideBar({onChildClick, visible}){
                         <li>
                             <LienMenu lien="/joueurs" texte="Joueur" image={joueur}></LienMenu>                        
                         </li>
-                        <li className="absolute w-[230px] bottom-5">
+                        <li className="absolute w-[230px] bottom-10">
                             <LienMenu lien="/a_propos" texte="A propos" image={annonce}></LienMenu>    
                         </li>   
                     </ul>

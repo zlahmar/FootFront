@@ -10,6 +10,23 @@ const commonProps = {
     labelTextColor: 'inherit:darker(1.4)',
     labelSkipWidth: 10,
     labelSkipHeight: 10,
+    axisBottom:{
+    tickSize: 5,
+    tickPadding: 5,
+    tickRotation: 0,
+    legend: 'league',
+    legendPosition: 'middle',
+    legendOffset: 32
+        },
+    axisLeft:{
+        tickSize: 5,
+        tickPadding: -15,
+        tickRotation: 0,
+        legend: 'total (redcard + yellowcard)',
+        legendPosition: 'middle',
+        legendOffset: -40,
+        legendRotation: 90
+        },      
 }
 
 const CustomBarComponent = ({ bar: { x, y, width, height, color } }) => (

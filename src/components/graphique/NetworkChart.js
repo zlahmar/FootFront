@@ -1,7 +1,6 @@
 import Graph from 'react-vis-network-graph';
 import { COLOR } from '../../data/Constants';
 import messi from '../../assets/messi.png';
-import argentina from '../../assets/argentina.png';
 
 export default function NetworkChart(){
     const graph = {
@@ -74,8 +73,6 @@ export default function NetworkChart(){
                 face: "Tahoma",
             },
         },
-        shadow: true,
-        smooth: true,
         physics: {
             enabled: false,
         },

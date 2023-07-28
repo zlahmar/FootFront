@@ -16,7 +16,7 @@ const BarGroupedChart = ({ data }) => (
         colors={[COLOR.POWDERBLUE, COLOR.TIFFANYBLUE]}
         theme={{
                 fontSize: '14px',
-                textColor: COLOR.WHITE,
+                textColor: COLOR.TIFFANYBLUE,
             }}
         borderColor={{
             from: 'color',
@@ -39,21 +39,22 @@ const BarGroupedChart = ({ data }) => (
         }}
         axisLeft={{
             tickSize: 5,
-            tickPadding: 5,
+            tickPadding: -15,
             tickRotation: 0,
-            legend: 'stats',
+            legend: 'total (goal + assist)',
             legendPosition: 'middle',
-            legendOffset: -40
+            legendOffset: -40,
+            legendRotation: 90
         }}
-        labelSkipWidth={12}
-        labelSkipHeight={12}
+        labelSkipWidth={15}
+        labelSkipHeight={0}
         labelTextColor= {COLOR.EERIEBLACK}
         legends={[
             {
                 dataFrom: 'keys',
                 anchor: 'bottom-right',
                 direction: 'column',
-                justify: false,
+                justify: true,
                 translateX: 120,
                 translateY: 0,
                 itemsSpacing: 2,
@@ -73,7 +74,6 @@ const BarGroupedChart = ({ data }) => (
             }
         ]}
         role="application"
-        ariaLabel="Nivo bar chart demo"
         barAriaLabel={function(e){return e.id+": "+e.formattedValue+" in country: "+e.indexValue}}
     />
 )
