@@ -14,7 +14,7 @@ function ClubCarte({ club, clubs_img,  isClickDisabled = true}){
                 </div>
 
                 <div className="w-full h-full p-1 sm:p-1 lg:p-3 text-center p-3 sm:p-5 lg:p-7  flex flex-col justify-center">
-                    <span className=" text-xl text-white font-title">{club.name}</span>
+                    <span className=" text-lg text-white font-content">{club.name}</span>
                     {isClickDisabled &&<p className="mt-1 text-xs text-white font-content">{club.league.name}</p>}
                 </div>
             </Link>

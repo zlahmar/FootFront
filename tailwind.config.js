@@ -18,7 +18,7 @@ module.exports = {
     },
     fontFamily: {
       title : ['Philosopher', 'sans-serif'],
-      content : ['Mulish', 'sans-serif'],
+      content : ['Montserrat', 'sans-serif'],
     },
     extend: {},
   },
