@@ -100,7 +100,7 @@ function Club() {
     ]
 
     return (
-            <div className="pb-3 xl:ml-64 flex flex-col border-2 border-eerieBlack">
+            <div className="pb-3 xl:ml-64 flex flex-col">
                 <div className="lg:flex lg:flex-row sm:max-md:flex-col pt-3">
                     <div className="basis-2/6 w-full pr-1 mb-5">
                         <ClubCarte key={club.id} club={club} clubs_img={CLUBS.IMG} isClickDisabled={true}/>

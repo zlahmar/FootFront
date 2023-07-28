@@ -142,7 +142,7 @@ function ClubsDansLigue() {
     const isClickDisabled = true
 
     return (
-            <div className="pb-3 xl:ml-64 flex flex-col justify-between border-2 border-eerieBlack">
+            <div className="pb-3 xl:ml-64 flex flex-col justify-betwee">
                 <div className="lg:flex lg:flex-row sm:max-md:flex-col pt-3">
                     <div className="basis-2/6 w-full pr-1 mb-5">
                         <LigueCarte key={league.id} league={league} leagues_img={LEAGUES.IMG} isClickDisabled={isClickDisabled}/>
