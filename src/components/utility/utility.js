@@ -55,3 +55,7 @@ export function getUefaLeaguesRanking(id, data){
     data: data
   }
 }
+
+export function getBase64ImageFromURL(url) {
+  
+}
