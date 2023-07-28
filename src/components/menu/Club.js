@@ -33,6 +33,9 @@ import best_player from '../../assets/icon/best_player.png'
 // Utility
 import { getBestData } from '../utility/utility';
 
+// Array
+import { getClubRankingForSeasons } from '../../data/Arrays';
+
 // -----------------------
 // 1) QUERY CLIENT
 // -----------------------
@@ -94,14 +97,15 @@ function Club() {
     const bestTop10Goalkeepers = resultQueries[3].data;
     const club_stats = resultQueries[4].data;
 
-    // (2) DATA : DATA FOR BESTS
+    // (2) DATA : DATA FOR BESTS & RANKING FOR SEASONS
     const BESTS = [
         getBestData("Le Meilleur Buteur", bestTop10Strikers[0].playerId, PLAYERS.IMG+"/"+bestTop10Strikers[0].playerId, bestTop10Strikers[0].playerName, bestTop10Strikers[0].allGoals + " buts", bestTop10Strikers[0].allNbGames+ " matchs"), 
         getBestData("Le Meilleur Passeur", (bestTop10Playmakers[0].playerId)*99, PLAYERS.IMG+"/"+bestTop10Playmakers[0].playerId, bestTop10Playmakers[0].playerName, bestTop10Playmakers[0].allAssists + " passes", bestTop10Playmakers[0].allNbGames+ " matchs"),
         getBestData("Le Meilleur Gardien", bestTop10Goalkeepers[0].playerId, PLAYERS.IMG+"/"+bestTop10Goalkeepers[0].playerId, bestTop10Goalkeepers[0].playerName, bestTop10Goalkeepers[0].allGas + " buts encaissés", bestTop10Goalkeepers[0].allNbGames+ " matchs")
     ]
 
-    console.log(club_stats)
+    const RANKING_FOR_SEASONS = getClubRankingForSeasons(club_stats, "2002-2003", 20)
+
     return (
             <div className="pb-3 xl:ml-64 flex flex-col">
                 <div className="lg:flex lg:flex-row sm:max-md:flex-col pt-5">
@@ -119,8 +123,8 @@ function Club() {
                 <BlocContent>
                     <MuiTabs>
                         <div className="2xl:w-[75rem] xl:w-[70rem] lg:w-[63rem] md:w-0 sm:w-0 max-[767px]:w-0 h-96 flex flex-col justify-center">
-                            <BlocTitreGraphe img={[champion]} title={"Classement en ligue du <strong>[nom du club]</strong> (2002 ~ 2022)"}/>
-                            <LineChart/>
+                            <BlocTitreGraphe img={[champion]} title={`Classement en ligue du <strong>${club.league.name}</strong> (2002 ~ 2022)`}/>
+                            <LineChart club={RANKING_FOR_SEASONS}/>
                         </div>
                         <div  className="2xl:w-[75rem] xl:w-[70rem] lg:w-[63rem] md:w-0 sm:w-0 max-[767px]:w-0 h-96 flex flex-col justify-center">
                             <BlocTitreGraphe img={[best_player]} title={"Network Chart example"}/>

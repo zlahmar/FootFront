@@ -30,22 +30,26 @@ Chartjs.register(
 const img_ball = createImage(logo, 45, 45)
 const img_cup = createImage(cup, 45, 45)
 
-export default function LineChart(){
+export default function LineChart(props){
     const skipped = (ctx, value) => ctx.p0.skip || ctx.p1.skip ? value : undefined;
     const skippedArea = {
         id: 'skippedArea',
         beforeDatasetsDraw(chart){
             const {ctx, data, chartArea: { top, width, height },
                     scales: {x} } = chart;
-            const tickWidth = width / x.max;
-
+            const tickWidth = width / x.max ;
             ctx.save();
-
             data.datasets[0].data.map((datapoint, index) =>{
-                if(datapoint === null){
+                if(datapoint === null && index !== 0){
                     ctx.fillStyle = COLOR.GREY;
                     ctx.fillRect(x.getPixelForValue(index) - tickWidth,top,x.getPixelForValue(index+1) -(x.getPixelForValue(index)-tickWidth),height);
+                } 
+
+                if(datapoint === null && index === 0){
+                    ctx.fillStyle = COLOR.GREY;
+                    ctx.fillRect(x.getPixelForValue(index+1) - tickWidth,top,x.getPixelForValue(index+2) -(x.getPixelForValue(index)-tickWidth),height);
                 }
+
                 ctx.restore();
                 return null;
             })
@@ -58,7 +62,7 @@ export default function LineChart(){
         datasets: [
           {
           label: ['Ranks'],
-          data: [15, 12, 15, 9, null, 4, 9, null,1, 15, 9, 2, 4, 9,1, 15, 9, 2, 4, 20],
+          data: props.club.map((club) => club.rank),
           backgroundColor: [
             COLOR.WHITE,
           ],
