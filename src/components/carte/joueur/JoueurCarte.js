@@ -53,19 +53,19 @@ function JoueurCarte({ isClickDisabled = false}){
                             <div className="flex flex-col justify-center -translate-y-[2.8rem] translate-x-[0.4rem]">
                                 {/* 1) all_nb_games / all_avg_minutes */}
                                 <div className="flex justify-normal px-3 pb-1">
-                                    <div className="flex items-center pl-2">  
+                                    <div className="flex items-center">  
                                         <Tooltip title="All Games" arrow placement="left">
                                             <Box className="flex" sx={{color: COLOR.GUNMETAL}}>
                                                 <div className='mr-2 '>
                                                     <img className='w-8' src={match} alt="match"/>
                                                 </div>
                                                 <div className='flex items-center'>
-                                                    <p className='text-eerieBlack font-bold font-content'>125 matchs</p>
+                                                    <p className='text-eerieBlack font-bold font-content'>125 match(s)</p>
                                                 </div>
                                             </Box>
                                         </Tooltip>                                         
                                     </div>    
-                                    <div className="flex items-center ml-5">
+                                    <div className="flex items-center ml-4">
                                         <Tooltip title="Average Minutes" arrow placement="right">
                                             <Box className="flex" sx={{color: COLOR.GUNMETAL}}>
                                                 <div className='mr-2'>
@@ -80,26 +80,26 @@ function JoueurCarte({ isClickDisabled = false}){
                                 </div>
                                 {/* 2) all_goals / all_assists */}
                                 <div className="flex justify-normal px-3 pb-1">
-                                    <div className="flex items-center pl-2">  
+                                    <div className="flex items-center">  
                                         <Tooltip title="All Goals" arrow placement="left">
                                             <Box className="flex" sx={{color: COLOR.GUNMETAL}}>
                                                 <div className='mr-2'>
                                                     <img className='w-8' src={shoot} alt="shoot"/>
                                                 </div>
                                                 <div className='flex items-center'>
-                                                    <p className='text-eerieBlack font-bold font-content'>455 buts</p>
+                                                    <p className='text-eerieBlack font-bold font-content'>455 goal(s)</p>
                                                 </div>
                                             </Box>
-                                        </Tooltip>                                         
+                                        </Tooltip>                                        
                                     </div>    
-                                    <div className="flex items-center ml-[2.5rem]">
+                                    <div className="flex items-center ml-[1.7rem]">
                                         <Tooltip title="All Assists" arrow placement="right">
                                             <Box className="flex" sx={{color: COLOR.GUNMETAL}}>
                                                 <div className='mr-2'>
                                                     <img className='w-8' src={kickball} alt="keecball"/>
                                                 </div>
                                                 <div className='flex items-center'>
-                                                    <p className='text-eerieBlack font-bold font-content'>145 passes</p>
+                                                    <p className='text-eerieBlack font-bold font-content'>145 assist(s)</p>
                                                 </div>
                                             </Box>
                                         </Tooltip>                                        
@@ -107,26 +107,26 @@ function JoueurCarte({ isClickDisabled = false}){
                                 </div>
                                 {/* 3) all_yellow_cards / all_red_cards */}
                                 <div className="flex justify-normal px-3">
-                                    <div className="flex items-center pl-2">  
+                                    <div className="flex items-center">  
                                         <Tooltip title="All Games" arrow placement="left">
                                             <Box className="flex" sx={{color: COLOR.GUNMETAL}}>
                                                 <div className='mr-2'>
                                                     <img className='w-8' src={yellow_card} alt="yellow_card"/>
                                                 </div>
                                                 <div className='flex items-center'>
-                                                    <p className='text-eerieBlack font-bold font-content'>125</p>
+                                                    <p className='text-eerieBlack font-bold font-content'>125 yellow</p>
                                                 </div>
                                             </Box>
                                         </Tooltip>                                         
                                     </div>    
-                                    <div className="flex items-center ml-[5rem]">
+                                    <div className="flex items-center ml-[2rem]">
                                         <Tooltip title="Average Minutes" arrow placement="right">
                                             <Box className="flex" sx={{color: COLOR.GUNMETAL}}>
                                                 <div className='mr-2'>
                                                     <img className='w-8' src={red_card} alt="red_card"/>
                                                 </div>
                                                 <div className='flex items-center'>
-                                                    <p className='text-eerieBlack font-bold font-content'>5</p>
+                                                    <p className='text-eerieBlack font-bold font-content'>5 red</p>
                                                 </div>
                                             </Box>
                                         </Tooltip>                                        
