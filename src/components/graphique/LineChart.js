@@ -28,7 +28,6 @@ Chartjs.register(
 const img_ball = createImage(logo, 45, 45)
 const img_cup = createImage(cup, 45, 45)
 
-
 export default function LineChart(){
     const skipped = (ctx, value) => ctx.p0.skip || ctx.p1.skip ? value : undefined;
     const skippedArea = {
@@ -42,7 +41,7 @@ export default function LineChart(){
 
             data.datasets[0].data.map((datapoint, index) =>{
                 if(datapoint === null){
-                    ctx.fillStyle = 'rgba(79, 84, 89, 1)';
+                    ctx.fillStyle = COLOR.GREY;
                     ctx.fillRect(x.getPixelForValue(index) - tickWidth,top,x.getPixelForValue(index+1) -(x.getPixelForValue(index)-tickWidth),height);
                 }
                 ctx.restore();
@@ -59,10 +58,10 @@ export default function LineChart(){
           label: ['Ranks'],
           data: [15, 12, 15, 9, null, 4, 9, null,1, 15, 9, 2, 4, 9,1, 15, 9, 2, 4, 20],
           backgroundColor: [
-            'rgba(255, 255, 255, 1)',
+            COLOR.WHITE,
           ],
           borderColor: [
-            'rgba(255, 255, 255, 1)',
+            COLOR.WHITE,
           ],
           tension:0.1,
           spanGaps: true,
@@ -73,10 +72,10 @@ export default function LineChart(){
           {
             label: ['No Data in {league_name}'],
             backgroundColor: [
-              'rgba(79, 84, 89, 1)',
+              COLOR.GREY,
             ],
             borderColor: [
-              'rgba(79, 84, 89, 1)',
+              COLOR.GREY,
             ],
           },
         ],

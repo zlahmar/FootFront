@@ -64,6 +64,7 @@ function Club() {
             { queryKey: ['bestTop10Strikers',2], queryFn: () => fetch(PLAYERS.BEST_TOP_10_STRIKERS+'?club_id='+club_id).then(res => res.json())},
             { queryKey: ['bestTop10Playmakers',3], queryFn: () => fetch(PLAYERS.BEST_TOP_10_PLAYMAKERS+'?club_id='+club_id).then(res => res.json())},
             { queryKey: ['bestTop10Goalkeepers',4], queryFn: () => fetch(PLAYERS.BEST_TOP_10_GOALKEEPERS+'?club_id='+club_id).then(res => res.json())},
+            { queryKey: ['club_stats',5], queryFn: () => fetch(CLUBS.STATS+'?club_id='+club_id).then(res => res.json())},
         ]
     )
 
@@ -91,6 +92,7 @@ function Club() {
     const bestTop10Strikers = resultQueries[1].data;
     const bestTop10Playmakers = resultQueries[2].data;
     const bestTop10Goalkeepers = resultQueries[3].data;
+    const club_stats = resultQueries[4].data;
 
     // (2) DATA : DATA FOR BESTS
     const BESTS = [
@@ -99,6 +101,7 @@ function Club() {
         getBestData("Le Meilleur Gardien", bestTop10Goalkeepers[0].playerId, PLAYERS.IMG+"/"+bestTop10Goalkeepers[0].playerId, bestTop10Goalkeepers[0].playerName, bestTop10Goalkeepers[0].allGas + " buts encaissés", bestTop10Goalkeepers[0].allNbGames+ " matchs")
     ]
 
+    console.log(club_stats)
     return (
             <div className="pb-3 xl:ml-64 flex flex-col">
                 <div className="lg:flex lg:flex-row sm:max-md:flex-col pt-5">

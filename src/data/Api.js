@@ -14,6 +14,7 @@ const CLUBS = {
     IMG : API_URL + "images/clubs", //+ /{club.name}
     ALL_TIME_BEST : API_URL + "stats_league_club/all_time_best_clubs", // ?league_id=
     BEST_BY_SEASON : API_URL + "stats_league_club/best_clubs", // ?league_id= &season=
+    STATS : API_URL + "stats_league_club/clubs", // ?club_id=
 }
 
 const PLAYERS = {
