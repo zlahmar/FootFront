@@ -101,9 +101,9 @@ export default function LineChart(props){
             },
             y: {
               beginAtZero: true,
-              ticks: {color:COLOR.WHITE},
+              ticks: {color:COLOR.WHITE, stepSize:1},
               grid: {color:COLOR.WHITE}
-            }
+            },
         },
         elements: {
             point: {
