@@ -84,8 +84,8 @@ export const getIdFromUrl = (value) => {
     return id;
 }
 
-// selectSeasons
-export function selectSeasons(season, numberOfSeasons) {
+// generateSeason
+export function generateSeason(season, numberOfSeasons) {
     const seasonsArray=[];
     const [startYear, endYear] = season.split('-').map(Number);
   

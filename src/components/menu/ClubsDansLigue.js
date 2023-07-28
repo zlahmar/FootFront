@@ -7,7 +7,7 @@ import { QueryClient, QueryClientProvider,  useQueries } from "react-query"
 
 // API / DATA
 import {LEAGUES,CLUBS, PLAYERS} from "../../data/Api"
-import {getIdFromUrl ,getBestClubBySeason, getNationalities, selectSeasons } from '../../data/Arrays';
+import {getIdFromUrl ,getBestClubBySeason, getNationalities, generateSeason } from '../../data/Arrays';
 
 // Graphique
 import WaffleChart from '../graphique/WaffleChart';
@@ -59,7 +59,7 @@ function ClubsDansLigue() {
     const startSeason = "2002-2003"
     const numberOfSeasons = 20
  
-    let [season, setSeason] = useState([selectSeasons(startSeason, numberOfSeasons)[numberOfSeasons-1]]);
+    let [season, setSeason] = useState([generateSeason(startSeason, numberOfSeasons)[numberOfSeasons-1]]);
 
     // -----------------------------------------------------------------------
     // 3-1) USE STATE / USE EFFECT : WIDTH RESPONSIVE FOR GRAPH WaffleChart, TreeMapChart
