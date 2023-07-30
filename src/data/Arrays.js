@@ -84,8 +84,8 @@ export const getIdFromUrl = (value) => {
     return id;
 }
 
-// selectSeasons
-export function selectSeasons(season, numberOfSeasons) {
+// generateSeason
+export function generateSeason(season, numberOfSeasons) {
     const seasonsArray=[];
     const [startYear, endYear] = season.split('-').map(Number);
   
@@ -97,4 +97,22 @@ export function selectSeasons(season, numberOfSeasons) {
     }
   
     return seasonsArray;
-  }
+}
+
+// getClubRankingForSeasons
+export const getClubRankingForSeasons = (obj_array, startSeason, numberOfSeasons) => {
+    const seasons = generateSeason(startSeason,numberOfSeasons)
+    const season_map_for_club = new Map()
+
+    seasons.forEach(season => {
+        season_map_for_club.set(season, { rank: null})
+    })
+
+    obj_array.forEach(value => {
+        season_map_for_club.set(value.season, { rank: value.rank})
+    })
+
+    const season_list_for_club= Array.from(season_map_for_club, ([season, value]) => ({season, ...value}))
+
+    return season_list_for_club
+}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, TextField, MenuItem } from '@mui/material';
-import { selectSeasons } from '../../data/Arrays';
+import { generateSeason } from '../../data/Arrays';
 import { COLOR } from '../../data/Constants';
 
 const MuiSeasonSelectBox = ({ season, handleSeasonChange }) => {
@@ -51,7 +51,7 @@ const MuiSeasonSelectBox = ({ season, handleSeasonChange }) => {
             },
           }}
         >
-          {selectSeasons("2002-2003", 20).map((season) => (
+          {generateSeason("2002-2003", 20).map((season) => (
             <MenuItem value={season} key={season}>
               {season}
             </MenuItem>

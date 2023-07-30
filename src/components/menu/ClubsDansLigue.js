@@ -7,7 +7,7 @@ import { QueryClient, QueryClientProvider,  useQueries } from "react-query"
 
 // API / DATA
 import {LEAGUES,CLUBS, PLAYERS} from "../../data/Api"
-import {getIdFromUrl ,getBestClubBySeason, getNationalities, selectSeasons } from '../../data/Arrays';
+import {getIdFromUrl ,getBestClubBySeason, getNationalities, generateSeason } from '../../data/Arrays';
 
 // Graphique
 import WaffleChart from '../graphique/WaffleChart';
@@ -23,7 +23,7 @@ import BlocTitreGraphe from '../bloc/BlocTitreGraphe';
 import BlocContent from '../bloc/BlocContent';
 import BlocLeMeilleur from '../bloc/BlocLeMeilleur';
 import LoadingCarte from "../carte/LoadingCarte";
-import {useWindowWidth} from '../utility/utility';
+import {useWindowWidth,getBestData} from '../utility/Utility';
 
 // Icons
 import ligue from '../../assets/icon/cup.png'
@@ -33,7 +33,6 @@ import nationality from '../../assets/icon/nationality.png'
 import MuiSeasonSelectBox from '../mui_component/MuiSeasonSelectBox';
 
 // Utility
-import { getBestData } from '../utility/utility';
 
 // -----------------------
 // 1) QUERY CLIENT
@@ -59,7 +58,7 @@ function ClubsDansLigue() {
     const startSeason = "2002-2003"
     const numberOfSeasons = 20
  
-    let [season, setSeason] = useState([selectSeasons(startSeason, numberOfSeasons)[numberOfSeasons-1]]);
+    let [season, setSeason] = useState([generateSeason(startSeason, numberOfSeasons)[numberOfSeasons-1]]);
 
     // -----------------------------------------------------------------------
     // 3-1) USE STATE / USE EFFECT : WIDTH RESPONSIVE FOR GRAPH WaffleChart, TreeMapChart

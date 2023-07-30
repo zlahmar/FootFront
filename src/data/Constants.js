@@ -15,7 +15,7 @@ const COLOR = {
     ONYX : '#393a3e',
     AIAS : '#ee5d72',
     ODYSSEUS : '#154284',
-
+    GREY : '#4f5459',
     YELLOW : '#ffea80',
     RED : '#fa2a2a'
 }
