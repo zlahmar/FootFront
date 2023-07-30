@@ -33,7 +33,7 @@ import yellow_card from '../../assets/icon/yellow_card.png'
 import red_card from '../../assets/icon/red_card.png'
 
 // Utility
-import { getUefaLeaguesRanking } from '../utility/utility';
+import { getUefaLeaguesRanking } from '../utility/Utility';
 
 // -----------------------
 // 1) QUERY CLIENT

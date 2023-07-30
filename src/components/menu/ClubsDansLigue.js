@@ -23,7 +23,7 @@ import BlocTitreGraphe from '../bloc/BlocTitreGraphe';
 import BlocContent from '../bloc/BlocContent';
 import BlocLeMeilleur from '../bloc/BlocLeMeilleur';
 import LoadingCarte from "../carte/LoadingCarte";
-import {useWindowWidth} from '../utility/utility';
+import {useWindowWidth,getBestData} from '../utility/Utility';
 
 // Icons
 import ligue from '../../assets/icon/cup.png'
@@ -33,7 +33,6 @@ import nationality from '../../assets/icon/nationality.png'
 import MuiSeasonSelectBox from '../mui_component/MuiSeasonSelectBox';
 
 // Utility
-import { getBestData } from '../utility/utility';
 
 // -----------------------
 // 1) QUERY CLIENT

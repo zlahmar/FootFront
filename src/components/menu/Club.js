@@ -31,7 +31,7 @@ import champion from '../../assets/icon/champion.png'
 import best_player from '../../assets/icon/best_player.png'
 
 // Utility
-import { getBestData } from '../utility/utility';
+import { getBestData } from '../utility/Utility';
 
 // Array
 import { getClubRankingForSeasons } from '../../data/Arrays';

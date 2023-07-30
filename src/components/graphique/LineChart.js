@@ -9,7 +9,7 @@ import {
     Legend
 
   } from "chart.js";
-import { createImage } from "../utility/utility";
+import { createImage } from "../utility/Utility";
 import logo from "../../assets/icon/ball.png";
 import cup from "../../assets/icon/cup.png";
 import { COLOR } from "../../data/Constants";
