@@ -40,7 +40,7 @@ export default function APropos() {
                         </div>
                     </div>
 
-                    <div className="text-center text-white px-3 pt-5 mr-auto">
+                    <div className="text-white px-3 pt-5 mr-auto">
                         <table className="table-fixed border-separate border-spacing-2 border border-tiffanyBlue">
                             <thead>
                                 <tr >
@@ -49,21 +49,21 @@ export default function APropos() {
                                     <th>Date</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody className="text-center">
+                                <tr>
+                                    <td>V0</td>
+                                    <td className="text-left">Collecte les données (Initialisation)</td>
+                                    <td className="text-right">Le 13 Mars 2023</td>
+                                </tr>
                                 <tr>
                                     <td>V1</td>
-                                    <td>Malcolm Lockyer</td>
-                                    <td>1961</td>
+                                    <td className="text-left">Liste ligues, clubs</td>
+                                    <td className="text-right">Le 26 Avril 2023</td>
                                 </tr>
                                 <tr>
                                     <td>V2</td>
-                                    <td>The Eagles</td>
-                                    <td>1972</td>
-                                </tr>
-                                <tr>
-                                    <td>V3</td>
-                                    <td>Earth, Wind, and Fire</td>
-                                    <td>1975</td>
+                                    <td className="text-left">Liste joueurs, détails de club</td>
+                                    <td className="text-right">Le 31 Juillet 2023</td>
                                 </tr>
                             </tbody>
                         </table>
