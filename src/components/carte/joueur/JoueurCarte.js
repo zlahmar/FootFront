@@ -20,14 +20,14 @@ function JoueurCarte({ isClickDisabled = false}){
     return(
         <div className={`${isClickDisabled ? 'h-full' : ''} flex justify-evenly`}>
             <div className="mt-1">
-                    <div className={` ${isClickDisabled ? 'h-full' : ''}  pt-4 mb-5 bg-[url('/src/assets/arriere_plan/player_card_dark.png')] w-[24rem] h-[30rem] bg-contain bg-center bg-no-repeat `}>
+                    <div className={` ${isClickDisabled ? 'h-full' : ''}  pt-4 mb-5 bg-[url('/src/assets/arriere_plan/player_card_dark.png')] w-[20rem] h-[30rem] bg-contain bg-center bg-no-repeat `}>
                         <Link
                             to={{pathname : "/joueurs",
                             state: { joueurId: "good" }}}
                             className={` bg-gunMetal `}
                         >
                             {/* (1) Laurier(img) */}
-                            <div className="z-10 top-1/4 left-1/4 translate-x-[10rem] translate-y-[1rem]">
+                            <div className="z-10 top-1/4 left-1/4 translate-x-[8rem] translate-y-[1.5rem]">
                                 <img className="w-[4rem] h-[4rem]" src={laurier_blue} alt="" />
                             </div>
 
@@ -37,20 +37,20 @@ function JoueurCarte({ isClickDisabled = false}){
                                     <p className='text-white text-xl font-bold -translate-x-[6.5rem] -translate-y-[0.5rem]'>ST</p>
                                 </div>
                                 <div className="z-10 top-1/4 left-1/4">
-                                    <img className="w-[5rem] h-[4rem] translate-x-[3rem] translate-y-[0.5rem]" src={argentina} alt="argentina" />
+                                    <img className="w-[5rem] h-[4rem] translate-x-[1rem] translate-y-[0.5rem]" src={argentina} alt="argentina" />
                                 </div>
                             </div>
 
                             {/* (3) Joueur(img) & Nom(p) */}
                             <div className="flex flex-col justify-center">
-                                <div className="z-10 top-1/4 left-1/4 translate-x-[11rem] -translate-y-[4.5rem]">
-                                    <img className="w-[9rem] h-[9rem] rounded-full border-solid border-4 border-tiffanyBlue" src={messi} alt="" />
+                                <div className="z-10 top-1/4 left-1/4 translate-x-[10rem] -translate-y-[3rem]">
+                                    <img className="w-[8rem] h-[8rem] rounded-full border-solid border-4 border-tiffanyBlue" src={messi} alt="" />
                                 </div>
-                                <p className="z-10 text-white text-2xl font-title font-bold -translate-y-[3.5rem]">Lionel Messi</p>
+                                <p className="z-10 text-white text-2xl font-title font-bold -translate-y-[1.5rem]">Lionel Messi</p>
                             </div>
 
-                            {/* (4) Stats */}
-                            <div className="flex flex-col justify-center -translate-y-[2.5rem] translate-x-[2.2rem] mx-3">
+                            {/* (4) Stats */} 
+                            <div className="flex flex-col justify-center translate-x-[0.3rem] -translate-y-[1.3rem] mx-3">
                                 {/* 1) all_nb_games / all_avg_minutes */}
                                 <div className="flex justify-normal px-3 pb-1">
                                     <div className="flex items-center">  

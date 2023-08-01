@@ -2,6 +2,11 @@ import Graph from 'react-vis-network-graph';
 import { COLOR } from '../../data/Constants';
 import NetworkElement from '../utility/NetworkElement';
 
+// Icons
+import striker from '../../assets/network/striker.png';
+import playmaker from '../../assets/network/playmaker.png';
+import goalkeeper from '../../assets/network/goalkeeper.png';
+
 export default function NetworkChart(props){ 
 
     // ----------------
@@ -23,9 +28,9 @@ export default function NetworkChart(props){
     const club_element = new NetworkElement(1, club.name, COLOR.WHITE, club_img_url+'/'+club.name,description)
     
     // 2nd level - Role
-    const striker_element = new NetworkElement(2,"Buteur", COLOR.POWDERBLUE,"")
-    const playmaker_element = new NetworkElement(3,"Passeur", COLOR.POWDERBLUE, "")
-    const goalkeeper_element = new NetworkElement(4,"Gardien", COLOR.POWDERBLUE, "")
+    const striker_element = new NetworkElement(2,"Buteur", COLOR.POWDERBLUE,striker,"")
+    const playmaker_element = new NetworkElement(3,"Passeur", COLOR.POWDERBLUE,playmaker, "")
+    const goalkeeper_element = new NetworkElement(4,"Gardien", COLOR.POWDERBLUE,goalkeeper, "")
 
     // 3rd level - 5 Buteurs, 5 Passeurs, 5 Gardiens
     const best_top_5_strikers_elements = NetworkElement.createNetworkElements("striker",best_top_10_strikers, NetworkElement.getIdByLabel(goalkeeper_element)+1);
