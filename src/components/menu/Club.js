@@ -18,6 +18,7 @@ import BlocTitre from '../bloc/BlocTitre';
 import BlocJoueurCarte from '../bloc/BlocJoueurCarte';
 import BlocTitreGraphe from '../bloc/BlocTitreGraphe';
 import JoueurCarte from '../carte/joueur/JoueurCarte';
+import JoueurGardienCarte from '../carte/joueur/JoueurGardienCarte';
 
 // Graphique
 import LineChart from '../graphique/LineChart';
@@ -127,39 +128,23 @@ function Club() {
                             <LineChart club={RANKING_FOR_SEASONS}/>
                         </div>
                         <div  className="2xl:w-[75rem] xl:w-[70rem] lg:w-[63rem] md:w-0 sm:w-0 max-[767px]:w-0 h-96 flex flex-col justify-center">
-                            <BlocTitreGraphe img={[best_player]} title={"Network Chart example"}/>
+                            <BlocTitreGraphe img={[best_player]} title={`Les 5 meilleurs <strong>buteurs</strong>, <strong>passeurs</strong> et <strong>gardiens</strong> dans ${club.name}`}/>
                             <NetworkChart club={club} 
                             club_img_url={CLUBS.IMG} 
                             best_top_10_strikers={bestTop10Strikers} 
                             best_top_10_playmakers={bestTop10Playmakers} 
                             best_top_10_goalkeepers={bestTop10Goalkeepers}
                             />
-                            <p className='text-white'>Zoomer / Dézoomer</p>
                         </div>
                     </MuiTabs>    
                 </BlocContent> 
                 <BlocTitre title="Cliquez sur le joueur que vous voulez voir ci-dessous"/>
                 <BlocJoueurCarte>
                     <JoueurCarte/>
+                    <JoueurGardienCarte/>
                     <JoueurCarte/>
                     <JoueurCarte/>
-                    <JoueurCarte/>
-                    <JoueurCarte/>
-                    <JoueurCarte/>
-                    <JoueurCarte/>
-                    <JoueurCarte/>
-                    <JoueurCarte/>
-                    <JoueurCarte/>
-                    <JoueurCarte/>
-                    <JoueurCarte/>
-                    <JoueurCarte/>
-                    <JoueurCarte/>
-                    <JoueurCarte/>
-                    <JoueurCarte/>
-                    <JoueurCarte/>
-                    <JoueurCarte/>
-                    <JoueurCarte/>
-                    <JoueurCarte/>
+                    <JoueurGardienCarte/>
                 </BlocJoueurCarte>
             </div>
             )
