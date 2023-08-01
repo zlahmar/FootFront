@@ -52,28 +52,28 @@ function JoueurGardienCarte(props){
                             </div>
 
                             {/* (4) Stats */} 
-                            <div className="flex flex-col justify-center translate-x-[0.3rem] -translate-y-[1.3rem] mx-3">
+                            <div className="flex flex-col justify-center translate-x-[1rem] -translate-y-[0.7rem] mx-3 w-[16.5rem]">
                                 {/* 1) all_nb_games / all_avg_minutes */}
-                                <div className="flex justify-evenly px-3 pb-1">
-                                    <div className="flex items-center">  
+                                <div className="flex justify-evenly pb-1">
+                                    <div className="flex items-center w-1/2">  
                                         <Tooltip title="All Games" arrow placement="left">
                                             <Box className="flex" sx={{color: COLOR.GUNMETAL}}>
                                                 <div className='mr-2 '>
                                                     <img className='w-8' src={match} alt="match"/>
                                                 </div>
-                                                <div className='flex items-center'>
+                                                <div className='flex items-center w-full'>
                                                     <p className='text-white font-bold font-content'>{gk_player.allNbGames} <small>mt(s)</small></p>
                                                 </div>
                                             </Box>
                                         </Tooltip>                                         
                                     </div>    
-                                    <div className="flex items-center ml-11">
-                                        <Tooltip title="All Goals Against" arrow placement="left">
+                                    <div className="flex items-center w-1/2 ml-2">
+                                        <Tooltip title="All Goals Against" arrow placement="right">
                                             <Box className="flex" sx={{color: COLOR.GUNMETAL}}>
                                                 <div className='mr-2'>
                                                     <img className='w-8' src={goalkeeper} alt="goalkeeper"/>
                                                 </div>
-                                                <div className='flex items-center'>
+                                                <div className='flex items-center w-full'>
                                                     <p className='text-white font-bold font-content'>{gk_player.allGas} <small>ga(s)</small></p>
                                                 </div>
                                             </Box>
@@ -81,26 +81,26 @@ function JoueurGardienCarte(props){
                                     </div>
                                 </div>
                                 {/* 2) all_saves / all_cs */}
-                                <div className="flex justify-evenly px-3 pb-1">
-                                    <div className="flex items-center">  
-                                        <Tooltip title="All Saves" arrow placement="right">
+                                <div className="flex justify-center pb-1">
+                                    <div className="flex items-center w-1/2">  
+                                        <Tooltip title="All Saves" arrow placement="left">
                                             <Box className="flex" sx={{color: COLOR.GUNMETAL}}>
                                                 <div className='mr-2'>
                                                     <img className='w-8' src={save} alt="save"/>
                                                 </div>
-                                                <div className='flex items-center'>
+                                                <div className='flex items-center w-full'>
                                                     <p className='text-white font-bold font-content'>{gk_player.allSaves} <small>save(s)</small></p>
                                                 </div>
                                             </Box>
                                         </Tooltip>                                          
                                     </div>    
-                                    <div className="flex items-center ml-8">
+                                    <div className="flex items-center w-1/2 ml-2">
                                         <Tooltip title="All Clean Sheets" arrow placement="right">
                                             <Box className="flex" sx={{color: COLOR.GUNMETAL}}>
                                                 <div className='mr-2'>
                                                     <img className='w-8' src={goalkeeper} alt="goalkeeper"/>
                                                 </div>
-                                                <div className='flex items-center'>
+                                                <div className='flex items-center w-full'>
                                                     <p className='text-white font-bold font-content'>{gk_player.allCs} <small>cs(s)</small></p>
                                                 </div>
                                             </Box>
@@ -108,26 +108,26 @@ function JoueurGardienCarte(props){
                                     </div>
                                 </div>
                                 {/* 3) all_yellow_cards / all_red_cards */}
-                                <div className="flex justify-evenly px-3">
-                                    <div className="flex items-center">  
+                                <div className="flex justify-center">
+                                    <div className="flex items-center w-1/2">  
                                         <Tooltip title="All Games" arrow placement="left">
                                             <Box className="flex" sx={{color: COLOR.GUNMETAL}}>
                                                 <div className='mr-2'>
                                                     <img className='w-8' src={stadium} alt="win"/>
                                                 </div>
-                                                <div className='flex items-center'>
+                                                <div className='flex items-center w-full'>
                                                     <p className='text-white font-bold font-content'>{gk_player.allWins} <small>win(s)</small></p>
                                                 </div>
                                             </Box>
                                         </Tooltip>                                         
                                     </div>    
-                                    <div className="flex items-center ml-12">
+                                    <div className="flex items-center w-1/2 ml-2">
                                         <Tooltip title="Average Minutes" arrow placement="right">
                                             <Box className="flex" sx={{color: COLOR.GUNMETAL}}>
                                                 <div className='mr-2'>
                                                     <img className='w-8' src={stadium} alt="lose"/>
                                                 </div>
-                                                <div className='flex items-center'>
+                                                <div className='flex items-center w-full'>
                                                     <p className='text-white font-bold font-content'>{gk_player.allLoses} <small>lose(s)</small></p>
                                                 </div>
                                             </Box>

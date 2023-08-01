@@ -50,32 +50,32 @@ function JoueurCarte(props){
                                 <div className="z-10 top-1/4 left-1/4 translate-x-[10rem] -translate-y-[3rem]">
                                     <img className="w-[8rem] h-[8rem] rounded-full border-solid border-4 border-yellow bg-white" src={`${PLAYERS.IMG}/${player.playerId}`} alt={`${player.playerName}`} />
                                 </div>
-                                <p className="z-10 text-white text-2xl font-title font-bold -translate-y-[1.5rem]">{player.playerName}</p>
+                                <p className="z-10 text-white text-xl font-title font-bold -translate-y-[1.5rem]">{player.playerName}</p>
                             </div>
 
                             {/* (4) Stats */} 
-                            <div className="flex flex-col justify-center translate-x-[1rem] -translate-y-[1.3rem] mx-3">
+                            <div className="flex flex-col justify-center translate-x-[1rem] -translate-y-[0.7rem] mx-3 w-[16.5rem]">
                                 {/* 1) all_nb_games / all_avg_minutes */}
-                                <div className="flex justify-normal px-3 pb-1">
-                                    <div className="flex items-center">  
+                                <div className="flex justify-center pb-1">
+                                    <div className="flex items-center w-1/2">  
                                         <Tooltip title="All Games" arrow placement="left">
                                             <Box className="flex" sx={{color: COLOR.GUNMETAL}}>
                                                 <div className='mr-2 '>
                                                     <img className='w-8' src={match} alt="match"/>
                                                 </div>
-                                                <div className='flex items-center'>
+                                                <div className='flex items-center w-full'>
                                                     <p className='text-white font-bold font-content'>{player.allNbGames} <small>mt(s)</small></p>
                                                 </div>
                                             </Box>
                                         </Tooltip>                                         
                                     </div>    
-                                    <div className="flex items-center ml-10">
+                                    <div className="flex items-center w-1/2 ml-2">
                                         <Tooltip title="Average Minutes" arrow placement="right">
                                             <Box className="flex" sx={{color: COLOR.GUNMETAL}}>
                                                 <div className='mr-2'>
                                                     <img className='w-8' src={time} alt="time"/>
                                                 </div>
-                                                <div className='flex items-center'>
+                                                <div className='flex items-center w-full'>
                                                     <p className='text-white font-bold font-content'>{player.avgMinutes} <small>min.</small></p>
                                                 </div>
                                             </Box>
@@ -83,26 +83,26 @@ function JoueurCarte(props){
                                     </div>
                                 </div>
                                 {/* 2) all_goals / all_assists */}
-                                <div className="flex justify-normal px-3 pb-1">
-                                    <div className="flex items-center">  
+                                <div className="flex justify-center pb-1">
+                                    <div className="flex items-center w-1/2">  
                                         <Tooltip title="All Goals" arrow placement="left">
                                             <Box className="flex" sx={{color: COLOR.GUNMETAL}}>
                                                 <div className='mr-2'>
                                                     <img className='w-8' src={shoot} alt="shoot"/>
                                                 </div>
-                                                <div className='flex items-center'>
+                                                <div className='flex items-center w-full'>
                                                     <p className='text-white font-bold font-content'>{player.allGoals} <small>goal(s)</small></p>
                                                 </div>
                                             </Box>
                                         </Tooltip>                                        
                                     </div>    
-                                    <div className="flex items-center ml-[1.7rem]">
+                                    <div className="flex items-center w-1/2 ml-2">
                                         <Tooltip title="All Assists" arrow placement="right">
                                             <Box className="flex" sx={{color: COLOR.GUNMETAL}}>
                                                 <div className='mr-2'>
                                                     <img className='w-8' src={kickball} alt="keecball"/>
                                                 </div>
-                                                <div className='flex items-center'>
+                                                <div className='flex items-center w-full'>
                                                     <p className='text-white font-bold font-content'>{player.allAssists} <small>assist(s)</small></p>
                                                 </div>
                                             </Box>
@@ -110,26 +110,26 @@ function JoueurCarte(props){
                                     </div>
                                 </div>
                                 {/* 3) all_yellow_cards / all_red_cards */}
-                                <div className="flex justify-normal px-3">
-                                    <div className="flex items-center">  
+                                <div className="flex justify-center">
+                                    <div className="flex items-center w-1/2">  
                                         <Tooltip title="All Games" arrow placement="left">
                                             <Box className="flex" sx={{color: COLOR.GUNMETAL}}>
                                                 <div className='mr-2'>
-                                                    <img className='w-8' src={yellow_card} alt="yellow_card"/>
+                                                    <img className='w-9' src={yellow_card} alt="yellow_card"/>
                                                 </div>
-                                                <div className='flex items-center'>
+                                                <div className='flex items-center w-full'>
                                                     <p className='text-white font-bold font-content'>{player.allYellowCards} <small>yellow</small></p>
                                                 </div>
                                             </Box>
                                         </Tooltip>                                         
                                     </div>    
-                                    <div className="flex items-center ml-[2rem]">
+                                    <div className="flex items-center w-1/2 ml-2">
                                         <Tooltip title="Average Minutes" arrow placement="right">
                                             <Box className="flex" sx={{color: COLOR.GUNMETAL}}>
                                                 <div className='mr-2'>
-                                                    <img className='w-8' src={red_card} alt="red_card"/>
+                                                    <img className='w-10' src={red_card} alt="red_card"/>
                                                 </div>
-                                                <div className='flex items-center'>
+                                                <div className='flex items-center w-full'>
                                                     <p className='text-white font-bold font-content'>{player.allRedCards} <small>red</small></p>
                                                 </div>
                                             </Box>
