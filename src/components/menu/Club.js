@@ -69,6 +69,8 @@ function Club() {
             { queryKey: ['bestTop10Playmakers',3], queryFn: () => fetch(PLAYERS.BEST_TOP_10_PLAYMAKERS+'?club_id='+club_id).then(res => res.json())},
             { queryKey: ['bestTop10Goalkeepers',4], queryFn: () => fetch(PLAYERS.BEST_TOP_10_GOALKEEPERS+'?club_id='+club_id).then(res => res.json())},
             { queryKey: ['club_stats',5], queryFn: () => fetch(CLUBS.STATS+'?club_id='+club_id).then(res => res.json())},
+            { queryKey: ['club_all_players', 6], queryFn: () => fetch(PLAYERS.ALL_PLAYERS_IN_CLUB+'?club_id='+club_id).then(res => res.json())},
+            { queryKey: ['club_all_goalkeepers', 7], queryFn: () => fetch(PLAYERS.ALL_GK_PLAYERS_IN_CLUB+'?club_id='+club_id).then(res => res.json())},
         ]
     )
 
@@ -97,6 +99,8 @@ function Club() {
     const bestTop10Playmakers = resultQueries[2].data;
     const bestTop10Goalkeepers = resultQueries[3].data;
     const club_stats = resultQueries[4].data;
+    const club_all_players = resultQueries[5].data;
+    const club_all_goalkeepers = resultQueries[6].data;
 
     // (2) DATA : DATA FOR BESTS & RANKING FOR SEASONS
     const BESTS = [
@@ -140,11 +144,12 @@ function Club() {
                 </BlocContent> 
                 <BlocTitre title="Cliquez sur le joueur que vous voulez voir ci-dessous"/>
                 <BlocJoueurCarte>
-                    <JoueurCarte/>
-                    <JoueurGardienCarte/>
-                    <JoueurCarte/>
-                    <JoueurCarte/>
-                    <JoueurGardienCarte/>
+                    {club_all_goalkeepers.map(gk_player => (
+                        <JoueurGardienCarte key={gk_player.id} gk_player={gk_player}/>
+                    ))}
+                    {club_all_players.map(player => (
+                        <JoueurCarte key={player.id} player={player}/>
+                    ))}
                 </BlocJoueurCarte>
             </div>
             )

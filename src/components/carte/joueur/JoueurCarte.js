@@ -1,22 +1,27 @@
 import '../../../styles/index.css'
 import {Link} from "react-router-dom";
 
+// IMG
+import { PLAYERS, NATIONALITIES } from '../../../data/Api';
+
 // Images
-import messi from '../../../assets/messi.png'
-import laurier_blue from '../../../assets/laurier_blue.png'
-import argentina from '../../../assets/argentina.png'
+import laurier from '../../../assets/laurier.png'
 import match from '../../../assets/icon/match.png'
 import time from '../../../assets/icon/time.png'
 import shoot from '../../../assets/icon/shoot.png'
 import kickball from '../../../assets/icon/kickball.png'
 import yellow_card from '../../../assets/icon/yellow_card.png'
-import red_card from '../../../assets/icon/red_card.png'
+import red_card  from '../../../assets/icon/red_card.png'
 
 import Box from '@mui/material/Box';
 import { Tooltip } from '@mui/material';
 import { COLOR } from '../../../data/Constants';
 
-function JoueurCarte({ isClickDisabled = false}){
+function JoueurCarte(props){
+    const isClickDisabled = false;
+    const player = props.player;
+
+    console.log("player", player)
     return(
         <div className={`${isClickDisabled ? 'h-full' : ''} flex justify-evenly`}>
             <div className="mt-1">
@@ -28,29 +33,29 @@ function JoueurCarte({ isClickDisabled = false}){
                         >
                             {/* (1) Laurier(img) */}
                             <div className="z-10 top-1/4 left-1/4 translate-x-[8rem] translate-y-[1.5rem]">
-                                <img className="w-[4rem] h-[4rem]" src={laurier_blue} alt="" />
+                                <img className="w-[4rem] h-[4rem]" src={laurier} alt="laurier" />
                             </div>
 
                             {/* (2) Drapeau(img) & Position(p) */}
                             <div className="flex flex-col justify-center translate-x-[1.5rem] translate-y-[3rem]">
                                 <div className="z-10 top-1/4 left-1/4">
-                                    <p className='text-white text-xl font-bold -translate-x-[6.5rem] -translate-y-[0.5rem]'>ST</p>
+                                    <p className='text-white text-xl font-bold -translate-x-[6.5rem] -translate-y-[0.5rem]'>{player.playerPosition}</p>
                                 </div>
                                 <div className="z-10 top-1/4 left-1/4">
-                                    <img className="w-[5rem] h-[4rem] translate-x-[1rem] translate-y-[0.5rem]" src={argentina} alt="argentina" />
+                                    <img className="w-[5rem] h-[4rem] translate-x-[1rem] translate-y-[0.5rem]" src={`${NATIONALITIES.IMG}/${player.nationalityName}`} alt={`${player.nationalityName}`} />
                                 </div>
                             </div>
 
                             {/* (3) Joueur(img) & Nom(p) */}
                             <div className="flex flex-col justify-center">
                                 <div className="z-10 top-1/4 left-1/4 translate-x-[10rem] -translate-y-[3rem]">
-                                    <img className="w-[8rem] h-[8rem] rounded-full border-solid border-4 border-tiffanyBlue" src={messi} alt="" />
+                                    <img className="w-[8rem] h-[8rem] rounded-full border-solid border-4 border-yellow bg-white" src={`${PLAYERS.IMG}/${player.playerId}`} alt={`${player.playerName}`} />
                                 </div>
-                                <p className="z-10 text-white text-2xl font-title font-bold -translate-y-[1.5rem]">Lionel Messi</p>
+                                <p className="z-10 text-white text-2xl font-title font-bold -translate-y-[1.5rem]">{player.playerName}</p>
                             </div>
 
                             {/* (4) Stats */} 
-                            <div className="flex flex-col justify-center translate-x-[0.3rem] -translate-y-[1.3rem] mx-3">
+                            <div className="flex flex-col justify-center translate-x-[1rem] -translate-y-[1.3rem] mx-3">
                                 {/* 1) all_nb_games / all_avg_minutes */}
                                 <div className="flex justify-normal px-3 pb-1">
                                     <div className="flex items-center">  
@@ -60,19 +65,19 @@ function JoueurCarte({ isClickDisabled = false}){
                                                     <img className='w-8' src={match} alt="match"/>
                                                 </div>
                                                 <div className='flex items-center'>
-                                                    <p className='text-white font-bold font-content'>125 <small>match(s)</small></p>
+                                                    <p className='text-white font-bold font-content'>{player.allNbGames} <small>mt(s)</small></p>
                                                 </div>
                                             </Box>
                                         </Tooltip>                                         
                                     </div>    
-                                    <div className="flex items-center ml-4">
+                                    <div className="flex items-center ml-10">
                                         <Tooltip title="Average Minutes" arrow placement="right">
                                             <Box className="flex" sx={{color: COLOR.GUNMETAL}}>
                                                 <div className='mr-2'>
                                                     <img className='w-8' src={time} alt="time"/>
                                                 </div>
                                                 <div className='flex items-center'>
-                                                    <p className='text-white font-bold font-content'>90.3 <small>min.</small></p>
+                                                    <p className='text-white font-bold font-content'>{player.avgMinutes} <small>min.</small></p>
                                                 </div>
                                             </Box>
                                         </Tooltip>                                        
@@ -87,7 +92,7 @@ function JoueurCarte({ isClickDisabled = false}){
                                                     <img className='w-8' src={shoot} alt="shoot"/>
                                                 </div>
                                                 <div className='flex items-center'>
-                                                    <p className='text-white font-bold font-content'>455 <small>goal(s)</small></p>
+                                                    <p className='text-white font-bold font-content'>{player.allGoals} <small>goal(s)</small></p>
                                                 </div>
                                             </Box>
                                         </Tooltip>                                        
@@ -99,7 +104,7 @@ function JoueurCarte({ isClickDisabled = false}){
                                                     <img className='w-8' src={kickball} alt="keecball"/>
                                                 </div>
                                                 <div className='flex items-center'>
-                                                    <p className='text-white font-bold font-content'>145 <small>assist(s)</small></p>
+                                                    <p className='text-white font-bold font-content'>{player.allAssists} <small>assist(s)</small></p>
                                                 </div>
                                             </Box>
                                         </Tooltip>                                        
@@ -114,7 +119,7 @@ function JoueurCarte({ isClickDisabled = false}){
                                                     <img className='w-8' src={yellow_card} alt="yellow_card"/>
                                                 </div>
                                                 <div className='flex items-center'>
-                                                    <p className='text-white font-bold font-content'>125 <small>yellow</small></p>
+                                                    <p className='text-white font-bold font-content'>{player.allYellowCards} <small>yellow</small></p>
                                                 </div>
                                             </Box>
                                         </Tooltip>                                         
@@ -126,7 +131,7 @@ function JoueurCarte({ isClickDisabled = false}){
                                                     <img className='w-8' src={red_card} alt="red_card"/>
                                                 </div>
                                                 <div className='flex items-center'>
-                                                    <p className='text-white font-bold font-content'>5 <small>red</small></p>
+                                                    <p className='text-white font-bold font-content'>{player.allRedCards} <small>red</small></p>
                                                 </div>
                                             </Box>
                                         </Tooltip>                                        

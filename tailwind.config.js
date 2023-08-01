@@ -15,6 +15,7 @@ module.exports = {
       'powderBlue' : '#b2c7f0',
       'white' : '#ffffff',
       'gray':'#4f5459',
+      'yellow': '#e3e2a7',
     },
     fontFamily: {
       title : ['Montserrat', 'sans-serif'],
