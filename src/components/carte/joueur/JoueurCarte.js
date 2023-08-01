@@ -21,7 +21,6 @@ function JoueurCarte(props){
     const isClickDisabled = false;
     const player = props.player;
 
-    console.log("player", player)
     return(
         <div className={`${isClickDisabled ? 'h-full' : ''} flex justify-evenly`}>
             <div className="mt-1">

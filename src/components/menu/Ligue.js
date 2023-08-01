@@ -132,7 +132,7 @@ function Ligue (){
     // 4) RETURN
     // ---------------------------------------------
     return (    
-            <div className="xl:ml-64 flex flex-col">
+            <div className="flex flex-col">
                 <BlocTitre title="Ligue (2002 ~ 2022) : 20 ans de 5 ligues principales"/> 
                 <BlocContent>
                     <MuiTabs>
