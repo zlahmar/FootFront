@@ -24,19 +24,19 @@ function JoueurCarte(props){
     return(
         <div className={`${isClickDisabled ? 'h-full' : ''} flex justify-evenly`}>
             <div className="mt-1">
-                    <div className={` ${isClickDisabled ? 'h-full' : ''}  pt-4 mb-5 bg-[url('/src/assets/arriere_plan/player_card_dark.png')] w-[20rem] h-[30rem] bg-contain bg-center bg-no-repeat `}>
+                    <div className={` ${isClickDisabled ? 'h-full' : ''} relative pt-4 mb-5 bg-[url('/src/assets/arriere_plan/player_card_dark.png')] w-[20rem] h-[30rem] bg-contain bg-center bg-no-repeat `}>
                         <Link
                             to={{pathname : "/joueurs",
                             state: { joueurId: "good" }}}
                             className={` bg-gunMetal `}
                         >
                             {/* (1) Laurier(img) */}
-                            <div className="z-10 top-1/4 left-1/4 translate-x-[8rem] translate-y-[1.5rem]">
+                            <div className="z-10 absolute top-1/4 left-1/4 translate-x-[8rem] translate-y-[1.5rem]">
                                 <img className="w-[4rem] h-[4rem]" src={laurier} alt="laurier" />
                             </div>
 
                             {/* (2) Drapeau(img) & Position(p) */}
-                            <div className="flex flex-col justify-center translate-x-[1.5rem] translate-y-[3rem]">
+                            <div className="absolute flex flex-col justify-center translate-x-[1.5rem] translate-y-[3rem]">
                                 <div className="z-10 top-1/4 left-1/4">
                                     <p className='text-white text-xl font-bold -translate-x-[6.5rem] -translate-y-[0.5rem]'>{player.playerPosition}</p>
                                 </div>
@@ -46,7 +46,7 @@ function JoueurCarte(props){
                             </div>
 
                             {/* (3) Joueur(img) & Nom(p) */}
-                            <div className="flex flex-col justify-center">
+                            <div className="absolute flex flex-col justify-center">
                                 <div className="z-10 top-1/4 left-1/4 translate-x-[10rem] -translate-y-[3rem]">
                                     <img className="w-[8rem] h-[8rem] rounded-full border-solid border-4 border-yellow bg-white" src={`${PLAYERS.IMG}/${player.playerId}`} alt={`${player.playerName}`} />
                                 </div>
@@ -54,7 +54,7 @@ function JoueurCarte(props){
                             </div>
 
                             {/* (4) Stats */} 
-                            <div className="flex flex-col justify-center translate-x-[1rem] -translate-y-[0.7rem] mx-3 w-[16.5rem]">
+                            <div className="absolute flex flex-col justify-center translate-x-[1rem] -translate-y-[0.7rem] mx-3 w-[16.5rem]">
                                 {/* 1) all_nb_games / all_avg_minutes */}
                                 <div className="flex justify-center pb-1">
                                     <div className="flex items-center w-1/2">  

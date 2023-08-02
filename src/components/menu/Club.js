@@ -3,7 +3,7 @@ import '../../styles/index.css'
 
 // React
 import { QueryClient, QueryClientProvider,  useQueries } from "react-query"
-
+import {useState, useEffect } from 'react';
 // API / DATA
 import {CLUBS, PLAYERS} from "../../data/Api"
 import { getIdFromUrl } from '../../data/Arrays';
@@ -59,6 +59,7 @@ export default function App() {
 // -----------------------
 function Club() {
     const club_id = getIdFromUrl("clubs");
+    const [page, setPage] = useState(0);
 
     // ---------------------------------------------
     // 3-1) USE QUERIES : FETCHING DATA FROM API
@@ -72,11 +73,27 @@ function Club() {
             { queryKey: ['bestTop10Playmakers',3], queryFn: () => fetch(PLAYERS.BEST_TOP_10_PLAYMAKERS+'?club_id='+club_id).then(res => res.json())},
             { queryKey: ['bestTop10Goalkeepers',4], queryFn: () => fetch(PLAYERS.BEST_TOP_10_GOALKEEPERS+'?club_id='+club_id).then(res => res.json())},
             { queryKey: ['club_stats',5], queryFn: () => fetch(CLUBS.STATS+'?club_id='+club_id).then(res => res.json())},
-            { queryKey: ['club_all_players', 6], queryFn: () => fetch(PLAYERS.ALL_PLAYERS_IN_CLUB+'?club_id='+club_id+'&page=0').then(res => res.json())},
+            { queryKey: ['club_all_players', 6], queryFn: () => fetch(PLAYERS.ALL_PLAYERS_IN_CLUB+'?club_id='+club_id+'&page='+page).then(res => res.json())},
             { queryKey: ['club_all_goalkeepers', 7], queryFn: () => fetch(PLAYERS.ALL_GK_PLAYERS_IN_CLUB+'?club_id='+club_id).then(res => res.json())},
         ]
     )
 
+    // (2) Page
+    useEffect(() => {
+        resultQueries[5].refetch();
+        console.log("useEffect : ",resultQueries[5].data)
+      }, [page]); 
+
+      const handleScroll = () => {
+        const scroll_top = document.documentElement.scrollTop;
+
+        console.log("scroll_top : ",scroll_top)
+      }
+
+      useEffect(() => {
+        window.addEventListener("scroll", handleScroll,true);
+      })
+    
     // ---------------------------------------------
     // 3-2) LOADING / ERROR
     // ---------------------------------------------
@@ -115,7 +132,7 @@ function Club() {
     const RANKING_FOR_SEASONS = getClubRankingForSeasons(club_stats, START_SEASON, NUMBER_OF_SEASONS)
 
     return (
-            <div className="pb-3 flex flex-col">
+            <div id="club-div" className="pb-3 flex flex-col">
                 <div className="lg:flex lg:flex-row sm:max-md:flex-col pt-5">
                     <div className="basis-2/6 w-full pr-1 mb-5">
                         <ClubCarte key={club.id} club={club} clubs_img={CLUBS.IMG} isClickDisabled={true}/>
