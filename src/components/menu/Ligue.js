@@ -97,7 +97,7 @@ function Ligue (){
     // ---------------------------------------------
     if (resultQueries.some((query) => query.isLoading)) {
         return (
-          <div className="lg:h-screen md:h-full sm:h-full sm:ml-64 flex flex-col justify-between border-2 border-eerieBlack pt-3 pb-3">
+          <div className="h-screen flex flex-col justify-between border-2 border-eerieBlack pt-3 pb-3">
             <LoadingCarte />
           </div>
         );
@@ -132,7 +132,7 @@ function Ligue (){
     // 4) RETURN
     // ---------------------------------------------
     return (    
-            <div className="xl:ml-64 flex flex-col">
+            <div className="flex flex-col">
                 <BlocTitre title="Ligue (2002 ~ 2022) : 20 ans de 5 ligues principales"/> 
                 <BlocContent>
                     <MuiTabs>

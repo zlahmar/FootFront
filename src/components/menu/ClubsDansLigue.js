@@ -24,6 +24,8 @@ import BlocContent from '../bloc/BlocContent';
 import BlocLeMeilleur from '../bloc/BlocLeMeilleur';
 import LoadingCarte from "../carte/LoadingCarte";
 import {useWindowWidth,getBestData} from '../utility/Utility';
+import { sortByName } from '../../data/Arrays';
+import { START_SEASON, NUMBER_OF_SEASONS } from '../../data/Constants';
 
 // Icons
 import ligue from '../../assets/icon/cup.png'
@@ -31,8 +33,6 @@ import nationality from '../../assets/icon/nationality.png'
 
 // MUI
 import MuiSeasonSelectBox from '../mui_component/MuiSeasonSelectBox';
-
-// Utility
 
 // -----------------------
 // 1) QUERY CLIENT
@@ -55,11 +55,8 @@ export default function App() {
 // -----------------------
 function ClubsDansLigue() {
     const league_id = getIdFromUrl("ligues");
-    const startSeason = "2002-2003"
-    const numberOfSeasons = 20
  
-    let [season, setSeason] = useState([generateSeason(startSeason, numberOfSeasons)[numberOfSeasons-1]]);
-
+    let [season, setSeason] = useState([generateSeason(START_SEASON, NUMBER_OF_SEASONS)[NUMBER_OF_SEASONS-1]]);
     // -----------------------------------------------------------------------
     // 3-1) USE STATE / USE EFFECT : WIDTH RESPONSIVE FOR GRAPH WaffleChart, TreeMapChart
     // -----------------------------------------------------------------------
@@ -99,7 +96,7 @@ function ClubsDansLigue() {
     // ---------------------------------------------
     if (resultQueries.some((query) => query.isLoading)) {
         return (
-          <div className="lg:h-screen md:h-full sm:h-full sm:ml-64 flex flex-col justify-between border-2 border-eerieBlack pt-3 pb-3">
+          <div className="h-screen flex flex-col justify-between border-2 border-eerieBlack pt-3 pb-3">
             <LoadingCarte />
           </div>
         );
@@ -123,6 +120,9 @@ function ClubsDansLigue() {
     const bestClubySeason = resultQueries[5].data
     const nationalities = resultQueries[6].data
 
+    // Sort clubs by name
+    sortByName(clubs)
+
     // (2) DATA : DATA FOR BESTS
     const BESTS = [
         getBestData("Le Meilleur Club", allTimeBestClub.clubId, CLUBS.IMG +"/" + allTimeBestClub.clubName, allTimeBestClub.clubName, allTimeBestClub.rankAverage + " ème", allTimeBestClub.nbWin + " x champs"),
@@ -141,7 +141,7 @@ function ClubsDansLigue() {
     const isClickDisabled = true
 
     return (
-            <div className="pb-3 xl:ml-64 flex flex-col justify-betwee">
+            <div className=" pb-3 flex flex-col justify-between">
                 <div className="lg:flex lg:flex-row sm:max-md:flex-col pt-3">
                     <div className="basis-2/6 w-full pr-1 mb-5">
                         <LigueCarte key={league.id} league={league} leagues_img={LEAGUES.IMG} isClickDisabled={isClickDisabled}/>

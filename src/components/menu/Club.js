@@ -3,7 +3,7 @@ import '../../styles/index.css'
 
 // React
 import { QueryClient, QueryClientProvider,  useQueries } from "react-query"
-
+import {useState, useEffect } from 'react';
 // API / DATA
 import {CLUBS, PLAYERS} from "../../data/Api"
 import { getIdFromUrl } from '../../data/Arrays';
@@ -18,6 +18,8 @@ import BlocTitre from '../bloc/BlocTitre';
 import BlocJoueurCarte from '../bloc/BlocJoueurCarte';
 import BlocTitreGraphe from '../bloc/BlocTitreGraphe';
 import JoueurCarte from '../carte/joueur/JoueurCarte';
+import JoueurGardienCarte from '../carte/joueur/JoueurGardienCarte';
+import { START_SEASON, NUMBER_OF_SEASONS } from '../../data/Constants';
 
 // Graphique
 import LineChart from '../graphique/LineChart';
@@ -57,10 +59,13 @@ export default function App() {
 // -----------------------
 function Club() {
     const club_id = getIdFromUrl("clubs");
+    const [page, setPage] = useState(0);
 
     // ---------------------------------------------
     // 3-1) USE QUERIES : FETCHING DATA FROM API
     // ---------------------------------------------
+
+    // (1) Fetching data from API (React-Queries)
     const resultQueries = useQueries(
         [
             { queryKey: ['club',1], queryFn: () => fetch(CLUBS.DATA+'/'+club_id).then(res => res.json())},
@@ -68,15 +73,33 @@ function Club() {
             { queryKey: ['bestTop10Playmakers',3], queryFn: () => fetch(PLAYERS.BEST_TOP_10_PLAYMAKERS+'?club_id='+club_id).then(res => res.json())},
             { queryKey: ['bestTop10Goalkeepers',4], queryFn: () => fetch(PLAYERS.BEST_TOP_10_GOALKEEPERS+'?club_id='+club_id).then(res => res.json())},
             { queryKey: ['club_stats',5], queryFn: () => fetch(CLUBS.STATS+'?club_id='+club_id).then(res => res.json())},
+            { queryKey: ['club_all_players', 6], queryFn: () => fetch(PLAYERS.ALL_PLAYERS_IN_CLUB+'?club_id='+club_id+'&page='+page).then(res => res.json())},
+            { queryKey: ['club_all_goalkeepers', 7], queryFn: () => fetch(PLAYERS.ALL_GK_PLAYERS_IN_CLUB+'?club_id='+club_id).then(res => res.json())},
         ]
     )
 
+    // (2) Page
+    useEffect(() => {
+        resultQueries[5].refetch();
+        console.log("useEffect : ",resultQueries[5].data)
+      }, [page]); 
+
+      const handleScroll = () => {
+        const scroll_top = document.documentElement.scrollTop;
+
+        console.log("scroll_top : ",scroll_top)
+      }
+
+      useEffect(() => {
+        window.addEventListener("scroll", handleScroll,true);
+      })
+    
     // ---------------------------------------------
     // 3-2) LOADING / ERROR
     // ---------------------------------------------
     if (resultQueries.some((query) => query.isLoading)) {
         return (
-          <div className="lg:h-screen md:h-full sm:h-full sm:ml-64 flex flex-col justify-between border-2 border-eerieBlack pt-3 pb-3">
+          <div className="h-screen flex flex-col justify-between border-2 border-eerieBlack pt-3 pb-3">
             <LoadingCarte />
           </div>
         );
@@ -96,6 +119,8 @@ function Club() {
     const bestTop10Playmakers = resultQueries[2].data;
     const bestTop10Goalkeepers = resultQueries[3].data;
     const club_stats = resultQueries[4].data;
+    const club_all_players = resultQueries[5].data;
+    const club_all_goalkeepers = resultQueries[6].data;
 
     // (2) DATA : DATA FOR BESTS & RANKING FOR SEASONS
     const BESTS = [
@@ -104,10 +129,10 @@ function Club() {
         getBestData("Le Meilleur Gardien", bestTop10Goalkeepers[0].playerId, PLAYERS.IMG+"/"+bestTop10Goalkeepers[0].playerId, bestTop10Goalkeepers[0].playerName, bestTop10Goalkeepers[0].allGas + " buts encaissés", bestTop10Goalkeepers[0].allNbGames+ " matchs")
     ]
 
-    const RANKING_FOR_SEASONS = getClubRankingForSeasons(club_stats, "2002-2003", 20)
+    const RANKING_FOR_SEASONS = getClubRankingForSeasons(club_stats, START_SEASON, NUMBER_OF_SEASONS)
 
     return (
-            <div className="pb-3 xl:ml-64 flex flex-col">
+            <div id="club-div" className="pb-3 flex flex-col">
                 <div className="lg:flex lg:flex-row sm:max-md:flex-col pt-5">
                     <div className="basis-2/6 w-full pr-1 mb-5">
                         <ClubCarte key={club.id} club={club} clubs_img={CLUBS.IMG} isClickDisabled={true}/>
@@ -127,39 +152,24 @@ function Club() {
                             <LineChart club={RANKING_FOR_SEASONS}/>
                         </div>
                         <div  className="2xl:w-[75rem] xl:w-[70rem] lg:w-[63rem] md:w-0 sm:w-0 max-[767px]:w-0 h-96 flex flex-col justify-center">
-                            <BlocTitreGraphe img={[best_player]} title={"Network Chart example"}/>
+                            <BlocTitreGraphe img={[best_player]} title={`Les 5 meilleurs <strong>buteurs</strong>, <strong>passeurs</strong> et <strong>gardiens</strong> dans ${club.name}`}/>
                             <NetworkChart club={club} 
                             club_img_url={CLUBS.IMG} 
                             best_top_10_strikers={bestTop10Strikers} 
                             best_top_10_playmakers={bestTop10Playmakers} 
                             best_top_10_goalkeepers={bestTop10Goalkeepers}
                             />
-                            <p className='text-white'>Zoomer / Dézoomer</p>
                         </div>
                     </MuiTabs>    
                 </BlocContent> 
                 <BlocTitre title="Cliquez sur le joueur que vous voulez voir ci-dessous"/>
                 <BlocJoueurCarte>
-                    <JoueurCarte/>
-                    <JoueurCarte/>
-                    <JoueurCarte/>
-                    <JoueurCarte/>
-                    <JoueurCarte/>
-                    <JoueurCarte/>
-                    <JoueurCarte/>
-                    <JoueurCarte/>
-                    <JoueurCarte/>
-                    <JoueurCarte/>
-                    <JoueurCarte/>
-                    <JoueurCarte/>
-                    <JoueurCarte/>
-                    <JoueurCarte/>
-                    <JoueurCarte/>
-                    <JoueurCarte/>
-                    <JoueurCarte/>
-                    <JoueurCarte/>
-                    <JoueurCarte/>
-                    <JoueurCarte/>
+                    {club_all_goalkeepers.map((gk_player,index) => (
+                        <JoueurGardienCarte key={index} gk_player={gk_player}/>
+                    ))}
+                    {club_all_players.map((player,index) => (
+                        <JoueurCarte key={index} player={player}/>
+                    ))}
                 </BlocJoueurCarte>
             </div>
             )

@@ -1,6 +1,10 @@
 const API_URL = "https://footstatsapi.sangmin.fr/api/"
 // const API_URL = "http://localhost:7777/api/"
 
+const NATIONALITIES = {
+    IMG : API_URL + "images/nationalities",
+}
+
 const LEAGUES = {
     DATA : API_URL + "leagues",
     RANKING : API_URL + "rankings_league",
@@ -41,7 +45,11 @@ const PLAYERS = {
     BEST_TOP_10_STRIKERS : API_URL + "stats_player/total_best_10_strikers_by_club", // ?club_id=
     BEST_TOP_10_PLAYMAKERS : API_URL + "stats_player/total_best_10_playmakers_by_club", // ?club_id=
     BEST_TOP_10_GOALKEEPERS : API_URL + "stats_gk_player/total_best_10_gk_players_by_club", // ?club_id=
+
+    // ALL PLYAERS : ?club_id=
+    ALL_PLAYERS_IN_CLUB : API_URL + "stats_player/total_players_by_club", // ?club_id= , ?player_id=
+    ALL_GK_PLAYERS_IN_CLUB : API_URL + "stats_gk_player/total_gk_players_by_club", // ?club_id= , ?player_id=
 }
 
-export { LEAGUES, CLUBS, PLAYERS } 
+export { LEAGUES, CLUBS, PLAYERS, NATIONALITIES } 
 

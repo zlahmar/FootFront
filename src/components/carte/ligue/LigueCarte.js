@@ -10,11 +10,11 @@ function LigueCarte({ league, leagues_img, isClickDisabled = false }){
                     className={` ${isClickDisabled ? 'pointer-events-none h-full mb-5' : ''} block rounded-3xl border-2 border-tiffanyBlue bg-gunMetal `}
                 >
                     <div className="flex items-start relative">
-                        <img className="w-20 rounded-2xl absolute left-3 -top-7 border-2 border-onyx" src={leagues_img +"/" + league.name} alt="" />
+                        <img className="xl:w-20 lg:w-16 max-lg:w-16 max-sm:w-16 rounded-2xl absolute left-3 -top-7 border-2 border-onyx" src={leagues_img +"/" + league.name} alt="" />
                     </div>
 
                     <div className={`${isClickDisabled ? 'h-full flex flex-col justify-center' : ''} text-center p-3 sm:p-5 lg:p-7`}>
-                        <p className="text-2xl text-white font-title">{league.name}</p>
+                        <p className=" lg:text-xl sm:text-xl text-white font-title">{league.name}</p>
 
                         <p className="mt-1 text-xs text-white font-content">{league.clubs.length} Clubs</p>
                     </div>
