@@ -97,7 +97,7 @@ function ClubsDansLigue() {
     // ---------------------------------------------
     if (resultQueries.some((query) => query.isLoading)) {
         return (
-          <div className="lg:h-screen md:h-full sm:h-full sm:ml-64 flex flex-col justify-between border-2 border-eerieBlack pt-3 pb-3">
+          <div className="h-screen flex flex-col justify-between border-2 border-eerieBlack pt-3 pb-3">
             <LoadingCarte />
           </div>
         );
