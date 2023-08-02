@@ -116,3 +116,18 @@ export const getClubRankingForSeasons = (obj_array, startSeason, numberOfSeasons
 
     return season_list_for_club
 }
+
+export const sortByName = (obj_array) => {
+    obj_array.sort((a,b) => {
+        const nameA = a.name.toUpperCase();
+        const nameB = b.name.toUpperCase();
+        if(nameA < nameB){
+            return -1
+        } 
+        else if(nameA > nameB){
+            return 1
+        } else {   
+            return 0
+        }
+    })
+}

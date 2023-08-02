@@ -24,15 +24,13 @@ import BlocContent from '../bloc/BlocContent';
 import BlocLeMeilleur from '../bloc/BlocLeMeilleur';
 import LoadingCarte from "../carte/LoadingCarte";
 import {useWindowWidth,getBestData} from '../utility/Utility';
-
+import { sortByName } from '../../data/Arrays';
 // Icons
 import ligue from '../../assets/icon/cup.png'
 import nationality from '../../assets/icon/nationality.png'
 
 // MUI
 import MuiSeasonSelectBox from '../mui_component/MuiSeasonSelectBox';
-
-// Utility
 
 // -----------------------
 // 1) QUERY CLIENT
@@ -122,6 +120,9 @@ function ClubsDansLigue() {
     const allTimeBestGoalkeeper = resultQueries[4].data[0]
     const bestClubySeason = resultQueries[5].data
     const nationalities = resultQueries[6].data
+
+    // Sort clubs by name
+    sortByName(clubs)
 
     // (2) DATA : DATA FOR BESTS
     const BESTS = [
