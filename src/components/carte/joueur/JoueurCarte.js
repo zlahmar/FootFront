@@ -31,30 +31,30 @@ function JoueurCarte(props){
                             className={` bg-gunMetal `}
                         >
                             {/* (1) Laurier(img) */}
-                            <div className="z-10 absolute top-1/4 left-1/4 translate-x-[8rem] translate-y-[1.5rem]">
+                            <div className="z-10 absolute top-1/4 left-1/4 translate-x-[3rem] -translate-y-[5rem]">
                                 <img className="w-[4rem] h-[4rem]" src={laurier} alt="laurier" />
                             </div>
 
                             {/* (2) Drapeau(img) & Position(p) */}
                             <div className="absolute flex flex-col justify-center translate-x-[1.5rem] translate-y-[3rem]">
                                 <div className="z-10 top-1/4 left-1/4">
-                                    <p className='text-white text-xl font-bold -translate-x-[6.5rem] -translate-y-[0.5rem]'>{player.playerPosition}</p>
+                                    <p className='text-white text-xl font-bold translate-x-[1rem] translate-y-[3rem]'>{player.playerPosition}</p>
                                 </div>
                                 <div className="z-10 top-1/4 left-1/4">
-                                    <img className="w-[5rem] h-[4rem] translate-x-[1rem] translate-y-[0.5rem]" src={`${NATIONALITIES.IMG}/${player.nationalityName}`} alt={`${player.nationalityName}`} />
+                                    <img className="w-[5rem] h-[4rem] translate-x-[1rem] translate-y-[5rem]" src={`${NATIONALITIES.IMG}/${player.nationalityName}`} alt={`${player.nationalityName}`} />
                                 </div>
                             </div>
 
                             {/* (3) Joueur(img) & Nom(p) */}
                             <div className="absolute flex flex-col justify-center">
-                                <div className="z-10 top-1/4 left-1/4 translate-x-[10rem] -translate-y-[3rem]">
+                                <div className="z-10 top-1/4 left-1/4 translate-x-[10rem] translate-y-[7rem]">
                                     <img className="w-[8rem] h-[8rem] rounded-full border-solid border-4 border-yellow bg-white" src={`${PLAYERS.IMG}/${player.playerId}`} alt={`${player.playerName}`} />
                                 </div>
-                                <p className="z-10 text-white text-xl font-title font-bold -translate-y-[1.5rem]">{player.playerName}</p>
+                                <p className="z-10 text-white text-xl font-title font-bold translate-x-[1.4rem] translate-y-[8rem] w-[17.1rem]">{player.playerName}</p>
                             </div>
 
                             {/* (4) Stats */} 
-                            <div className="absolute flex flex-col justify-center translate-x-[1rem] -translate-y-[0.7rem] mx-3 w-[16.5rem]">
+                            <div className="absolute flex flex-col justify-center translate-x-[1.5rem] translate-y-[19em] mx-3 w-[16.5rem]">
                                 {/* 1) all_nb_games / all_avg_minutes */}
                                 <div className="flex justify-center pb-1">
                                     <div className="flex items-center w-1/2">  
