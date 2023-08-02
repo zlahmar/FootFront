@@ -25,6 +25,8 @@ import BlocLeMeilleur from '../bloc/BlocLeMeilleur';
 import LoadingCarte from "../carte/LoadingCarte";
 import {useWindowWidth,getBestData} from '../utility/Utility';
 import { sortByName } from '../../data/Arrays';
+import { START_SEASON, NUMBER_OF_SEASONS } from '../../data/Constants';
+
 // Icons
 import ligue from '../../assets/icon/cup.png'
 import nationality from '../../assets/icon/nationality.png'
@@ -53,11 +55,8 @@ export default function App() {
 // -----------------------
 function ClubsDansLigue() {
     const league_id = getIdFromUrl("ligues");
-    const startSeason = "2002-2003"
-    const numberOfSeasons = 20
  
-    let [season, setSeason] = useState([generateSeason(startSeason, numberOfSeasons)[numberOfSeasons-1]]);
-
+    let [season, setSeason] = useState([generateSeason(START_SEASON, NUMBER_OF_SEASONS)[NUMBER_OF_SEASONS-1]]);
     // -----------------------------------------------------------------------
     // 3-1) USE STATE / USE EFFECT : WIDTH RESPONSIVE FOR GRAPH WaffleChart, TreeMapChart
     // -----------------------------------------------------------------------

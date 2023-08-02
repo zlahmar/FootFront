@@ -20,5 +20,8 @@ const COLOR = {
     RED : '#fa2a2a'
 }
 
-export {LEAGUE, COLOR} 
+const START_SEASON = "2002-2003"
+const NUMBER_OF_SEASONS = 20
+
+export {LEAGUE, COLOR, START_SEASON, NUMBER_OF_SEASONS} 
 

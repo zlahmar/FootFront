@@ -19,6 +19,7 @@ import BlocJoueurCarte from '../bloc/BlocJoueurCarte';
 import BlocTitreGraphe from '../bloc/BlocTitreGraphe';
 import JoueurCarte from '../carte/joueur/JoueurCarte';
 import JoueurGardienCarte from '../carte/joueur/JoueurGardienCarte';
+import { START_SEASON, NUMBER_OF_SEASONS } from '../../data/Constants';
 
 // Graphique
 import LineChart from '../graphique/LineChart';
@@ -62,6 +63,8 @@ function Club() {
     // ---------------------------------------------
     // 3-1) USE QUERIES : FETCHING DATA FROM API
     // ---------------------------------------------
+
+    // (1) Fetching data from API (React-Queries)
     const resultQueries = useQueries(
         [
             { queryKey: ['club',1], queryFn: () => fetch(CLUBS.DATA+'/'+club_id).then(res => res.json())},
@@ -69,7 +72,7 @@ function Club() {
             { queryKey: ['bestTop10Playmakers',3], queryFn: () => fetch(PLAYERS.BEST_TOP_10_PLAYMAKERS+'?club_id='+club_id).then(res => res.json())},
             { queryKey: ['bestTop10Goalkeepers',4], queryFn: () => fetch(PLAYERS.BEST_TOP_10_GOALKEEPERS+'?club_id='+club_id).then(res => res.json())},
             { queryKey: ['club_stats',5], queryFn: () => fetch(CLUBS.STATS+'?club_id='+club_id).then(res => res.json())},
-            { queryKey: ['club_all_players', 6], queryFn: () => fetch(PLAYERS.ALL_PLAYERS_IN_CLUB+'?club_id='+club_id).then(res => res.json())},
+            { queryKey: ['club_all_players', 6], queryFn: () => fetch(PLAYERS.ALL_PLAYERS_IN_CLUB+'?club_id='+club_id+'&page=0').then(res => res.json())},
             { queryKey: ['club_all_goalkeepers', 7], queryFn: () => fetch(PLAYERS.ALL_GK_PLAYERS_IN_CLUB+'?club_id='+club_id).then(res => res.json())},
         ]
     )
@@ -109,7 +112,7 @@ function Club() {
         getBestData("Le Meilleur Gardien", bestTop10Goalkeepers[0].playerId, PLAYERS.IMG+"/"+bestTop10Goalkeepers[0].playerId, bestTop10Goalkeepers[0].playerName, bestTop10Goalkeepers[0].allGas + " buts encaissés", bestTop10Goalkeepers[0].allNbGames+ " matchs")
     ]
 
-    const RANKING_FOR_SEASONS = getClubRankingForSeasons(club_stats, "2002-2003", 20)
+    const RANKING_FOR_SEASONS = getClubRankingForSeasons(club_stats, START_SEASON, NUMBER_OF_SEASONS)
 
     return (
             <div className="pb-3 flex flex-col">
@@ -144,11 +147,11 @@ function Club() {
                 </BlocContent> 
                 <BlocTitre title="Cliquez sur le joueur que vous voulez voir ci-dessous"/>
                 <BlocJoueurCarte>
-                    {club_all_goalkeepers.map(gk_player => (
-                        <JoueurGardienCarte key={gk_player.id} gk_player={gk_player}/>
+                    {club_all_goalkeepers.map((gk_player,index) => (
+                        <JoueurGardienCarte key={index} gk_player={gk_player}/>
                     ))}
-                    {club_all_players.map(player => (
-                        <JoueurCarte key={player.id} player={player}/>
+                    {club_all_players.map((player,index) => (
+                        <JoueurCarte key={index} player={player}/>
                     ))}
                 </BlocJoueurCarte>
             </div>
