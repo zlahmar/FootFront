@@ -135,7 +135,7 @@ function Ligue (){
             <div className="flex flex-col">
                 <BlocTitre title="Ligue (2002 ~ 2022) : 20 ans de 5 ligues principales"/> 
                 <BlocContent>
-                    <MuiTabs>
+                    <MuiTabs title1={"UEFA Classement"} title2={"But & Passe décisive"} title3={"Carton Jaune & Rouge"}>
                         <div className="2xl:w-[75rem] xl:w-[70rem] lg:w-[63rem] md:w-0 sm:w-0 max-[767px]:w-0 h-96 flex flex-col justify-center">
                             <BlocTitreGraphe img={[kickball]} title="UEFA Coefficients des pays (2002 ~ 2022)"/>
                             <BumpChart data={UEFA_LEAGUES_RANKING} />

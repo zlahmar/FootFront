@@ -165,7 +165,7 @@ function Club() {
                     </div>   
                 </div>
                 <BlocContent>
-                    <MuiTabs>
+                    <MuiTabs title1={"Classement par saison"} title2={"Les meilleurs joueurs"}>
                         <div className="2xl:w-[75rem] xl:w-[70rem] lg:w-[63rem] md:w-0 sm:w-0 max-[767px]:w-0 h-96 flex flex-col justify-center">
                             <BlocTitreGraphe img={[champion]} title={`Classement en ligue du <strong>${club.league.name}</strong> (2002 ~ 2022)`}/>
                             <LineChart club={RANKING_FOR_SEASONS}/>
@@ -181,17 +181,22 @@ function Club() {
                         </div>
                     </MuiTabs>    
                 </BlocContent> 
-                <BlocTitre title={`Cliquez sur le joueur que vous voulez voir ci-dessous. (<strong>${totalPlayers}</strong> Joueur(s) dans ce club)`}/>
-                <BlocJoueurCarte title={'Gardien'}>
-                    {club_all_goalkeepers.map((gk_player,index) => (
-                        <JoueurGardienCarte key={index} gk_player={gk_player}/>
-                    ))}
-                </BlocJoueurCarte>
-                <BlocJoueurCarte title={'Attaquant, Milieu, Défenseur'}>
-                    {players.map((player,index) => (
-                        <JoueurCarte key={index} player={player}/>
-                    ))}
-                </BlocJoueurCarte>
+                <BlocTitre title={`Cliquez sur le joueur que vous voulez voir ci-dessous. (<strong>${totalPlayers + club_all_goalkeepers.length}</strong> Joueur(s) dans ce club)`}/>
+                <MuiTabs title1={"Joueur de champ"}  title2={"Gardien"} >
+
+                    <BlocJoueurCarte title={'Attaquant, Milieu, Défenseur'}>
+                        {players.map((player,index) => (
+                            <JoueurCarte key={index} player={player}/>
+                        ))}
+                    </BlocJoueurCarte>
+                    <BlocJoueurCarte title={'Gardien'}>
+                        {club_all_goalkeepers.map((gk_player,index) => (
+                            <JoueurGardienCarte key={index} gk_player={gk_player}/>
+                        ))}
+                    </BlocJoueurCarte>
+
+                </MuiTabs>
+
             </div>
             )
 }
