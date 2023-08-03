@@ -11,9 +11,8 @@ export default function MuiTabPanel(props) {
         aria-labelledby={`simple-tab-${index}`}
       >
         {value === index && (
-          <Box
-          className="ml-1" 
-          sx={{ p: 3 }}>
+          <Box 
+          sx={{ p: 0 }}>
             <Typography>{children}</Typography>
           </Box>
         )}

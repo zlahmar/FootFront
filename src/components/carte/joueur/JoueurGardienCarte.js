@@ -29,30 +29,30 @@ function JoueurGardienCarte(props){
                             className={` bg-gunMetal `}
                         >
                             {/* (1) Laurier(img) */}
-                            <div className="absolute z-10 top-5  translate-x-[8rem] translate-y-[1.5rem]">
+                            <div className="z-10 absolute top-1/4 left-1/4 translate-x-[3rem] -translate-y-[5rem]">
                                 <img className="w-[4rem] h-[4rem]" src={laurier} alt="" />
                             </div>
 
                             {/* (2) Drapeau(img) & Position(p) */}
-                            <div className="absolute flex flex-col justify-center translate-x-[1.5rem] translate-y-[10rem]">
+                            <div className="absolute flex flex-col justify-center translate-x-[1.5rem] translate-y-[3rem]">
                                 <div className="z-10 top-1/4 left-1/4">
-                                    <p className='text-white text-xl font-bold -translate-x-[6.5rem] -translate-y-[0.5rem]'>GK</p>
+                                <p className='text-white text-xl font-bold translate-x-[1rem] translate-y-[3rem]'>GK</p>
                                 </div>
                                 <div className="z-10 top-1/4 left-1/4">
-                                    <img className="w-[5rem] h-[4rem] translate-x-[1rem] translate-y-[0.5rem]" src={`${NATIONALITIES.IMG}/${gk_player.nationalityName}`} alt={`${gk_player.nationalityName}`} />
+                                    <img className="w-[5rem] h-[4rem] translate-x-[1rem] translate-y-[5rem]" src={`${NATIONALITIES.IMG}/${gk_player.nationalityName}`} alt={`${gk_player.nationalityName}`} />
                                 </div>
                             </div>
 
                             {/* (3) Joueur(img) & Nom(p) */}
                             <div className="absolute flex flex-col justify-center">
-                                <div className="z-10 top-1/4 left-1/4 translate-x-[10rem] -translate-y-[3rem]">
-                                    <img className="w-[8rem] h-[8rem] rounded-full border-solid border-4 border-yellow bg-white" src={`${PLAYERS.IMG}/${gk_player.playerId}`} alt={`${gk_player.playerName}`}  />
+                                <div className="absolute z-10 top-1/4 left-1/4 translate-x-[10rem] translate-y-[7rem]">
+                                    <img className="w-[8rem] h-[8rem] rounded-full border-solid border-4 border-yellow bg-white -translate-x-[4.5rem]" src={`${PLAYERS.IMG}/${gk_player.playerId}`} alt={`${gk_player.playerName}`}  />
                                 </div>
-                                <p className="z-10 text-white text-2xl font-title font-bold -translate-y-[1.5rem]">{gk_player.playerName}</p>
+                                <p className="z-10 text-white text-xl font-title font-bold translate-x-[1.4rem] translate-y-[16rem] w-[17.1rem]">{gk_player.playerName}</p>
                             </div>
 
                             {/* (4) Stats */} 
-                            <div className="absolute flex flex-col justify-center translate-x-[1rem] -translate-y-[0.7rem] mx-3 w-[16.5rem]">
+                            <div className="absolute flex flex-col justify-center translate-x-[1.5rem] translate-y-[19em] mx-3 w-[16.5rem]">
                                 {/* 1) all_nb_games / all_avg_minutes */}
                                 <div className="flex justify-evenly pb-1">
                                     <div className="flex items-center w-1/2">  
@@ -110,7 +110,7 @@ function JoueurGardienCarte(props){
                                 {/* 3) all_yellow_cards / all_red_cards */}
                                 <div className="flex justify-center">
                                     <div className="flex items-center w-1/2">  
-                                        <Tooltip title="All Games" arrow placement="left">
+                                        <Tooltip title="All wins" arrow placement="left">
                                             <Box className="flex" sx={{color: COLOR.GUNMETAL}}>
                                                 <div className='mr-2'>
                                                     <img className='w-8' src={stadium} alt="win"/>
@@ -122,7 +122,7 @@ function JoueurGardienCarte(props){
                                         </Tooltip>                                         
                                     </div>    
                                     <div className="flex items-center w-1/2 ml-2">
-                                        <Tooltip title="Average Minutes" arrow placement="right">
+                                        <Tooltip title="All loses" arrow placement="right">
                                             <Box className="flex" sx={{color: COLOR.GUNMETAL}}>
                                                 <div className='mr-2'>
                                                     <img className='w-8' src={stadium} alt="lose"/>

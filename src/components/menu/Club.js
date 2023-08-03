@@ -3,7 +3,8 @@ import '../../styles/index.css'
 
 // React
 import { QueryClient, QueryClientProvider,  useQueries } from "react-query"
-import {useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+
 // API / DATA
 import {CLUBS, PLAYERS} from "../../data/Api"
 import { getIdFromUrl } from '../../data/Arrays';
@@ -38,6 +39,9 @@ import { getBestData } from '../utility/Utility';
 // Array
 import { getClubRankingForSeasons } from '../../data/Arrays';
 
+// Axios
+import axios from 'axios';
+
 // -----------------------
 // 1) QUERY CLIENT
 // -----------------------
@@ -59,13 +63,44 @@ export default function App() {
 // -----------------------
 function Club() {
     const club_id = getIdFromUrl("clubs");
-    const [page, setPage] = useState(0);
-
     // ---------------------------------------------
     // 3-1) USE QUERIES : FETCHING DATA FROM API
     // ---------------------------------------------
+    // (1) Infinite Scroll for players
+    const [players, setPlayers] = useState([]);
+    const [page, setPage] = useState(0);
+    const [totalPlayers, setTotalPlayers] = useState(0); 
+    
+    const handleScroll = (event) => {
+        const { scrollHeight, scrollTop, clientHeight } = event.target.scrollingElement;
 
-    // (1) Fetching data from API (React-Queries)
+        if (scrollHeight - scrollTop <= clientHeight *2) {
+            setPage(prev_page => prev_page + 1)
+        }
+    }
+
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll,true);
+        return () => window.removeEventListener('scroll', handleScroll,true);
+    },[])
+
+    useEffect(() => {
+        const fetchApiPlayers = async () => {
+            const response = await axios.get(
+                PLAYERS.ALL_PLAYERS_IN_CLUB+'?club_id='+club_id+'&page='+page+'&size=2'
+            );
+
+            if (response.status === 500) {
+                return; // Stop fetching further data
+            }
+
+            setTotalPlayers(response.data.total_count);
+            setPlayers(prev_data => [...prev_data,...response.data.items]);
+        }
+        fetchApiPlayers();
+    },[club_id, page])
+
+    // (2) Fetching data from API (React-Queries)
     const resultQueries = useQueries(
         [
             { queryKey: ['club',1], queryFn: () => fetch(CLUBS.DATA+'/'+club_id).then(res => res.json())},
@@ -73,27 +108,11 @@ function Club() {
             { queryKey: ['bestTop10Playmakers',3], queryFn: () => fetch(PLAYERS.BEST_TOP_10_PLAYMAKERS+'?club_id='+club_id).then(res => res.json())},
             { queryKey: ['bestTop10Goalkeepers',4], queryFn: () => fetch(PLAYERS.BEST_TOP_10_GOALKEEPERS+'?club_id='+club_id).then(res => res.json())},
             { queryKey: ['club_stats',5], queryFn: () => fetch(CLUBS.STATS+'?club_id='+club_id).then(res => res.json())},
-            { queryKey: ['club_all_players', 6], queryFn: () => fetch(PLAYERS.ALL_PLAYERS_IN_CLUB+'?club_id='+club_id+'&page='+page).then(res => res.json())},
-            { queryKey: ['club_all_goalkeepers', 7], queryFn: () => fetch(PLAYERS.ALL_GK_PLAYERS_IN_CLUB+'?club_id='+club_id).then(res => res.json())},
+            { queryKey: ['club_all_goalkeepers', 6], queryFn: () => fetch(PLAYERS.ALL_GK_PLAYERS_IN_CLUB+'?club_id='+club_id).then(res => res.json())},
+            // { queryKey: ['club_all_players', 7], queryFn: () => fetch(PLAYERS.ALL_PLAYERS_IN_CLUB+'?club_id='+club_id+'&page='+page).then(res => res.json())},
         ]
     )
 
-    // (2) Page
-    useEffect(() => {
-        resultQueries[5].refetch();
-        console.log("useEffect : ",resultQueries[5].data)
-      }, [page]); 
-
-      const handleScroll = () => {
-        const scroll_top = document.documentElement.scrollTop;
-
-        console.log("scroll_top : ",scroll_top)
-      }
-
-      useEffect(() => {
-        window.addEventListener("scroll", handleScroll,true);
-      })
-    
     // ---------------------------------------------
     // 3-2) LOADING / ERROR
     // ---------------------------------------------
@@ -119,8 +138,8 @@ function Club() {
     const bestTop10Playmakers = resultQueries[2].data;
     const bestTop10Goalkeepers = resultQueries[3].data;
     const club_stats = resultQueries[4].data;
-    const club_all_players = resultQueries[5].data;
-    const club_all_goalkeepers = resultQueries[6].data;
+    const club_all_goalkeepers = resultQueries[5].data;
+    // const club_all_players = data.items;
 
     // (2) DATA : DATA FOR BESTS & RANKING FOR SEASONS
     const BESTS = [
@@ -146,7 +165,7 @@ function Club() {
                     </div>   
                 </div>
                 <BlocContent>
-                    <MuiTabs>
+                    <MuiTabs title1={"Classement par saison"} title2={"Les meilleurs joueurs"}>
                         <div className="2xl:w-[75rem] xl:w-[70rem] lg:w-[63rem] md:w-0 sm:w-0 max-[767px]:w-0 h-96 flex flex-col justify-center">
                             <BlocTitreGraphe img={[champion]} title={`Classement en ligue du <strong>${club.league.name}</strong> (2002 ~ 2022)`}/>
                             <LineChart club={RANKING_FOR_SEASONS}/>
@@ -162,15 +181,31 @@ function Club() {
                         </div>
                     </MuiTabs>    
                 </BlocContent> 
-                <BlocTitre title="Cliquez sur le joueur que vous voulez voir ci-dessous"/>
-                <BlocJoueurCarte>
-                    {club_all_goalkeepers.map((gk_player,index) => (
-                        <JoueurGardienCarte key={index} gk_player={gk_player}/>
-                    ))}
-                    {club_all_players.map((player,index) => (
-                        <JoueurCarte key={index} player={player}/>
-                    ))}
-                </BlocJoueurCarte>
+                <BlocTitre title={`Cliquez sur le joueur que vous voulez voir ci-dessous. (<strong>${totalPlayers + club_all_goalkeepers.length}</strong> Joueur(s) dans ce club)`}/>
+                <MuiTabs title1={"Joueur de champ"}  title2={"Gardien"} style={true}>
+                    <div>
+                        <div className='flex justify-between'>
+                            <p className='text-white'>Saison (WHERE) - Select Box</p>
+                            <p className='text-white'>Recherche (WHERE) - Input</p>
+                            <p className='text-white'>Position (WHERE IN) - Multiple Select</p>
+                            <p className='text-white'>Nationalité (WHERE) - Select Box</p>
+                            <p className='text-white'>Goal, Assist, Y,R .. (ORDER) - Select Box</p>
+                            <p className='text-white'>Search ! (INPUT)</p>
+                        </div>
+                        <BlocJoueurCarte title={'Attaquant, Milieu, Défenseur'}>
+                            {players.map((player,index) => (
+                                <JoueurCarte key={index} player={player}/>
+                            ))}
+                        </BlocJoueurCarte>
+                    </div>
+                    <BlocJoueurCarte title={'Gardien'}>
+                        {club_all_goalkeepers.map((gk_player,index) => (
+                            <JoueurGardienCarte key={index} gk_player={gk_player}/>
+                        ))}
+                    </BlocJoueurCarte>
+
+                </MuiTabs>
+
             </div>
             )
 }
