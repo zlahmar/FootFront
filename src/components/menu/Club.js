@@ -94,7 +94,6 @@ function Club() {
                 return; // Stop fetching further data
             }
 
-            console.log(response.data)
             setTotalPlayers(response.data.total_count);
             setPlayers(prev_data => [...prev_data,...response.data.items]);
         }
@@ -184,12 +183,21 @@ function Club() {
                 </BlocContent> 
                 <BlocTitre title={`Cliquez sur le joueur que vous voulez voir ci-dessous. (<strong>${totalPlayers + club_all_goalkeepers.length}</strong> Joueur(s) dans ce club)`}/>
                 <MuiTabs title1={"Joueur de champ"}  title2={"Gardien"} style={true}>
-
-                    <BlocJoueurCarte title={'Attaquant, Milieu, Défenseur'}>
-                        {players.map((player,index) => (
-                            <JoueurCarte key={index} player={player}/>
-                        ))}
-                    </BlocJoueurCarte>
+                    <div>
+                        <div className='flex justify-between'>
+                            <p className='text-white'>Saison (WHERE) - Select Box</p>
+                            <p className='text-white'>Recherche (WHERE) - Input</p>
+                            <p className='text-white'>Position (WHERE IN) - Multiple Select</p>
+                            <p className='text-white'>Nationalité (WHERE) - Select Box</p>
+                            <p className='text-white'>Goal, Assist, Y,R .. (ORDER) - Select Box</p>
+                            <p className='text-white'>Search ! (INPUT)</p>
+                        </div>
+                        <BlocJoueurCarte title={'Attaquant, Milieu, Défenseur'}>
+                            {players.map((player,index) => (
+                                <JoueurCarte key={index} player={player}/>
+                            ))}
+                        </BlocJoueurCarte>
+                    </div>
                     <BlocJoueurCarte title={'Gardien'}>
                         {club_all_goalkeepers.map((gk_player,index) => (
                             <JoueurGardienCarte key={index} gk_player={gk_player}/>

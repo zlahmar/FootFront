@@ -12,7 +12,7 @@ import {
 import { createImage } from "../utility/Utility";
 import logo from "../../assets/icon/ball.png";
 import cup from "../../assets/icon/cup.png";
-import { COLOR } from "../../data/Constants";
+import { COLOR, START_SEASON, NUMBER_OF_SEASONS } from "../../data/Constants";
 import { generateSeason } from "../../data/Arrays";
 
 // 1) CHARTJS
@@ -58,7 +58,7 @@ export default function LineChart(props){
     }
 
     const data = {
-        labels: generateSeason("2002-2003",20),
+        labels: generateSeason(START_SEASON,NUMBER_OF_SEASONS),
         datasets: [
           {
           label: ['Ranks'],
