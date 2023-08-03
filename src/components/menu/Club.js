@@ -182,10 +182,12 @@ function Club() {
                     </MuiTabs>    
                 </BlocContent> 
                 <BlocTitre title={`Cliquez sur le joueur que vous voulez voir ci-dessous. (<strong>${totalPlayers}</strong> Joueur(s) dans ce club)`}/>
-                <BlocJoueurCarte>
+                <BlocJoueurCarte title={'Gardien'}>
                     {club_all_goalkeepers.map((gk_player,index) => (
                         <JoueurGardienCarte key={index} gk_player={gk_player}/>
                     ))}
+                </BlocJoueurCarte>
+                <BlocJoueurCarte title={'Attaquant, Milieu, Défenseur'}>
                     {players.map((player,index) => (
                         <JoueurCarte key={index} player={player}/>
                     ))}
