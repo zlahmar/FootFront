@@ -69,6 +69,7 @@ function Club() {
     // (1) Infinite Scroll for players
     const [players, setPlayers] = useState([]);
     const [page, setPage] = useState(0);
+    const [totalPlayers, setTotalPlayers] = useState(0); 
     useEffect(() => {
         const fetchApiPlayers = async () => {
             const response = await axios.get(
@@ -79,6 +80,7 @@ function Club() {
                 return; // Stop fetching further data
             }
 
+            setTotalPlayers(response.data.total_count);
             setPlayers(prev_data => [...prev_data,...response.data.items]);
         }
         fetchApiPlayers();
@@ -87,7 +89,7 @@ function Club() {
     const handleScroll = (event) => {
         const { scrollHeight, scrollTop, clientHeight } = event.target.scrollingElement;
 
-        if (scrollHeight - scrollTop <= clientHeight *1.1) {
+        if (scrollHeight - scrollTop <= clientHeight *1.7) {
             setPage(prev_page => prev_page + 1)
         }
     }
@@ -178,7 +180,7 @@ function Club() {
                         </div>
                     </MuiTabs>    
                 </BlocContent> 
-                <BlocTitre title="Cliquez sur le joueur que vous voulez voir ci-dessous"/>
+                <BlocTitre title={`Cliquez sur le joueur que vous voulez voir ci-dessous. (<strong>${totalPlayers}</strong> Joueur(s) dans ce club)`}/>
                 <BlocJoueurCarte>
                     {club_all_goalkeepers.map((gk_player,index) => (
                         <JoueurGardienCarte key={index} gk_player={gk_player}/>
