@@ -74,7 +74,7 @@ function Club() {
     const handleScroll = (event) => {
         const { scrollHeight, scrollTop, clientHeight } = event.target.scrollingElement;
 
-        if (scrollHeight - scrollTop <= clientHeight *1.7) {
+        if (scrollHeight - scrollTop <= clientHeight *2) {
             setPage(prev_page => prev_page + 1)
         }
     }
@@ -87,13 +87,14 @@ function Club() {
     useEffect(() => {
         const fetchApiPlayers = async () => {
             const response = await axios.get(
-                PLAYERS.ALL_PLAYERS_IN_CLUB+'?club_id='+club_id+'&page='+page+'&size=4'
+                PLAYERS.ALL_PLAYERS_IN_CLUB+'?club_id='+club_id+'&page='+page+'&size=2'
             );
 
             if (response.status === 500) {
                 return; // Stop fetching further data
             }
 
+            console.log(response.data)
             setTotalPlayers(response.data.total_count);
             setPlayers(prev_data => [...prev_data,...response.data.items]);
         }
@@ -182,7 +183,7 @@ function Club() {
                     </MuiTabs>    
                 </BlocContent> 
                 <BlocTitre title={`Cliquez sur le joueur que vous voulez voir ci-dessous. (<strong>${totalPlayers + club_all_goalkeepers.length}</strong> Joueur(s) dans ce club)`}/>
-                <MuiTabs title1={"Joueur de champ"}  title2={"Gardien"} >
+                <MuiTabs title1={"Joueur de champ"}  title2={"Gardien"} style={true}>
 
                     <BlocJoueurCarte title={'Attaquant, Milieu, Défenseur'}>
                         {players.map((player,index) => (

@@ -132,10 +132,10 @@ function Ligue (){
     // 4) RETURN
     // ---------------------------------------------
     return (    
-            <div className="flex flex-col">
+            <div className="grid grid-cols-1 content-between h-screen overflow-x-hidden">
                 <BlocTitre title="Ligue (2002 ~ 2022) : 20 ans de 5 ligues principales"/> 
                 <BlocContent>
-                    <MuiTabs title1={"UEFA Classement"} title2={"But & Passe décisive"} title3={"Carton Jaune & Rouge"}>
+                    <MuiTabs title1={"GRAPH 1"} title2={"GRAPH 2"} title3={"GRAPH 3"}>
                         <div className="2xl:w-[75rem] xl:w-[70rem] lg:w-[63rem] md:w-0 sm:w-0 max-[767px]:w-0 h-96 flex flex-col justify-center">
                             <BlocTitreGraphe img={[kickball]} title="UEFA Coefficients des pays (2002 ~ 2022)"/>
                             <BumpChart data={UEFA_LEAGUES_RANKING} />
