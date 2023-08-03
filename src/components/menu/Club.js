@@ -70,6 +70,20 @@ function Club() {
     const [players, setPlayers] = useState([]);
     const [page, setPage] = useState(0);
     const [totalPlayers, setTotalPlayers] = useState(0); 
+    
+    const handleScroll = (event) => {
+        const { scrollHeight, scrollTop, clientHeight } = event.target.scrollingElement;
+
+        if (scrollHeight - scrollTop <= clientHeight *1.7) {
+            setPage(prev_page => prev_page + 1)
+        }
+    }
+
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll,true);
+        return () => window.removeEventListener('scroll', handleScroll,true);
+    },[])
+    
     useEffect(() => {
         const fetchApiPlayers = async () => {
             const response = await axios.get(
@@ -85,19 +99,6 @@ function Club() {
         }
         fetchApiPlayers();
     },[page])
-
-    const handleScroll = (event) => {
-        const { scrollHeight, scrollTop, clientHeight } = event.target.scrollingElement;
-
-        if (scrollHeight - scrollTop <= clientHeight *1.7) {
-            setPage(prev_page => prev_page + 1)
-        }
-    }
-
-    useEffect(() => {
-        window.addEventListener('scroll', handleScroll,true);
-        return () => window.removeEventListener('scroll', handleScroll,true);
-    },[])
 
     // (2) Fetching data from API (React-Queries)
     const resultQueries = useQueries(
