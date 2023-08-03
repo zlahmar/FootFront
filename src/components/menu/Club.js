@@ -28,6 +28,7 @@ import NetworkChart from '../graphique/NetworkChart';
 
 // MUI
 import MuiTabs from "../mui_component/MuiTabs";
+import MuiSeasonSelectBox from '../mui_component/MuiSeasonSelectBox';
 
 // Icons
 import champion from '../../assets/icon/champion.png'
@@ -37,7 +38,7 @@ import best_player from '../../assets/icon/best_player.png'
 import { getBestData } from '../utility/Utility';
 
 // Array
-import { getClubRankingForSeasons } from '../../data/Arrays';
+import { getClubRankingForSeasons,generateSeason } from '../../data/Arrays';
 
 // Axios
 import axios from 'axios';
@@ -63,6 +64,8 @@ export default function App() {
 // -----------------------
 function Club() {
     const club_id = getIdFromUrl("clubs");
+
+    let [season, setSeason] = useState(['TOTAL']);
     // ---------------------------------------------
     // 3-1) USE QUERIES : FETCHING DATA FROM API
     // ---------------------------------------------
@@ -71,10 +74,12 @@ function Club() {
     const [page, setPage] = useState(0);
     const [totalPlayers, setTotalPlayers] = useState(0); 
     
-    const handleScroll = (event) => {
-        const { scrollHeight, scrollTop, clientHeight } = event.target.scrollingElement;
+    const handleScroll = () => {
+        const scrollHeight = document.documentElement.scrollHeight;
+        const scrollTop = document.documentElement.scrollTop;
+        const clientHeight = document.documentElement.clientHeight;
 
-        if (scrollHeight - scrollTop <= clientHeight *2) {
+        if (scrollHeight - scrollTop <= clientHeight * 1.3) {
             setPage(prev_page => prev_page + 1)
         }
     }
@@ -87,7 +92,7 @@ function Club() {
     useEffect(() => {
         const fetchApiPlayers = async () => {
             const response = await axios.get(
-                PLAYERS.ALL_PLAYERS_IN_CLUB+'?club_id='+club_id+'&page='+page+'&size=2'
+                PLAYERS.ALL_PLAYERS_IN_CLUB+'?club_id='+club_id+'&page='+page+'&size=4'
             );
 
             if (response.status === 500) {
@@ -185,7 +190,7 @@ function Club() {
                 <MuiTabs title1={"Joueur de champ"}  title2={"Gardien"} style={true}>
                     <div>
                         <div className='flex justify-between'>
-                            <p className='text-white'>Saison (WHERE) - Select Box</p>
+                            <MuiSeasonSelectBox extra_value={'TOTAL'}  season={season} start={START_SEASON} number_of_seasons={NUMBER_OF_SEASONS}/>
                             <p className='text-white'>Recherche (WHERE) - Input</p>
                             <p className='text-white'>Position (WHERE IN) - Multiple Select</p>
                             <p className='text-white'>Nationalité (WHERE) - Select Box</p>

@@ -3,7 +3,7 @@ import { Children } from 'react';
 
 function BlocJoueurCarte({title,children}){
     return (
-        <div className="bg-gunMetal flex flex-wrap rounded-3xl mb-3">
+        <div className="bg-gunMetal flex flex-wrap rounded-3xl mb-3 justify-evenly">
             <div className='w-full flex justify-center p-5'>
                 <span className="text-white font-content text-2xl" dangerouslySetInnerHTML={{ __html: title }}/> 
             </div>

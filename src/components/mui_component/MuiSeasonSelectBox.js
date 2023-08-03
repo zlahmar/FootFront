@@ -1,9 +1,9 @@
 import React from 'react';
 import { Box, TextField, MenuItem } from '@mui/material';
 import { generateSeason } from '../../data/Arrays';
-import { COLOR, START_SEASON, NUMBER_OF_SEASONS } from '../../data/Constants';
+import { COLOR } from '../../data/Constants';
 
-const MuiSeasonSelectBox = ({ season, handleSeasonChange }) => {
+const MuiSeasonSelectBox = ({start, number_of_seasons, season, handleSeasonChange, extra_value }) => {
   return (
     <Box className="pt-3">
       <Box mx={5}>
@@ -51,11 +51,16 @@ const MuiSeasonSelectBox = ({ season, handleSeasonChange }) => {
             },
           }}
         >
-          {generateSeason(START_SEASON, NUMBER_OF_SEASONS).map((season) => (
+          {generateSeason(start, number_of_seasons).map((season) => (
             <MenuItem value={season} key={season}>
               {season}
             </MenuItem>
           ))}
+          {extra_value !=undefined &&             
+            <MenuItem value={extra_value} key={extra_value}>
+              {extra_value}
+            </MenuItem>
+          }
         </TextField>
       </Box>
     </Box>
