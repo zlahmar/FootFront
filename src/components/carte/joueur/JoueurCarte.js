@@ -100,7 +100,7 @@ function JoueurCarte(props){
                                         <Tooltip title="All Assists" arrow placement="right">
                                             <Box className="flex" sx={{color: COLOR.GUNMETAL}}>
                                                 <div className='mr-2'>
-                                                    <img className='w-8' src={kickball} alt="keecball"/>
+                                                    <img className='w-8' src={kickball} alt="kickball"/>
                                                 </div>
                                                 <div className='flex items-center w-full'>
                                                     <p className='text-white font-bold font-content'>{player.allAssists} <small>assist(s)</small></p>
@@ -112,7 +112,7 @@ function JoueurCarte(props){
                                 {/* 3) all_yellow_cards / all_red_cards */}
                                 <div className="flex justify-center">
                                     <div className="flex items-center w-1/2">  
-                                        <Tooltip title="All Games" arrow placement="left">
+                                        <Tooltip title="Yellow Cards" arrow placement="left">
                                             <Box className="flex" sx={{color: COLOR.GUNMETAL}}>
                                                 <div className='mr-2'>
                                                     <img className='w-9' src={yellow_card} alt="yellow_card"/>
@@ -124,7 +124,7 @@ function JoueurCarte(props){
                                         </Tooltip>                                         
                                     </div>    
                                     <div className="flex items-center w-1/2 ml-2">
-                                        <Tooltip title="Average Minutes" arrow placement="right">
+                                        <Tooltip title="Red Cards" arrow placement="right">
                                             <Box className="flex" sx={{color: COLOR.GUNMETAL}}>
                                                 <div className='mr-2'>
                                                     <img className='w-10' src={red_card} alt="red_card"/>

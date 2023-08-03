@@ -83,7 +83,7 @@ function Club() {
         window.addEventListener('scroll', handleScroll,true);
         return () => window.removeEventListener('scroll', handleScroll,true);
     },[])
-    
+
     useEffect(() => {
         const fetchApiPlayers = async () => {
             const response = await axios.get(
@@ -98,7 +98,7 @@ function Club() {
             setPlayers(prev_data => [...prev_data,...response.data.items]);
         }
         fetchApiPlayers();
-    },[page])
+    },[club_id, page])
 
     // (2) Fetching data from API (React-Queries)
     const resultQueries = useQueries(
