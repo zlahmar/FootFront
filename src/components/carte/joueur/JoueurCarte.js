@@ -51,7 +51,7 @@ function JoueurCarte(props){
                                 <div className="absolute z-10 top-1/4 left-1/4 translate-y-[7rem]">
                                     <img className="w-[8rem] h-[8rem] rounded-full border-solid border-4 border-yellow bg-white translate-x-[5.5rem]" src={`${PLAYERS.IMG}/${data.player.id}`} alt={`${data.player.name}`} />
                                 </div>
-                                <p className="z-10 text-white text-xl font-title font-bold translate-x-[1.4rem] translate-y-[16rem] w-[17.1rem]">{data.player.name}</p>
+                                <p className="z-10 text-white text-lg font-title font-bold translate-x-[1.4rem] translate-y-[16rem] w-[17.1rem]">{data.player.name}</p>
                             </div>
 
                             {/* (4) Stats */} 
