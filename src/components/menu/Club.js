@@ -29,6 +29,7 @@ import NetworkChart from '../graphique/NetworkChart';
 // MUI
 import MuiTabs from "../mui_component/MuiTabs";
 import MuiSeasonSelectBox from '../mui_component/MuiSeasonSelectBox';
+import { Stack } from '@mui/material';
 
 // Icons
 import champion from '../../assets/icon/champion.png'
@@ -189,13 +190,20 @@ function Club() {
                 <BlocTitre title={`Cliquez sur le joueur que vous voulez voir ci-dessous. (<strong>${totalPlayers + club_all_goalkeepers.length}</strong> Joueur(s) dans ce club)`}/>
                 <MuiTabs title1={"Joueur de champ"}  title2={"Gardien"} style={true}>
                     <div>
-                        <div className='flex justify-between'>
-                            <MuiSeasonSelectBox extra_value={'TOTAL'}  season={season} start={START_SEASON} number_of_seasons={NUMBER_OF_SEASONS}/>
-                            <p className='text-white'>Recherche (WHERE) - Input</p>
+                        <div className="flex justify-evenly items-center bg-gunMetal rounded-t-3xl">
+                            <MuiSeasonSelectBox extra_value={'TOTAL'} label="Saississez une saison" isSeason={true}  season={season} start={START_SEASON} number_of_seasons={NUMBER_OF_SEASONS}/>
+                            {/* <p className='text-white'>Recherche (WHERE) - Input</p> */}
+                            <label class="relative block">
+                                <span class="sr-only">Search</span>
+                                <span class="absolute inset-y-10 left-1 flex items-center pl-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"> <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/> </svg>
+                                </span>
+                                <input class="placeholder:italic placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-4 mt-3 pl-9 pr-3 shadow-sm focus:outline-none focus:border-tiffanyBlue focus:ring-tiffanyBlue focus:ring-1 sm:text-sm" placeholder="Search for anything..." type="text" name="search"/>
+                            </label>
                             <p className='text-white'>Position (WHERE IN) - Multiple Select</p>
                             <p className='text-white'>Nationalité (WHERE) - Select Box</p>
                             <p className='text-white'>Goal, Assist, Y,R .. (ORDER) - Select Box</p>
-                            <p className='text-white'>Search ! (INPUT)</p>
+                            <p className='text-white'>ASC/DESC - Radio Button</p>
                         </div>
                         <BlocJoueurCarte title={'Attaquant, Milieu, Défenseur'}>
                             {players.map((player,index) => (
