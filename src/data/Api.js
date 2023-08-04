@@ -49,6 +49,9 @@ const PLAYERS = {
     // ALL PLYAERS : ?club_id=
     ALL_PLAYERS_IN_CLUB : API_URL + "stats_player/total_players_by_club", // ?club_id= , ?player_id=
     ALL_GK_PLAYERS_IN_CLUB : API_URL + "stats_gk_player/total_gk_players_by_club", // ?club_id= , ?player_id=
+
+    // ALL PLAYERS BY CLUB (+ SEASON)
+    ALL_PLAYERS_IN_CLUB_BY_SEASON : API_URL + "stats_player/club_all_players", // ?club_id= &season=
 }
 
 export { LEAGUES, CLUBS, PLAYERS, NATIONALITIES } 
