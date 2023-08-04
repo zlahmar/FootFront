@@ -18,9 +18,10 @@ import BlocContent from "../bloc/BlocContent";
 import BlocTitre from '../bloc/BlocTitre';
 import BlocJoueurCarte from '../bloc/BlocJoueurCarte';
 import BlocTitreGraphe from '../bloc/BlocTitreGraphe';
+import JoueurTotalCarte from '../carte/joueur/JoueurTotalCarte';
 import JoueurCarte from '../carte/joueur/JoueurCarte';
 import JoueurGardienCarte from '../carte/joueur/JoueurGardienCarte';
-import { START_SEASON, NUMBER_OF_SEASONS } from '../../data/Constants';
+import { START_SEASON, NUMBER_OF_SEASONS, PAGE, SIZE } from '../../data/Constants';
 
 // Graphique
 import LineChart from '../graphique/LineChart';
@@ -28,6 +29,7 @@ import NetworkChart from '../graphique/NetworkChart';
 
 // MUI
 import MuiTabs from "../mui_component/MuiTabs";
+import MuiSeasonSelectBox from '../mui_component/MuiSeasonSelectBox';
 
 // Icons
 import champion from '../../assets/icon/champion.png'
@@ -37,7 +39,7 @@ import best_player from '../../assets/icon/best_player.png'
 import { getBestData } from '../utility/Utility';
 
 // Array
-import { getClubRankingForSeasons } from '../../data/Arrays';
+import { getClubRankingForSeasons,generateSeason } from '../../data/Arrays';
 
 // Axios
 import axios from 'axios';
@@ -63,44 +65,84 @@ export default function App() {
 // -----------------------
 function Club() {
     const club_id = getIdFromUrl("clubs");
+
+    const [season, setSeason] = useState(['TOTAL']);
     // ---------------------------------------------
     // 3-1) USE QUERIES : FETCHING DATA FROM API
     // ---------------------------------------------
     // (1) Infinite Scroll for players
     const [players, setPlayers] = useState([]);
-    const [page, setPage] = useState(0);
-    const [totalPlayers, setTotalPlayers] = useState(0); 
-    
-    const handleScroll = (event) => {
-        const { scrollHeight, scrollTop, clientHeight } = event.target.scrollingElement;
+    const [page, setPage] = useState(PAGE);
+    const [totalPlayersCount, setTotalPlayersCount] = useState(0); 
 
-        if (scrollHeight - scrollTop <= clientHeight *2) {
+    const handleScroll = () => {
+        const scrollHeight = document.documentElement.scrollHeight;
+        const scrollTop = document.documentElement.scrollTop;
+        const clientHeight = document.documentElement.clientHeight;
+
+        if (scrollHeight - scrollTop <= clientHeight * 1.3) {
             setPage(prev_page => prev_page + 1)
         }
     }
-
+    
     useEffect(() => {
+        if (season.includes('TOTAL')) {
         window.addEventListener('scroll', handleScroll,true);
         return () => window.removeEventListener('scroll', handleScroll,true);
-    },[])
+        }
+    },[season])
 
     useEffect(() => {
         const fetchApiPlayers = async () => {
-            const response = await axios.get(
-                PLAYERS.ALL_PLAYERS_IN_CLUB+'?club_id='+club_id+'&page='+page+'&size=2'
-            );
+            if (season.includes('TOTAL')) {
+                const response1 = await axios.get(
+                    PLAYERS.ALL_PLAYERS_IN_CLUB+
+                    '?club_id='+club_id+
+                    '&page='+page+
+                    '&size='+SIZE+
+                    '&sort_order=desc'+
+                    '&sort_field=all_nb_games'
+                    );
 
-            if (response.status === 500) {
-                return; // Stop fetching further data
+                if (response1.status === 500) {
+                    return; // Stop fetching further data
+                    }
+                setTotalPlayersCount(response1.data.total_count);
+                setPlayers(prev_data => [...prev_data,...response1.data.items]);
             }
-
-            setTotalPlayers(response.data.total_count);
-            setPlayers(prev_data => [...prev_data,...response.data.items]);
         }
         fetchApiPlayers();
-    },[club_id, page])
+    },[page, club_id,season])
 
-    // (2) Fetching data from API (React-Queries)
+    // (2) Seasons
+    useEffect(() => {
+        const fetchApiPlayersBySeason = async () => {
+            if (!season.includes('TOTAL')) {
+                const response2 = await axios.get(
+                    PLAYERS.ALL_PLAYERS_IN_CLUB_BY_SEASON+
+                    '?club_id='+club_id+
+                    '&season='+season+
+                    '&sort_order=desc'+
+                    '&sort_field=nb_game'
+                );
+                if (response2.status === 500) {
+                    return; // Stop fetching further data
+                }
+                setPlayers(response2.data);
+                console.log("response2.data : ",response2.data);
+
+            } 
+
+        }
+        fetchApiPlayersBySeason();
+    },[season])
+
+    const handleSeasonChange = (insertedSeason) => {
+        setSeason(insertedSeason);
+        setPlayers([]);
+        setPage(PAGE);
+    }
+    // (3) Fetching data from API (React-Queries)
     const resultQueries = useQueries(
         [
             { queryKey: ['club',1], queryFn: () => fetch(CLUBS.DATA+'/'+club_id).then(res => res.json())},
@@ -109,7 +151,6 @@ function Club() {
             { queryKey: ['bestTop10Goalkeepers',4], queryFn: () => fetch(PLAYERS.BEST_TOP_10_GOALKEEPERS+'?club_id='+club_id).then(res => res.json())},
             { queryKey: ['club_stats',5], queryFn: () => fetch(CLUBS.STATS+'?club_id='+club_id).then(res => res.json())},
             { queryKey: ['club_all_goalkeepers', 6], queryFn: () => fetch(PLAYERS.ALL_GK_PLAYERS_IN_CLUB+'?club_id='+club_id).then(res => res.json())},
-            // { queryKey: ['club_all_players', 7], queryFn: () => fetch(PLAYERS.ALL_PLAYERS_IN_CLUB+'?club_id='+club_id+'&page='+page).then(res => res.json())},
         ]
     )
 
@@ -139,7 +180,6 @@ function Club() {
     const bestTop10Goalkeepers = resultQueries[3].data;
     const club_stats = resultQueries[4].data;
     const club_all_goalkeepers = resultQueries[5].data;
-    // const club_all_players = data.items;
 
     // (2) DATA : DATA FOR BESTS & RANKING FOR SEASONS
     const BESTS = [
@@ -181,21 +221,37 @@ function Club() {
                         </div>
                     </MuiTabs>    
                 </BlocContent> 
-                <BlocTitre title={`Cliquez sur le joueur que vous voulez voir ci-dessous. (<strong>${totalPlayers + club_all_goalkeepers.length}</strong> Joueur(s) dans ce club)`}/>
+                <BlocTitre title={`Cliquez sur le joueur que vous voulez voir ci-dessous. (<strong>${totalPlayersCount + club_all_goalkeepers.length}</strong> Joueur(s) dans ce club)`}/>
                 <MuiTabs title1={"Joueur de champ"}  title2={"Gardien"} style={true}>
                     <div>
-                        <div className='flex justify-between'>
-                            <p className='text-white'>Saison (WHERE) - Select Box</p>
-                            <p className='text-white'>Recherche (WHERE) - Input</p>
+                        <div className="flex justify-evenly items-center bg-gunMetal rounded-t-3xl">
+                            <MuiSeasonSelectBox extra_value={'TOTAL'} label="Saississez une saison" isSeason={true}  season={season} start={START_SEASON} number_of_seasons={NUMBER_OF_SEASONS} handleSeasonChange={handleSeasonChange}/>
+                            {/* <p className='text-white'>Recherche (WHERE) - Input</p> */}
+                            <label class="relative block">
+                                <span class="sr-only">Search</span>
+                                <span class="absolute inset-y-10 left-1 flex items-center pl-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"> <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/> </svg>
+                                </span>
+                                <input class="placeholder:italic placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-4 mt-3 pl-9 pr-3 shadow-sm focus:outline-none focus:border-tiffanyBlue focus:ring-tiffanyBlue focus:ring-1 sm:text-sm" placeholder="Search for anything..." type="text" name="search"/>
+                            </label>
                             <p className='text-white'>Position (WHERE IN) - Multiple Select</p>
                             <p className='text-white'>Nationalité (WHERE) - Select Box</p>
                             <p className='text-white'>Goal, Assist, Y,R .. (ORDER) - Select Box</p>
-                            <p className='text-white'>Search ! (INPUT)</p>
+                            <p className='text-white'>ASC/DESC - Radio Button</p>
                         </div>
                         <BlocJoueurCarte title={'Attaquant, Milieu, Défenseur'}>
-                            {players.map((player,index) => (
-                                <JoueurCarte key={index} player={player}/>
-                            ))}
+                            {season.includes('TOTAL') ? 
+                                (
+                                    players.map((player, index) => (
+                                        <JoueurTotalCarte key={index} player={player} />
+                                    ))
+                                ) 
+                                : 
+                                (
+                                    players.map((data, index) => (
+                                        <JoueurCarte key={index} data={data} />
+                                    ))
+                                )}
                         </BlocJoueurCarte>
                     </div>
                     <BlocJoueurCarte title={'Gardien'}>

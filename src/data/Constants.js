@@ -16,12 +16,15 @@ const COLOR = {
     AIAS : '#ee5d72',
     ODYSSEUS : '#154284',
     GREY : '#4f5459',
-    YELLOW : '#ffea80',
+    YELLOW : '#e2e497',
     RED : '#fa2a2a'
 }
 
 const START_SEASON = "2002-2003"
 const NUMBER_OF_SEASONS = 20
 
-export {LEAGUE, COLOR, START_SEASON, NUMBER_OF_SEASONS} 
+const PAGE = 0
+const SIZE = 4
+
+export {LEAGUE, COLOR, START_SEASON, NUMBER_OF_SEASONS, PAGE, SIZE} 
 

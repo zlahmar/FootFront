@@ -27,7 +27,7 @@ export default function MuiTabs(props) {
 
   return (
     <Box sx={{ width: '100%'  }}>
-      <Box sx={style && { borderBottom: 2, borderColor: COLOR.TIFFANYBLUE, borderRadius: '1rem', marginBottom: 2 }}>
+      <Box sx={style && { borderBottom: 2, borderColor: COLOR.TIFFANYBLUE, borderRadius: '1rem', marginBottom: 1 }}>
         <Tabs
           centered
           value={value} onChange={handleChange}

@@ -170,7 +170,8 @@ function ClubsDansLigue() {
                             <div>
                                 <div className='flex justify-center'>
                                     <BlocTitreGraphe img={[nationality]} title={`Nationalités des joueurs <br/> en <strong>${league.name}</strong> (${season})`}/>
-                                    <MuiSeasonSelectBox season={season} handleSeasonChange={handleSeasonChange}/>
+                                    <MuiSeasonSelectBox label="Saississez une saison" isSeason={true}  season={season} start={START_SEASON} number_of_seasons={NUMBER_OF_SEASONS} handleSeasonChange={handleSeasonChange}/>
+
                                 </div>
            
                                 <div className="2xl:w-1/2 xl:w-[40rem] lg:w-[30rem] md:w-[30rem] sm:w-0 max-[767px]:w-0 h-72">

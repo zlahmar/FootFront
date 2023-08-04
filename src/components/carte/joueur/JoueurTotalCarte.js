@@ -17,11 +17,10 @@ import Box from '@mui/material/Box';
 import { Tooltip } from '@mui/material';
 import { COLOR } from '../../../data/Constants';
 
-function JoueurCarte(props){
+function JoueurTotalCarte(props){
     const isClickDisabled = false;
-    const data = props.data;
+    const player = props.player;
 
-    console.log("player : ", data)
     return(
         <div className={`${isClickDisabled ? 'h-full' : ''} flex justify-evenly`}>
             <div className="mt-1">
@@ -39,19 +38,19 @@ function JoueurCarte(props){
                             {/* (2) Drapeau(img) & Position(p) */}
                             <div className="absolute flex flex-col justify-center translate-x-[1.5rem] translate-y-[3rem]">
                                 <div className="z-10 top-1/4 left-1/4">
-                                    <p className='text-white text-xl font-bold translate-x-[1rem] translate-y-[3rem]'>{data.player.position}</p>
+                                    <p className='text-white text-xl font-bold translate-x-[1rem] translate-y-[3rem]'>{player.playerPosition}</p>
                                 </div>
                                 <div className="z-10 top-1/4 left-1/4">
-                                    <img className="w-[5rem] h-[4rem] translate-x-[1rem] translate-y-[5rem]" src={`${NATIONALITIES.IMG}/${data.player.nationality.name_original}`} alt={`${data.player.nationality.name_original}`} />
+                                    <img className="w-[5rem] h-[4rem] translate-x-[1rem] translate-y-[5rem]" src={`${NATIONALITIES.IMG}/${player.nationalityName}`} alt={`${player.nationalityName}`} />
                                 </div>
                             </div>
 
                             {/* (3) Joueur(img) & Nom(p) */}
                             <div className="absolute flex flex-col justify-center">
                                 <div className="absolute z-10 top-1/4 left-1/4 translate-y-[7rem]">
-                                    <img className="w-[8rem] h-[8rem] rounded-full border-solid border-4 border-yellow bg-white translate-x-[5.5rem]" src={`${PLAYERS.IMG}/${data.player.id}`} alt={`${data.player.name}`} />
+                                    <img className="w-[8rem] h-[8rem] rounded-full border-solid border-4 border-yellow bg-white translate-x-[5.5rem]" src={`${PLAYERS.IMG}/${player.playerId}`} alt={`${player.playerName}`} />
                                 </div>
-                                <p className="z-10 text-white text-xl font-title font-bold translate-x-[1.4rem] translate-y-[16rem] w-[17.1rem]">{data.player.name}</p>
+                                <p className="z-10 text-white text-xl font-title font-bold translate-x-[1.4rem] translate-y-[16rem] w-[17.1rem]">{player.playerName}</p>
                             </div>
 
                             {/* (4) Stats */} 
@@ -65,7 +64,7 @@ function JoueurCarte(props){
                                                     <img className='w-8' src={match} alt="match"/>
                                                 </div>
                                                 <div className='flex items-center w-full'>
-                                                    <p className='text-white font-bold font-content'>{data.nb_game} <small>mt(s)</small></p>
+                                                    <p className='text-white font-bold font-content'>{player.allNbGames} <small>mt(s)</small></p>
                                                 </div>
                                             </Box>
                                         </Tooltip>                                         
@@ -77,7 +76,7 @@ function JoueurCarte(props){
                                                     <img className='w-8' src={time} alt="time"/>
                                                 </div>
                                                 <div className='flex items-center w-full'>
-                                                    <p className='text-white font-bold font-content'>{(data.minute/data.nb_game).toFixed(2)} <small>min.</small></p>
+                                                    <p className='text-white font-bold font-content'>{player.avgMinutes} <small>min.</small></p>
                                                 </div>
                                             </Box>
                                         </Tooltip>                                        
@@ -92,7 +91,7 @@ function JoueurCarte(props){
                                                     <img className='w-8' src={shoot} alt="shoot"/>
                                                 </div>
                                                 <div className='flex items-center w-full'>
-                                                    <p className='text-white font-bold font-content'>{data.goal} <small>goal(s)</small></p>
+                                                    <p className='text-white font-bold font-content'>{player.allGoals} <small>goal(s)</small></p>
                                                 </div>
                                             </Box>
                                         </Tooltip>                                        
@@ -104,7 +103,7 @@ function JoueurCarte(props){
                                                     <img className='w-8' src={kickball} alt="kickball"/>
                                                 </div>
                                                 <div className='flex items-center w-full'>
-                                                    <p className='text-white font-bold font-content'>{data.assist} <small>assist(s)</small></p>
+                                                    <p className='text-white font-bold font-content'>{player.allAssists} <small>assist(s)</small></p>
                                                 </div>
                                             </Box>
                                         </Tooltip>                                        
@@ -119,7 +118,7 @@ function JoueurCarte(props){
                                                     <img className='w-9' src={yellow_card} alt="yellow_card"/>
                                                 </div>
                                                 <div className='flex items-center w-full'>
-                                                    <p className='text-white font-bold font-content'>{data.yellow_card} <small>yellow</small></p>
+                                                    <p className='text-white font-bold font-content'>{player.allYellowCards} <small>yellow</small></p>
                                                 </div>
                                             </Box>
                                         </Tooltip>                                         
@@ -131,7 +130,7 @@ function JoueurCarte(props){
                                                     <img className='w-10' src={red_card} alt="red_card"/>
                                                 </div>
                                                 <div className='flex items-center w-full'>
-                                                    <p className='text-white font-bold font-content'>{data.red_card} <small>red</small></p>
+                                                    <p className='text-white font-bold font-content'>{player.allRedCards} <small>red</small></p>
                                                 </div>
                                             </Box>
                                         </Tooltip>                                        
@@ -146,4 +145,4 @@ function JoueurCarte(props){
         )
 }
 
-export default JoueurCarte
+export default JoueurTotalCarte
