@@ -20,8 +20,6 @@ import { COLOR } from '../../../data/Constants';
 function JoueurCarte(props){
     const isClickDisabled = false;
     const data = props.data;
-
-    console.log("player : ", data)
     return(
         <div className={`${isClickDisabled ? 'h-full' : ''} flex justify-evenly`}>
             <div className="mt-1">

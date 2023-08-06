@@ -20,14 +20,14 @@ export default function MuiTabs(props) {
     setValue(newValue);
   };
 
-  const style = props.style
+  const changeStyle = props.changeStyle
   const title1 = props.title1
   const title2 = props.title2
   const title3 = props.title3
 
   return (
     <Box sx={{ width: '100%'  }}>
-      <Box sx={style && { borderBottom: 2, borderColor: COLOR.TIFFANYBLUE, borderRadius: '1rem', marginBottom: 1 }}>
+      <Box sx={changeStyle && { borderBottom: 2, borderColor: COLOR.TIFFANYBLUE, borderRadius: '1rem', marginBottom: 1 }}>
         <Tabs
           centered
           value={value} onChange={handleChange}
