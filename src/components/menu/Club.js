@@ -77,6 +77,7 @@ function Club() {
     const [page, setPage] = useState(DEFAULT_PAGE);
     const [totalPlayersCountWithoutKeepers, setTotalPlayersCountWithoutKeepers] = useState(0); 
     const [input, setInput] = useState('');
+    const [activatedFiltersCount, setActivatedFiltersCount] = useState(0);
 
     const [tempPlayers, setTempPlayers]=useState([]);
     // ---------------------------------------------
@@ -116,7 +117,6 @@ function Club() {
                 setAllPlayersInClub(response.data.items);
         }
         fetchApiAllPlayersInClub();
-        
     }, [totalPlayersCountWithoutKeepers, club_id])
 
     // .............................................
@@ -199,6 +199,7 @@ function Club() {
     // (3) USE EFFECT : Input (Search Bar)
     // .............................................
     // i) + Total 
+
     useEffect(() => {
         const fetchApiPlayersByInput = async () => {
             if (season.includes('TOTAL')) {
@@ -215,7 +216,6 @@ function Club() {
         }
         fetchApiPlayersByInput();
     },[input, allPlayersInClub, season, tempPlayers])
-
     // ii) + Seasons
 
     // (4) Fetching data from API (React-Queries)
@@ -303,12 +303,12 @@ function Club() {
                         <div className="flex flex-wrap xl:flex-row max-[767px]:flex-col justify-evenly items-center bg-gunMetal rounded-t-3xl">
                             <MuiSeasonSelectBox extra_value={'TOTAL'} label="Saississez une saison" isSeason={true}  season={season} start={START_SEASON} number_of_seasons={NUMBER_OF_SEASONS} handleSeasonChange={handleSeasonChange}/>
                             {/* <p className='text-white'>Recherche (WHERE) - Input</p> */}
-                            <label class="relative block">
-                                <span class="sr-only">Search</span>
-                                <span class="absolute inset-y-10 left-1 flex items-center pl-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"> <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/> </svg>
+                            <label className="relative block">
+                                <span className="sr-only">Search</span>
+                                <span className="absolute inset-y-10 left-1 flex items-center pl-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16"> <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/> </svg>
                                 </span>
-                                <input onChange={(e) => setInput(e.target.value)}  class="placeholder:italic placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-4 mt-3 pl-9 pr-3 shadow-sm focus:outline-none focus:border-tiffanyBlue focus:ring-tiffanyBlue focus:ring-1 sm:text-sm" placeholder="Tapez un nom de joueur" type="text" name="search"/>
+                                <input onChange={(e) => setInput(e.target.value)}  className="placeholder:italic placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-4 mt-3 pl-9 pr-3 shadow-sm focus:outline-none focus:border-tiffanyBlue focus:ring-tiffanyBlue focus:ring-1 sm:text-sm" placeholder="Tapez un nom de joueur" type="text" name="search"/>
                             </label>
                             <p className='text-white'>Position (WHERE IN) - Multiple Select</p>
                             <p className='text-white'>Nationalité (WHERE) - Select Box</p>
