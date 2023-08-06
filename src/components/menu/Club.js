@@ -77,7 +77,6 @@ function Club() {
     const [page, setPage] = useState(DEFAULT_PAGE);
     const [totalPlayersCountWithoutKeepers, setTotalPlayersCountWithoutKeepers] = useState(0); 
     const [input, setInput] = useState('');
-    const [activatedFiltersCount, setActivatedFiltersCount] = useState(0);
 
     const [tempPlayers, setTempPlayers]=useState([]);
     // ---------------------------------------------
