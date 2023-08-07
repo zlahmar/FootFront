@@ -70,17 +70,22 @@ function Club() {
     // USE STATE Variables
     // -------------------
     const [season, setSeason] = useState(['TOTAL']);
-    const [isScrollable, setIsScrollable] = useState(true);
-    const [players, setPlayers] = useState([]);
-    const [allPlayersInClub, setAllPlayersInClub] = useState([]);
-    const [filteredPlayers, setFilteredPlayers] = useState([]);
+    const [nationality, setNationality] = useState(['TOTAL']);
     const [page, setPage] = useState(DEFAULT_PAGE);
-    const [totalPlayersCountWithoutKeepers, setTotalPlayersCountWithoutKeepers] = useState(0); 
     const [input, setInput] = useState('');
-    const [nationalities, setNationalities] = useState([]);
+    
+    const [players, setPlayers] = useState([]);
+
+    const [isScrollable, setIsScrollable] = useState(true);
+    const [allPlayersInClub, setAllPlayersInClub] = useState([]);
+    const [totalPlayersCountWithoutKeepers, setTotalPlayersCountWithoutKeepers] = useState(0); 
+    const [allNationalitiesInClub, setAllNationalitiesInClub] = useState([]);
+
     const [tempTotalPlayers, setTempTotalPlayers]=useState([]);
     const [tempSeasonPlayers, setTempSeasonPlayers]=useState([]);
-
+    const [tempAllNationalitiesInClub, setTempAllNationalitiesInClub]=useState([]);
+    
+    const [filteredPlayers, setFilteredPlayers] = useState([]);
     const [filterCategory, setFilterCategory] = useState(Object.keys(FILTER).map(
                                                         (key) =>({
                                                                 name : FILTER[key],
@@ -91,7 +96,7 @@ function Club() {
     // 3-1) USE QUERIES : FETCHING DATA FROM API
     // ---------------------------------------------
     // .............................................
-    // (0) Get all players in club (When page loads)
+    // (0) INIT - Get all players, allNationalitiesInClub in club (When page loads)
     // .............................................
     useEffect(()=> {
         const fetchApiAllPlayersCountInClub = async () => {
@@ -101,7 +106,7 @@ function Club() {
                 if (response.status === 500) {
                     return; // Stop fetching further data
                     }
-
+                    
                 setTotalPlayersCountWithoutKeepers(response.data.total_count);
         }
         fetchApiAllPlayersCountInClub();
@@ -120,10 +125,15 @@ function Club() {
                 if (response.status === 500) {
                     return; // Stop fetching further data
                     }
+
+                const playerNationalities = response.data.items.map((player) => player.nationalityName)
+                const uniqueNationalities = [...new Set(playerNationalities)];
+                setAllNationalitiesInClub(uniqueNationalities);
+                setTempAllNationalitiesInClub(uniqueNationalities);
                 setAllPlayersInClub(response.data.items);
         }
         fetchApiAllPlayersInClub();
-    }, [totalPlayersCountWithoutKeepers, club_id])
+    }, [club_id, totalPlayersCountWithoutKeepers])
 
     // .............................................
     // (1) USE EFFECT : Infinite Scroll for players
@@ -147,7 +157,7 @@ function Club() {
 
     useEffect( () => {
         const fetchApiPlayers = async () => {
-            if (season.includes('TOTAL') && isScrollable) {
+            if (season.includes('TOTAL')) {
                 try {
 
                     const response1 = await axios.get(PLAYERS.ALL_PLAYERS_IN_CLUB +
@@ -170,8 +180,9 @@ function Club() {
         }
         fetchApiPlayers();
         
-    },[page, season, club_id, isScrollable])
+    },[page, season, club_id])
 
+    console.log("players",players)
     // .............................................
     // (2) USE EFFECT : Seasons
     // .............................................
@@ -207,7 +218,7 @@ function Club() {
     // (3) USE EFFECT : Input (Search Bar)
     // .............................................
     useEffect(() => {
-        const fetchApiPlayersByInput = async () => {
+        const filterPlayersByInput=() => {
             // i) + Total 
             if (season.includes('TOTAL')) {
                 if(input !== '') {
@@ -218,10 +229,12 @@ function Club() {
                     setFilterCategory((prev_filters) => {const updated_filters = activateInputFilter(prev_filters, input);
                                                         return updated_filters;});
                 } else {
+
                     setPlayers(tempTotalPlayers);
-                    setIsScrollable(true);
                     setFilterCategory((prev_filters) => {const updated_filters = deactivateInputFilter(prev_filters, input);
                                                         return updated_filters;});
+                    setIsScrollable(true);
+
                 }
             }
             // ii) + Seasons 
@@ -239,13 +252,19 @@ function Club() {
                 }
             }
         }
-        fetchApiPlayersByInput();
+        filterPlayersByInput();
     },[input, allPlayersInClub, season, tempTotalPlayers,tempSeasonPlayers])
 
     // .............................................
     // (4) USE EFFECT : Nationality
     // .............................................
+    const handleNationalityChange = (insertedNationality) => {
+        setNationality(insertedNationality);
+        // setFilterCategory((prev_filters) => {const updated_filters = updateSeasonFilter(prev_filters, insertedSeason);
+        //                                     return updated_filters;});
+    }
 
+    
     // (5) Fetching data from API (React-Queries)
     const resultQueries = useQueries(
         [
@@ -329,7 +348,7 @@ function Club() {
                 <MuiTabs title1={"Joueur de champ"}  title2={"Gardien"} changeStyle={true}>
                     <div>
                         <div className="flex flex-wrap xl:flex-row max-[767px]:flex-col justify-evenly items-center bg-gunMetal rounded-t-3xl">
-                            <MuiSelectBox extra_value={'TOTAL'} label="Saississez une saison" array={generateSeason(START_SEASON, NUMBER_OF_SEASONS)} value={season} start={START_SEASON} number_of_seasons={NUMBER_OF_SEASONS} handleChange={handleSeasonChange}/>
+                            <MuiSelectBox extra_value={'TOTAL'} label="Saississez une saison" array={generateSeason(START_SEASON, NUMBER_OF_SEASONS)} value={season} handleChange={handleSeasonChange}/>
                             <label className="relative block">
                                 <span className="sr-only">Search</span>
                                 <span className="absolute inset-y-10 left-1 flex items-center pl-2">
@@ -337,6 +356,8 @@ function Club() {
                                 </span>
                                 <input onChange={(e) => setInput(e.target.value)}  className="placeholder:italic placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-4 mt-3 pl-9 pr-3 shadow-sm focus:outline-none focus:border-tiffanyBlue focus:ring-tiffanyBlue focus:ring-1 sm:text-sm" placeholder="Tapez un nom de joueur" type="text" name="search"/>
                             </label>
+                            <MuiSelectBox extra_value={'TOTAL'} label="Saississez une nationalité" array={allNationalitiesInClub} value={nationality} handleChange={handleNationalityChange}/>
+
                             <p className='text-white'>Nationalité (WHERE) - Select Box</p>
                             <p className='text-white'>Position (WHERE IN) - Multiple Select</p>
                             <p className='text-white'>Goal, Assist, Y,R .. (ORDER) - Select Box</p>
