@@ -3,14 +3,14 @@ import { Box, TextField, MenuItem } from '@mui/material';
 import { generateSeason } from '../../data/Arrays';
 import { COLOR } from '../../data/Constants';
 
-const MuiSeasonSelectBox = ({start, label, number_of_seasons, season, handleSeasonChange, extra_value, isSeason=false }) => {
+const MuiSelectBox = ({array, label , value, handleChange, extra_value }) => {
   return (
     <Box className="pt-3">
       <Box mx={5}>
         <TextField
           label={label}
-          value={season}
-          onChange={(e) => {handleSeasonChange(e.target.value)}}
+          value={value}
+          onChange={(e) => {handleChange(e.target.value)}}
           select
           sx={{
             width: "150px",
@@ -51,7 +51,7 @@ const MuiSeasonSelectBox = ({start, label, number_of_seasons, season, handleSeas
             },
           }}
         >
-          {isSeason && generateSeason(start, number_of_seasons).map((season) => (
+           {array.map((season) => (
             <MenuItem value={season} key={season}>
               {season}
             </MenuItem>
@@ -67,4 +67,4 @@ const MuiSeasonSelectBox = ({start, label, number_of_seasons, season, handleSeas
   );
 };
 
-export default MuiSeasonSelectBox;
+export default MuiSelectBox;

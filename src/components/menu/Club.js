@@ -21,7 +21,7 @@ import BlocTitreGraphe from '../bloc/BlocTitreGraphe';
 import JoueurTotalCarte from '../carte/joueur/JoueurTotalCarte';
 import JoueurCarte from '../carte/joueur/JoueurCarte';
 import JoueurGardienCarte from '../carte/joueur/JoueurGardienCarte';
-import { START_SEASON, NUMBER_OF_SEASONS, DEFAULT_PAGE, DEFAULT_SIZE } from '../../data/Constants';
+import { START_SEASON, NUMBER_OF_SEASONS, DEFAULT_PAGE, DEFAULT_SIZE, FILTER, SORT_BY } from '../../data/Constants';
 
 // Graphique
 import LineChart from '../graphique/LineChart';
@@ -29,17 +29,17 @@ import NetworkChart from '../graphique/NetworkChart';
 
 // MUI
 import MuiTabs from "../mui_component/MuiTabs";
-import MuiSeasonSelectBox from '../mui_component/MuiSeasonSelectBox';
+import MuiSelectBox from '../mui_component/MuiSelectBox';
 
 // Icons
 import champion from '../../assets/icon/champion.png'
 import best_player from '../../assets/icon/best_player.png'
 
 // Utility
-import { getBestData } from '../utility/Utility';
+import { getBestData, updateSeasonFilter, activateInputFilter, deactivateInputFilter, isFilterActivated } from '../utility/Utility';
 
 // Array
-import { getClubRankingForSeasons } from '../../data/Arrays';
+import { getClubRankingForSeasons, generateSeason } from '../../data/Arrays';
 
 // Axios
 import axios from 'axios';
@@ -77,12 +77,19 @@ function Club() {
     const [page, setPage] = useState(DEFAULT_PAGE);
     const [totalPlayersCountWithoutKeepers, setTotalPlayersCountWithoutKeepers] = useState(0); 
     const [input, setInput] = useState('');
+    const [nationalities, setNationalities] = useState([]);
+    const [tempTotalPlayers, setTempTotalPlayers]=useState([]);
+    const [tempSeasonPlayers, setTempSeasonPlayers]=useState([]);
 
-    const [tempPlayers, setTempPlayers]=useState([]);
+    const [filterCategory, setFilterCategory] = useState(Object.keys(FILTER).map(
+                                                        (key) =>({
+                                                                name : FILTER[key],
+                                                                state : false,
+                                                                })    
+                                                        )); 
     // ---------------------------------------------
     // 3-1) USE QUERIES : FETCHING DATA FROM API
     // ---------------------------------------------
-
     // .............................................
     // (0) Get all players in club (When page loads)
     // .............................................
@@ -155,7 +162,7 @@ function Club() {
                     }
                 
                     setPlayers(prevData => [...prevData, ...response1.data.items]);
-                    setTempPlayers(prevData => [...prevData, ...response1.data.items]);
+                    setTempTotalPlayers(prevData => [...prevData, ...response1.data.items]);
                 } catch (error) {
                     console.error(error.message);
                 }
@@ -181,43 +188,65 @@ function Club() {
                 if (response2.status === 500) {
                     return; // Stop fetching further data
                 }
+                setTempSeasonPlayers(response2.data);
                 setPlayers(response2.data);
             } 
 
         }
         fetchApiPlayersBySeason();
     },[season,club_id])
-
     const handleSeasonChange = (insertedSeason) => {
         setSeason(insertedSeason);
         setPlayers([]);
         setPage(DEFAULT_PAGE);
+        setFilterCategory((prev_filters) => {const updated_filters = updateSeasonFilter(prev_filters, insertedSeason);
+                                            return updated_filters;});
     }
 
     // .............................................
     // (3) USE EFFECT : Input (Search Bar)
     // .............................................
-    // i) + Total 
-
     useEffect(() => {
         const fetchApiPlayersByInput = async () => {
+            // i) + Total 
             if (season.includes('TOTAL')) {
                 if(input !== '') {
                     setIsScrollable(false)
                     let filtered_players =allPlayersInClub.filter(player => player.playerName.toLowerCase().includes(input.toLowerCase()))
                     setFilteredPlayers(filtered_players);
                     setPlayers(filtered_players);
+                    setFilterCategory((prev_filters) => {const updated_filters = activateInputFilter(prev_filters, input);
+                                                        return updated_filters;});
                 } else {
-                    setPlayers(tempPlayers);
-                    setIsScrollable(true)
+                    setPlayers(tempTotalPlayers);
+                    setIsScrollable(true);
+                    setFilterCategory((prev_filters) => {const updated_filters = deactivateInputFilter(prev_filters, input);
+                                                        return updated_filters;});
+                }
+            }
+            // ii) + Seasons 
+            else {
+                if(input !== '') {
+                    let filtered_players =tempSeasonPlayers.filter(player => player.player.name.toLowerCase().includes(input.toLowerCase()))
+                    setFilteredPlayers(filtered_players);
+                    setPlayers(filtered_players);
+                    setFilterCategory((prev_filters) => {const updated_filters = activateInputFilter(prev_filters, input);
+                                                    return updated_filters;});
+                } else {
+                    setPlayers(tempSeasonPlayers);
+                    setFilterCategory((prev_filters) => {const updated_filters = deactivateInputFilter(prev_filters, input);
+                                                        return updated_filters;});
                 }
             }
         }
         fetchApiPlayersByInput();
-    },[input, allPlayersInClub, season, tempPlayers])
-    // ii) + Seasons
+    },[input, allPlayersInClub, season, tempTotalPlayers,tempSeasonPlayers])
 
-    // (4) Fetching data from API (React-Queries)
+    // .............................................
+    // (4) USE EFFECT : Nationality
+    // .............................................
+
+    // (5) Fetching data from API (React-Queries)
     const resultQueries = useQueries(
         [
             { queryKey: ['club',1], queryFn: () => fetch(CLUBS.DATA+'/'+club_id).then(res => res.json())},
@@ -300,8 +329,7 @@ function Club() {
                 <MuiTabs title1={"Joueur de champ"}  title2={"Gardien"} changeStyle={true}>
                     <div>
                         <div className="flex flex-wrap xl:flex-row max-[767px]:flex-col justify-evenly items-center bg-gunMetal rounded-t-3xl">
-                            <MuiSeasonSelectBox extra_value={'TOTAL'} label="Saississez une saison" isSeason={true}  season={season} start={START_SEASON} number_of_seasons={NUMBER_OF_SEASONS} handleSeasonChange={handleSeasonChange}/>
-                            {/* <p className='text-white'>Recherche (WHERE) - Input</p> */}
+                            <MuiSelectBox extra_value={'TOTAL'} label="Saississez une saison" array={generateSeason(START_SEASON, NUMBER_OF_SEASONS)} value={season} start={START_SEASON} number_of_seasons={NUMBER_OF_SEASONS} handleChange={handleSeasonChange}/>
                             <label className="relative block">
                                 <span className="sr-only">Search</span>
                                 <span className="absolute inset-y-10 left-1 flex items-center pl-2">
@@ -309,8 +337,8 @@ function Club() {
                                 </span>
                                 <input onChange={(e) => setInput(e.target.value)}  className="placeholder:italic placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-4 mt-3 pl-9 pr-3 shadow-sm focus:outline-none focus:border-tiffanyBlue focus:ring-tiffanyBlue focus:ring-1 sm:text-sm" placeholder="Tapez un nom de joueur" type="text" name="search"/>
                             </label>
-                            <p className='text-white'>Position (WHERE IN) - Multiple Select</p>
                             <p className='text-white'>Nationalité (WHERE) - Select Box</p>
+                            <p className='text-white'>Position (WHERE IN) - Multiple Select</p>
                             <p className='text-white'>Goal, Assist, Y,R .. (ORDER) - Select Box</p>
                             <p className='text-white'>ASC/DESC - Radio Button</p>
                         </div>
