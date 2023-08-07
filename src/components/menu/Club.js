@@ -36,10 +36,10 @@ import champion from '../../assets/icon/champion.png'
 import best_player from '../../assets/icon/best_player.png'
 
 // Utility
-import { getBestData, updateSeasonFilter, activateInputFilter, deactivateInputFilter, isFilterActivated } from '../utility/Utility';
+import { getBestData } from '../utility/Utility';
 
 // Array
-import { getClubRankingForSeasons, generateSeason } from '../../data/Arrays';
+import { getClubRankingForSeasons, generateSeason, sortByName } from '../../data/Arrays';
 
 // Axios
 import axios from 'axios';
@@ -69,7 +69,7 @@ function Club() {
     // -------------------
     // USE STATE Variables
     // -------------------
-    const [season, setSeason] = useState(['TOTAL']);
+    const [season, setSeason] = useState('TOTAL');
     const [nationality, setNationality] = useState(['TOTAL']);
     const [page, setPage] = useState(DEFAULT_PAGE);
     const [input, setInput] = useState('');
@@ -81,17 +81,6 @@ function Club() {
     const [totalPlayersCountWithoutKeepers, setTotalPlayersCountWithoutKeepers] = useState(0); 
     const [allNationalitiesInClub, setAllNationalitiesInClub] = useState([]);
 
-    const [tempTotalPlayers, setTempTotalPlayers]=useState([]);
-    const [tempSeasonPlayers, setTempSeasonPlayers]=useState([]);
-    const [tempAllNationalitiesInClub, setTempAllNationalitiesInClub]=useState([]);
-    
-    const [filteredPlayers, setFilteredPlayers] = useState([]);
-    const [filterCategory, setFilterCategory] = useState(Object.keys(FILTER).map(
-                                                        (key) =>({
-                                                                name : FILTER[key],
-                                                                state : false,
-                                                                })    
-                                                        )); 
     // ---------------------------------------------
     // 3-1) USE QUERIES : FETCHING DATA FROM API
     // ---------------------------------------------
@@ -113,24 +102,33 @@ function Club() {
     },[club_id])
     useEffect(() => {
         if (totalPlayersCountWithoutKeepers === 0) return;
-        
         const fetchApiAllPlayersInClub = async () => {
-            const response = await axios.get(PLAYERS.ALL_PLAYERS_IN_CLUB +
-                '?club_id=' + club_id +
-                '&page=' + DEFAULT_PAGE +
-                '&size=' + totalPlayersCountWithoutKeepers +
-                '&sort_order=desc' +
-                '&sort_field=all_nb_games');
+            try {
+                
+                const response = await axios.get(
+                                                PLAYERS.ALL_PLAYERS_IN_CLUB +
+                                                '?club_id=' + club_id +
+                                                '&page=' + DEFAULT_PAGE +
+                                                '&size=' + totalPlayersCountWithoutKeepers +
+                                                '&sort_order=desc' +
+                                                '&sort_field=all_nb_games'
+                                                );
 
                 if (response.status === 500) {
-                    return; // Stop fetching further data
-                    }
+                    throw new Error("Internal server error");
+                }
 
-                const playerNationalities = response.data.items.map((player) => player.nationalityName)
+                let playerNationalities = response.data.items.map((player) => player.nationalityName)
+                
+                playerNationalities = [...playerNationalities].sort()
+
                 const uniqueNationalities = [...new Set(playerNationalities)];
                 setAllNationalitiesInClub(uniqueNationalities);
-                setTempAllNationalitiesInClub(uniqueNationalities);
+
                 setAllPlayersInClub(response.data.items);
+            } catch (error) {
+                console.error(error.message);
+            }
         }
         fetchApiAllPlayersInClub();
     }, [club_id, totalPlayersCountWithoutKeepers])
@@ -160,19 +158,19 @@ function Club() {
             if (season.includes('TOTAL')) {
                 try {
 
-                    const response1 = await axios.get(PLAYERS.ALL_PLAYERS_IN_CLUB +
-                        '?club_id=' + club_id +
-                        '&page=' + page +
-                        '&size=' + DEFAULT_SIZE +
-                        '&sort_order=desc' +
-                        '&sort_field=all_nb_games');
+                    const response = await axios.get(
+                                                    PLAYERS.ALL_PLAYERS_IN_CLUB +
+                                                    '?club_id=' + club_id +
+                                                    '&page=' + page +
+                                                    '&size=' + DEFAULT_SIZE +
+                                                    '&sort_order=desc' +
+                                                    '&sort_field=all_nb_games'
+                                                    );
                 
-                    if (response1.status === 500) {
+                    if (response.status === 500) {
                         throw new Error("Internal server error");
                     }
-                
-                    setPlayers(prevData => [...prevData, ...response1.data.items]);
-                    setTempTotalPlayers(prevData => [...prevData, ...response1.data.items]);
+                    setPlayers(prevData => [...prevData, ...response.data.items]);
                 } catch (error) {
                     console.error(error.message);
                 }
@@ -182,89 +180,19 @@ function Club() {
         
     },[page, season, club_id])
 
-    console.log("players",players)
     // .............................................
     // (2) USE EFFECT : Seasons
     // .............................................
-    useEffect(() => {
-        const fetchApiPlayersBySeason = async () => {
-            if (!season.includes('TOTAL')) {
-                const response2 = await axios.get(
-                    PLAYERS.ALL_PLAYERS_IN_CLUB_BY_SEASON+
-                    '?club_id='+club_id+
-                    '&season='+season+
-                    '&sort_order=desc'+
-                    '&sort_field=nb_game'
-                );
-                if (response2.status === 500) {
-                    return; // Stop fetching further data
-                }
-                setTempSeasonPlayers(response2.data);
-                setPlayers(response2.data);
-            } 
 
-        }
-        fetchApiPlayersBySeason();
-    },[season,club_id])
-    const handleSeasonChange = (insertedSeason) => {
-        setSeason(insertedSeason);
-        setPlayers([]);
-        setPage(DEFAULT_PAGE);
-        setFilterCategory((prev_filters) => {const updated_filters = updateSeasonFilter(prev_filters, insertedSeason);
-                                            return updated_filters;});
-    }
 
     // .............................................
     // (3) USE EFFECT : Input (Search Bar)
     // .............................................
-    useEffect(() => {
-        const filterPlayersByInput=() => {
-            // i) + Total 
-            if (season.includes('TOTAL')) {
-                if(input !== '') {
-                    setIsScrollable(false)
-                    let filtered_players =allPlayersInClub.filter(player => player.playerName.toLowerCase().includes(input.toLowerCase()))
-                    setFilteredPlayers(filtered_players);
-                    setPlayers(filtered_players);
-                    setFilterCategory((prev_filters) => {const updated_filters = activateInputFilter(prev_filters, input);
-                                                        return updated_filters;});
-                } else {
-
-                    setPlayers(tempTotalPlayers);
-                    setFilterCategory((prev_filters) => {const updated_filters = deactivateInputFilter(prev_filters, input);
-                                                        return updated_filters;});
-                    setIsScrollable(true);
-
-                }
-            }
-            // ii) + Seasons 
-            else {
-                if(input !== '') {
-                    let filtered_players =tempSeasonPlayers.filter(player => player.player.name.toLowerCase().includes(input.toLowerCase()))
-                    setFilteredPlayers(filtered_players);
-                    setPlayers(filtered_players);
-                    setFilterCategory((prev_filters) => {const updated_filters = activateInputFilter(prev_filters, input);
-                                                    return updated_filters;});
-                } else {
-                    setPlayers(tempSeasonPlayers);
-                    setFilterCategory((prev_filters) => {const updated_filters = deactivateInputFilter(prev_filters, input);
-                                                        return updated_filters;});
-                }
-            }
-        }
-        filterPlayersByInput();
-    },[input, allPlayersInClub, season, tempTotalPlayers,tempSeasonPlayers])
 
     // .............................................
     // (4) USE EFFECT : Nationality
     // .............................................
-    const handleNationalityChange = (insertedNationality) => {
-        setNationality(insertedNationality);
-        // setFilterCategory((prev_filters) => {const updated_filters = updateSeasonFilter(prev_filters, insertedSeason);
-        //                                     return updated_filters;});
-    }
 
-    
     // (5) Fetching data from API (React-Queries)
     const resultQueries = useQueries(
         [
@@ -348,7 +276,7 @@ function Club() {
                 <MuiTabs title1={"Joueur de champ"}  title2={"Gardien"} changeStyle={true}>
                     <div>
                         <div className="flex flex-wrap xl:flex-row max-[767px]:flex-col justify-evenly items-center bg-gunMetal rounded-t-3xl">
-                            <MuiSelectBox extra_value={'TOTAL'} label="Saississez une saison" array={generateSeason(START_SEASON, NUMBER_OF_SEASONS)} value={season} handleChange={handleSeasonChange}/>
+                            <MuiSelectBox extra_value={'TOTAL'} label="Saison" array={generateSeason(START_SEASON, NUMBER_OF_SEASONS)} value={season}/>
                             <label className="relative block">
                                 <span className="sr-only">Search</span>
                                 <span className="absolute inset-y-10 left-1 flex items-center pl-2">
@@ -356,9 +284,8 @@ function Club() {
                                 </span>
                                 <input onChange={(e) => setInput(e.target.value)}  className="placeholder:italic placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-4 mt-3 pl-9 pr-3 shadow-sm focus:outline-none focus:border-tiffanyBlue focus:ring-tiffanyBlue focus:ring-1 sm:text-sm" placeholder="Tapez un nom de joueur" type="text" name="search"/>
                             </label>
-                            <MuiSelectBox extra_value={'TOTAL'} label="Saississez une nationalité" array={allNationalitiesInClub} value={nationality} handleChange={handleNationalityChange}/>
+                            <MuiSelectBox extra_value={'TOTAL'} label="Nationalité" array={allNationalitiesInClub} value={nationality} />
 
-                            <p className='text-white'>Nationalité (WHERE) - Select Box</p>
                             <p className='text-white'>Position (WHERE IN) - Multiple Select</p>
                             <p className='text-white'>Goal, Assist, Y,R .. (ORDER) - Select Box</p>
                             <p className='text-white'>ASC/DESC - Radio Button</p>

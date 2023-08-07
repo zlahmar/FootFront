@@ -51,16 +51,17 @@ const MuiSelectBox = ({array, label , value, handleChange, extra_value }) => {
             },
           }}
         >
-           {array.map((season) => (
-            <MenuItem value={season} key={season}>
-              {season}
-            </MenuItem>
-          ))}
           {extra_value !==undefined && 
             <MenuItem value={extra_value} key={extra_value}>
               {extra_value}
             </MenuItem>
           }
+           {array.map((season) => (
+            <MenuItem value={season} key={season}>
+              {season}
+            </MenuItem>
+          ))}
+
         </TextField>
       </Box>
     </Box>
