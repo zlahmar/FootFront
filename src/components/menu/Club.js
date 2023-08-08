@@ -21,7 +21,7 @@ import BlocTitreGraphe from '../bloc/BlocTitreGraphe';
 import JoueurTotalCarte from '../carte/joueur/JoueurTotalCarte';
 import JoueurCarte from '../carte/joueur/JoueurCarte';
 import JoueurGardienCarte from '../carte/joueur/JoueurGardienCarte';
-import { START_SEASON, NUMBER_OF_SEASONS, DEFAULT_PAGE, DEFAULT_SIZE, POSITION, SORT_BY } from '../../data/Constants';
+import { START_SEASON, NUMBER_OF_SEASONS, DEFAULT_PAGE, DEFAULT_SIZE, POSITION, SORT_BY, SORT_ORDER } from '../../data/Constants';
 
 // Graphique
 import LineChart from '../graphique/LineChart';
@@ -73,13 +73,11 @@ function Club() {
     const [position, setPosition] = useState('TOTAL');
     const [sort, setSort] = useState('DEFAULT');
     const [page, setPage] = useState(DEFAULT_PAGE);
-    const [selectedOption, setSelectedOption] = useState('');
-
+    const [sortOrder, setSortOrder] = useState(SORT_ORDER.DESC);
     const [players, setPlayers] = useState([]);
     const [tempPlayers, setTempPlayers] = useState([]);
     const [season, setSeason] = useState('TOTAL');
     const [query, setQuery] = useState('');
-
     const [isScrollable, setIsScrollable] = useState(true);
 
     const [allPlayersInClub, setAllPlayersInClub] = useState([]);
@@ -191,7 +189,7 @@ function Club() {
                                                     '?club_id=' + club_id +
                                                     '&page=' + page +
                                                     '&size=' + DEFAULT_SIZE +
-                                                    '&sort_order=desc' +
+                                                    '&sort_order=desc'+
                                                     '&sort_field=all_nb_games'
                                                     );
                 
@@ -214,14 +212,15 @@ function Club() {
     // -------------------
     // FILTERS
     // -------------------
-    function filteredData(season,query, nationality, position,sort){
+    function filteredData(season,query, nationality, position,sort, sortOrder){
         let filteredData;
-
         if (season.includes('TOTAL'))
         {   if (query || 
                 nationality !== 'TOTAL' || 
                 position !== 'TOTAL' ||
-                sort !== 'DEFAULT') {
+                sort !== 'DEFAULT'
+                ) {
+
                 filteredData = allPlayersInClub;
             }
 
@@ -234,37 +233,70 @@ function Club() {
             }
 
             if (!position.includes('TOTAL')) {
-                filteredData = filteredData.filter((data) => {return data.playerPosition.includes(position)})                
+                filteredData = filteredData.filter((data) => {return data.playerPosition.includes(position)})   
+
+                if (sortOrder === SORT_ORDER.ASC){   
+                    filteredData = filteredData.sort((a,b) => a.playerPosition.localeCompare(b.playerPosition))
+                }
+
             }
 
             if (!sort.includes('DEFAULT')) {
                 if (sort === SORT_BY.PLAYER_NAME)
                 {
                     filteredData = filteredData.sort((a,b) => a.playerName.localeCompare(b.playerName))
+
+                    if (sortOrder === SORT_ORDER.ASC){
+                        filteredData = filteredData.sort((a,b) => b.playerName.localeCompare(a.playerName))
+                    }
                 }
                 if (sort === SORT_BY.POSITION)
                 {
                     filteredData = filteredData.sort((a,b) => a.playerPosition.localeCompare(b.playerPosition))
+
+                    if (sortOrder === SORT_ORDER.ASC){
+                        filteredData = filteredData.sort((a,b) => b.playerPosition.localeCompare(a.playerPosition))
+                    }
                 }
                 if (sort === SORT_BY.NATIONALITY)
                 {
                     filteredData = filteredData.sort((a,b) => a.nationalityName.localeCompare(b.nationalityName))
+
+                    if (sortOrder === SORT_ORDER.ASC){
+                        filteredData = filteredData.sort((a,b) => b.nationalityName.localeCompare(a.nationalityName))   
+                    }
                 }
                 if (sort === SORT_BY.GOALS)
                 {
                     filteredData = filteredData.sort((a,b) => b.allGoals - a.allGoals)
+
+                    if (sortOrder === SORT_ORDER.ASC){                     
+                        filteredData = filteredData.sort((a,b) => a.allGoals - b.allGoals)
+                    }
                 }
                 if (sort === SORT_BY.ASSISTS)
-                {
+                {                        
                     filteredData = filteredData.sort((a,b) => b.allAssists - a.allAssists)
+
+                    if (sortOrder === SORT_ORDER.ASC){
+                        filteredData = filteredData.sort((a,b) => a.allAssists - b.allAssists)
+                    }
                 }
                 if (sort === SORT_BY.YELLOW_CARDS)
                 {
                     filteredData = filteredData.sort((a,b) => b.allYellowCards - a.allYellowCards)
+
+                    if (sortOrder === SORT_ORDER.ASC){
+                        filteredData = filteredData.sort((a,b) => a.allYellowCards - b.allYellowCards)
+                    }
                 }
                 if (sort === SORT_BY.RED_CARDS)
                 {
                     filteredData = filteredData.sort((a,b) => b.allRedCards - a.allRedCards)
+
+                    if (sortOrder === SORT_ORDER.ASC){
+                        filteredData = filteredData.sort((a,b) => a.allRedCards - b.allRedCards)
+                    }
                 }
             }
 
@@ -284,42 +316,67 @@ function Club() {
 
             if (!position.includes('TOTAL')) {
                 filteredData = filteredData.filter((data) => {return data.player.position.toLowerCase().includes(position.toLowerCase())})
+                if (sortOrder === SORT_ORDER.ASC){
+                    filteredData = filteredData.sort((a,b) => a.player.position.localeCompare(b.player.position))
+                }
             }
 
             if (!sort.includes('DEFAULT')) {
                 if (sort === SORT_BY.PLAYER_NAME)
                 {
                     filteredData = filteredData.sort((a,b) => a.player.name.localeCompare(b.player.name))
+                    if (sortOrder === SORT_ORDER.ASC){
+                        filteredData = filteredData.sort((a,b) => b.player.name.localeCompare(a.player.name))
+                    }
                 }
                 if (sort === SORT_BY.POSITION)
                 {
                     filteredData = filteredData.sort((a,b) => a.player.position.localeCompare(b.player.position))
+                    if (sortOrder === SORT_ORDER.ASC){
+                        filteredData = filteredData.sort((a,b) => b.player.position.localeCompare(a.player.position))
+                    }
                 }
                 if (sort === SORT_BY.NATIONALITY)
                 {
                     filteredData = filteredData.sort((a,b) => a.player.nationality.name_original.localeCompare(b.player.nationality.name_original))
+                    if (sortOrder === SORT_ORDER.ASC){
+                        filteredData = filteredData.sort((a,b) => b.player.nationality.name_original.localeCompare(a.player.nationality.name_original))
+                    }
                 }
                 if (sort === SORT_BY.GOALS)
                 {
                     filteredData = filteredData.sort((a,b) => b.goal - a.goal)
+                    if (sortOrder === SORT_ORDER.ASC){
+                        filteredData = filteredData.sort((a,b) => a.goal - b.goal)
+                    }
                 }
                 if (sort === SORT_BY.ASSISTS)
                 {
                     filteredData = filteredData.sort((a,b) => b.assist - a.assist)
+                    if (sortOrder === SORT_ORDER.ASC){
+                        filteredData = filteredData.sort((a,b) => a.assist - b.assist)
+                    }
                 }
                 if (sort === SORT_BY.YELLOW_CARDS)
                 {
                     filteredData = filteredData.sort((a,b) => b.yellow_card - a.yellow_card)
+                    if (sortOrder === SORT_ORDER.ASC){
+                        filteredData = filteredData.sort((a,b) => a.yellow_card - b.yellow_card)
+                    }
                 }
                 if (sort === SORT_BY.RED_CARDS)
                 {
                     filteredData = filteredData.sort((a,b) => b.red_card - a.red_card)
+                    if (sortOrder === SORT_ORDER.ASC){
+                        filteredData = filteredData.sort((a,b) => a.red_card - b.red_card)
+                    }
                 }
             }
 
             return filteredData
         }
     }
+
     // (1)Input Filter
     const handleInputChange = (event) => {
         const query = event.target.value;
@@ -393,12 +450,16 @@ function Club() {
     }
 
     // (6) ASC/DESC Filter
+    const handleRadioChange = (value) => {
+        setSortOrder(value);
+        setPlayers(tempPlayers.reverse());
+      };
 
-    
     // --------------------------------
     // Filtered Players - RESULTS of all filters
     // --------------------------------
-    const filtered_players = filteredData(season, query, nationality, position, sort)
+    
+    const filtered_players = filteredData(season, query, nationality, position, sort, sortOrder)
 
     const resultQueries = useQueries(
         [
@@ -549,6 +610,9 @@ function Club() {
                     <div>
                         <div className="flex flex-wrap xl:flex-row max-[767px]:flex-col justify-evenly items-center bg-gunMetal rounded-t-3xl">
                             <MuiSelectBox handleChange={handleSeasonChange} extra_value={'TOTAL'} label="Saison" array={generateSeason(START_SEASON, NUMBER_OF_SEASONS)} value={season}/>
+                            <MuiSelectBox handleChange={handleNationalityChange} extra_value={'TOTAL'} label="Nationalité" array={allNationalitiesInClub} value={nationality} />
+                            <MuiSelectBox handleChange={handlePositionChange} extra_value={'TOTAL'} label="Position" array={[POSITION.FW, POSITION.MF, POSITION.DF]} value={position} />
+                            <MuiSelectBox handleChange={handleSortChange} extra_value={'DEFAULT'} label="Ordre" array={[SORT_BY.GOALS, SORT_BY.ASSISTS, SORT_BY.NATIONALITY, SORT_BY.PLAYER_NAME, SORT_BY.POSITION, SORT_BY.YELLOW_CARDS, SORT_BY.RED_CARDS]} value={sort} />
                             <label className="relative block">
                                 <span className="sr-only">Search</span>
                                 <span className="absolute inset-y-10 left-1 flex items-center pl-2">
@@ -556,50 +620,36 @@ function Club() {
                                 </span>
                                 <input onChange={handleInputChange}  className="placeholder:italic placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-4 mt-3 pl-9 pr-3 shadow-sm focus:outline-none focus:border-tiffanyBlue focus:ring-tiffanyBlue focus:ring-1 sm:text-sm" placeholder="Tapez un nom de joueur" type="text" name="search"/>
                             </label>
-                            <MuiSelectBox handleChange={handleNationalityChange} extra_value={'TOTAL'} label="Nationalité" array={allNationalitiesInClub} value={nationality} />
-                            <MuiSelectBox handleChange={handlePositionChange} extra_value={'TOTAL'} label="Position" array={[POSITION.FW, POSITION.MF, POSITION.DF]} value={position} />
-                            <MuiSelectBox handleChange={handleSortChange} extra_value={'DEFAULT'} label="Ordre" array={[SORT_BY.GOALS, SORT_BY.ASSISTS, SORT_BY.NATIONALITY, SORT_BY.PLAYER_NAME, SORT_BY.POSITION, SORT_BY.YELLOW_CARDS, SORT_BY.RED_CARDS]} value={sort} />
                             <div>
-                                <div className='mb-2'>
-                                    <p className='text-sm text-white'>ASC/DESC</p>
-                                </div>
-                                <div className="mb-[0.125rem] mr-4 inline-block min-h-[1.5rem] pl-[1.5rem]">
-                                    <input
-                                    className="relative float-left -ml-[1.5rem] mr-1 mt-0.5 h-5 w-5 appearance-none rounded-full border-2 border-solid border-tiffanyBlue before:pointer-events-none before:absolute before:h-4 before:w-4 before:scale-0 before:rounded-full before:bg-transparent before:opacity-0 before:shadow-[0px_0px_0px_13px_transparent] before:content-[''] after:absolute after:z-[1] after:block after:h-4 after:w-4 after:rounded-full after:content-[''] checked:border-tiffanyBlue  checked:after:absolute checked:after:left-1/2 checked:after:top-1/2 checked:after:h-[0.625rem] checked:after:w-[0.625rem] checked:after:rounded-full checked:after:border-tiffanyBlue checked:after:bg-tiffanyBlue checked:after:content-[''] checked:after:[transform:translate(-50%,-50%)] hover:cursor-pointer hover:before:opacity-[0.04] hover:before:shadow-[0px_0px_0px_13px_rgba(0,0,0,0.6)] focus:shadow-none focus:outline-none focus:ring-0 focus:before:scale-100 focus:before:opacity-[0.12] focus:before:shadow-[0px_0px_0px_13px_rgba(0,0,0,0.6)] focus:before:transition-[box-shadow_0.2s,transform_0.2s] checked:focus:border-tiffanyBlue checked:focus:before:scale-100 checked:focus:before:shadow-[0px_0px_0px_13px_#3b71ca] checked:focus:before:transition-[box-shadow_0.2s,transform_0.2s]"
-                                    type="radio"
-                                    name="inlineRadioOptions"
-                                    id="inlineRadio1"
-                                    value="option1" 
-                                    checked/>
-                                        <label
-                                        className="text-white mt-px inline-block pl-[0.15rem] hover:cursor-pointer font-bold"
-                                        for="inlineRadio1"
-                                        >DESC</label>
-                                </div>
-
-                                <div className="mb-[0.125rem] mr-4 inline-block min-h-[1.5rem] pl-[1.5rem]">
-                                    <input
-                                    className="relative float-left -ml-[1.5rem] mr-1 mt-0.5 h-5 w-5 appearance-none rounded-full border-2 border-solid border-tiffanyBlue before:pointer-events-none before:absolute before:h-4 before:w-4 before:scale-0 before:rounded-full before:bg-transparent before:opacity-0 before:shadow-[0px_0px_0px_13px_transparent] before:content-[''] after:absolute after:z-[1] after:block after:h-4 after:w-4 after:rounded-full after:content-[''] checked:border-tiffanyBlue  checked:after:absolute checked:after:left-1/2 checked:after:top-1/2 checked:after:h-[0.625rem] checked:after:w-[0.625rem] checked:after:rounded-full checked:after:border-tiffanyBlue checked:after:bg-tiffanyBlue checked:after:content-[''] checked:after:[transform:translate(-50%,-50%)] hover:cursor-pointer hover:before:opacity-[0.04] hover:before:shadow-[0px_0px_0px_13px_rgba(0,0,0,0.6)] focus:shadow-none focus:outline-none focus:ring-0 focus:before:scale-100 focus:before:opacity-[0.12] focus:before:shadow-[0px_0px_0px_13px_rgba(0,0,0,0.6)] focus:before:transition-[box-shadow_0.2s,transform_0.2s] checked:focus:border-tiffanyBlue checked:focus:before:scale-100 checked:focus:before:shadow-[0px_0px_0px_13px_#3b71ca] checked:focus:before:transition-[box-shadow_0.2s,transform_0.2s]"
-                                    type="radio"
-                                    name="inlineRadioOptions"
-                                    id="inlineRadio2"
-                                    value="option2" />
-                                        <label
-                                        className="text-white mt-px inline-block pl-[0.15rem] hover:cursor-pointer font-bold"
-                                        for="inlineRadio2"
-                                        >ASC</label>
-                                </div>
+                                <ul class="grid w-full gap-3 md:grid-cols-2 pt-4">
+                                    <li>
+                                        <input type="radio" id={SORT_ORDER.DESC} name={SORT_ORDER.DESC +'_' + SORT_ORDER.ASC} value={SORT_ORDER.DESC} class="hidden peer" required checked={sortOrder === SORT_ORDER.DESC} onChange={() => handleRadioChange(SORT_ORDER.DESC)}/>
+                                        <label for={SORT_ORDER.DESC} class="inline-flex justify-center w-full p-2 text-white bg-gunMetal border border-white rounded-lg cursor-pointer peer-checked:border-tiffanyBlue peer-checked:text-tiffanyBlue hover:text-gray-600 hover:bg-gray-100">                           
+                                            <div class="block">
+                                                <div class="w-full text-lg font-semibold "> {SORT_ORDER.DESC} </div>
+                                            </div>
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <input type="radio" id={SORT_ORDER.ASC} name={SORT_ORDER.DESC +'_' + SORT_ORDER.ASC} value={SORT_ORDER.ASC} class="hidden peer" checked={sortOrder === SORT_ORDER.ASC} onChange={()=> handleRadioChange(SORT_ORDER.ASC)}/>
+                                        <label for={SORT_ORDER.ASC} class="inline-flex justify-center w-full p-2 text-white bg-gunMetal border border-white rounded-lg cursor-pointer peer-checked:border-tiffanyBlue peer-checked:text-tiffanyBlue hover:text-gray-600 hover:bg-gray-100">
+                                            <div class="block">
+                                                <div class="w-full text-lg font-semibold">{SORT_ORDER.ASC}</div>
+                                            </div>
+                                        </label>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                         <BlocJoueurCarte title={'Attaquant, Milieu, Défenseur'}>
                         {
                         season.includes('TOTAL') ? (
-                        filtered_players
-                            ? renderPlayersList(filtered_players, true)
-                            : renderPlayersList(players, true)
-                        ) : (
-                        renderPlayersList(filtered_players || [], false)
-                        )
+                            filtered_players
+                                ? renderPlayersList(filtered_players, true)
+                                : renderPlayersList(players, true)
+                            ) : (
+                                renderPlayersList(filtered_players || [], false)
+                            )
                         }
                         </BlocJoueurCarte>
                     </div>
