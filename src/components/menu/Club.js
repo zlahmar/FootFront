@@ -21,7 +21,7 @@ import BlocTitreGraphe from '../bloc/BlocTitreGraphe';
 import JoueurTotalCarte from '../carte/joueur/JoueurTotalCarte';
 import JoueurCarte from '../carte/joueur/JoueurCarte';
 import JoueurGardienCarte from '../carte/joueur/JoueurGardienCarte';
-import { START_SEASON, NUMBER_OF_SEASONS, DEFAULT_PAGE, DEFAULT_SIZE, FILTER, SORT_BY } from '../../data/Constants';
+import { START_SEASON, NUMBER_OF_SEASONS, DEFAULT_PAGE, DEFAULT_SIZE, POSITION, SORT_BY } from '../../data/Constants';
 
 // Graphique
 import LineChart from '../graphique/LineChart';
@@ -39,7 +39,7 @@ import best_player from '../../assets/icon/best_player.png'
 import { getBestData } from '../utility/Utility';
 
 // Array
-import { getClubRankingForSeasons, generateSeason, sortByName } from '../../data/Arrays';
+import { getClubRankingForSeasons, generateSeason } from '../../data/Arrays';
 
 // Axios
 import axios from 'axios';
@@ -69,15 +69,19 @@ function Club() {
     // -------------------
     // USE STATE Variables
     // -------------------
-    const [nationality, setNationality] = useState(['TOTAL']);
+    const [nationality, setNationality] = useState('TOTAL');
+    const [position, setPosition] = useState('TOTAL');
+    const [sort, setSort] = useState('DEFAULT');
     const [page, setPage] = useState(DEFAULT_PAGE);
-    
+    const [selectedOption, setSelectedOption] = useState('');
+
     const [players, setPlayers] = useState([]);
     const [tempPlayers, setTempPlayers] = useState([]);
     const [season, setSeason] = useState('TOTAL');
     const [query, setQuery] = useState('');
 
     const [isScrollable, setIsScrollable] = useState(true);
+
     const [allPlayersInClub, setAllPlayersInClub] = useState([]);
     const [allPlayersBySeasonInClub, setAllPlayersBySeasonInClub] = useState([]);
     const [totalPlayersCountWithoutKeepers, setTotalPlayersCountWithoutKeepers] = useState(0); 
@@ -203,23 +207,66 @@ function Club() {
         }
         fetchApiPlayers();
         
-    },[page, season, club_id])
+    },[page, club_id])
 
     // -------------------
     // FILTERS
     // -------------------
-    function filteredData(season,query){
+    function filteredData(season,query, nationality, position,sort){
         let filteredData;
 
         if (season.includes('TOTAL'))
-        {
-            filteredData = allPlayersInClub;
+        {   if (query || 
+                nationality !== 'TOTAL' || 
+                position !== 'TOTAL' ||
+                sort !== 'DEFAULT') {
+                filteredData = allPlayersInClub;
+            }
 
             if (query) {
-                filteredData = filteredData.filter((data) => {return data.playerName.toLowerCase().includes(query.toLowerCase())})
-                
-                return filteredData
+                filteredData = filteredData.filter((data) => {return data.playerName.toLowerCase().includes(query.toLowerCase())})                
             }
+
+            if (!nationality.includes('TOTAL')) {
+                filteredData = filteredData.filter((data) => {return data.nationalityName.toLowerCase().includes(nationality.toLowerCase())})                
+            }
+
+            if (!position.includes('TOTAL')) {
+                filteredData = filteredData.filter((data) => {return data.playerPosition.includes(position)})                
+            }
+
+            if (!sort.includes('DEFAULT')) {
+                if (sort === SORT_BY.PLAYER_NAME)
+                {
+                    filteredData = filteredData.sort((a,b) => a.playerName.localeCompare(b.playerName))
+                }
+                if (sort === SORT_BY.POSITION)
+                {
+                    filteredData = filteredData.sort((a,b) => a.playerPosition.localeCompare(b.playerPosition))
+                }
+                if (sort === SORT_BY.NATIONALITY)
+                {
+                    filteredData = filteredData.sort((a,b) => a.nationalityName.localeCompare(b.nationalityName))
+                }
+                if (sort === SORT_BY.GOALS)
+                {
+                    filteredData = filteredData.sort((a,b) => b.allGoals - a.allGoals)
+                }
+                if (sort === SORT_BY.ASSISTS)
+                {
+                    filteredData = filteredData.sort((a,b) => b.allAssists - a.allAssists)
+                }
+                if (sort === SORT_BY.YELLOW_CARDS)
+                {
+                    filteredData = filteredData.sort((a,b) => b.allYellowCards - a.allYellowCards)
+                }
+                if (sort === SORT_BY.RED_CARDS)
+                {
+                    filteredData = filteredData.sort((a,b) => b.allRedCards - a.allRedCards)
+                }
+            }
+
+            return filteredData
 
         }
         else {
@@ -227,6 +274,45 @@ function Club() {
 
             if (query) {
                 filteredData = filteredData.filter((data) => {return data.player.name.toLowerCase().includes(query.toLowerCase())})
+            }
+
+            if (!nationality.includes('TOTAL')) {
+                filteredData = filteredData.filter((data) => {return data.player.nationality.name_original.toLowerCase().includes(nationality.toLowerCase())})                
+            }
+
+            if (!position.includes('TOTAL')) {
+                filteredData = filteredData.filter((data) => {return data.player.position.toLowerCase().includes(position.toLowerCase())})
+            }
+
+            if (!sort.includes('DEFAULT')) {
+                if (sort === SORT_BY.PLAYER_NAME)
+                {
+                    filteredData = filteredData.sort((a,b) => a.player.name.localeCompare(b.player.name))
+                }
+                if (sort === SORT_BY.POSITION)
+                {
+                    filteredData = filteredData.sort((a,b) => a.player.position.localeCompare(b.player.position))
+                }
+                if (sort === SORT_BY.NATIONALITY)
+                {
+                    filteredData = filteredData.sort((a,b) => a.player.nationality.name_original.localeCompare(b.player.nationality.name_original))
+                }
+                if (sort === SORT_BY.GOALS)
+                {
+                    filteredData = filteredData.sort((a,b) => b.goal - a.goal)
+                }
+                if (sort === SORT_BY.ASSISTS)
+                {
+                    filteredData = filteredData.sort((a,b) => b.assist - a.assist)
+                }
+                if (sort === SORT_BY.YELLOW_CARDS)
+                {
+                    filteredData = filteredData.sort((a,b) => b.yellow_card - a.yellow_card)
+                }
+                if (sort === SORT_BY.RED_CARDS)
+                {
+                    filteredData = filteredData.sort((a,b) => b.red_card - a.red_card)
+                }
             }
 
             return filteredData
@@ -240,10 +326,6 @@ function Club() {
         setQuery(query);
         setIsScrollable(is_query_empty);
     }
-
-    const filteredItems = allPlayersInClub.filter((player) => {
-        return player.playerName.toLowerCase().includes(query.toLowerCase())
-    })
 
     // (2) Season Filter
     const handleSeasonChange = (event) => {
@@ -259,8 +341,56 @@ function Club() {
         setSeason(insertedSeason);
         setIsScrollable(is_season_total);
     }
+
+    // (3) Nationality Filter
+    const handleNationalityChange = (event) => {
+        const insertedNationality = event.target.value;
+        const is_nationality_total = insertedNationality.includes('TOTAL');
+
+        if (is_nationality_total) {
+            setPlayers(tempPlayers);
+        }
+        else {
+            setPlayers(allPlayersBySeasonInClub.filter((data) => data.player.nationality.original_name === insertedNationality));
+        }
+        setNationality(insertedNationality);
+        setIsScrollable(is_nationality_total);
+    }
+
+    // (4) Position Filter
+    const handlePositionChange = (event) => {
+        const insertedPosition = event.target.value;
+        const is_position_total = insertedPosition.includes('TOTAL');
+
+        if (is_position_total) {
+            setPlayers(tempPlayers);
+        }
+        else {
+            setPlayers(allPlayersBySeasonInClub.filter((data) => data.player.position === insertedPosition));
+        }
+        setPosition(insertedPosition);
+        setIsScrollable(is_position_total);
+    }
+
+    // (5) Sort Filter
+    const handleSortChange = (event) => {
+        const insertedSort = event.target.value;
+        const is_sort_default = insertedSort.includes('DEFAULT');
+
+        if (is_sort_default) {
+            setPlayers(tempPlayers); 
+        }
+        setSort(insertedSort);
+        setIsScrollable(is_sort_default);
+    }
+
+    // (6) ASC/DESC Filter
+
     
-    const filtered_players = filteredData(season, query)
+    // --------------------------------
+    // Filtered Players - RESULTS of all filters
+    // --------------------------------
+    const filtered_players = filteredData(season, query, nationality, position, sort)
 
     const resultQueries = useQueries(
         [
@@ -309,7 +439,72 @@ function Club() {
 
     const RANKING_FOR_SEASONS = getClubRankingForSeasons(club_stats, START_SEASON, NUMBER_OF_SEASONS)
 
-    console.log("players : ", players)
+    // ---------------------------------------------
+    // 3-4) RENDER CARTE JOUEURS / TOTAL JOUEURS
+    // ---------------------------------------------
+    function renderTotalJoueurCarte({
+        playerId,
+        playerPosition,
+        nationalityName,
+        playerName,
+        allNbGames,
+        avgMinutes,
+        allGoals,
+        allAssists,
+        allYellowCards,
+        allRedCards,
+      }) {
+        return (
+          <JoueurTotalCarte
+            key={Math.random()}
+            playerId={playerId}
+            playerPosition={playerPosition}
+            nationalityName={nationalityName}
+            playerName={playerName}
+            allNbGames={allNbGames}
+            avgMinutes={avgMinutes}
+            allGoals={allGoals}
+            allAssists={allAssists}
+            allYellowCards={allYellowCards}
+            allRedCards={allRedCards}
+          />
+        );
+      }
+      
+      function renderJoueurCarte({
+        player,
+        nb_game,
+        minute,
+        goal,
+        assist,
+        yellow_card,
+        red_card,
+      }) {
+        return (
+          <JoueurCarte
+            key={Math.random()*1000}
+            player={player}
+            nb_game={nb_game}
+            minute={minute}
+            goal={goal}
+            assist={assist}
+            yellow_card={yellow_card}
+            red_card={red_card}
+          />
+        );
+      }
+      
+      function renderPlayersList(playersList, isTotal) {
+        return playersList.map((playerData) =>
+          isTotal
+            ? renderTotalJoueurCarte(playerData)
+            : renderJoueurCarte(playerData)
+        );
+      }
+
+    // ---------------------------------------------
+    // 3-5) RETURN (RENDER)
+    // ---------------------------------------------
     return (
             <div id="club-div" className="pb-3 flex flex-col">
                 <div className="lg:flex lg:flex-row sm:max-md:flex-col pt-5">
@@ -341,7 +536,7 @@ function Club() {
                         </div>
                     </MuiTabs>    
                 </BlocContent> 
-                <BlocTitre title={`Cliquez sur le joueur que vous voulez voir ci-dessous. (<strong>${totalPlayersCountWithoutKeepers + club_all_goalkeepers.length}</strong> Joueur(s) dans ce club)`}/>
+                <BlocTitre title={`Cliquez sur le joueur que vous voulez voir ci-dessous. (${filtered_players ? `<strong>${filtered_players.length}</strong>` : `${players.length}`} / ${totalPlayersCountWithoutKeepers} Joueur(s) dans ce club)`}/>
                 <MuiTabs title1={"Joueur de champ"}  title2={"Gardien"} changeStyle={true}>
                     <div>
                         <div className="flex flex-wrap xl:flex-row max-[767px]:flex-col justify-evenly items-center bg-gunMetal rounded-t-3xl">
@@ -353,75 +548,51 @@ function Club() {
                                 </span>
                                 <input onChange={handleInputChange}  className="placeholder:italic placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-4 mt-3 pl-9 pr-3 shadow-sm focus:outline-none focus:border-tiffanyBlue focus:ring-tiffanyBlue focus:ring-1 sm:text-sm" placeholder="Tapez un nom de joueur" type="text" name="search"/>
                             </label>
-                            <MuiSelectBox extra_value={'TOTAL'} label="Nationalité" array={allNationalitiesInClub} value={nationality} />
+                            <MuiSelectBox handleChange={handleNationalityChange} extra_value={'TOTAL'} label="Nationalité" array={allNationalitiesInClub} value={nationality} />
+                            <MuiSelectBox handleChange={handlePositionChange} extra_value={'TOTAL'} label="Position" array={[POSITION.FW, POSITION.MF, POSITION.DF]} value={position} />
+                            <MuiSelectBox handleChange={handleSortChange} extra_value={'DEFAULT'} label="Ordre" array={[SORT_BY.GOALS, SORT_BY.ASSISTS, SORT_BY.NATIONALITY, SORT_BY.PLAYER_NAME, SORT_BY.POSITION, SORT_BY.YELLOW_CARDS, SORT_BY.RED_CARDS]} value={sort} />
+                            <div>
+                                <div className='mb-2'>
+                                    <p className='text-sm text-white'>ASC/DESC</p>
+                                </div>
+                                <div className="mb-[0.125rem] mr-4 inline-block min-h-[1.5rem] pl-[1.5rem]">
+                                    <input
+                                    className="relative float-left -ml-[1.5rem] mr-1 mt-0.5 h-5 w-5 appearance-none rounded-full border-2 border-solid border-tiffanyBlue before:pointer-events-none before:absolute before:h-4 before:w-4 before:scale-0 before:rounded-full before:bg-transparent before:opacity-0 before:shadow-[0px_0px_0px_13px_transparent] before:content-[''] after:absolute after:z-[1] after:block after:h-4 after:w-4 after:rounded-full after:content-[''] checked:border-tiffanyBlue  checked:after:absolute checked:after:left-1/2 checked:after:top-1/2 checked:after:h-[0.625rem] checked:after:w-[0.625rem] checked:after:rounded-full checked:after:border-tiffanyBlue checked:after:bg-tiffanyBlue checked:after:content-[''] checked:after:[transform:translate(-50%,-50%)] hover:cursor-pointer hover:before:opacity-[0.04] hover:before:shadow-[0px_0px_0px_13px_rgba(0,0,0,0.6)] focus:shadow-none focus:outline-none focus:ring-0 focus:before:scale-100 focus:before:opacity-[0.12] focus:before:shadow-[0px_0px_0px_13px_rgba(0,0,0,0.6)] focus:before:transition-[box-shadow_0.2s,transform_0.2s] checked:focus:border-tiffanyBlue checked:focus:before:scale-100 checked:focus:before:shadow-[0px_0px_0px_13px_#3b71ca] checked:focus:before:transition-[box-shadow_0.2s,transform_0.2s]"
+                                    type="radio"
+                                    name="inlineRadioOptions"
+                                    id="inlineRadio1"
+                                    value="option1" 
+                                    checked/>
+                                        <label
+                                        className="text-white mt-px inline-block pl-[0.15rem] hover:cursor-pointer font-bold"
+                                        for="inlineRadio1"
+                                        >DESC</label>
+                                </div>
 
-                            <p className='text-white'>Position (WHERE IN) - Multiple Select</p>
-                            <p className='text-white'>Goal, Assist, Y,R .. (ORDER) - Select Box</p>
-                            <p className='text-white'>ASC/DESC - Radio Button</p>
+                                <div className="mb-[0.125rem] mr-4 inline-block min-h-[1.5rem] pl-[1.5rem]">
+                                    <input
+                                    className="relative float-left -ml-[1.5rem] mr-1 mt-0.5 h-5 w-5 appearance-none rounded-full border-2 border-solid border-tiffanyBlue before:pointer-events-none before:absolute before:h-4 before:w-4 before:scale-0 before:rounded-full before:bg-transparent before:opacity-0 before:shadow-[0px_0px_0px_13px_transparent] before:content-[''] after:absolute after:z-[1] after:block after:h-4 after:w-4 after:rounded-full after:content-[''] checked:border-tiffanyBlue  checked:after:absolute checked:after:left-1/2 checked:after:top-1/2 checked:after:h-[0.625rem] checked:after:w-[0.625rem] checked:after:rounded-full checked:after:border-tiffanyBlue checked:after:bg-tiffanyBlue checked:after:content-[''] checked:after:[transform:translate(-50%,-50%)] hover:cursor-pointer hover:before:opacity-[0.04] hover:before:shadow-[0px_0px_0px_13px_rgba(0,0,0,0.6)] focus:shadow-none focus:outline-none focus:ring-0 focus:before:scale-100 focus:before:opacity-[0.12] focus:before:shadow-[0px_0px_0px_13px_rgba(0,0,0,0.6)] focus:before:transition-[box-shadow_0.2s,transform_0.2s] checked:focus:border-tiffanyBlue checked:focus:before:scale-100 checked:focus:before:shadow-[0px_0px_0px_13px_#3b71ca] checked:focus:before:transition-[box-shadow_0.2s,transform_0.2s]"
+                                    type="radio"
+                                    name="inlineRadioOptions"
+                                    id="inlineRadio2"
+                                    value="option2" />
+                                        <label
+                                        className="text-white mt-px inline-block pl-[0.15rem] hover:cursor-pointer font-bold"
+                                        for="inlineRadio2"
+                                        >ASC</label>
+                                </div>
+                            </div>
                         </div>
                         <BlocJoueurCarte title={'Attaquant, Milieu, Défenseur'}>
-                            {
-                            season.includes('TOTAL') ? 
-                            (
-                                filtered_players ? 
-                                    filtered_players.map(({
-                                        playerId, playerPosition, nationalityName, 
-                                        playerName,allNbGames, avgMinutes, allGoals, 
-                                        allAssists, allYellowCards, allRedCards}) => (
-                                    
-                                        <JoueurTotalCarte
-                                        key={playerId}
-                                        playerId={playerId}
-                                        playerPosition={playerPosition}
-                                        nationalityName={nationalityName}
-                                        playerName={playerName}
-                                        allNbGames={allNbGames}
-                                        avgMinutes={avgMinutes}
-                                        allGoals={allGoals}
-                                        allAssists={allAssists}
-                                        allYellowCards={allYellowCards}
-                                        allRedCards={allRedCards}
-                                        />
-                                        ))
-                                    : 
-                                    players.map(({
-                                        playerId, playerPosition, nationalityName, 
-                                        playerName,allNbGames, avgMinutes, allGoals, 
-                                        allAssists, allYellowCards, allRedCards}) => (
-                                    
-                                        <JoueurTotalCarte
-                                        key={Math.random()*1000}
-                                        playerId={playerId}
-                                        playerPosition={playerPosition}
-                                        nationalityName={nationalityName}
-                                        playerName={playerName}
-                                        allNbGames={allNbGames}
-                                        avgMinutes={avgMinutes}
-                                        allGoals={allGoals}
-                                        allAssists={allAssists}
-                                        allYellowCards={allYellowCards}
-                                        allRedCards={allRedCards}
-                                        />
-                                    ))
-                                    
-                            ) : (
-                                    filtered_players.map(({
-                                    player, nb_game,minute,goal,
-                                    assist,yellow_card,red_card}) => (
-                                
-                                    <JoueurCarte
-                                    key={Math.random()}
-                                    player={player}
-                                    nb_game={nb_game}
-                                    minute={minute}
-                                    goal={goal}
-                                    assist={assist}
-                                    yellow_card={yellow_card}
-                                    red_card={red_card}
-                                    />
-                                    ))
-                            )
-                            }
+                        {
+                        season.includes('TOTAL') ? (
+                        filtered_players
+                            ? renderPlayersList(filtered_players, true)
+                            : renderPlayersList(players, true)
+                        ) : (
+                        renderPlayersList(filtered_players || [], false)
+                        )
+                        }
                         </BlocJoueurCarte>
                     </div>
                     <BlocJoueurCarte title={'Gardien'}>
@@ -431,7 +602,6 @@ function Club() {
                     </BlocJoueurCarte>
 
                 </MuiTabs>
-
             </div>
             )
 }

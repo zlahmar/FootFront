@@ -34,16 +34,22 @@ const FILTER = {
 }
 
 const SORT_BY= {
-    PLAYER_NAME : "PLAYER_NAME",
-    NATIONALITY : "NATIONALITY",
-    GOALS : "GOALS",
-    ASSISTS : "ASSISTS",
-    YELLOW_CARDS : "YELLOW_CARDS",
-    RED_CARDS : "RED_CARDS",
-    CLEAN_SHEETS : "CLEAN_SHEETS",
-    POSITION : "POSITION",
+    PLAYER_NAME : "Nom de joueur",
+    NATIONALITY : "Nationalité",
+    GOALS : "But",
+    ASSISTS : "Passe décisive",
+    YELLOW_CARDS : "Carton jaune",
+    RED_CARDS : "Carton rouge",
+    CLEAN_SHEETS : "Clean sheet",
+    POSITION : "Position",
 }
 
+const POSITION = {
+    FW : "FW",
+    MF : "MF",
+    DF : "DF",
+    GK : "GK",
+}
 
-export {LEAGUE, COLOR, START_SEASON, NUMBER_OF_SEASONS, DEFAULT_PAGE, DEFAULT_SIZE, FILTER, SORT_BY} 
+export {LEAGUE, COLOR, START_SEASON, NUMBER_OF_SEASONS, DEFAULT_PAGE, DEFAULT_SIZE, FILTER, SORT_BY, POSITION} 
 
