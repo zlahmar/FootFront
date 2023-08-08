@@ -23,8 +23,38 @@ const COLOR = {
 const START_SEASON = "2002-2003"
 const NUMBER_OF_SEASONS = 20
 
-const PAGE = 0
-const SIZE = 4
+const DEFAULT_PAGE = 0
+const DEFAULT_SIZE = 4
 
-export {LEAGUE, COLOR, START_SEASON, NUMBER_OF_SEASONS, PAGE, SIZE} 
+const FILTER = {
+    SEASON : "SEASON",
+    INPUT : "INPUT",
+    POSITION : "POSITION",
+    NATIONALITY : "NATIONALITY",
+}
+
+const SORT_BY= {
+    PLAYER_NAME : "Nom de joueur",
+    NATIONALITY : "Nationalité",
+    GOALS : "But",
+    ASSISTS : "Passe décisive",
+    YELLOW_CARDS : "Carton jaune",
+    RED_CARDS : "Carton rouge",
+    CLEAN_SHEETS : "Clean sheet",
+    POSITION : "Position",
+}
+
+const SORT_ORDER = {
+    ASC : "ASC",
+    DESC : "DESC",
+}
+
+const POSITION = {
+    FW : "FW",
+    MF : "MF",
+    DF : "DF",
+    GK : "GK",
+}
+
+export {LEAGUE, COLOR, START_SEASON, NUMBER_OF_SEASONS, DEFAULT_PAGE, DEFAULT_SIZE, FILTER, SORT_BY, POSITION, SORT_ORDER} 
 

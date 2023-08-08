@@ -32,7 +32,7 @@ import ligue from '../../assets/icon/cup.png'
 import nationality from '../../assets/icon/nationality.png'
 
 // MUI
-import MuiSeasonSelectBox from '../mui_component/MuiSeasonSelectBox';
+import MuiSelectBox from '../mui_component/MuiSelectBox';
 
 // -----------------------
 // 1) QUERY CLIENT
@@ -79,14 +79,15 @@ function ClubsDansLigue() {
         ]
     )
     
-    // (2) Season change (MUISeasonSelectBox)
+    // (2) Season change (MuiSelectBox)
     useEffect(() => {
         // This code will execute every time the season state changes
         // resultQueries[6] : nationalities
         resultQueries[6].refetch();
       }, [season, resultQueries]); // The effect depends on the season state
     
-      const handleSeasonChange = (insertedSeason) => {
+      const handleSeasonChange = (event) => {
+        const insertedSeason = event.target.value;
         setSeason(insertedSeason);
         // The useEffect above will run after this function, and the new season value will be updated.
       };
@@ -170,7 +171,7 @@ function ClubsDansLigue() {
                             <div>
                                 <div className='flex justify-center'>
                                     <BlocTitreGraphe img={[nationality]} title={`Nationalités des joueurs <br/> en <strong>${league.name}</strong> (${season})`}/>
-                                    <MuiSeasonSelectBox label="Saississez une saison" isSeason={true}  season={season} start={START_SEASON} number_of_seasons={NUMBER_OF_SEASONS} handleSeasonChange={handleSeasonChange}/>
+                                    <MuiSelectBox label="Saississez une saison" array={generateSeason(START_SEASON, NUMBER_OF_SEASONS)} value={season} handleChange={handleSeasonChange}/>
 
                                 </div>
            
