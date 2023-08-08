@@ -86,6 +86,7 @@ function Club() {
     const [allPlayersBySeasonInClub, setAllPlayersBySeasonInClub] = useState([]);
     const [totalPlayersCountWithoutKeepers, setTotalPlayersCountWithoutKeepers] = useState(0); 
     const [allNationalitiesInClub, setAllNationalitiesInClub] = useState([]);
+    const [tempNationalitiesInClub, setTempNationalitiesInClub] = useState([]);
 
     // ---------------------------------------------
     // 3-1) USE QUERIES : FETCHING DATA FROM API
@@ -130,6 +131,7 @@ function Club() {
 
                 const uniqueNationalities = [...new Set(playerNationalities)];
                 setAllNationalitiesInClub(uniqueNationalities);
+                setTempNationalitiesInClub(uniqueNationalities)
 
                 setAllPlayersInClub(response.data.items);
             } catch (error) {
@@ -334,9 +336,15 @@ function Club() {
 
         if (is_season_total) {
             setPlayers(tempPlayers);
+            setAllNationalitiesInClub(tempNationalitiesInClub)
         }
         else {
-            setPlayers(allPlayersBySeasonInClub.filter((data) => data.season === insertedSeason));
+            const season_data = allPlayersBySeasonInClub.filter((data) => data.season === insertedSeason);
+            let season_nationalities = season_data.map((data)=> data.player.nationality.name_original);
+            season_nationalities = [...season_nationalities].sort();
+            const unique_season_nationalities = [...new Set(season_nationalities)];
+            setPlayers(season_data);
+            setAllNationalitiesInClub(unique_season_nationalities);
         }
         setSeason(insertedSeason);
         setIsScrollable(is_season_total);
