@@ -69,15 +69,17 @@ function Club() {
     // -------------------
     // USE STATE Variables
     // -------------------
-    const [season, setSeason] = useState('TOTAL');
     const [nationality, setNationality] = useState(['TOTAL']);
     const [page, setPage] = useState(DEFAULT_PAGE);
-    const [input, setInput] = useState('');
     
     const [players, setPlayers] = useState([]);
+    const [tempPlayers, setTempPlayers] = useState([]);
+    const [season, setSeason] = useState('TOTAL');
+    const [query, setQuery] = useState('');
 
     const [isScrollable, setIsScrollable] = useState(true);
     const [allPlayersInClub, setAllPlayersInClub] = useState([]);
+    const [allPlayersBySeasonInClub, setAllPlayersBySeasonInClub] = useState([]);
     const [totalPlayersCountWithoutKeepers, setTotalPlayersCountWithoutKeepers] = useState(0); 
     const [allNationalitiesInClub, setAllNationalitiesInClub] = useState([]);
 
@@ -132,6 +134,26 @@ function Club() {
         }
         fetchApiAllPlayersInClub();
     }, [club_id, totalPlayersCountWithoutKeepers])
+    useEffect(() =>{
+        const fetchApiAllPlayersBySeasonInClub = async () => {
+            try {
+                const response = await axios.get(
+                                                PLAYERS.ALL_PLAYERS_IN_CLUB_BY_SEASON +
+                                                '?club_id=' + club_id+
+                                                '&sort_field=nb_game' +
+                                                '&sort_order=desc'
+                                                );
+
+                if (response.status === 500) {
+                    throw new Error("Internal server error");
+                    }
+                setAllPlayersBySeasonInClub(response.data);
+            } catch (error) {
+                console.error(error.message);
+            }
+        }
+        fetchApiAllPlayersBySeasonInClub();
+    },[club_id])
 
     // .............................................
     // (1) USE EFFECT : Infinite Scroll for players
@@ -170,7 +192,10 @@ function Club() {
                     if (response.status === 500) {
                         throw new Error("Internal server error");
                     }
+
                     setPlayers(prevData => [...prevData, ...response.data.items]);
+                    setTempPlayers(prevData => [...prevData, ...response.data.items]);
+
                 } catch (error) {
                     console.error(error.message);
                 }
@@ -180,20 +205,63 @@ function Club() {
         
     },[page, season, club_id])
 
-    // .............................................
-    // (2) USE EFFECT : Seasons
-    // .............................................
+    // -------------------
+    // FILTERS
+    // -------------------
+    function filteredData(season,query){
+        let filteredData;
 
+        if (season.includes('TOTAL'))
+        {
+            filteredData = allPlayersInClub;
 
-    // .............................................
-    // (3) USE EFFECT : Input (Search Bar)
-    // .............................................
+            if (query) {
+                filteredData = filteredData.filter((data) => {return data.playerName.toLowerCase().includes(query.toLowerCase())})
+                
+                return filteredData
+            }
 
-    // .............................................
-    // (4) USE EFFECT : Nationality
-    // .............................................
+        }
+        else {
+            filteredData = allPlayersBySeasonInClub.filter((data) => data.season === season);
 
-    // (5) Fetching data from API (React-Queries)
+            if (query) {
+                filteredData = filteredData.filter((data) => {return data.player.name.toLowerCase().includes(query.toLowerCase())})
+            }
+
+            return filteredData
+        }
+    }
+    // (1)Input Filter
+    const handleInputChange = (event) => {
+        const query = event.target.value;
+        const is_query_empty = query === '';
+
+        setQuery(query);
+        setIsScrollable(is_query_empty);
+    }
+
+    const filteredItems = allPlayersInClub.filter((player) => {
+        return player.playerName.toLowerCase().includes(query.toLowerCase())
+    })
+
+    // (2) Season Filter
+    const handleSeasonChange = (event) => {
+        const insertedSeason = event.target.value;
+        const is_season_total = insertedSeason.includes('TOTAL');
+
+        if (is_season_total) {
+            setPlayers(tempPlayers);
+        }
+        else {
+            setPlayers(allPlayersBySeasonInClub.filter((data) => data.season === insertedSeason));
+        }
+        setSeason(insertedSeason);
+        setIsScrollable(is_season_total);
+    }
+    
+    const filtered_players = filteredData(season, query)
+
     const resultQueries = useQueries(
         [
             { queryKey: ['club',1], queryFn: () => fetch(CLUBS.DATA+'/'+club_id).then(res => res.json())},
@@ -241,6 +309,7 @@ function Club() {
 
     const RANKING_FOR_SEASONS = getClubRankingForSeasons(club_stats, START_SEASON, NUMBER_OF_SEASONS)
 
+    console.log("players : ", players)
     return (
             <div id="club-div" className="pb-3 flex flex-col">
                 <div className="lg:flex lg:flex-row sm:max-md:flex-col pt-5">
@@ -276,13 +345,13 @@ function Club() {
                 <MuiTabs title1={"Joueur de champ"}  title2={"Gardien"} changeStyle={true}>
                     <div>
                         <div className="flex flex-wrap xl:flex-row max-[767px]:flex-col justify-evenly items-center bg-gunMetal rounded-t-3xl">
-                            <MuiSelectBox extra_value={'TOTAL'} label="Saison" array={generateSeason(START_SEASON, NUMBER_OF_SEASONS)} value={season}/>
+                            <MuiSelectBox handleChange={handleSeasonChange} extra_value={'TOTAL'} label="Saison" array={generateSeason(START_SEASON, NUMBER_OF_SEASONS)} value={season}/>
                             <label className="relative block">
                                 <span className="sr-only">Search</span>
                                 <span className="absolute inset-y-10 left-1 flex items-center pl-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16"> <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/> </svg>
                                 </span>
-                                <input onChange={(e) => setInput(e.target.value)}  className="placeholder:italic placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-4 mt-3 pl-9 pr-3 shadow-sm focus:outline-none focus:border-tiffanyBlue focus:ring-tiffanyBlue focus:ring-1 sm:text-sm" placeholder="Tapez un nom de joueur" type="text" name="search"/>
+                                <input onChange={handleInputChange}  className="placeholder:italic placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-4 mt-3 pl-9 pr-3 shadow-sm focus:outline-none focus:border-tiffanyBlue focus:ring-tiffanyBlue focus:ring-1 sm:text-sm" placeholder="Tapez un nom de joueur" type="text" name="search"/>
                             </label>
                             <MuiSelectBox extra_value={'TOTAL'} label="Nationalité" array={allNationalitiesInClub} value={nationality} />
 
@@ -291,24 +360,68 @@ function Club() {
                             <p className='text-white'>ASC/DESC - Radio Button</p>
                         </div>
                         <BlocJoueurCarte title={'Attaquant, Milieu, Défenseur'}>
-                            {season.includes('TOTAL') ? 
-                                (
-                                    // players.length === 0 ? (
-                                    //     <span className='text-white'>Not Found</span>
-                                    // ) 
-                                    // : 
-                                    // (
-                                        players.map((player, index) => (
-                                            <JoueurTotalCarte key={index} player={player} />
+                            {
+                            season.includes('TOTAL') ? 
+                            (
+                                filtered_players ? 
+                                    filtered_players.map(({
+                                        playerId, playerPosition, nationalityName, 
+                                        playerName,allNbGames, avgMinutes, allGoals, 
+                                        allAssists, allYellowCards, allRedCards}) => (
+                                    
+                                        <JoueurTotalCarte
+                                        key={playerId}
+                                        playerId={playerId}
+                                        playerPosition={playerPosition}
+                                        nationalityName={nationalityName}
+                                        playerName={playerName}
+                                        allNbGames={allNbGames}
+                                        avgMinutes={avgMinutes}
+                                        allGoals={allGoals}
+                                        allAssists={allAssists}
+                                        allYellowCards={allYellowCards}
+                                        allRedCards={allRedCards}
+                                        />
                                         ))
-                                    // )
-                                ) 
-                                : 
-                                (
-                                    players.map((data, index) => (
-                                        <JoueurCarte key={index} data={data} />
+                                    : 
+                                    players.map(({
+                                        playerId, playerPosition, nationalityName, 
+                                        playerName,allNbGames, avgMinutes, allGoals, 
+                                        allAssists, allYellowCards, allRedCards}) => (
+                                    
+                                        <JoueurTotalCarte
+                                        key={Math.random()*1000}
+                                        playerId={playerId}
+                                        playerPosition={playerPosition}
+                                        nationalityName={nationalityName}
+                                        playerName={playerName}
+                                        allNbGames={allNbGames}
+                                        avgMinutes={avgMinutes}
+                                        allGoals={allGoals}
+                                        allAssists={allAssists}
+                                        allYellowCards={allYellowCards}
+                                        allRedCards={allRedCards}
+                                        />
                                     ))
-                                )}
+                                    
+                            ) : (
+                                    filtered_players.map(({
+                                    player, nb_game,minute,goal,
+                                    assist,yellow_card,red_card}) => (
+                                
+                                    <JoueurCarte
+                                    key={Math.random()}
+                                    player={player}
+                                    nb_game={nb_game}
+                                    minute={minute}
+                                    goal={goal}
+                                    assist={assist}
+                                    yellow_card={yellow_card}
+                                    red_card={red_card}
+                                    />
+                                    ))
+                            )
+                            }
                         </BlocJoueurCarte>
                     </div>
                     <BlocJoueurCarte title={'Gardien'}>

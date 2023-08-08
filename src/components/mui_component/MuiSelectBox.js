@@ -10,7 +10,7 @@ const MuiSelectBox = ({array, label , value, handleChange, extra_value }) => {
         <TextField
           label={label}
           value={value}
-          onChange={(e) => {handleChange(e.target.value)}}
+          onChange={(e) => {handleChange(e)}}
           select
           sx={{
             width: "150px",

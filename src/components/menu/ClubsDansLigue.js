@@ -86,7 +86,8 @@ function ClubsDansLigue() {
         resultQueries[6].refetch();
       }, [season, resultQueries]); // The effect depends on the season state
     
-      const handleSeasonChange = (insertedSeason) => {
+      const handleSeasonChange = (event) => {
+        const insertedSeason = event.target.value;
         setSeason(insertedSeason);
         // The useEffect above will run after this function, and the new season value will be updated.
       };
