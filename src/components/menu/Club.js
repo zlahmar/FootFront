@@ -552,28 +552,7 @@ function Club() {
                             <MuiSelectBox handleChange={handlePositionChange} extra_value={'TOTAL'} label="Position" array={[POSITION.FW, POSITION.MF, POSITION.DF]} value={position} />
                             <MuiSelectBox handleChange={handleSortChange} extra_value={'DEFAULT'} label="Ordre" array={[SORT_BY.GOALS, SORT_BY.ASSISTS, SORT_BY.NATIONALITY, SORT_BY.PLAYER_NAME, SORT_BY.POSITION, SORT_BY.YELLOW_CARDS, SORT_BY.RED_CARDS]} value={sort} />
                             <SearchBar handleInputChange={handleInputChange} />
-                            {/* <SortOrder sortOrder={sortOrder} handleRadioChange={handleRadioChange}/> */}
-
-                            <div>
-                                <ul class="grid w-full gap-3 md:grid-cols-2 pt-4">
-                                    <li>
-                                        <input type="radio" id={SORT_ORDER.DESC} name={SORT_ORDER.DESC +'_' + SORT_ORDER.ASC} value={SORT_ORDER.DESC} class="hidden peer" required checked={sortOrder === SORT_ORDER.DESC} onChange={() => handleRadioChange(SORT_ORDER.DESC)}/>
-                                        <label for={SORT_ORDER.DESC} class="inline-flex justify-center w-full p-2 text-white bg-gunMetal border border-white rounded-lg cursor-pointer peer-checked:border-tiffanyBlue peer-checked:text-tiffanyBlue hover:text-gray-600 hover:bg-gray-100">                           
-                                            <div class="block">
-                                                <div class="w-full text-lg font-semibold "> {SORT_ORDER.DESC} </div>
-                                            </div>
-                                        </label>
-                                    </li>
-                                    <li>
-                                        <input type="radio" id={SORT_ORDER.ASC} name={SORT_ORDER.DESC +'_' + SORT_ORDER.ASC} value={SORT_ORDER.ASC} class="hidden peer" checked={sortOrder === SORT_ORDER.ASC} onChange={()=> handleRadioChange(SORT_ORDER.ASC)}/>
-                                        <label for={SORT_ORDER.ASC} class="inline-flex justify-center w-full p-2 text-white bg-gunMetal border border-white rounded-lg cursor-pointer peer-checked:border-tiffanyBlue peer-checked:text-tiffanyBlue hover:text-gray-600 hover:bg-gray-100">
-                                            <div class="block">
-                                                <div class="w-full text-lg font-semibold">{SORT_ORDER.ASC}</div>
-                                            </div>
-                                        </label>
-                                    </li>
-                                </ul>
-                            </div>
+                            <SortOrder sortOrder={sortOrder} handleRadioChange={handleRadioChange}/>
                         </BlocFiltrage>
                         <BlocJoueurCarte title={'Attaquant, Milieu, Défenseur'}>
                         {
