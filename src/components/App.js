@@ -33,7 +33,7 @@ function App() {
             logo_sidebar.style.pointerEvents="auto"
             toggle_sidebar.style.pointerEvents="auto"
             main_div[0].style.pointerEvents="none"
-            pages_div[0].style.filter="blur(5px)"
+            pages_div[0].style.filter="blur(4px)"
 
         }
         else {

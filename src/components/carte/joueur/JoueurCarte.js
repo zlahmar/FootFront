@@ -26,7 +26,7 @@ export function JoueurCarte({player, nb_game, minute, goal, assist, yellow_card,
                         <Link
                             to={{pathname : "/joueurs",
                             state: { joueurId: "good" }}}
-                            className={` bg-gunMetal `}
+                            className={` bg-eerieBlack `}
                         >
                             {/* (1) Laurier(img) */}
                             <div className="z-10 absolute top-1/4 left-1/4 translate-x-[3rem] -translate-y-[5rem]">

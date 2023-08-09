@@ -7,7 +7,7 @@ function LigueCarte({ league, leagues_img, isClickDisabled = false }){
                 <Link
                 to={{pathname : `${league.id}/clubs`,
                     state: { leagueId: league.id }}}
-                    className={` ${isClickDisabled ? 'pointer-events-none h-full mb-5' : ''} block rounded-3xl border-2 border-tiffanyBlue bg-gunMetal `}
+                    className={` ${isClickDisabled ? 'pointer-events-none h-full mb-5' : ''} block rounded-3xl border-2 border-tiffanyBlue bg-eerieBlack `}
                 >
                     <div className="flex items-start relative">
                         <img className="xl:w-20 lg:w-16 max-lg:w-16 max-sm:w-16 rounded-2xl absolute left-3 -top-7 border-2 border-onyx" src={leagues_img +"/" + league.name} alt="" />

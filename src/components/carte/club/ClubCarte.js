@@ -7,7 +7,7 @@ function ClubCarte({ club, clubs_img,  isClickDisabled = true}){
             <Link
             to={{pathname : `${club.id}`,
                 state: { clubId: club.id }}}
-                className={` ${isClickDisabled ? 'pointer-events-none h-full mb-5' : ''} block rounded-3xl border-2 border-tiffanyBlue bg-gunMetal `}
+                className={` ${isClickDisabled ? 'pointer-events-none h-full mb-5' : ''} block rounded-3xl border-2 border-tiffanyBlue bg-eerieBlack `}
                 >
                 <div className="flex items-start relative">
                     <img className={`${isClickDisabled ? `w-20`: `w-14`}  rounded-2xl absolute left-1 -top-6 border-2 border-onyx`} src={clubs_img +"/" + club.name} alt="" />

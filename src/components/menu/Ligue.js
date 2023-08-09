@@ -132,7 +132,7 @@ function Ligue (){
     // 4) RETURN
     // ---------------------------------------------
     return (    
-            <div className=" grid grid-cols-1 content-between h-screen overflow-x-hidden">
+            <div className=" grid grid-cols-1 content-around h-screen overflow-x-hidden">
                 <BlocTitre title="Ligue (2002 ~ 2022) : 20 ans de 5 ligues principales"/> 
                 <BlocContent>
                     <MuiTabs title1={"GRAPH 1"} title2={"GRAPH 2"} title3={"GRAPH 3"}>
