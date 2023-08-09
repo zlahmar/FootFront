@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { FILTER } from '../../data/Constants';
 export function useWindowWidth() {
   const [width, setWidth] = useState(null);
 

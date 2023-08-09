@@ -1,10 +1,15 @@
+// React
 import {Routes, Route, useLocation} from "react-router-dom";
+import { useEffect, useState } from 'react';
+
+// Pages
 import Ligue from "./menu/Ligue";
 import ClubsDansLigue from "./menu/ClubsDansLigue";
 import Club from "./menu/Club";
 import APropos from "./menu/APropos";
-import { useEffect, useState } from 'react';
 import SideBar from "./SideBar";
+import LandingPage from "./menu/LandingPage";
+
 function App() {
     // ----------------------------------
     // Button to open/close the Sidebar
@@ -44,6 +49,10 @@ function App() {
                 <SideBar onChildClick={handleButton} visible={visible}/>
                 <div className="pages-div">
                     <Routes>
+                        {/*---------------------------
+                        0) Page d'accueil -------------------
+                        */}
+                        <Route path="/" element={<LandingPage/>}/>
                         {/*---------------------------
                         1) Ligue -------------------
                         */}

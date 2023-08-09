@@ -17,7 +17,7 @@ import Box from '@mui/material/Box';
 import { Tooltip } from '@mui/material';
 import { COLOR } from '../../../data/Constants';
 
-function JoueurCarte({player, nb_game, minute, goal, assist, yellow_card, red_card}){
+export function JoueurCarte({player, nb_game, minute, goal, assist, yellow_card, red_card}){
     const isClickDisabled = false;
     return(
         <div className={`${isClickDisabled ? 'h-full' : ''} flex justify-evenly`}>
@@ -143,4 +143,25 @@ function JoueurCarte({player, nb_game, minute, goal, assist, yellow_card, red_ca
         )
 }
 
-export default JoueurCarte
+export function renderJoueurCarte({
+                                    player,
+                                    nb_game,
+                                    minute,
+                                    goal,
+                                    assist,
+                                    yellow_card,
+                                    red_card,
+                                }) {
+                                    return (
+                                    <JoueurCarte
+                                        key={Math.random()*1000}
+                                        player={player}
+                                        nb_game={nb_game}
+                                        minute={minute}
+                                        goal={goal}
+                                        assist={assist}
+                                        yellow_card={yellow_card}
+                                        red_card={red_card}
+                                    />
+                                    );
+                                }
