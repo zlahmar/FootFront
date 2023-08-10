@@ -45,7 +45,7 @@ function App() {
 
     }, [location, visible])
     return (
-            <div className="main-div pl-2 pr-2 min-h-screen bg-[url('/src/assets/arriere_plan/site.png')] bg-no-repeat bg-cover">
+            <div className="main-div pl-2 pr-2 min-h-screen bg-[url('/src/assets/arriere_plan/site.png')] bg-no-repeat bg-cover overflow-x-hidden">
                 <SideBar onChildClick={handleButton} visible={visible}/>
                 <div className="pages-div">
                     <Routes>
