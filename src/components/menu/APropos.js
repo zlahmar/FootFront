@@ -4,9 +4,9 @@ import logo from '../../assets/icon/logo.png'
 export default function APropos() {
 
     return (
-        <div className="xl:ml-64 flex flex-col">
+        <div className=" flex flex-col">
             <BlocTitre title="A Propos de nous"/> 
-            <div className="w-full h-full bg-gunMetal flex justify-center rounded-3xl overflow-y-auto overflow-hidden mb-3">
+            <div className="w-full h-full bg-eerieBlack flex justify-center rounded-3xl overflow-y-auto overflow-hidden mb-3">
                 <div className="flex flex-row flex-wrap justify-center w-full ">
                     <div className="text-left px-3">      
                         <div className="text-white p-3 mx-3 mt-3 mb-5 border border-4 border-tiffanyBlue border-double rounded-lg">

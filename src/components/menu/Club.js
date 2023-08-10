@@ -18,8 +18,11 @@ import BlocContent from "../bloc/BlocContent";
 import BlocTitre from '../bloc/BlocTitre';
 import BlocJoueurCarte from '../bloc/BlocJoueurCarte';
 import BlocTitreGraphe from '../bloc/BlocTitreGraphe';
-import JoueurTotalCarte from '../carte/joueur/JoueurTotalCarte';
-import JoueurCarte from '../carte/joueur/JoueurCarte';
+import BlocFiltrage from '../bloc/BlocFiltrage';
+import SearchBar from '../recherche/SearchBar';
+import SortOrder from '../recherche/SortOrder';
+import {renderTotalJoueurCarte} from '../carte/joueur/JoueurTotalCarte';
+import { renderJoueurCarte} from '../carte/joueur/JoueurCarte';
 import JoueurGardienCarte from '../carte/joueur/JoueurGardienCarte';
 import { START_SEASON, NUMBER_OF_SEASONS, DEFAULT_PAGE, DEFAULT_SIZE, POSITION, SORT_BY, SORT_ORDER } from '../../data/Constants';
 
@@ -69,22 +72,29 @@ function Club() {
     // -------------------
     // USE STATE Variables
     // -------------------
-    const [nationality, setNationality] = useState('TOTAL');
-    const [position, setPosition] = useState('TOTAL');
-    const [sort, setSort] = useState('DEFAULT');
-    const [page, setPage] = useState(DEFAULT_PAGE);
-    const [sortOrder, setSortOrder] = useState(SORT_ORDER.DESC);
+
+    // players
     const [players, setPlayers] = useState([]);
     const [tempPlayers, setTempPlayers] = useState([]);
-    const [season, setSeason] = useState('TOTAL');
-    const [query, setQuery] = useState('');
-    const [isScrollable, setIsScrollable] = useState(true);
-
     const [allPlayersInClub, setAllPlayersInClub] = useState([]);
     const [allPlayersBySeasonInClub, setAllPlayersBySeasonInClub] = useState([]);
     const [totalPlayersCountWithoutKeepers, setTotalPlayersCountWithoutKeepers] = useState(0); 
+
+    // nationalities
+    const [nationality, setNationality] = useState('TOTAL');
     const [allNationalitiesInClub, setAllNationalitiesInClub] = useState([]);
     const [tempNationalitiesInClub, setTempNationalitiesInClub] = useState([]);
+
+    // filters
+    const [season, setSeason] = useState('TOTAL');
+    const [query, setQuery] = useState('');
+    const [position, setPosition] = useState('TOTAL');
+    const [sort, setSort] = useState('DEFAULT');
+    const [sortOrder, setSortOrder] = useState(SORT_ORDER.DESC);
+
+    // infinite scroll
+    const [page, setPage] = useState(DEFAULT_PAGE);
+    const [isScrollable, setIsScrollable] = useState(true);
 
     // ---------------------------------------------
     // 3-1) USE QUERIES : FETCHING DATA FROM API
@@ -99,8 +109,11 @@ function Club() {
 
                 if (response.status === 500) {
                     return; // Stop fetching further data
-                    }
-                    
+                }
+                
+                // ----------------------------------------
+                // SET STATE Variables : totalPlayersCountWithoutKeepers
+                // ----------------------------------------
                 setTotalPlayersCountWithoutKeepers(response.data.total_count);
         }
         fetchApiAllPlayersCountInClub();
@@ -128,16 +141,21 @@ function Club() {
                 playerNationalities = [...playerNationalities].sort()
 
                 const uniqueNationalities = [...new Set(playerNationalities)];
-                setAllNationalitiesInClub(uniqueNationalities);
-                setTempNationalitiesInClub(uniqueNationalities)
 
+                // ----------------------------------------
+                // SET STATE Variables : players, allNationalitiesInClub
+                // ----------------------------------------
+                setAllNationalitiesInClub(uniqueNationalities);
+                setTempNationalitiesInClub(uniqueNationalities);
                 setAllPlayersInClub(response.data.items);
+
             } catch (error) {
                 console.error(error.message);
             }
         }
         fetchApiAllPlayersInClub();
     }, [club_id, totalPlayersCountWithoutKeepers])
+
     useEffect(() =>{
         const fetchApiAllPlayersBySeasonInClub = async () => {
             try {
@@ -150,7 +168,11 @@ function Club() {
 
                 if (response.status === 500) {
                     throw new Error("Internal server error");
-                    }
+                }
+                
+                // ----------------------------------------
+                // SET STATE Variables : allPlayersBySeasonInClub
+                // ----------------------------------------
                 setAllPlayersBySeasonInClub(response.data);
             } catch (error) {
                 console.error(error.message);
@@ -173,6 +195,7 @@ function Club() {
     }
     
     useEffect(() => {
+        // If season is TOTAL, then infinite scroll is enabled
         if (season.includes('TOTAL') && isScrollable) {
             window.addEventListener('scroll', handleScroll,true);
             return () => window.removeEventListener('scroll', handleScroll,true);
@@ -197,6 +220,9 @@ function Club() {
                         throw new Error("Internal server error");
                     }
 
+                    // ----------------------------------------
+                    // SET STATE Variables : players, tempPlayers
+                    // ----------------------------------------
                     setPlayers(prevData => [...prevData, ...response.data.items]);
                     setTempPlayers(prevData => [...prevData, ...response.data.items]);
 
@@ -210,17 +236,20 @@ function Club() {
     },[page, club_id])
 
     // -------------------
-    // FILTERS
+    // (2) FILTERS
     // -------------------
     function filteredData(season,query, nationality, position,sort, sortOrder){
         let filteredData;
-        if (season.includes('TOTAL'))
+
+        const isTotalSeason = season.includes("TOTAL");
+        const isDefaultSort = sort.includes("DEFAULT");
+
+        if (isTotalSeason)
         {   if (query || 
                 nationality !== 'TOTAL' || 
                 position !== 'TOTAL' ||
                 sort !== 'DEFAULT'
                 ) {
-
                 filteredData = allPlayersInClub;
             }
 
@@ -228,11 +257,17 @@ function Club() {
                 filteredData = filteredData.filter((data) => {return data.playerName.toLowerCase().includes(query.toLowerCase())})                
             }
 
-            if (!nationality.includes('TOTAL')) {
+            if (nationality !=='TOTAL') {
                 filteredData = filteredData.filter((data) => {return data.nationalityName.toLowerCase().includes(nationality.toLowerCase())})                
+            
+                if (sortOrder === SORT_ORDER.ASC){   
+                    filteredData = filteredData.sort((a,b) => a.playerName.localeCompare(b.playerName))
+                } else {
+                    filteredData = filteredData.sort((a,b) => b.playerName.localeCompare(a.playerName))
+                }
             }
 
-            if (!position.includes('TOTAL')) {
+            if (position !=='TOTAL') {
                 filteredData = filteredData.filter((data) => {return data.playerPosition.includes(position)})   
 
                 if (sortOrder === SORT_ORDER.ASC){   
@@ -241,140 +276,96 @@ function Club() {
 
             }
 
-            if (!sort.includes('DEFAULT')) {
-                if (sort === SORT_BY.PLAYER_NAME)
-                {
-                    filteredData = filteredData.sort((a,b) => a.playerName.localeCompare(b.playerName))
-
-                    if (sortOrder === SORT_ORDER.ASC){
-                        filteredData = filteredData.sort((a,b) => b.playerName.localeCompare(a.playerName))
-                    }
-                }
-                if (sort === SORT_BY.POSITION)
-                {
-                    filteredData = filteredData.sort((a,b) => a.playerPosition.localeCompare(b.playerPosition))
-
-                    if (sortOrder === SORT_ORDER.ASC){
-                        filteredData = filteredData.sort((a,b) => b.playerPosition.localeCompare(a.playerPosition))
-                    }
-                }
-                if (sort === SORT_BY.NATIONALITY)
-                {
-                    filteredData = filteredData.sort((a,b) => a.nationalityName.localeCompare(b.nationalityName))
-
-                    if (sortOrder === SORT_ORDER.ASC){
-                        filteredData = filteredData.sort((a,b) => b.nationalityName.localeCompare(a.nationalityName))   
-                    }
-                }
-                if (sort === SORT_BY.GOALS)
-                {
-                    filteredData = filteredData.sort((a,b) => b.allGoals - a.allGoals)
-
-                    if (sortOrder === SORT_ORDER.ASC){                     
-                        filteredData = filteredData.sort((a,b) => a.allGoals - b.allGoals)
-                    }
-                }
-                if (sort === SORT_BY.ASSISTS)
-                {                        
-                    filteredData = filteredData.sort((a,b) => b.allAssists - a.allAssists)
-
-                    if (sortOrder === SORT_ORDER.ASC){
-                        filteredData = filteredData.sort((a,b) => a.allAssists - b.allAssists)
-                    }
-                }
-                if (sort === SORT_BY.YELLOW_CARDS)
-                {
-                    filteredData = filteredData.sort((a,b) => b.allYellowCards - a.allYellowCards)
-
-                    if (sortOrder === SORT_ORDER.ASC){
-                        filteredData = filteredData.sort((a,b) => a.allYellowCards - b.allYellowCards)
-                    }
-                }
-                if (sort === SORT_BY.RED_CARDS)
-                {
-                    filteredData = filteredData.sort((a,b) => b.allRedCards - a.allRedCards)
-
-                    if (sortOrder === SORT_ORDER.ASC){
-                        filteredData = filteredData.sort((a,b) => a.allRedCards - b.allRedCards)
-                    }
+            if (!isDefaultSort) {
+                const sortKeys = {
+                    [SORT_BY.PLAYER_NAME]: 'playerName',
+                    [SORT_BY.POSITION]: 'playerPosition',
+                    [SORT_BY.NATIONALITY]: 'nationalityName'
+                };
+            
+                if (sortKeys[sort]) {
+                    filteredData.sort((a, b) => (sortOrder === SORT_ORDER.ASC) ?
+                        a[sortKeys[sort]].localeCompare(b[sortKeys[sort]]) :
+                        b[sortKeys[sort]].localeCompare(a[sortKeys[sort]])
+                    );
+                } 
+                else if (sort === SORT_BY.GOALS || sort === SORT_BY.ASSISTS || sort === SORT_BY.YELLOW_CARDS || sort === SORT_BY.RED_CARDS) {
+                    const numericSortKey = {
+                        [SORT_BY.GOALS]: 'allGoals',
+                        [SORT_BY.ASSISTS]: 'allAssists',
+                        [SORT_BY.YELLOW_CARDS]: 'allYellowCards',
+                        [SORT_BY.RED_CARDS]: 'allRedCards'
+                    };
+            
+                    filteredData.sort((a, b) => (sortOrder === SORT_ORDER.ASC) ?
+                        a[numericSortKey[sort]] - b[numericSortKey[sort]] :
+                        b[numericSortKey[sort]] - a[numericSortKey[sort]]
+                    );
                 }
             }
-
-            return filteredData
-
         }
         else {
-            filteredData = allPlayersBySeasonInClub.filter((data) => data.season === season);
+            filteredData = allPlayersBySeasonInClub.filter(data => data.season === season);
+
+            if (!query && nationality === 'TOTAL' && position === 'TOTAL' && sort === 'DEFAULT') {
+                if (sortOrder === SORT_ORDER.ASC) {
+                    filteredData.sort((a, b) => a.nb_game - b.nb_game);
+                } else {
+                    filteredData.sort((a, b) => b.nb_game - a.nb_game);
+                }
+            }
 
             if (query) {
-                filteredData = filteredData.filter((data) => {return data.player.name.toLowerCase().includes(query.toLowerCase())})
+                filteredData = filteredData.filter(data => data.player.name.toLowerCase().includes(query.toLowerCase()));
             }
-
-            if (!nationality.includes('TOTAL')) {
-                filteredData = filteredData.filter((data) => {return data.player.nationality.name_original.toLowerCase().includes(nationality.toLowerCase())})                
+    
+            if (nationality !== 'TOTAL') {
+                filteredData = filteredData.filter(data => data.player.nationality.name_original.toLowerCase().includes(nationality.toLowerCase()));
             }
-
-            if (!position.includes('TOTAL')) {
-                filteredData = filteredData.filter((data) => {return data.player.position.toLowerCase().includes(position.toLowerCase())})
-                if (sortOrder === SORT_ORDER.ASC){
-                    filteredData = filteredData.sort((a,b) => a.player.position.localeCompare(b.player.position))
-                }
-            }
-
-            if (!sort.includes('DEFAULT')) {
-                if (sort === SORT_BY.PLAYER_NAME)
-                {
-                    filteredData = filteredData.sort((a,b) => a.player.name.localeCompare(b.player.name))
-                    if (sortOrder === SORT_ORDER.ASC){
-                        filteredData = filteredData.sort((a,b) => b.player.name.localeCompare(a.player.name))
-                    }
-                }
-                if (sort === SORT_BY.POSITION)
-                {
-                    filteredData = filteredData.sort((a,b) => a.player.position.localeCompare(b.player.position))
-                    if (sortOrder === SORT_ORDER.ASC){
-                        filteredData = filteredData.sort((a,b) => b.player.position.localeCompare(a.player.position))
-                    }
-                }
-                if (sort === SORT_BY.NATIONALITY)
-                {
-                    filteredData = filteredData.sort((a,b) => a.player.nationality.name_original.localeCompare(b.player.nationality.name_original))
-                    if (sortOrder === SORT_ORDER.ASC){
-                        filteredData = filteredData.sort((a,b) => b.player.nationality.name_original.localeCompare(a.player.nationality.name_original))
-                    }
-                }
-                if (sort === SORT_BY.GOALS)
-                {
-                    filteredData = filteredData.sort((a,b) => b.goal - a.goal)
-                    if (sortOrder === SORT_ORDER.ASC){
-                        filteredData = filteredData.sort((a,b) => a.goal - b.goal)
-                    }
-                }
-                if (sort === SORT_BY.ASSISTS)
-                {
-                    filteredData = filteredData.sort((a,b) => b.assist - a.assist)
-                    if (sortOrder === SORT_ORDER.ASC){
-                        filteredData = filteredData.sort((a,b) => a.assist - b.assist)
-                    }
-                }
-                if (sort === SORT_BY.YELLOW_CARDS)
-                {
-                    filteredData = filteredData.sort((a,b) => b.yellow_card - a.yellow_card)
-                    if (sortOrder === SORT_ORDER.ASC){
-                        filteredData = filteredData.sort((a,b) => a.yellow_card - b.yellow_card)
-                    }
-                }
-                if (sort === SORT_BY.RED_CARDS)
-                {
-                    filteredData = filteredData.sort((a,b) => b.red_card - a.red_card)
-                    if (sortOrder === SORT_ORDER.ASC){
-                        filteredData = filteredData.sort((a,b) => a.red_card - b.red_card)
-                    }
+    
+            if (position !== 'TOTAL') {
+                filteredData = filteredData.filter(data => data.player.position.toLowerCase().includes(position.toLowerCase()));
+                
+                if (sortOrder === SORT_ORDER.ASC) {
+                    filteredData.sort((a, b) => a.player.position.localeCompare(b.player.position));
                 }
             }
-
-            return filteredData
+            
+            if (!isDefaultSort) {
+                let sortFunction;
+            
+                switch (sort) {
+                    case SORT_BY.PLAYER_NAME:
+                        sortFunction = (a, b) => a.player.name.localeCompare(b.player.name);
+                        break;
+                    case SORT_BY.POSITION:
+                        sortFunction = (a, b) => a.player.position.localeCompare(b.player.position);
+                        break;
+                    case SORT_BY.NATIONALITY:
+                        sortFunction = (a, b) => a.player.nationality.name_original.localeCompare(b.player.nationality.name_original);
+                        break;
+                    case SORT_BY.GOALS:
+                        sortFunction = (a, b) => b.goal - a.goal;
+                        break;
+                    case SORT_BY.ASSISTS:
+                        sortFunction = (a, b) => b.assist - a.assist;
+                        break;
+                    case SORT_BY.YELLOW_CARDS:
+                        sortFunction = (a, b) => b.yellow_card - a.yellow_card;
+                        break;
+                    case SORT_BY.RED_CARDS:
+                        sortFunction = (a, b) => b.red_card - a.red_card;
+                        break;
+                    default:
+                        break;
+                }
+            
+                if (sortFunction) {
+                    filteredData.sort((a, b) => (sortOrder === SORT_ORDER.DESC) ? sortFunction(a, b) : sortFunction(b, a));
+                }
+            }
         }
+        return filteredData
     }
 
     // (1)Input Filter
@@ -458,7 +449,6 @@ function Club() {
     // --------------------------------
     // Filtered Players - RESULTS of all filters
     // --------------------------------
-    
     const filtered_players = filteredData(season, query, nationality, position, sort, sortOrder)
 
     const resultQueries = useQueries(
@@ -511,59 +501,7 @@ function Club() {
     // ---------------------------------------------
     // 3-4) RENDER CARTE JOUEURS / TOTAL JOUEURS
     // ---------------------------------------------
-    function renderTotalJoueurCarte({
-        playerId,
-        playerPosition,
-        nationalityName,
-        playerName,
-        allNbGames,
-        avgMinutes,
-        allGoals,
-        allAssists,
-        allYellowCards,
-        allRedCards,
-      }) {
-        return (
-          <JoueurTotalCarte
-            key={Math.random()}
-            playerId={playerId}
-            playerPosition={playerPosition}
-            nationalityName={nationalityName}
-            playerName={playerName}
-            allNbGames={allNbGames}
-            avgMinutes={avgMinutes}
-            allGoals={allGoals}
-            allAssists={allAssists}
-            allYellowCards={allYellowCards}
-            allRedCards={allRedCards}
-          />
-        );
-      }
-      
-      function renderJoueurCarte({
-        player,
-        nb_game,
-        minute,
-        goal,
-        assist,
-        yellow_card,
-        red_card,
-      }) {
-        return (
-          <JoueurCarte
-            key={Math.random()*1000}
-            player={player}
-            nb_game={nb_game}
-            minute={minute}
-            goal={goal}
-            assist={assist}
-            yellow_card={yellow_card}
-            red_card={red_card}
-          />
-        );
-      }
-      
-      function renderPlayersList(playersList, isTotal) {
+    function renderPlayersList(playersList, isTotal) {
         return playersList.map((playerData) =>
           isTotal
             ? renderTotalJoueurCarte(playerData)
@@ -575,7 +513,7 @@ function Club() {
     // 3-5) RETURN (RENDER)
     // ---------------------------------------------
     return (
-            <div id="club-div" className="pb-3 flex flex-col">
+            <div className=" pb-3 flex flex-col">
                 <div className="lg:flex lg:flex-row sm:max-md:flex-col pt-5">
                     <div className="basis-2/6 w-full pr-1 mb-5">
                         <ClubCarte key={club.id} club={club} clubs_img={CLUBS.IMG} isClickDisabled={true}/>
@@ -608,39 +546,14 @@ function Club() {
                 <BlocTitre title={`Cliquez sur le joueur que vous voulez voir ci-dessous. (${filtered_players ? `<strong>${filtered_players.length}</strong>` : `${players.length}`} / ${totalPlayersCountWithoutKeepers} Joueur(s) dans ce club)`}/>
                 <MuiTabs title1={"Joueur de champ"}  title2={"Gardien"} changeStyle={true}>
                     <div>
-                        <div className="flex flex-wrap xl:flex-row max-[767px]:flex-col justify-evenly items-center bg-gunMetal rounded-t-3xl">
+                        <BlocFiltrage>
                             <MuiSelectBox handleChange={handleSeasonChange} extra_value={'TOTAL'} label="Saison" array={generateSeason(START_SEASON, NUMBER_OF_SEASONS)} value={season}/>
                             <MuiSelectBox handleChange={handleNationalityChange} extra_value={'TOTAL'} label="Nationalité" array={allNationalitiesInClub} value={nationality} />
                             <MuiSelectBox handleChange={handlePositionChange} extra_value={'TOTAL'} label="Position" array={[POSITION.FW, POSITION.MF, POSITION.DF]} value={position} />
                             <MuiSelectBox handleChange={handleSortChange} extra_value={'DEFAULT'} label="Ordre" array={[SORT_BY.GOALS, SORT_BY.ASSISTS, SORT_BY.NATIONALITY, SORT_BY.PLAYER_NAME, SORT_BY.POSITION, SORT_BY.YELLOW_CARDS, SORT_BY.RED_CARDS]} value={sort} />
-                            <label className="relative block">
-                                <span className="sr-only">Search</span>
-                                <span className="absolute inset-y-10 left-1 flex items-center pl-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16"> <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/> </svg>
-                                </span>
-                                <input onChange={handleInputChange}  className="placeholder:italic placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-4 mt-3 pl-9 pr-3 shadow-sm focus:outline-none focus:border-tiffanyBlue focus:ring-tiffanyBlue focus:ring-1 sm:text-sm" placeholder="Tapez un nom de joueur" type="text" name="search"/>
-                            </label>
-                            <div>
-                                <ul class="grid w-full gap-3 md:grid-cols-2 pt-4">
-                                    <li>
-                                        <input type="radio" id={SORT_ORDER.DESC} name={SORT_ORDER.DESC +'_' + SORT_ORDER.ASC} value={SORT_ORDER.DESC} class="hidden peer" required checked={sortOrder === SORT_ORDER.DESC} onChange={() => handleRadioChange(SORT_ORDER.DESC)}/>
-                                        <label for={SORT_ORDER.DESC} class="inline-flex justify-center w-full p-2 text-white bg-gunMetal border border-white rounded-lg cursor-pointer peer-checked:border-tiffanyBlue peer-checked:text-tiffanyBlue hover:text-gray-600 hover:bg-gray-100">                           
-                                            <div class="block">
-                                                <div class="w-full text-lg font-semibold "> {SORT_ORDER.DESC} </div>
-                                            </div>
-                                        </label>
-                                    </li>
-                                    <li>
-                                        <input type="radio" id={SORT_ORDER.ASC} name={SORT_ORDER.DESC +'_' + SORT_ORDER.ASC} value={SORT_ORDER.ASC} class="hidden peer" checked={sortOrder === SORT_ORDER.ASC} onChange={()=> handleRadioChange(SORT_ORDER.ASC)}/>
-                                        <label for={SORT_ORDER.ASC} class="inline-flex justify-center w-full p-2 text-white bg-gunMetal border border-white rounded-lg cursor-pointer peer-checked:border-tiffanyBlue peer-checked:text-tiffanyBlue hover:text-gray-600 hover:bg-gray-100">
-                                            <div class="block">
-                                                <div class="w-full text-lg font-semibold">{SORT_ORDER.ASC}</div>
-                                            </div>
-                                        </label>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+                            <SearchBar handleInputChange={handleInputChange} />
+                            <SortOrder sortOrder={sortOrder} handleRadioChange={handleRadioChange}/>
+                        </BlocFiltrage>
                         <BlocJoueurCarte title={'Attaquant, Milieu, Défenseur'}>
                         {
                         season.includes('TOTAL') ? (

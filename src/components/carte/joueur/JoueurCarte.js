@@ -17,7 +17,7 @@ import Box from '@mui/material/Box';
 import { Tooltip } from '@mui/material';
 import { COLOR } from '../../../data/Constants';
 
-function JoueurCarte({player, nb_game, minute, goal, assist, yellow_card, red_card}){
+export function JoueurCarte({player, nb_game, minute, goal, assist, yellow_card, red_card}){
     const isClickDisabled = false;
     return(
         <div className={`${isClickDisabled ? 'h-full' : ''} flex justify-evenly`}>
@@ -26,7 +26,7 @@ function JoueurCarte({player, nb_game, minute, goal, assist, yellow_card, red_ca
                         <Link
                             to={{pathname : "/joueurs",
                             state: { joueurId: "good" }}}
-                            className={` bg-gunMetal `}
+                            className={` bg-eerieBlack `}
                         >
                             {/* (1) Laurier(img) */}
                             <div className="z-10 absolute top-1/4 left-1/4 translate-x-[3rem] -translate-y-[5rem]">
@@ -143,4 +143,25 @@ function JoueurCarte({player, nb_game, minute, goal, assist, yellow_card, red_ca
         )
 }
 
-export default JoueurCarte
+export function renderJoueurCarte({
+                                    player,
+                                    nb_game,
+                                    minute,
+                                    goal,
+                                    assist,
+                                    yellow_card,
+                                    red_card,
+                                }) {
+                                    return (
+                                    <JoueurCarte
+                                        key={Math.random()*1000}
+                                        player={player}
+                                        nb_game={nb_game}
+                                        minute={minute}
+                                        goal={goal}
+                                        assist={assist}
+                                        yellow_card={yellow_card}
+                                        red_card={red_card}
+                                    />
+                                    );
+                                }

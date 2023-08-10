@@ -17,7 +17,7 @@ import Box from '@mui/material/Box';
 import { Tooltip } from '@mui/material';
 import { COLOR } from '../../../data/Constants';
 
-function JoueurTotalCarte({playerId, playerPosition, nationalityName, playerName, allNbGames, avgMinutes, allGoals, allAssists, allYellowCards, allRedCards}){
+export function JoueurTotalCarte({playerId, playerPosition, nationalityName, playerName, allNbGames, avgMinutes, allGoals, allAssists, allYellowCards, allRedCards}){
     const isClickDisabled = false;
 
     return(
@@ -27,7 +27,7 @@ function JoueurTotalCarte({playerId, playerPosition, nationalityName, playerName
                         <Link
                             to={{pathname : "/joueurs",
                             state: { joueurId: "good" }}}
-                            className={` bg-gunMetal `}
+                            className={` bg-eerieBlack `}
                         >
                             {/* (1) Laurier(img) */}
                             <div className="z-10 absolute top-1/4 left-1/4 translate-x-[3rem] -translate-y-[5rem]">
@@ -144,4 +144,31 @@ function JoueurTotalCarte({playerId, playerPosition, nationalityName, playerName
         )
 }
 
-export default JoueurTotalCarte
+export function renderTotalJoueurCarte({
+                                        playerId,
+                                        playerPosition,
+                                        nationalityName,
+                                        playerName,
+                                        allNbGames,
+                                        avgMinutes,
+                                        allGoals,
+                                        allAssists,
+                                        allYellowCards,
+                                        allRedCards,
+                                    }) {
+                                        return (
+                                        <JoueurTotalCarte
+                                            key={Math.random()}
+                                            playerId={playerId}
+                                            playerPosition={playerPosition}
+                                            nationalityName={nationalityName}
+                                            playerName={playerName}
+                                            allNbGames={allNbGames}
+                                            avgMinutes={avgMinutes}
+                                            allGoals={allGoals}
+                                            allAssists={allAssists}
+                                            allYellowCards={allYellowCards}
+                                            allRedCards={allRedCards}
+                                        />
+                                        );
+                                    }

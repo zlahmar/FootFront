@@ -26,7 +26,7 @@ function JoueurGardienCarte(props){
                         <Link
                             to={{pathname : "/joueurs",
                             state: { joueurId: "good" }}}
-                            className={` bg-gunMetal `}
+                            className={` bg-eerieBlack `}
                         >
                             {/* (1) Laurier(img) */}
                             <div className="z-10 absolute top-1/4 left-1/4 translate-x-[3rem] -translate-y-[5rem]">
@@ -39,7 +39,7 @@ function JoueurGardienCarte(props){
                                 <p className='text-white text-xl font-bold translate-x-[1rem] translate-y-[3rem]'>GK</p>
                                 </div>
                                 <div className="z-10 top-1/4 left-1/4">
-                                    <img className="w-[5rem] h-[4rem] translate-x-[1rem] translate-y-[5rem]" src={`${NATIONALITIES.IMG}/${gk_player.nationalityName}`} alt={`${gk_player.nationalityName}`} />
+                                    <img className="w-[5rem]  h-[4rem] translate-x-[1rem] translate-y-[5rem]" src={`${NATIONALITIES.IMG}/${gk_player.nationalityName}`} alt={`${gk_player.nationalityName}`} />
                                 </div>
                             </div>
 

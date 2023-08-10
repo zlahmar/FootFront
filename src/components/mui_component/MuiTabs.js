@@ -31,7 +31,7 @@ export default function MuiTabs(props) {
         <Tabs
           centered
           value={value} onChange={handleChange}
-          className="bg-gunMetal rounded-2xl py-2"  
+          className="bg-eerieBlack rounded-2xl py-2"  
           sx={{
             '& .MuiTabs-indicator': { backgroundColor: COLOR.TIFFANYBLUE},
             '& .MuiTab-root': { color: COLOR.WHITE },
