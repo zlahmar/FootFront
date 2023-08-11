@@ -1,6 +1,5 @@
 import React from 'react';
 import { Box, TextField, MenuItem } from '@mui/material';
-import { generateSeason } from '../../data/Arrays';
 import { COLOR } from '../../data/Constants';
 
 const MuiSelectBox = ({array, label , value, handleChange, extra_value }) => {

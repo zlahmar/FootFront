@@ -513,7 +513,7 @@ function Club() {
     // 3-5) RETURN (RENDER)
     // ---------------------------------------------
     return (
-            <div className=" pb-3 flex flex-col">
+            <div className="px-2 pb-3 flex flex-col">
                 <div className="lg:flex lg:flex-row sm:max-md:flex-col pt-5">
                     <div className="basis-2/6 w-full pr-1 mb-5">
                         <ClubCarte key={club.id} club={club} clubs_img={CLUBS.IMG} isClickDisabled={true}/>
