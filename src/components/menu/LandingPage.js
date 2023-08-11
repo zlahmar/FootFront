@@ -201,11 +201,33 @@ export default function LandingPage() {
             {/* 5ème Partie */}
             <div className='h-full bg-eerieBlack py-10 mt-10  border-t border-tiffanyBlue'>
                 <div className="flex">
+                    <div className='basis-1/2 w-1/3 max-md:w-4/5'>
+                        <img src={filter}/>
+                    </div>  
+                    <div className='basis-1/2 w-1/2 max-md:w-4/5'>
+                        <p className='text-white'>
+                            1. Ligue
+                        </p>
+                    </div>  
+                </div>
+                <div className="flex">
+                    <div className='basis-1/2 w-1/2 max-md:w-4/5'>
+                        <p className='text-white'>
+                            2. Club
+                        </p>
+                    </div>  
+                    <div className='basis-1/2 w-1/2 max-md:w-4/5'>
+                        <img src={filter}/>
+                    </div>  
+                </div>
+                <div className="flex">
                     <div className='basis-1/2 w-1/2 max-md:w-4/5'>
                         <img src={filter}/>
                     </div>  
                     <div className='basis-1/2 w-1/2 max-md:w-4/5'>
-                        <img src={filter}/>
+                        <p className='text-white'>
+                            3. Joueur
+                        </p>
                     </div>  
                 </div>
             </div>
