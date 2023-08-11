@@ -110,10 +110,15 @@ function ClubsDansLigue() {
     // ---------------------------------------------
     // 3-4) SUCCESS
     // ---------------------------------------------
+    
+    // FIXME : Brentford(id=159), Salernitana(id=204) no data for stat_player (11/8/2023)
+    const excludedClubIds = [159, 204];
 
     // (1) DATA : DATA FROM API
     const league = resultQueries[0].data
-    const clubs = resultQueries[0].data.clubs
+
+    // FIXME
+    const clubs = resultQueries[0].data.clubs.filter(club => !excludedClubIds.includes(club.id));
     const allTimeBestClub = resultQueries[1].data[0]
     const allTimeBestStriker = resultQueries[2].data[0]
     const allTimeBestPlaymaker = resultQueries[3].data[0]

@@ -1,6 +1,6 @@
 import logo from '../assets/icon/logo.png';
 import ligue from '../assets/icon/ligue.png';
-import club from '../assets/icon/club.png';
+import club from '../assets/icon/fc.png';
 import joueur from '../assets/icon/joueur.png';
 import annonce from '../assets/icon/annonce.png';
 import LienMenu from "./LienMenu";
@@ -22,9 +22,9 @@ function SideBar({onChildClick, visible}){
             )}
             </button>
 
-            <aside id="logo-sidebar" className="w-64 fixed top-0 left-0 z-40 h-screen transition-transform -translate-x-full" aria-label="Sidebar">
+            <aside id="logo-sidebar" className="w-72 fixed top-0 left-0 z-40 h-screen transition-transform -translate-x-full" aria-label="Sidebar">
                 <div className="h-full px-3 py-4 flex flex-col overflow-y-auto bg-eerieBlack border-r-2 border-tiffanyBlue">
-                    <div className="flex items-center pl-2.5 mb-20">
+                    <div className="flex items-center pl-2.5 mb-20 mt-5">
                         <Link to='/' className='flex'>
                             <img src={logo} className="mr-3 h-11" alt="FOOT Logo" />
                             <span className="font-title self-center text-3xl whitespace-nowrap text-tiffanyBlue uppercase">FootStat</span>

@@ -16,7 +16,7 @@ module.exports = {
       'white' : '#ffffff',
       'gray':'#4f5459',
       'yellow': '#e2e497',
-      'darkBlue': '#010615',
+      'darkBlue': '#00010d',
     },
     fontFamily: {
       title : ['Montserrat', 'sans-serif'],
