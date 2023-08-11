@@ -12,7 +12,7 @@ import {Link} from "react-router-dom";
 export default function LandingPage() {
 
     return (
-        <div className=" flex flex-col">
+        <div className=" flex flex-col pt-5">
             <div className="h-full">
                 {/* 1ère Partie */}
                 <div className="mt-[0.7rem] max-md:h-full flex flex-row max-md:flex-col">
