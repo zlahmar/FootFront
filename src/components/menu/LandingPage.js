@@ -55,18 +55,16 @@ export default function LandingPage() {
                         </div>
                     </div>
                     <div className="basis-1/2">
-                        <div className="w-full">
-                            <div className='flex h-full justify-center items-center'>
-                                <div className='w-4/5 ml-[10rem] pb-[1.7rem] max-md:w-1/2 max-md:pt-[5rem]'>
-                                    <img src={ball_data} alt="ball_data"/>
-                                </div>
+                        <div className='flex h-full justify-center items-center'>
+                            <div className='pb-[1.7rem] max-md:w-1/2 max-md:pt-[5rem]'>
+                                <img className='w-4/5 m-auto' src={ball_data} alt="ball_data"/>
                             </div>
                         </div>
                     </div>
                 </div>
                 {/* 2ème Partie */}
                 <p className='text-white text-center font-title text-3xl py-10 uppercase'>
-                    Notre Catégorie
+                    Vous pouvez sélectionner ...
                 </p>
                 <div className="h-2/5 max-md:h-full">
                     <div className='flex md:flex-row max-md:flex-col pt-5 px-2.5 pb-7 w-full h-full'>
@@ -137,16 +135,8 @@ export default function LandingPage() {
                 </div>
             </div> 
             {/* 3ème Partie */}
-            <div className='h-full bg-darkBlue py-10   border-t border-tiffanyBlue'>
-                <div className="flex justify-center">
-                    <div className='w-1/2 max-md:w-4/5 brightness-75'>
-                        <img src={mockup} alt="mockup"/>
-                    </div>  
-                </div>
-            </div>
-            {/* 4ème Partie */}
-            <div className='h-full'>
-                <div className='bg-darkBlue flex md:flex-row max-md:flex-col pb-5'>
+            <div className='h-full border-t border-tiffanyBlue'>
+                <div className='bg-darkBlue flex md:flex-row max-md:flex-col py-5'>
                     <div className='basis-2/5'>
                         <img src={player_data1} alt="player_data"/>
                     </div>
@@ -191,7 +181,7 @@ export default function LandingPage() {
                                         <p className='text-3xl font-title font-bold'>5. </p>
                                         <p className='text-2xl font-title uppercase font-bold'><strong className='underline decoration-tiffanyBlue'>Données agrégées</strong></p>
                                         <p className='font-content text-lg pt-3'>
-                                            Statistiques incluant <a className='underline decoration-white'>le meilleur joueur de chaque ligue, le meilleur joueur de chaque club</a>, ainsi que <a className='underline decoration-white'>le meilleur club de chaque ligue</a>.
+                                            Statistiques incluant <span className='underline decoration-white'>le meilleur joueur de chaque ligue, le meilleur joueur de chaque club</span>, ainsi que <span className='underline decoration-white'>le meilleur club de chaque ligue</span>.
                                         </p>
                                     </div>
                                 </div>
@@ -200,34 +190,49 @@ export default function LandingPage() {
                     </div>
                 </div>
             </div>
-            {/* 5ème Partie */}
-            <div className='h-full bg-eerieBlack py-10  border-t border-tiffanyBlue'>
-                <div className="flex">
-                    <div className='basis-1/2 w-1/3 max-md:w-4/5'>
-                        <img src={filter}/>
-                    </div>  
-                    <div className='basis-1/2 w-1/2 max-md:w-4/5'>
-                        <p className='text-white'>
-                            1. Ligue
-                        </p>
+            {/* 4ème Partie */}
+            <div className='h-full bg-darkBlue pb-5'>
+                <div className="flex justify-center">
+                    <div className='w-1/2 max-md:w-4/5 brightness-75'>
+                        <img src={mockup} alt="mockup"/>
                     </div>  
                 </div>
-                <div className="flex">
+            </div>
+            {/* 5ème Partie */}
+            <div>
+                <p className='text-white text-center font-title text-3xl py-5 uppercase  border-t border-tiffanyBlue'>
+                        notre site propose ...
+                </p>
+            </div>
+            <div className='h-full bg-eerieBlack divide-y divide-white'>
+                <div className="flex max-md:flex-col pb-5">
+                    <div className='basis-1/2 w-1/3 max-md:w-4/5'>
+                        <img src={filter} alt="league_description"/>
+                    </div>  
                     <div className='basis-1/2 w-1/2 max-md:w-4/5'>
-                        <p className='text-white'>
+                        <div className=''>
+                            <p className='text-white m-10'>
+                                1. Ligue
+                            </p>
+                        </div>
+                    </div>  
+                </div>
+                <div className="flex max-md:flex-col py-5">
+                    <div className='basis-1/2 w-1/2 max-md:w-4/5'>
+                        <img src={filter} alt="club_description"/>
+                    </div>  
+                    <div className='basis-1/2 w-1/2 max-md:w-4/5'>
+                        <p className='text-white m-10'>
                             2. Club
                         </p>
                     </div>  
-                    <div className='basis-1/2 w-1/2 max-md:w-4/5'>
-                        <img src={filter}/>
-                    </div>  
                 </div>
-                <div className="flex">
+                <div className="flex max-md:flex-col py-5">
                     <div className='basis-1/2 w-1/2 max-md:w-4/5'>
-                        <img src={filter}/>
+                        <img src={filter} alt="player_description"/>
                     </div>  
                     <div className='basis-1/2 w-1/2 max-md:w-4/5'>
-                        <p className='text-white'>
+                        <p className='text-white m-10'>
                             3. Joueur
                         </p>
                     </div>  
