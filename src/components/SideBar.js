@@ -32,7 +32,7 @@ function SideBar({onChildClick, visible}){
                     </div>
                     <ul className="space-y-10">
                         <li>
-                            <LienMenu lien="/ligues" texte="Ligue" image={ligue}></LienMenu>
+                            <LienMenu lien="/ligues" texte="Ligues" image={ligue}></LienMenu>
                         </li>
                         <li>
                             <LienMenu lien="/clubs" texte="Club" image={club}></LienMenu>

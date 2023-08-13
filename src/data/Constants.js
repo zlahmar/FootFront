@@ -1,6 +1,6 @@
 const LEAGUE = {
     ENGLAND : "Premier League",
-    FRANCE : "Ligue 1",
+    FRANCE : "Ligues 1",
     SPAIN : "La Liga",
     ITALY : "Serie A",
     GERMANY : "Bundes Liga",

@@ -38,7 +38,7 @@ export default function LandingPage() {
                                     </div>
                                     <div className='flex pt-5'>
                                         <div className='basis-1/3'>
-                                            <img className='w-3/5 lg:w-1/2' src={LEAGUES.IMG+'/Ligue 1'} alt="logo_ligue1"/>
+                                            <img className='w-3/5 lg:w-1/2' src={LEAGUES.IMG+'/Ligues 1'} alt="logo_ligue1"/>
                                         </div>
                                         <div className='basis-1/3'>
                                             <img className='w-3/5 lg:w-1/2' src={LEAGUES.IMG+'/Premier League'} alt="logo_premier_league"/>
@@ -76,7 +76,7 @@ export default function LandingPage() {
                                 <div className='flex flex-col h-full justify-center'>
                                     <div className='pt-5'>
                                         <img className="w-1/3 m-auto rounded-t-lg" src={ligue} alt="player" />
-                                        <p className="font-title font-bold text-white text-center text-2xl uppercase">Ligue</p>
+                                        <p className="font-title font-bold text-white text-center text-2xl uppercase">Ligues</p>
                                     </div>
                                     <div className="p-5 flex flex-col justify-between h-full">
                                         <p className="mb-3 font-normal text-white text-center">Découvrez les différentes ligues et plongez dans leurs statistiques fascinantes !</p>
@@ -150,7 +150,7 @@ export default function LandingPage() {
                                 <div className='grid grid-cols-3 gap-14 max-md:grid-cols-1 max-md:justify-items-center max-md:text-center'>
                                     <div className='text-white'>
                                         <p className='text-3xl font-title font-bold'>1. </p>
-                                        <p className='text-2xl font-title uppercase font-bold'><strong className='underline decoration-tiffanyBlue'>Ligue</strong></p>
+                                        <p className='text-2xl font-title uppercase font-bold'><strong className='underline decoration-tiffanyBlue'>Ligues</strong></p>
                                         
                                         <p className='font-content text-lg pt-3'>
                                             Statistiques incluant <span className=' underline decoration-white'>l'évolution du classement</span> <Link to="https://fr.uefa.com/nationalassociations/uefarankings/country/#/yr/2024"><span className='underline decoration-tiffanyBlue text-tiffanyBlue'>UEFA Coefficients des pays </span></Link> sur une période de 20 ans, de <span className=' underline decoration-white'>buts marqués </span>, de <span className=' underline decoration-white'>passes décisives effectuées</span>, ainsi que <span className=' underline decoration-white'>le nombre de cartons jaunes et rouges reçus</span>.

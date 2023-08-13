@@ -18,7 +18,7 @@ export default function APropos() {
                             <div className="text-white">
                                 <p className="text-[20px] font-content">
                                     &nbsp; Le football est l'un des sports les plus populaires dans le monde. Il possède plusieurs histoires et nombreux rôles, des buts aux passes décisives, en passant par les clean sheets et le nombre de matchs. Les données qui expliquent les tendances des ligues, des clubs et des joueurs sont nombreuses. <br/><br/> &nbsp; Chaque instant, des matchs se jouent et génèrent des données. Toutefois, si ces données sont simplement stockées dans une table, nous ne pourrons pas comprendre le sens qu'elles véhiculent dans leur ensemble.
-                                    C'est pourquoi j'ai décidé de créer un site web pour visualiser les statistiques du football. J'ai collecté les données de cinq ligues principales - <strong>Ligue 1, Liga, Bundes Liga, Serie A et  Premier League </strong>- depuis 2002 jusqu'en 2022, soit vingt saisons au total.<br/><br/> &nbsp; Grâce à des sites tels que <a href="https://www.fbref.com" className="underline decoration-solid">https://www.fbref.com</a> et <a href="https://www.uefa.com" className="underline decoration-solid">https://www.uefa.com</a>, je peux maintenant visualiser les données.
+                                    C'est pourquoi j'ai décidé de créer un site web pour visualiser les statistiques du football. J'ai collecté les données de cinq ligues principales - <strong>Ligues 1, Liga, Bundes Liga, Serie A et  Premier League </strong>- depuis 2002 jusqu'en 2022, soit vingt saisons au total.<br/><br/> &nbsp; Grâce à des sites tels que <a href="https://www.fbref.com" className="underline decoration-solid">https://www.fbref.com</a> et <a href="https://www.uefa.com" className="underline decoration-solid">https://www.uefa.com</a>, je peux maintenant visualiser les données.
                                     Je n'ai pas créé ce site à des fins commerciales, mais plutôt par passion pour le football et la visualisation des données. Ce projet est en constante évolution et je continue à le développer au fur et à mesure.
                                 </p>
                             </div>
@@ -81,8 +81,6 @@ export default function APropos() {
                     </div>
                 </div>
             </div>
-
-
         </div>
     )
 }

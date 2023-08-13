@@ -3,7 +3,7 @@ import {Routes, Route, useLocation} from "react-router-dom";
 import { useEffect, useState } from 'react';
 
 // Pages
-import Ligue from "./menu/Ligue";
+import Ligues from "./menu/Ligues";
 import ClubsDansLigue from "./menu/ClubsDansLigue";
 import Club from "./menu/Club";
 import APropos from "./menu/APropos";
@@ -54,9 +54,9 @@ function App() {
                         */}
                         <Route path="/" element={<LandingPage/>}/>
                         {/*---------------------------
-                        1) Ligue -------------------
+                        1) Ligues -------------------
                         */}
-                        <Route path="ligues" element={<Ligue/>}/>
+                        <Route path="ligues" element={<Ligues/>}/>
                         <Route path="ligues/:ligue_id/clubs" element={<ClubsDansLigue/>}/>
                         <Route path="ligues/:ligue_id/clubs/:club_id" element={<Club/>}/>
                         
