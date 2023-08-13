@@ -10,6 +10,7 @@ import APropos from "./menu/APropos";
 import SideBar from "./SideBar";
 import LandingPage from "./menu/LandingPage";
 import Clubs from "./menu/Clubs";
+import Joueurs from "./menu/Joueurs";
 
 function App() {
     // ----------------------------------
@@ -67,7 +68,12 @@ function App() {
                         <Route path="clubs" element={<Clubs/>}/>
 
                         {/* --------------------------
-                        3) A propos ----------------
+                        3) Joueur -------------------
+                        */}
+                        <Route path="joueurs" element={<Joueurs/>}/>
+
+                        {/* --------------------------
+                        4) A propos ----------------
                         */}
                         <Route path="a_propos" element={<APropos/>}/>
                     </Routes>

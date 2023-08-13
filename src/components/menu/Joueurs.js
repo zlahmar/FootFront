@@ -1,4 +1,4 @@
-export default function Clubs() {
+export default function Joueurs() {
 
     return (
         <div className=" flex flex-col justify-center items-center h-screen">
