@@ -93,7 +93,7 @@ function Club() {
     const [sortOrder, setSortOrder] = useState(SORT_ORDER.DESC);
 
     // infinite scroll
-    const [page, setPage] = useState(DEFAULT_PAGE);
+    const [page, setPage] = useState(DEFAULT_PAGE+1);
     const [isScrollable, setIsScrollable] = useState(true);
 
     // ---------------------------------------------
@@ -201,7 +201,38 @@ function Club() {
             return () => window.removeEventListener('scroll', handleScroll,true);
         }
     },[season,isScrollable])
+    useEffect( () => {
+        const fetchApiPlayers = async () => {
+            if (season.includes('TOTAL')) {
+                try {
 
+                    const response = await axios.get(
+                                                    PLAYERS.ALL_PLAYERS_IN_CLUB +
+                                                    '?club_id=' + club_id +
+                                                    '&page=' + 0 +
+                                                    '&size=' + DEFAULT_SIZE +
+                                                    '&sort_order=desc'+
+                                                    '&sort_field=all_nb_games'
+                                                    );
+                
+                    if (response.status === 500) {
+                        throw new Error("Internal server error");
+                    }
+
+                    // ----------------------------------------
+                    // SET STATE Variables : players, tempPlayers
+                    // ----------------------------------------
+                    setPlayers(prevData => [...prevData, ...response.data.items]);
+                    setTempPlayers(prevData => [...prevData, ...response.data.items]);
+
+                } catch (error) {
+                    console.error(error.message);
+                }
+            }
+        }
+        fetchApiPlayers();
+    },[club_id])
+    
     useEffect( () => {
         const fetchApiPlayers = async () => {
             if (season.includes('TOTAL')) {
@@ -233,7 +264,7 @@ function Club() {
         }
         fetchApiPlayers();
         
-    },[page, club_id])
+    },[club_id,page])
 
     // -------------------
     // (2) FILTERS
@@ -444,6 +475,13 @@ function Club() {
     const handleRadioChange = (value) => {
         setSortOrder(value);
         setPlayers(tempPlayers.reverse());
+
+        if (value === SORT_ORDER.ASC) {
+            setIsScrollable(false);
+        }
+        else {
+            setIsScrollable(true);
+        }
       };
 
     // --------------------------------

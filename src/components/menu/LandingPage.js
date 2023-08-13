@@ -1,4 +1,3 @@
-import ball_graph from '../../../src/assets/ball_graph.png'
 import ball_data from '../../../src/assets/ball_data2.png'
 
 import kickball from '../../../src/assets/icon/kickball.png'
@@ -7,7 +6,11 @@ import ligue from '../../../src/assets/icon/ligue.png'
 import fc from '../../../src/assets/icon/fc.png'
 import player_data1 from '../../../src/assets/player_data1.png'
 import mockup from '../../../src/assets/mockup.png'
-import filter from '../../../src/assets/filter.png'
+import players_filter from '../../../src/assets/players_filter.png'
+import leagues_graph from '../../../src/assets/leagues_graph.png'
+import clubs_graph from '../../../src/assets/clubs_graph.png'
+import club_graph from '../../../src/assets/club_graph.png'
+
 import { LEAGUES } from '../../data/Api'
 import {Link} from "react-router-dom";
 
@@ -191,7 +194,7 @@ export default function LandingPage() {
                 </div>
             </div>
             {/* 4ème Partie */}
-            <div className='h-full bg-darkBlue pb-5'>
+            <div className='h-full bg-darkBlue pb-10'>
                 <div className="flex justify-center">
                     <div className='w-1/2 max-md:w-4/5 brightness-75'>
                         <img src={mockup} alt="mockup"/>
@@ -200,42 +203,82 @@ export default function LandingPage() {
             </div>
             {/* 5ème Partie */}
             <div>
-                <p className='text-white text-center font-title text-3xl py-5 uppercase  border-t border-tiffanyBlue'>
+                <p className='text-white text-center font-title text-3xl py-10 uppercase  border-t border-tiffanyBlue'>
                         notre site propose ...
                 </p>
             </div>
-            <div className='h-full bg-eerieBlack divide-y divide-white'>
+            <div className='h-full bg-eerieBlack divide-y-2 divide-white'>
                 <div className="flex max-md:flex-col pb-5">
-                    <div className='basis-1/2 w-1/3 max-md:w-4/5'>
-                        <img src={filter} alt="league_description"/>
+                    <div className='basis-1/2 w-1/3 max-md:w-4/5 p-5'>
+                        <img src={leagues_graph} alt="league_description"/>
                     </div>  
-                    <div className='basis-1/2 w-1/2 max-md:w-4/5'>
-                        <div className=''>
-                            <p className='text-white m-10'>
-                                1. Ligue
+                    <div className='basis-1/2 w-1/2 max-md:w-4/5 p-5'>
+                        <div>
+                            <p className='text-2xl font-title uppercase text-white'><strong className='underline decoration-tiffanyBlue'>Ligues</strong></p>
+                        </div>
+                        <div className='h-4/5 mt-5'>
+                            <p className='font-content text-lg pt-3 text-white'>
+                                <strong className='underline decoration-white'>1. UEFA Coefficients des pays : </strong> 
+                            </p>
+                            <p className='font-content text-lg pt-3 text-white'>
+                                <strong className='underline decoration-white'>2. Cartons jaunes et rouges : </strong> 
+                            </p>
+                            <p className='font-content text-lg pt-3 text-white'>
+                                <strong className='underline decoration-white'>3. Buts et passes décisives : </strong> 
                             </p>
                         </div>
                     </div>  
                 </div>
                 <div className="flex max-md:flex-col py-5">
-                    <div className='basis-1/2 w-1/2 max-md:w-4/5'>
-                        <img src={filter} alt="club_description"/>
+                    <div className='basis-1/2 w-1/2 max-md:w-4/5 p-5'>
+                        <img src={clubs_graph} alt="clubs_in_league_description"/>
                     </div>  
-                    <div className='basis-1/2 w-1/2 max-md:w-4/5'>
-                        <p className='text-white m-10'>
-                            2. Club
-                        </p>
-                    </div>  
+                    <div className='basis-1/2 w-1/2 max-md:w-4/5 p-5'>
+                        <div>
+                            <p className='text-2xl font-title uppercase text-white'><strong className='underline decoration-tiffanyBlue'>Clubs dans une ligue sélectionnée</strong></p>
+                        </div>
+                        <div className='h-4/5 mt-5'>
+                            <p className='font-content text-lg pt-3 text-white'>
+                                <strong className='underline decoration-white'>1. Nombre de fois bla bla : </strong> 
+                            </p>
+                            <p className='font-content text-lg pt-3 text-white'>
+                                <strong className='underline decoration-white'>2. Nombre de nationalités de joueurs en saison : </strong> 
+                            </p>
+                        </div>
+                    </div> 
                 </div>
                 <div className="flex max-md:flex-col py-5">
-                    <div className='basis-1/2 w-1/2 max-md:w-4/5'>
-                        <img src={filter} alt="player_description"/>
+                    <div className='basis-1/2 w-1/2 max-md:w-4/5 p-5'>
+                        <img src={club_graph} alt="club_description"/>
                     </div>  
-                    <div className='basis-1/2 w-1/2 max-md:w-4/5'>
-                        <p className='text-white m-10'>
-                            3. Joueur
-                        </p>
+                    <div className='basis-1/2 w-1/2 max-md:w-4/5 p-5'>
+                        <div>
+                            <p className='text-2xl font-title uppercase text-white'><strong className='underline decoration-tiffanyBlue'>Club sélectionné</strong></p>
+                        </div>
+                        <div className='h-4/5 mt-5'>
+                            <p className='font-content text-lg pt-3 text-white'>
+                                <strong className='underline decoration-white'>1. Classement en ligue : </strong> 
+                            </p>
+                            <p className='font-content text-lg pt-3 text-white'>
+                                <strong className='underline decoration-white'>2. Les 5 meilleurs buteurs, passeurs et gardiens : </strong> 
+                            </p>
+                        </div>
+                    </div> 
+                </div>                
+                <div className="flex max-md:flex-col py-5">
+                    <div className='basis-1/2 w-1/2 max-md:w-4/5 p-5'>
+                        <img src={players_filter} alt="player_description"/>
                     </div>  
+                    <div className='basis-1/2 w-1/2 max-md:w-4/5 p-5'>
+                        <div>
+                            <p className='text-2xl font-title uppercase text-white'><strong className='underline decoration-tiffanyBlue'>Joueur dans un club sélectionné</strong></p>
+                        </div>
+                        <div className='h-4/5 mt-5'>
+                            <p className='font-content text-lg pt-3 text-white'>
+                                <strong className='underline decoration-white'>Les joueurs dans un club sélectionné : </strong> 
+                            </p>
+                        </div>
+                    </div> 
                 </div>
             </div>
         </div>
