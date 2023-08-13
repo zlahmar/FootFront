@@ -54,7 +54,7 @@ export default function App() {
 // -----------------------
 // 3) LIGUE COMPONENT
 // ----------------------- 
-function Ligues (){
+function Ligues(){
     // -----------------------------------------------------------------------
     // 3-1) USE STATE / USE EFFECT : WIDTH RESPONSIVE FOR GRAPH CircleGroupedChart
     // -----------------------------------------------------------------------

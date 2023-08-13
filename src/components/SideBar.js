@@ -35,7 +35,7 @@ function SideBar({onChildClick, visible}){
                             <LienMenu lien="/ligues" texte="Ligues" image={ligue}></LienMenu>
                         </li>
                         <li>
-                            <LienMenu lien="/clubs" texte="Club" image={club}></LienMenu>
+                            <LienMenu lien="/clubs" texte="Clubs" image={club}></LienMenu>
                         </li>
                         <li>
                             <LienMenu lien="/joueurs" texte="Joueur" image={joueur}></LienMenu>                        

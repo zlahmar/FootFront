@@ -38,7 +38,7 @@ export default function LandingPage() {
                                     </div>
                                     <div className='flex pt-5'>
                                         <div className='basis-1/3'>
-                                            <img className='w-3/5 lg:w-1/2' src={LEAGUES.IMG+'/Ligues 1'} alt="logo_ligue1"/>
+                                            <img className='w-3/5 lg:w-1/2' src={LEAGUES.IMG+'/Ligue 1'} alt="logo_ligue1"/>
                                         </div>
                                         <div className='basis-1/3'>
                                             <img className='w-3/5 lg:w-1/2' src={LEAGUES.IMG+'/Premier League'} alt="logo_premier_league"/>

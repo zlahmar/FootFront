@@ -9,6 +9,7 @@ import Club from "./menu/Club";
 import APropos from "./menu/APropos";
 import SideBar from "./SideBar";
 import LandingPage from "./menu/LandingPage";
+import Clubs from "./menu/Clubs";
 
 function App() {
     // ----------------------------------
@@ -63,6 +64,7 @@ function App() {
                         {/* --------------------------
                         2) Club -------------------
                         */}
+                        <Route path="clubs" element={<Clubs/>}/>
 
                         {/* --------------------------
                         3) A propos ----------------
