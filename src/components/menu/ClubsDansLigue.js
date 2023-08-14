@@ -130,7 +130,7 @@ function ClubsDansLigue() {
 
     // (2) DATA : DATA FOR BESTS
     const BESTS = [
-        getBestData("Meilleur Club", allTimeBestClub.clubId, CLUBS.IMG +"/" + allTimeBestClub.clubName, allTimeBestClub.clubName, allTimeBestClub.nbVictory + " champions"),
+        getBestData("Meilleur Club", allTimeBestClub.clubId, CLUBS.IMG +"/" + allTimeBestClub.clubName, allTimeBestClub.clubName, allTimeBestClub.nbVictory + " fois champions"),
         getBestData("Meilleur Buteur", allTimeBestStriker.playerId, PLAYERS.IMG +"/" + allTimeBestStriker.playerId, allTimeBestStriker.playerName, allTimeBestStriker.totalGoals + " buts", allTimeBestStriker.totalMatches + " matchs"),
         getBestData("Meilleur Passeur", (allTimeBestPlaymaker.playerId)*99, PLAYERS.IMG +"/" + allTimeBestPlaymaker.playerId, allTimeBestPlaymaker.playerName, allTimeBestPlaymaker.totalAssists + " passes", allTimeBestPlaymaker.totalMatches + " matchs"),
         getBestData("Meilleur Gardien", (allTimeBestGoalkeeper.playerId)*999, PLAYERS.IMG +"/" + allTimeBestGoalkeeper.playerId, allTimeBestGoalkeeper.playerName, allTimeBestGoalkeeper.totalGoalsAgainst + " cleansheets", allTimeBestGoalkeeper.totalMatches + " matchs"),
@@ -160,7 +160,7 @@ function ClubsDansLigue() {
                     </div>    
                 </div>
                 <div className="lg:flex lg:flex-row xl:max-2xl:flex-col pb-5" >
-                    <div className="flex basis-1/2 w-full ml-0 mr-1 mb-1">
+                    <div className="flex basis-1/2 w-full ml-0 mr-3 xl:mb-0 lg:mb-0 md:mb-5">
                         <BlocContent>
                             <div>
                                 <BlocTitreGraphe img={[ligue]} title={`Victoires de <strong>${league.name}</strong> <br/> (2002-2022)`}/>
