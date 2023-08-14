@@ -608,7 +608,6 @@ function Club() {
                             <JoueurGardienCarte key={index} gk_player={gk_player}/>
                         ))}
                     </BlocJoueurCarte>
-
                 </MuiTabs>
             </div>
             )

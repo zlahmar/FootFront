@@ -160,7 +160,7 @@ function ClubsDansLigue() {
                     </div>    
                 </div>
                 <div className="lg:flex lg:flex-row xl:max-2xl:flex-col pb-5" >
-                    <div className="flex basis-1/2 w-full ml-0 mr-1 mb-1">
+                    <div className="flex basis-1/2 w-full ml-0 mr-3 xl:mb-0 lg:mb-0 md:mb-5">
                         <BlocContent>
                             <div>
                                 <BlocTitreGraphe img={[ligue]} title={`Victoires de <strong>${league.name}</strong> <br/> (2002-2022)`}/>
