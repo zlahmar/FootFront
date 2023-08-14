@@ -46,7 +46,7 @@ const queryClient = new QueryClient()
 export default function App() {
     return (
         <QueryClientProvider client={queryClient}>
-            <Ligue/>
+            <Ligues/>
         </QueryClientProvider>
     )
 }
@@ -54,7 +54,7 @@ export default function App() {
 // -----------------------
 // 3) LIGUE COMPONENT
 // ----------------------- 
-function Ligue (){
+function Ligues(){
     // -----------------------------------------------------------------------
     // 3-1) USE STATE / USE EFFECT : WIDTH RESPONSIVE FOR GRAPH CircleGroupedChart
     // -----------------------------------------------------------------------
@@ -132,8 +132,8 @@ function Ligue (){
     // 4) RETURN
     // ---------------------------------------------
     return (    
-            <div className=" grid grid-cols-1 content-around h-screen overflow-x-hidden">
-                <BlocTitre title="Ligue (2002 ~ 2022) : 20 ans de 5 ligues principales"/> 
+            <div className="grid grid-cols-1 content-between h-screen overflow-x-hidden px-2">
+                <BlocTitre title="Classement des 5 ligues de 2002 à 2022"/> 
                 <BlocContent>
                     <MuiTabs title1={"GRAPH 1"} title2={"GRAPH 2"} title3={"GRAPH 3"}>
                         <div className="2xl:w-[75rem] xl:w-[70rem] lg:w-[63rem] md:w-0 sm:w-0 max-[767px]:w-0 h-96 flex flex-col justify-center">
@@ -150,7 +150,6 @@ function Ligue (){
                         </div>
                     </MuiTabs>
                 </BlocContent>
-                <BlocTitre title="Cliquez sur la ligue que vous voulez voir ci-dessous"/>
                 <BlocLigueCarte>
                     {leagues.map(league => (
                         <LigueCarte key={league.id} league={league} leagues_img={LEAGUES.IMG} />

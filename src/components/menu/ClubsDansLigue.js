@@ -18,7 +18,6 @@ import LigueCarte from '../carte/ligue/LigueCarte';
 import LeMeilleur from '../carte/LeMeilleur';
 import ClubCarte from "../carte/club/ClubCarte";
 import BlocClubCarte from '../bloc/BlocClubCarte';
-import BlocTitre from '../bloc/BlocTitre';
 import BlocTitreGraphe from '../bloc/BlocTitreGraphe';
 import BlocContent from '../bloc/BlocContent';
 import BlocLeMeilleur from '../bloc/BlocLeMeilleur';
@@ -110,10 +109,15 @@ function ClubsDansLigue() {
     // ---------------------------------------------
     // 3-4) SUCCESS
     // ---------------------------------------------
+    
+    // FIXME : Brentford(id=159), Salernitana(id=204) no data for stat_player (11/8/2023)
+    const excludedClubIds = [159, 204];
 
     // (1) DATA : DATA FROM API
     const league = resultQueries[0].data
-    const clubs = resultQueries[0].data.clubs
+
+    // FIXME
+    const clubs = resultQueries[0].data.clubs.filter(club => !excludedClubIds.includes(club.id));
     const allTimeBestClub = resultQueries[1].data[0]
     const allTimeBestStriker = resultQueries[2].data[0]
     const allTimeBestPlaymaker = resultQueries[3].data[0]
@@ -126,10 +130,10 @@ function ClubsDansLigue() {
 
     // (2) DATA : DATA FOR BESTS
     const BESTS = [
-        getBestData("Le Meilleur Club", allTimeBestClub.clubId, CLUBS.IMG +"/" + allTimeBestClub.clubName, allTimeBestClub.clubName, allTimeBestClub.rankAverage + " ème", allTimeBestClub.nbWin + " x champs"),
-        getBestData("Le Meilleur Buteur", allTimeBestStriker.playerId, PLAYERS.IMG +"/" + allTimeBestStriker.playerId, allTimeBestStriker.playerName, allTimeBestStriker.totalGoals + " buts", allTimeBestStriker.totalMatches + " matchs"),
-        getBestData("Le Meilleur Passeur", (allTimeBestPlaymaker.playerId)*99, PLAYERS.IMG +"/" + allTimeBestPlaymaker.playerId, allTimeBestPlaymaker.playerName, allTimeBestPlaymaker.totalAssists + " passes", allTimeBestPlaymaker.totalMatches + " matchs"),
-        getBestData("Le Meilleur Gardien", (allTimeBestGoalkeeper.playerId)*999, PLAYERS.IMG +"/" + allTimeBestGoalkeeper.playerId, allTimeBestGoalkeeper.playerName, allTimeBestGoalkeeper.totalGoalsAgainst + " cleansheets", allTimeBestGoalkeeper.totalMatches + " matchs"),
+        getBestData("Meilleur Club", allTimeBestClub.clubId, CLUBS.IMG +"/" + allTimeBestClub.clubName, allTimeBestClub.clubName, allTimeBestClub.nbVictory + " champions"),
+        getBestData("Meilleur Buteur", allTimeBestStriker.playerId, PLAYERS.IMG +"/" + allTimeBestStriker.playerId, allTimeBestStriker.playerName, allTimeBestStriker.totalGoals + " buts", allTimeBestStriker.totalMatches + " matchs"),
+        getBestData("Meilleur Passeur", (allTimeBestPlaymaker.playerId)*99, PLAYERS.IMG +"/" + allTimeBestPlaymaker.playerId, allTimeBestPlaymaker.playerName, allTimeBestPlaymaker.totalAssists + " passes", allTimeBestPlaymaker.totalMatches + " matchs"),
+        getBestData("Meilleur Gardien", (allTimeBestGoalkeeper.playerId)*999, PLAYERS.IMG +"/" + allTimeBestGoalkeeper.playerId, allTimeBestGoalkeeper.playerName, allTimeBestGoalkeeper.totalGoalsAgainst + " cleansheets", allTimeBestGoalkeeper.totalMatches + " matchs"),
     ]
     
     // (3) DATA : DATA FOR GRAPH WaffleChart, TreeMapChart
@@ -142,7 +146,7 @@ function ClubsDansLigue() {
     const isClickDisabled = true
 
     return (
-            <div className=" pb-3 flex flex-col justify-between">
+            <div className="px-2 pb-3 flex flex-col justify-between">
                 <div className="lg:flex lg:flex-row sm:max-md:flex-col pt-3">
                     <div className="basis-2/6 w-full pr-1 mb-5">
                         <LigueCarte key={league.id} league={league} leagues_img={LEAGUES.IMG} isClickDisabled={isClickDisabled}/>
@@ -155,11 +159,11 @@ function ClubsDansLigue() {
                         </BlocLeMeilleur>
                     </div>    
                 </div>
-                <div className="lg:flex lg:flex-row xl:max-2xl:flex-col" >
+                <div className="lg:flex lg:flex-row xl:max-2xl:flex-col pb-5" >
                     <div className="flex basis-1/2 w-full ml-0 mr-1 mb-1">
                         <BlocContent>
                             <div>
-                                <BlocTitreGraphe img={[ligue]} title={`Champions <strong>${league.name}</strong> <br/> (2002-2022)`}/>
+                                <BlocTitreGraphe img={[ligue]} title={`Victoires de <strong>${league.name}</strong> <br/> (2002-2022)`}/>
                                 <div className="2xl:w-1/2 xl:w-[40rem] lg:w-[30rem] md:w-[30rem] sm:w-0 max-[767px]:w-0 h-72">
                                     {width && <WaffleChart width={width} data={BEST_CLUBS_BY_SEASON}/>}
                                 </div> 
@@ -170,7 +174,7 @@ function ClubsDansLigue() {
                         <BlocContent>
                             <div>
                                 <div className='flex justify-center'>
-                                    <BlocTitreGraphe img={[nationality]} title={`Nationalités des joueurs <br/> en <strong>${league.name}</strong> (${season})`}/>
+                                    <BlocTitreGraphe img={[nationality]} title={`Nationalités des joueurs <br/> dans <strong>${league.name}</strong> (${season})`}/>
                                     <MuiSelectBox label="Saississez une saison" array={generateSeason(START_SEASON, NUMBER_OF_SEASONS)} value={season} handleChange={handleSeasonChange}/>
 
                                 </div>
@@ -182,7 +186,6 @@ function ClubsDansLigue() {
                         </BlocContent>
                     </div>
                 </div>
-                <BlocTitre title="Cliquez sur le club que vous voulez voir ci-dessous"/>
                 <BlocClubCarte>
                     {clubs.map(club => (
                         <ClubCarte key={club.id} club={club} clubs_img={CLUBS.IMG} isClickDisabled={false}/>

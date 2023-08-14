@@ -76,7 +76,7 @@ export default function LineChart(props){
           }
           },
           {
-            label: ['No Data in {league_name}'],
+            label: [`Pas de données`],
             backgroundColor: [
               COLOR.GREY,
             ],

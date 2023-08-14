@@ -3,12 +3,14 @@ import {Routes, Route, useLocation} from "react-router-dom";
 import { useEffect, useState } from 'react';
 
 // Pages
-import Ligue from "./menu/Ligue";
+import Ligues from "./menu/Ligues";
 import ClubsDansLigue from "./menu/ClubsDansLigue";
 import Club from "./menu/Club";
 import APropos from "./menu/APropos";
 import SideBar from "./SideBar";
 import LandingPage from "./menu/LandingPage";
+import Clubs from "./menu/Clubs";
+import Joueurs from "./menu/Joueurs";
 
 function App() {
     // ----------------------------------
@@ -45,7 +47,7 @@ function App() {
 
     }, [location, visible])
     return (
-            <div className="main-div pl-2 pr-2 min-h-screen bg-[url('/src/assets/arriere_plan/site.png')] bg-no-repeat bg-cover">
+            <div className="main-div min-h-screen bg-[url('/src/assets/arriere_plan/site.png')] bg-no-repeat bg-cover overflow-x-hidden">
                 <SideBar onChildClick={handleButton} visible={visible}/>
                 <div className="pages-div">
                     <Routes>
@@ -54,18 +56,24 @@ function App() {
                         */}
                         <Route path="/" element={<LandingPage/>}/>
                         {/*---------------------------
-                        1) Ligue -------------------
+                        1) Ligues -------------------
                         */}
-                        <Route path="ligues" element={<Ligue/>}/>
+                        <Route path="ligues" element={<Ligues/>}/>
                         <Route path="ligues/:ligue_id/clubs" element={<ClubsDansLigue/>}/>
                         <Route path="ligues/:ligue_id/clubs/:club_id" element={<Club/>}/>
                         
                         {/* --------------------------
                         2) Club -------------------
                         */}
+                        <Route path="clubs" element={<Clubs/>}/>
 
                         {/* --------------------------
-                        3) A propos ----------------
+                        3) Joueur -------------------
+                        */}
+                        <Route path="joueurs" element={<Joueurs/>}/>
+
+                        {/* --------------------------
+                        4) A propos ----------------
                         */}
                         <Route path="a_propos" element={<APropos/>}/>
                     </Routes>

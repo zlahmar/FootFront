@@ -14,7 +14,7 @@ function LeMeilleur({id,title, img_url, data_name, data_value1, data_value2}){
             <div className='basis-4/6 text-center flex flex-col'>
                 <span className="text-lg font-content text-tiffanyBlue">{data_name}</span>
                 <span className="font-content text-white">{data_value1}</span>   
-                <span className="text-xs font-content text-white">({data_value2})</span>   
+                <span className="text-xs font-content text-white">{data_value2}</span>   
             </div>
         </div>
         </div>
