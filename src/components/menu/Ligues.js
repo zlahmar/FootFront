@@ -132,20 +132,20 @@ function Ligues(){
     // 4) RETURN
     // ---------------------------------------------
     return (    
-            <div className="grid grid-cols-1 content-between h-screen overflow-x-hidden px-2">
+            <div className="flex flex-col justify-between h-screen overflow-x-hidden px-2">
                 <BlocTitre title="Classement des 5 ligues de 2002 à 2022"/> 
                 <BlocContent>
                     <MuiTabs title1={"GRAPH 1"} title2={"GRAPH 2"} title3={"GRAPH 3"}>
-                        <div className="2xl:w-[75rem] xl:w-[70rem] lg:w-[63rem] md:w-0 sm:w-0 max-[767px]:w-0 h-96 flex flex-col justify-center">
+                        <div className="2xl:w-[80rem] xl:w-[75rem] lg:w-[63rem] md:w-0 sm:w-0 max-[767px]:w-0 h-96 flex flex-col justify-center pt-[2rem]">
                             <BlocTitreGraphe img={[kickball]} title="UEFA Coefficients des pays (2002 ~ 2022)"/>
                             <BumpChart data={UEFA_LEAGUES_RANKING} />
                         </div>
-                        <div  className="2xl:w-[75rem] xl:w-[70rem] lg:w-[63rem] md:w-0 sm:w-0 max-[767px]:w-0 h-96 flex flex-col justify-center">
+                        <div  className="2xl:w-[75rem] xl:w-[70rem] lg:w-[63rem] md:w-0 sm:w-0 max-[767px]:w-0 h-96 flex flex-col justify-center pt-[2rem]">
                             <BlocTitreGraphe img={[goal]} title="Buts & Passes décisives (2002 ~ 2022)"/>
                             <BarGroupedChart data={LEAGUES_TOTAL_DATA}/>
                         </div>
-                        <div className='2xl:w-[75rem] xl:w-[70rem] lg:w-[63rem] md:w-0 sm:w-0 max-[767px]:w-0 h-96 flex flex-col justify-center pt-3'>
-                            <BlocTitreGraphe img={[yellow_card, red_card]} title="Cartons jaunes et rouges (2002 ~ 2022)"/>
+                        <div className='2xl:w-[75rem] xl:w-[70rem] lg:w-[63rem] md:w-0 sm:w-0 max-[767px]:w-0 h-96 flex flex-col justify-center xl:pt-[5rem] lg:pt-[1rem] '>
+                            <BlocTitreGraphe img={[yellow_card, red_card]} title="Cartons jaunes & rouges (2002 ~ 2022)"/>
                             {width && <CircleGroupedChart width={width} data={LEAGUES_TOTAL_CARDS_DATA}/>}
                         </div>
                     </MuiTabs>
