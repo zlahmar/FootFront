@@ -202,7 +202,7 @@ function Club() {
         }
     },[season,isScrollable])
     useEffect( () => {
-        const fetchApiPlayers = async () => {
+        const fetchInitApiPlayers = async () => {
             if (season.includes('TOTAL')) {
                 try {
 
@@ -230,8 +230,8 @@ function Club() {
                 }
             }
         }
-        fetchApiPlayers();
-    },[club_id])
+        fetchInitApiPlayers();
+    },[club_id,season])
     
     useEffect( () => {
         const fetchApiPlayers = async () => {
@@ -257,6 +257,7 @@ function Club() {
                     setPlayers(prevData => [...prevData, ...response.data.items]);
                     setTempPlayers(prevData => [...prevData, ...response.data.items]);
 
+                    
                 } catch (error) {
                     console.error(error.message);
                 }
@@ -264,7 +265,7 @@ function Club() {
         }
         fetchApiPlayers();
         
-    },[club_id,page])
+    },[club_id,page,season])
 
     // -------------------
     // (2) FILTERS
@@ -529,9 +530,9 @@ function Club() {
 
     // (2) DATA : DATA FOR BESTS & RANKING FOR SEASONS
     const BESTS = [
-        getBestData("Le Meilleur Buteur", bestTop10Strikers[0].playerId, PLAYERS.IMG+"/"+bestTop10Strikers[0].playerId, bestTop10Strikers[0].playerName, bestTop10Strikers[0].allGoals + " buts", bestTop10Strikers[0].allNbGames+ " matchs"), 
-        getBestData("Le Meilleur Passeur", (bestTop10Playmakers[0].playerId)*99, PLAYERS.IMG+"/"+bestTop10Playmakers[0].playerId, bestTop10Playmakers[0].playerName, bestTop10Playmakers[0].allAssists + " passes", bestTop10Playmakers[0].allNbGames+ " matchs"),
-        getBestData("Le Meilleur Gardien", bestTop10Goalkeepers[0].playerId, PLAYERS.IMG+"/"+bestTop10Goalkeepers[0].playerId, bestTop10Goalkeepers[0].playerName, bestTop10Goalkeepers[0].allGas + " buts encaissés", bestTop10Goalkeepers[0].allNbGames+ " matchs")
+        getBestData("Meilleur Buteur", bestTop10Strikers[0].playerId, PLAYERS.IMG+"/"+bestTop10Strikers[0].playerId, bestTop10Strikers[0].playerName, bestTop10Strikers[0].allGoals + " buts", bestTop10Strikers[0].allNbGames+ " matchs"), 
+        getBestData("Meilleur Passeur", (bestTop10Playmakers[0].playerId)*99, PLAYERS.IMG+"/"+bestTop10Playmakers[0].playerId, bestTop10Playmakers[0].playerName, bestTop10Playmakers[0].allAssists + " passes", bestTop10Playmakers[0].allNbGames+ " matchs"),
+        getBestData("Meilleur Gardien", bestTop10Goalkeepers[0].playerId, PLAYERS.IMG+"/"+bestTop10Goalkeepers[0].playerId, bestTop10Goalkeepers[0].playerName, bestTop10Goalkeepers[0].allGas + " buts encaissés", bestTop10Goalkeepers[0].allNbGames+ " matchs")
     ]
 
     const RANKING_FOR_SEASONS = getClubRankingForSeasons(club_stats, START_SEASON, NUMBER_OF_SEASONS)
@@ -552,7 +553,7 @@ function Club() {
     // ---------------------------------------------
     return (
             <div className="px-2 pb-3 flex flex-col">
-                <div className="lg:flex lg:flex-row sm:max-md:flex-col pt-5">
+                <div className="lg:flex lg:flex-row sm:max-md:flex-col pt-5 ">
                     <div className="basis-2/6 w-full pr-1 mb-5">
                         <ClubCarte key={club.id} club={club} clubs_img={CLUBS.IMG} isClickDisabled={true}/>
                     </div>  
@@ -565,13 +566,13 @@ function Club() {
                     </div>   
                 </div>
                 <BlocContent>
-                    <MuiTabs title1={"Classement par saison"} title2={"Les meilleurs joueurs"}>
+                    <MuiTabs title1={"Classement par saison"} title2={"Meilleurs joueurs"}>
                         <div className="2xl:w-[75rem] xl:w-[70rem] lg:w-[63rem] md:w-0 sm:w-0 max-[767px]:w-0 h-96 flex flex-col justify-center">
-                            <BlocTitreGraphe img={[champion]} title={`Classement en ligue du <strong>${club.league.name}</strong> (2002 ~ 2022)`}/>
+                            <BlocTitreGraphe img={[champion]} title={`Classement de la ligue du <strong>${club.league.name}</strong> (2002 ~ 2022)`}/>
                             <LineChart club={RANKING_FOR_SEASONS}/>
                         </div>
                         <div  className="2xl:w-[75rem] xl:w-[70rem] lg:w-[63rem] md:w-0 sm:w-0 max-[767px]:w-0 h-96 flex flex-col justify-center">
-                            <BlocTitreGraphe img={[best_player]} title={`Les 5 meilleurs <strong>buteurs</strong>, <strong>passeurs</strong> et <strong>gardiens</strong> dans ${club.name}`}/>
+                            <BlocTitreGraphe img={[best_player]} title={`Les 5 meilleurs <strong>buteurs</strong>, <strong>passeurs</strong> et <strong>gardiens</strong> de ${club.name}`}/>
                             <NetworkChart club={club} 
                             club_img_url={CLUBS.IMG} 
                             best_top_10_strikers={bestTop10Strikers} 
@@ -581,9 +582,8 @@ function Club() {
                         </div>
                     </MuiTabs>    
                 </BlocContent> 
-                <BlocTitre title={`Cliquez sur le joueur que vous voulez voir ci-dessous. (${filtered_players ? `<strong>${filtered_players.length}</strong>` : `${players.length}`} / ${totalPlayersCountWithoutKeepers} Joueur(s) dans ce club)`}/>
                 <MuiTabs title1={"Joueur de champ"}  title2={"Gardien"} changeStyle={true}>
-                    <div>
+                    <div >
                         <BlocFiltrage>
                             <MuiSelectBox handleChange={handleSeasonChange} extra_value={'TOTAL'} label="Saison" array={generateSeason(START_SEASON, NUMBER_OF_SEASONS)} value={season}/>
                             <MuiSelectBox handleChange={handleNationalityChange} extra_value={'TOTAL'} label="Nationalité" array={allNationalitiesInClub} value={nationality} />
@@ -592,7 +592,7 @@ function Club() {
                             <SearchBar handleInputChange={handleInputChange} />
                             <SortOrder sortOrder={sortOrder} handleRadioChange={handleRadioChange}/>
                         </BlocFiltrage>
-                        <BlocJoueurCarte title={'Attaquant, Milieu, Défenseur'}>
+                        <BlocJoueurCarte title={'Attaquant | Milieu | Défenseur'}>
                         {
                         season.includes('TOTAL') ? (
                             filtered_players

@@ -28,11 +28,16 @@ export default function LandingPage() {
                                     <img src={kickball} alt="kickball"/>
                                 </div>
                                 <div>
-                                    <p className='text-tiffanyBlue text-5xl uppercase font-title'>FootStat</p>
-                                    <p className='text-white text-md font-content italic pb-2'>Les données racontons l'histoire du football !</p>
+                                    <p className='text-tiffanyBlue text-5xl uppercase font-title pb-3'>FootStat</p>
+                                    <p className='text-white text-lg font-content italic pb-3'>
+                                        Suivez les tendances des différentes ligues grâce à notre base de données. 
+                                        Comparez les performances de chaque club et de chaque joueur en individuel.
+                                    </p>
+                                    <p className='text-white text-3xl'>
+                                        Trouvez, analysez, pariez !
+                                    </p>
                                 </div>
-                                
-                                <div className='flex flex-col pt-[6rem]'>
+                                <div className='flex flex-col pt-[2rem]'>
                                     <div>
                                         <span className='text-white text-2xl font-content'>Les 5 plus grandes ligues européennes <br/> (2002 ~ 2022) : </span>
                                     </div>
@@ -67,7 +72,7 @@ export default function LandingPage() {
                 </div>
                 {/* 2ème Partie */}
                 <p className='text-white text-center font-title text-3xl py-10 uppercase'>
-                    Vous pouvez sélectionner ...
+                    A vous de jouer ...
                 </p>
                 <div className="h-2/5 max-md:h-full">
                     <div className='flex md:flex-row max-md:flex-col pt-5 px-2.5 pb-7 w-full h-full'>
@@ -79,13 +84,9 @@ export default function LandingPage() {
                                         <p className="font-title font-bold text-white text-center text-2xl uppercase">Ligues</p>
                                     </div>
                                     <div className="p-5 flex flex-col justify-between h-full">
-                                        <p className="mb-3 font-normal text-white text-center">Découvrez les différentes ligues et plongez dans leurs statistiques fascinantes !</p>
                                         <div className='flex justify-center'>
-                                            <Link to="/ligues" className="inline-flex items-center px-3 py-2 text-md font-bold text-center text-eerieBlack bg-tiffanyBlue rounded-lg hover:bg-white focus:ring-4 focus:outline-none focus:ring-blue-300" >
-                                                Cliquer
-                                                <svg className="w-3.5 h-3.5 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-                                                </svg>
+                                            <Link to="/ligues" className="inline-flex items-center p-3 text-lg font-bold text-center text-eerieBlack bg-tiffanyBlue rounded-lg hover:bg-white focus:ring-4 focus:outline-none focus:ring-blue-300" >
+                                                voir plus
                                             </Link>
                                         </div>
                                     </div>
@@ -97,16 +98,12 @@ export default function LandingPage() {
                                 <div className='flex flex-col h-full justify-center'>
                                     <div className='pt-5'>
                                         <img className="w-1/3 m-auto rounded-t-lg" src={fc} alt="player" />
-                                        <p className="font-title font-bold text-white text-center text-2xl uppercase">Club</p>
+                                        <p className="font-title font-bold text-white text-center text-2xl uppercase">Clubs</p>
                                     </div>
                                     <div className="p-5 flex flex-col justify-between h-full">
-                                        <p className="mb-3 font-normal text-white text-center">Découvrez les différents  clubs et plongez dans leurs statistiques captivantes !</p>
                                         <div className='flex justify-center'>
-                                            <Link to="/clubs" className="inline-flex items-center px-3 py-2 text-md font-bold text-center text-eerieBlack bg-tiffanyBlue rounded-lg hover:bg-white focus:ring-4 focus:outline-none focus:ring-blue-300" >
-                                                Cliquer
-                                                <svg className="w-3.5 h-3.5 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-                                                </svg>
+                                            <Link to="/clubs" className="inline-flex items-center p-3 text-lg font-bold text-center text-eerieBlack bg-tiffanyBlue rounded-lg hover:bg-white focus:ring-4 focus:outline-none focus:ring-blue-300" >
+                                                voir plus
                                             </Link>
                                         </div>
                                     </div>
@@ -118,16 +115,12 @@ export default function LandingPage() {
                                 <div className='flex flex-col h-full justify-center'>
                                     <div className='pt-5'>
                                         <img className="w-1/3 m-auto rounded-t-lg" src={joueur} alt="player" />
-                                        <p className="font-title font-bold text-white text-center text-2xl uppercase">Joueur</p>
+                                        <p className="font-title font-bold text-white text-center text-2xl uppercase">Joueurs</p>
                                     </div>
                                     <div className="p-5 flex flex-col justify-between h-full">
-                                        <p className="mb-3 font-normal text-white text-center">Découvrez les différents joueurs et plongez dans leurs performances détaillées !</p>
                                         <div className='flex justify-center'>
-                                            <Link to="/joueurs" className="inline-flex items-center px-3 py-2 text-md font-bold text-center text-eerieBlack bg-tiffanyBlue rounded-lg hover:bg-white focus:ring-4 focus:outline-none focus:ring-blue-300" >
-                                                Cliquer
-                                                <svg className="w-3.5 h-3.5 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-                                                </svg>
+                                            <Link to="/joueurs" className="inline-flex items-center p-3 text-lg font-bold text-center text-eerieBlack bg-tiffanyBlue rounded-lg hover:bg-white focus:ring-4 focus:outline-none focus:ring-blue-300" >
+                                                voir plus
                                             </Link>
                                         </div>
                                     </div>
@@ -145,7 +138,9 @@ export default function LandingPage() {
                     </div>
                     <div className='basis-3/5'>
                         <div className='m-5'>
-                            <p className='text-white text-2xl uppercase indent-3'>LE POUVOIR DE LA SCIENCE DES DONNÉES APPLIQUÉ À LE FOOTBALL : COMPARER CHAQUE LIGUE, CHAQUE CLUB ET CHAQUE JOUEUR !</p>
+                            <p className='text-white text-2xl uppercase indent-3'>
+                            L'application de la science des données au football : une analyse comparative des ligues, des clubs et des joueurs à tous les niveaux !
+                            </p>
                             <div className='mt-5'>
                                 <div className='grid grid-cols-3 gap-14 max-md:grid-cols-1 max-md:justify-items-center max-md:text-center'>
                                     <div className='text-white'>
@@ -223,7 +218,7 @@ export default function LandingPage() {
                                 </div>
                                 <div>
                                     <p className='indent-3 font-content text-lg pt-3 text-white'>
-                                        HELLO WORLD qdsqdsqsqdsqdsqdsqsdqdsqds
+                                        Classement des ligues de 2002 à 2022 
                                     </p>
                                 </div>
                             </div>
@@ -235,7 +230,7 @@ export default function LandingPage() {
                                 </div>
                                 <div>
                                     <p className='indent-3 font-content text-lg pt-3 text-white'>
-                                        HELLO WORLD qdsqdsqsqdsqdsqdsqsdqdsqds
+                                        Total de cartons jaunes et rouges reçus pour chaque ligue de 2002 à 2022
                                     </p>
                                 </div>
                             </div>
@@ -247,7 +242,7 @@ export default function LandingPage() {
                                 </div>
                                 <div>
                                     <p className='indent-3 font-content text-lg pt-3 text-white'>
-                                        HELLO WORLD qdsqdsqsqdsqdsqdsqsdqdsqds
+                                        Total de buts et passes décisives pour chaque ligue de 2002 à 2022
                                     </p>
                                 </div>
                             </div>
@@ -259,29 +254,29 @@ export default function LandingPage() {
                         <img src={clubs_graph} alt="clubs_in_league_description"/>
                     </div>  
                     <div className='basis-1/2 w-1/2 max-md:w-full p-5'>
-                        <p className='text-2xl font-title uppercase text-white'><strong className='underline decoration-tiffanyBlue'>Ligues</strong></p>                        
+                        <p className='text-2xl font-title uppercase text-white'><strong className='underline decoration-tiffanyBlue'>Ligue</strong></p>                        
                         <div className='h-5/6 mt-5 flex flex-col'>
                             <div className="basis-1/2 mb-10">
                                 <div>
                                     <p className='font-content text-lg pt-3 text-white mr-5'>
-                                        <strong className='underline decoration-white'>1. UEFA Coefficients des pays : </strong>
+                                        <strong className='underline decoration-white'>1. Victoires : </strong>
                                     </p>
                                 </div>
                                 <div>
                                     <p className='indent-3 font-content text-lg pt-3 text-white'>
-                                        HELLO WORLD qdsqdsqsqdsqdsqdsqsdqdsqds
+                                        Nombre de victoires pour chaque ligue de 2002 à 2022
                                     </p>
                                 </div>
                             </div>
                             <div className="basis-1/2 mb-10">
                                 <div>
                                     <p className='font-content text-lg pt-3 text-white mr-5'>
-                                        <strong className='underline decoration-white'>2. Cartons jaunes et rouges : </strong>
+                                        <strong className='underline decoration-white'>2. Nationalités : </strong>
                                     </p>
                                 </div>
                                 <div>
                                     <p className='indent-3 font-content text-lg pt-3 text-white'>
-                                        HELLO WORLD qdsqdsqsqdsqdsqdsqsdqdsqds
+                                        Tendance des nationalités pour chaque ligue de 2002 à 2022
                                     </p>
                                 </div>
                             </div>
@@ -293,29 +288,29 @@ export default function LandingPage() {
                         <img src={club_graph} alt="club_description"/>
                     </div>  
                     <div className='basis-1/2 w-1/2 max-md:w-full p-5'>
-                        <p className='text-2xl font-title uppercase text-white'><strong className='underline decoration-tiffanyBlue'>Club sélectionné</strong></p>
+                        <p className='text-2xl font-title uppercase text-white'><strong className='underline decoration-tiffanyBlue'>Club</strong></p>
                         <div className='h-5/6 mt-5 flex flex-col'>
                             <div className="basis-1/2 mb-10">
                                 <div>
                                     <p className='font-content text-lg pt-3 text-white mr-5'>
-                                        <strong className='underline decoration-white'>1. UEFA Coefficients des pays : </strong>
+                                        <strong className='underline decoration-white'>1. Classement par saison : </strong>
                                     </p>
                                 </div>
                                 <div>
                                     <p className='indent-3 font-content text-lg pt-3 text-white'>
-                                        HELLO WORLD qdsqdsqsqdsqdsqdsqsdqdsqds
+                                        Tendance des classements pour chaque club de 2002 à 2022
                                     </p>
                                 </div>
                             </div>
                             <div className="basis-1/2 mb-10">
                                 <div>
                                     <p className='font-content text-lg pt-3 text-white mr-5'>
-                                        <strong className='underline decoration-white'>2. Cartons jaunes et rouges : </strong>
+                                        <strong className='underline decoration-white'>2. Les meilleurs joueurs : </strong>
                                     </p>
                                 </div>
                                 <div>
                                     <p className='indent-3 font-content text-lg pt-3 text-white'>
-                                        HELLO WORLD qdsqdsqsqdsqdsqdsqsdqdsqds
+                                        Top 5 des meilleurs joueurs (buteurs, passeurs et gardiens) pour chaque club de 2002 à 2022
                                     </p>
                                 </div>
                             </div>
@@ -327,17 +322,12 @@ export default function LandingPage() {
                         <img src={players_filter} alt="player_description"/>
                     </div>  
                     <div className='basis-1/2 w-1/2 max-md:w-full p-5'>
-                        <p className='text-2xl font-title uppercase text-white'><strong className='underline decoration-tiffanyBlue'>Joueur dans un club sélectionné</strong></p>
+                        <p className='text-2xl font-title uppercase text-white'><strong className='underline decoration-tiffanyBlue'>Joueurs</strong></p>
                         <div className='h-5/6 mt-5 flex flex-col'>
                             <div className="mb-10">
                                 <div>
                                     <p className='font-content text-lg pt-3 text-white mr-5'>
-                                        <strong className='underline decoration-white'>1. UEFA Coefficients des pays : </strong>
-                                    </p>
-                                </div>
-                                <div>
-                                    <p className='indent-3 font-content text-lg pt-3 text-white'>
-                                        HELLO WORLD qdsqdsqsqdsqdsqdsqsdqdsqds
+                                         Performances de chaque joueur
                                     </p>
                                 </div>
                             </div>

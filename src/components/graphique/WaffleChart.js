@@ -40,7 +40,7 @@ const CustomTooltip = node => (
                 if(index === node.season.length-1) {
                   return  value 
                 }  
-                return  value + ', ' 
+                return  value + ", " 
                 
             })}
         </span>

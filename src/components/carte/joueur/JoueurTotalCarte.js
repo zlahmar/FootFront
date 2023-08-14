@@ -25,8 +25,8 @@ export function JoueurTotalCarte({playerId, playerPosition, nationalityName, pla
             <div className="mt-1">
                     <div className={` ${isClickDisabled ? 'h-full' : ''} relative pt-4 mb-5 bg-[url('/src/assets/arriere_plan/player_card_dark.png')] w-[20rem] h-[30rem] bg-contain bg-center bg-no-repeat `}>
                         <Link
-                            to={{pathname : "/joueurs",
-                            state: { joueurId: "good" }}}
+                            to={{pathname : `/joueurs/${playerId}`,
+                            state: { playerId: playerId }}}
                             className={` bg-eerieBlack `}
                         >
                             {/* (1) Laurier(img) */}

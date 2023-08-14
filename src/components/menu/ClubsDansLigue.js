@@ -131,10 +131,10 @@ function ClubsDansLigue() {
 
     // (2) DATA : DATA FOR BESTS
     const BESTS = [
-        getBestData("Le Meilleur Club", allTimeBestClub.clubId, CLUBS.IMG +"/" + allTimeBestClub.clubName, allTimeBestClub.clubName, allTimeBestClub.rankAverage + " ème", allTimeBestClub.nbWin + " x champs"),
-        getBestData("Le Meilleur Buteur", allTimeBestStriker.playerId, PLAYERS.IMG +"/" + allTimeBestStriker.playerId, allTimeBestStriker.playerName, allTimeBestStriker.totalGoals + " buts", allTimeBestStriker.totalMatches + " matchs"),
-        getBestData("Le Meilleur Passeur", (allTimeBestPlaymaker.playerId)*99, PLAYERS.IMG +"/" + allTimeBestPlaymaker.playerId, allTimeBestPlaymaker.playerName, allTimeBestPlaymaker.totalAssists + " passes", allTimeBestPlaymaker.totalMatches + " matchs"),
-        getBestData("Le Meilleur Gardien", (allTimeBestGoalkeeper.playerId)*999, PLAYERS.IMG +"/" + allTimeBestGoalkeeper.playerId, allTimeBestGoalkeeper.playerName, allTimeBestGoalkeeper.totalGoalsAgainst + " cleansheets", allTimeBestGoalkeeper.totalMatches + " matchs"),
+        getBestData("Meilleur Club", allTimeBestClub.clubId, CLUBS.IMG +"/" + allTimeBestClub.clubName, allTimeBestClub.clubName, allTimeBestClub.nbVictory + " champions"),
+        getBestData("Meilleur Buteur", allTimeBestStriker.playerId, PLAYERS.IMG +"/" + allTimeBestStriker.playerId, allTimeBestStriker.playerName, allTimeBestStriker.totalGoals + " buts", allTimeBestStriker.totalMatches + " matchs"),
+        getBestData("Meilleur Passeur", (allTimeBestPlaymaker.playerId)*99, PLAYERS.IMG +"/" + allTimeBestPlaymaker.playerId, allTimeBestPlaymaker.playerName, allTimeBestPlaymaker.totalAssists + " passes", allTimeBestPlaymaker.totalMatches + " matchs"),
+        getBestData("Meilleur Gardien", (allTimeBestGoalkeeper.playerId)*999, PLAYERS.IMG +"/" + allTimeBestGoalkeeper.playerId, allTimeBestGoalkeeper.playerName, allTimeBestGoalkeeper.totalGoalsAgainst + " cleansheets", allTimeBestGoalkeeper.totalMatches + " matchs"),
     ]
     
     // (3) DATA : DATA FOR GRAPH WaffleChart, TreeMapChart
@@ -160,11 +160,11 @@ function ClubsDansLigue() {
                         </BlocLeMeilleur>
                     </div>    
                 </div>
-                <div className="lg:flex lg:flex-row xl:max-2xl:flex-col" >
+                <div className="lg:flex lg:flex-row xl:max-2xl:flex-col pb-5" >
                     <div className="flex basis-1/2 w-full ml-0 mr-1 mb-1">
                         <BlocContent>
                             <div>
-                                <BlocTitreGraphe img={[ligue]} title={`Champions <strong>${league.name}</strong> <br/> (2002-2022)`}/>
+                                <BlocTitreGraphe img={[ligue]} title={`Victoires de <strong>${league.name}</strong> <br/> (2002-2022)`}/>
                                 <div className="2xl:w-1/2 xl:w-[40rem] lg:w-[30rem] md:w-[30rem] sm:w-0 max-[767px]:w-0 h-72">
                                     {width && <WaffleChart width={width} data={BEST_CLUBS_BY_SEASON}/>}
                                 </div> 
@@ -175,7 +175,7 @@ function ClubsDansLigue() {
                         <BlocContent>
                             <div>
                                 <div className='flex justify-center'>
-                                    <BlocTitreGraphe img={[nationality]} title={`Nationalités des joueurs <br/> en <strong>${league.name}</strong> (${season})`}/>
+                                    <BlocTitreGraphe img={[nationality]} title={`Nationalités des joueurs <br/> dans <strong>${league.name}</strong> (${season})`}/>
                                     <MuiSelectBox label="Saississez une saison" array={generateSeason(START_SEASON, NUMBER_OF_SEASONS)} value={season} handleChange={handleSeasonChange}/>
 
                                 </div>
@@ -187,7 +187,6 @@ function ClubsDansLigue() {
                         </BlocContent>
                     </div>
                 </div>
-                <BlocTitre title="Cliquez sur le club que vous voulez voir ci-dessous"/>
                 <BlocClubCarte>
                     {clubs.map(club => (
                         <ClubCarte key={club.id} club={club} clubs_img={CLUBS.IMG} isClickDisabled={false}/>
