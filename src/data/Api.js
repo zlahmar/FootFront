@@ -1,5 +1,5 @@
-// const API_URL = "https://footstatsapi.sangmin.fr/api/"
-const API_URL = "http://localhost:7777/api/"
+const API_URL = "https://footstatsapi.sangmin.fr/api/"
+// const API_URL = "http://localhost:7777/api/"
 
 const NATIONALITIES = {
     IMG : API_URL + "images/nationalities",
