@@ -18,7 +18,6 @@ import LigueCarte from '../carte/ligue/LigueCarte';
 import LeMeilleur from '../carte/LeMeilleur';
 import ClubCarte from "../carte/club/ClubCarte";
 import BlocClubCarte from '../bloc/BlocClubCarte';
-import BlocTitre from '../bloc/BlocTitre';
 import BlocTitreGraphe from '../bloc/BlocTitreGraphe';
 import BlocContent from '../bloc/BlocContent';
 import BlocLeMeilleur from '../bloc/BlocLeMeilleur';

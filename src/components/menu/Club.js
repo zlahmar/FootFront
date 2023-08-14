@@ -15,7 +15,6 @@ import LoadingCarte from "../carte/LoadingCarte";
 import LeMeilleur from '../carte/LeMeilleur';
 import BlocLeMeilleur from '../bloc/BlocLeMeilleur';
 import BlocContent from "../bloc/BlocContent";
-import BlocTitre from '../bloc/BlocTitre';
 import BlocJoueurCarte from '../bloc/BlocJoueurCarte';
 import BlocTitreGraphe from '../bloc/BlocTitreGraphe';
 import BlocFiltrage from '../bloc/BlocFiltrage';
