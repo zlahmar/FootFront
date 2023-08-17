@@ -26,7 +26,12 @@ const PLAYERS = {
     IMG : API_URL + "images/players",
 
     // -----------------------------------
-    // (1) STATS PLAYER : LEAGUE (ALL SEASONS) / LEAGUE (SELECTED SEASON) 
+    // (1) STATS PLAYER
+    // -----------------------------------
+    STAT: API_URL + "stats_player/", // ?player_id=
+
+    // -----------------------------------
+    // (2) STATS PLAYER : LEAGUE (ALL SEASONS) / LEAGUE (SELECTED SEASON) 
     // -----------------------------------
     // ALL TIME BEST (STRIKER, PLAYMAKER, GOALKEEPER) : ?league_id=
     ALL_TIME_BEST_STRIKER : API_URL + "stats_player/all_time_best_strikers", // ?league_id= 
@@ -39,7 +44,7 @@ const PLAYERS = {
     BEST_GOALKEEPER_BY_SEASON : API_URL + "stats_gk_player/best_goalkeepers", // ?league_id= &season=
 
     // -----------------------------------
-    // (2) STATS PLAYER : SELECTED CLUB (ALL SEASONS)
+    // (3) STATS PLAYER : SELECTED CLUB (ALL SEASONS)
     // -----------------------------------
     // BEST TOP 10 (STRIKER, PLAYMAKER, GOALKEEPER) : ?club_id= 
     BEST_TOP_10_STRIKERS : API_URL + "stats_player/total_best_10_strikers_by_club", // ?club_id=
