@@ -1,0 +1,91 @@
+// CSS
+import '../../styles/index.css'
+
+// React
+import { useEffect, useState } from 'react';
+
+// API, DATA
+import { CLUBS, PLAYERS } from '../../data/Api'
+import { getIdFromUrl } from '../../data/Arrays';
+
+// Axios
+import axios from 'axios'
+
+export default function Joueur() {
+    const player_id = getIdFromUrl('joueurs')
+
+    // -------------------
+    // USE STATE Variables
+    // -------------------
+
+    // player
+    const [player, setPlayer] = useState(null)
+
+    // stats
+    const [stats, setStats] = useState(null)
+
+    // -------------------
+    // (0) INIT DATA - PLAYER
+    // -------------------
+    // useEffect(() => {
+    //     const fetchApiPlayer = async () => {
+    //         const response = await axios.get(PLAYERS)
+    //     }
+    // }, [])
+    return (
+        <div className="px-2 pb-3 flex flex-col border border-2 border-tiffanyBlue">
+            <div className="mt-[5rem] mx-[10rem] max-md:mx-[2rem] border border-2 border-tiffanyBlue">
+                {/* 1. Player Photo, Name, Important Stats ... */}
+                <div className='flex flex-wrap max-md:flex-col mb-5'>
+                    <div className='basis-1/2 border border-2 border-tiffanyBlue'>
+                        <div className='flex justify-center items-center h-full'>
+                            <h1 className='text-white'>Photo Zone</h1>
+                        </div>
+                    </div>
+                    <div className='basis-1/2 border border-2 border-tiffanyBlue'>
+                        <h1 className='text-white'>Nationality</h1>
+                        <h1 className='text-white'>Name</h1>
+                        <h1 className='text-white'>Position</h1>
+                        <h1 className='text-white'>Joueur : {player_id}</h1>
+
+                        <div className='flex flex-wrap  max-md:flex-col'>
+                            <div className='basis-1/3  border border-2 border-tiffanyBlue'>
+                                <h1 className='text-white'>All nb games</h1>
+                            </div>
+                            <div className='basis-1/3  border border-2 border-tiffanyBlue'>
+                                <h1 className='text-white'>All goals</h1>
+                            </div>
+                            <div className='basis-1/3  border border-2 border-tiffanyBlue'>
+                                <h1 className='text-white'>All assists</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* 2. Player Chrono Graph */}
+                <div className='flex justify-center border border-2 border-tiffanyBlue'>
+                    <h1 className='text-white'>Chrono</h1>
+                </div>
+
+                {/* 3. Player Detail Stat */}
+                <div className='border border-2 border-tiffanyBlue'>
+                    <h1 className='text-white'>STATISTIQUES ET RECORDS</h1>
+
+                    {/* (1) Summary */}
+                    <div className='flex flex-wrap  max-md:flex-col'>
+                        <div className='basis-1/3  border border-2 border-tiffanyBlue'>
+                            <h1 className='text-white'>1-1 - Avg(min)/90</h1>
+                        </div>
+                        <div className='basis-1/3  border border-2 border-tiffanyBlue'>
+                            <h1 className='text-white'>2-1 - SUM(goal)/SUM(nb_game)</h1>
+                        </div>
+                        <div className='basis-1/3  border border-2 border-tiffanyBlue'>
+                            <h1 className='text-white'>3-1 - SUM(assist)/SUM(nb_game)</h1>
+                        </div>
+                    </div>
+     
+                </div>
+            </div>
+        </div>
+    );
+}

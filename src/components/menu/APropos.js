@@ -51,19 +51,29 @@ export default function APropos() {
                             </thead>
                             <tbody className="text-center">
                                 <tr>
+                                    <td>Init.</td>
+                                    <td className="text-left"> Analyse le site référence</td>
+                                    <td className="text-right">Le 10 Oct 2022</td>
+                                </tr>
+                                <tr>
                                     <td>V0</td>
-                                    <td className="text-left">Collecte les données (Initialisation)</td>
+                                    <td className="text-left">Collecte les données & Création la base de données</td>
                                     <td className="text-right">Le 13 Mars 2023</td>
                                 </tr>
                                 <tr>
                                     <td>V1</td>
-                                    <td className="text-left">Liste ligues, clubs</td>
+                                    <td className="text-left">Liste ligues, clubs et leurs graphes</td>
                                     <td className="text-right">Le 26 Avril 2023</td>
                                 </tr>
                                 <tr>
                                     <td>V2</td>
-                                    <td className="text-left">Liste joueurs, détails de club</td>
+                                    <td className="text-left">Liste joueurs, détails de club et leurs graphes</td>
                                     <td className="text-right">Le 31 Juillet 2023</td>
+                                </tr>
+                                <tr>
+                                    <td>V3</td>
+                                    <td className="text-left">En cours</td>
+                                    <td className="text-right">Le 31 Août 2023</td>
                                 </tr>
                             </tbody>
                         </table>

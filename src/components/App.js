@@ -11,6 +11,8 @@ import SideBar from "./SideBar";
 import LandingPage from "./menu/LandingPage";
 import Clubs from "./menu/Clubs";
 import Joueurs from "./menu/Joueurs";
+import Joueur from "./menu/Joueur";
+import JoueurGardien from "./menu/JoueurGardien";
 
 function App() {
     // ----------------------------------
@@ -71,6 +73,8 @@ function App() {
                         3) Joueur -------------------
                         */}
                         <Route path="joueurs" element={<Joueurs/>}/>
+                        <Route path="joueurs/:joueur_id" element={<Joueur/>}/>
+                        <Route path="joueurs/gardiens/:joueur_id" element={<JoueurGardien/>}/>
 
                         {/* --------------------------
                         4) A propos ----------------
