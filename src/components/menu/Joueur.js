@@ -14,6 +14,24 @@ import axios from 'axios'
 export default function Joueur() {
     const player_id = getIdFromUrl('joueurs')
 
+    // -------------------
+    // USE STATE Variables
+    // -------------------
+
+    // player
+    const [player, setPlayer] = useState(null)
+
+    // stats
+    const [stats, setStats] = useState(null)
+
+    // -------------------
+    // (0) INIT DATA - PLAYER
+    // -------------------
+    // useEffect(() => {
+    //     const fetchApiPlayer = async () => {
+    //         const response = await axios.get(PLAYERS)
+    //     }
+    // }, [])
     return (
         <div className="px-2 pb-3 flex flex-col border border-2 border-tiffanyBlue">
             <div className="mt-[5rem] mx-[10rem] max-md:mx-[2rem] border border-2 border-tiffanyBlue">
@@ -32,13 +50,13 @@ export default function Joueur() {
 
                         <div className='flex flex-wrap  max-md:flex-col'>
                             <div className='basis-1/3  border border-2 border-tiffanyBlue'>
-                                <h1 className='text-white'>1</h1>
+                                <h1 className='text-white'>All nb games</h1>
                             </div>
                             <div className='basis-1/3  border border-2 border-tiffanyBlue'>
-                                <h1 className='text-white'>2</h1>
+                                <h1 className='text-white'>All goals</h1>
                             </div>
                             <div className='basis-1/3  border border-2 border-tiffanyBlue'>
-                                <h1 className='text-white'>3</h1>
+                                <h1 className='text-white'>All assists</h1>
                             </div>
                         </div>
                     </div>
@@ -56,49 +74,16 @@ export default function Joueur() {
                     {/* (1) Summary */}
                     <div className='flex flex-wrap  max-md:flex-col'>
                         <div className='basis-1/3  border border-2 border-tiffanyBlue'>
-                            <h1 className='text-white'>1-1 (Graph)</h1>
+                            <h1 className='text-white'>1-1 - Avg(min)/90</h1>
                         </div>
                         <div className='basis-1/3  border border-2 border-tiffanyBlue'>
-                            <h1 className='text-white'>2-1 (Graph)</h1>
+                            <h1 className='text-white'>2-1 - SUM(goal)/SUM(nb_game)</h1>
                         </div>
                         <div className='basis-1/3  border border-2 border-tiffanyBlue'>
-                            <h1 className='text-white'>3-1 (Graph)</h1>
+                            <h1 className='text-white'>3-1 - SUM(assist)/SUM(nb_game)</h1>
                         </div>
                     </div>
-
-                    
-                    {/* (2) Two Things */}
-                    <div className='flex flex-wrap  max-md:flex-col'>
-                        <div className='basis-1/2  border border-2 border-tiffanyBlue'>
-                            <h1 className='text-white'>1-2 (Stats)</h1>
-                        </div>
-                        <div className='basis-1/2  border border-2 border-tiffanyBlue'>
-                            <h1 className='text-white'>2-2 (Stats)</h1>
-                        </div>
-                    </div>
-
-                    {/* (3) Two Things */}
-                    <div className='flex flex-wrap  max-md:flex-col'>
-                        <div className='basis-1/2  border border-2 border-tiffanyBlue'>
-                            <h1 className='text-white'>1-3 (Stats)</h1>
-                        </div>
-                        <div className='basis-1/2  border border-2 border-tiffanyBlue'>
-                            <h1 className='text-white'>2-3 (Stats)</h1>
-                        </div>
-                    </div>
-
-                    {/* (4) Three Things */}
-                    <div className='flex flex-wrap max-md:flex-col'>
-                        <div className='basis-1/3  border border-2 border-tiffanyBlue'>
-                            <h1 className='text-white'>1-4 (Stats)</h1>
-                        </div>
-                        <div className='basis-1/3  border border-2 border-tiffanyBlue'>
-                            <h1 className='text-white'>2-4 (Stats)</h1>
-                        </div>
-                        <div className='basis-1/3  border border-2 border-tiffanyBlue'>
-                            <h1 className='text-white'>3-4 (Stats)</h1>
-                        </div>
-                    </div>                    
+     
                 </div>
             </div>
         </div>

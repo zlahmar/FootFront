@@ -28,7 +28,9 @@ const PLAYERS = {
     // -----------------------------------
     // (1) STATS PLAYER
     // -----------------------------------
-    STAT: API_URL + "stats_player/", // ?player_id=
+    ALL_STATS: API_URL + "stats_player/all_aggregated_stats", // ?player_id=
+    ALL_STATS_PER_SEASON: API_URL + "stats_player/all_aggregated_stats_per_season", // ?player_id=
+    ALL_STATS_PER_CLUB: API_URL + "stats_player/all_aggregated_stats_per_club", // ?player_id=
 
     // -----------------------------------
     // (2) STATS PLAYER : LEAGUE (ALL SEASONS) / LEAGUE (SELECTED SEASON) 

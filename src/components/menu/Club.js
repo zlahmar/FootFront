@@ -96,7 +96,7 @@ function Club() {
     const [isScrollable, setIsScrollable] = useState(true);
 
     // ---------------------------------------------
-    // 3-1) USE QUERIES : FETCHING DATA FROM API
+    // 3-1) AXIOS : FETCHING DATA FROM API
     // ---------------------------------------------
     // .............................................
     // (0) INIT - Get all players, allNationalitiesInClub in club (When page loads)
