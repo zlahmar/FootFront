@@ -13,9 +13,12 @@ import kickball from '../../../assets/icon/kickball.png'
 import yellow_card_img from '../../../assets/icon/yellow_card.png'
 import red_card_img  from '../../../assets/icon/red_card.png'
 
+// MUI
 import Box from '@mui/material/Box';
 import { Tooltip } from '@mui/material';
-import { COLOR } from '../../../data/Constants';
+
+// Constants
+import { COLOR, DESCRIPTION } from '../../../data/Constants';
 
 export function JoueurCarte({player, nb_game, minute, goal, assist, yellow_card, red_card}){
     const isClickDisabled = false;
@@ -56,7 +59,7 @@ export function JoueurCarte({player, nb_game, minute, goal, assist, yellow_card,
                                 {/* 1) all_nb_games / all_avg_minutes */}
                                 <div className="flex justify-center pb-1">
                                     <div className="flex items-center w-1/2">  
-                                        <Tooltip title="All Games" arrow placement="left">
+                                        <Tooltip title={DESCRIPTION.ALL_GAMES} arrow placement="left">
                                             <Box className="flex" sx={{color: COLOR.GUNMETAL}}>
                                                 <div className='mr-2 '>
                                                     <img className='w-8' src={match} alt="match"/>
@@ -68,7 +71,7 @@ export function JoueurCarte({player, nb_game, minute, goal, assist, yellow_card,
                                         </Tooltip>                                         
                                     </div>    
                                     <div className="flex items-center w-1/2 ml-2">
-                                        <Tooltip title="Average Minutes" arrow placement="right">
+                                        <Tooltip title={DESCRIPTION.AVG_MINUTES} arrow placement="right">
                                             <Box className="flex" sx={{color: COLOR.GUNMETAL}}>
                                                 <div className='mr-2'>
                                                     <img className='w-8' src={time} alt="time"/>
@@ -83,7 +86,7 @@ export function JoueurCarte({player, nb_game, minute, goal, assist, yellow_card,
                                 {/* 2) all_goals / all_assists */}
                                 <div className="flex justify-center pb-1">
                                     <div className="flex items-center w-1/2">  
-                                        <Tooltip title="All Goals" arrow placement="left">
+                                        <Tooltip title={DESCRIPTION.ALL_GOALS} arrow placement="left">
                                             <Box className="flex" sx={{color: COLOR.GUNMETAL}}>
                                                 <div className='mr-2'>
                                                     <img className='w-8' src={shoot} alt="shoot"/>
@@ -95,7 +98,7 @@ export function JoueurCarte({player, nb_game, minute, goal, assist, yellow_card,
                                         </Tooltip>                                        
                                     </div>    
                                     <div className="flex items-center w-1/2 ml-2">
-                                        <Tooltip title="All Assists" arrow placement="right">
+                                        <Tooltip title={DESCRIPTION.ALL_ASSISTS} arrow placement="right">
                                             <Box className="flex" sx={{color: COLOR.GUNMETAL}}>
                                                 <div className='mr-2'>
                                                     <img className='w-8' src={kickball} alt="kickball"/>
@@ -110,7 +113,7 @@ export function JoueurCarte({player, nb_game, minute, goal, assist, yellow_card,
                                 {/* 3) all_yellow_cards / all_red_cards */}
                                 <div className="flex justify-center">
                                     <div className="flex items-center w-1/2">  
-                                        <Tooltip title="Yellow Cards" arrow placement="left">
+                                        <Tooltip title={DESCRIPTION.YELLOW_CARDS} arrow placement="left">
                                             <Box className="flex" sx={{color: COLOR.GUNMETAL}}>
                                                 <div className='mr-2'>
                                                     <img className='w-9' src={yellow_card_img} alt="yellow_card"/>
@@ -122,7 +125,7 @@ export function JoueurCarte({player, nb_game, minute, goal, assist, yellow_card,
                                         </Tooltip>                                         
                                     </div>    
                                     <div className="flex items-center w-1/2 ml-2">
-                                        <Tooltip title="Red Cards" arrow placement="right">
+                                        <Tooltip title={DESCRIPTION.RED_CARDS} arrow placement="right">
                                             <Box className="flex" sx={{color: COLOR.GUNMETAL}}>
                                                 <div className='mr-2'>
                                                     <img className='w-10' src={red_card_img} alt="red_card"/>

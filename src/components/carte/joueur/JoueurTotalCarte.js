@@ -13,9 +13,12 @@ import kickball from '../../../assets/icon/kickball.png'
 import yellow_card from '../../../assets/icon/yellow_card.png'
 import red_card  from '../../../assets/icon/red_card.png'
 
+// MUI
 import Box from '@mui/material/Box';
 import { Tooltip } from '@mui/material';
-import { COLOR } from '../../../data/Constants';
+
+// Constants
+import { COLOR, DESCRIPTION } from '../../../data/Constants';
 
 export function JoueurTotalCarte({playerId, playerPosition, nationalityName, playerName, allNbGames, avgMinutes, allGoals, allAssists, allYellowCards, allRedCards}){
     const isClickDisabled = false;
@@ -57,7 +60,7 @@ export function JoueurTotalCarte({playerId, playerPosition, nationalityName, pla
                                 {/* 1) all_nb_games / all_avg_minutes */}
                                 <div className="flex justify-center pb-1">
                                     <div className="flex items-center w-1/2">  
-                                        <Tooltip title="All Games" arrow placement="left">
+                                        <Tooltip title={DESCRIPTION.ALL_GAMES} arrow placement="left">
                                             <Box className="flex" sx={{color: COLOR.GUNMETAL}}>
                                                 <div className='mr-2 '>
                                                     <img className='w-8' src={match} alt="match"/>
@@ -69,7 +72,7 @@ export function JoueurTotalCarte({playerId, playerPosition, nationalityName, pla
                                         </Tooltip>                                         
                                     </div>    
                                     <div className="flex items-center w-1/2 ml-2">
-                                        <Tooltip title="Average Minutes" arrow placement="right">
+                                        <Tooltip title={DESCRIPTION.AVG_MINUTES}arrow placement="right">
                                             <Box className="flex" sx={{color: COLOR.GUNMETAL}}>
                                                 <div className='mr-2'>
                                                     <img className='w-8' src={time} alt="time"/>
@@ -84,7 +87,7 @@ export function JoueurTotalCarte({playerId, playerPosition, nationalityName, pla
                                 {/* 2) all_goals / all_assists */}
                                 <div className="flex justify-center pb-1">
                                     <div className="flex items-center w-1/2">  
-                                        <Tooltip title="All Goals" arrow placement="left">
+                                        <Tooltip title={DESCRIPTION.ALL_GOALS} arrow placement="left">
                                             <Box className="flex" sx={{color: COLOR.GUNMETAL}}>
                                                 <div className='mr-2'>
                                                     <img className='w-8' src={shoot} alt="shoot"/>
@@ -96,7 +99,7 @@ export function JoueurTotalCarte({playerId, playerPosition, nationalityName, pla
                                         </Tooltip>                                        
                                     </div>    
                                     <div className="flex items-center w-1/2 ml-2">
-                                        <Tooltip title="All Assists" arrow placement="right">
+                                        <Tooltip title={DESCRIPTION.ALL_ASSISTS} arrow placement="right">
                                             <Box className="flex" sx={{color: COLOR.GUNMETAL}}>
                                                 <div className='mr-2'>
                                                     <img className='w-8' src={kickball} alt="kickball"/>
@@ -111,7 +114,7 @@ export function JoueurTotalCarte({playerId, playerPosition, nationalityName, pla
                                 {/* 3) all_yellow_cards / all_red_cards */}
                                 <div className="flex justify-center">
                                     <div className="flex items-center w-1/2">  
-                                        <Tooltip title="Yellow Cards" arrow placement="left">
+                                        <Tooltip title={DESCRIPTION.YELLOW_CARDS} arrow placement="left">
                                             <Box className="flex" sx={{color: COLOR.GUNMETAL}}>
                                                 <div className='mr-2'>
                                                     <img className='w-9' src={yellow_card} alt="yellow_card"/>
@@ -123,7 +126,7 @@ export function JoueurTotalCarte({playerId, playerPosition, nationalityName, pla
                                         </Tooltip>                                         
                                     </div>    
                                     <div className="flex items-center w-1/2 ml-2">
-                                        <Tooltip title="Red Cards" arrow placement="right">
+                                        <Tooltip title={DESCRIPTION.RED_CARDS} arrow placement="right">
                                             <Box className="flex" sx={{color: COLOR.GUNMETAL}}>
                                                 <div className='mr-2'>
                                                     <img className='w-10' src={red_card} alt="red_card"/>
@@ -136,7 +139,6 @@ export function JoueurTotalCarte({playerId, playerPosition, nationalityName, pla
                                     </div>
                                 </div>                           
                             </div>
-
                         </Link>
                     </div>    
             </div>

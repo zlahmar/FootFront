@@ -11,6 +11,9 @@ import { getIdFromUrl } from '../../data/Arrays';
 // Components
 import LoadingCarte from "../carte/LoadingCarte";
 
+// Constants
+import { DESCRIPTION } from '../../data/Constants';
+
 // Axios
 import axios from 'axios'
 
@@ -82,21 +85,21 @@ export default function Joueur() {
                         </div>
                     </div>
                     <div className='basis-1/2 border border-2 border-tiffanyBlue'>
-                        <p className='text-white text-5xl mb-3 font-content'>{player.name}</p>
+                        <p className='text-white text-4xl mb-3 font-content'>{player.name}</p>
                         <img className="w-[5rem] h-[4rem] mb-3" src={`${NATIONALITIES.IMG}/${player.nationality.name_original}`} alt={`${player.nationality.name_original}`} />
-                        <p className='text-white text-2xl mb-3 font-content'>{player.position}</p>
+                        <p className='text-white text-xl mb-3 font-content'>{player.position}</p>
 
                         <div className='flex flex-wrap  max-md:flex-col'>
                             <div className='basis-1/3  border border-2 border-tiffanyBlue flex flex-col justify-center items-center'>
-                                <p className='text-white font-title text-2xl'>All Games</p>
+                                <p className='text-white font-title text-xl'>{DESCRIPTION.ALL_GAMES}</p>
                                 <p className='text-tiffanyBlue font-content text-4xl'> {stats[0].allNbGames}</p>
                             </div>
                             <div className='basis-1/3  border border-2 border-tiffanyBlue flex flex-col justify-center items-center'>
-                                <p className='text-white font-title text-2xl'>All Goals</p>
+                                <p className='text-white font-title text-xl'>{DESCRIPTION.ALL_GOALS}</p>
                                 <p className='text-tiffanyBlue font-content text-4xl'> {stats[0].allGoals}</p>
                             </div>
                             <div className='basis-1/3  border border-2 border-tiffanyBlue flex flex-col justify-center items-center'>
-                                <p className='text-white font-title text-2xl'>All Assists</p>
+                                <p className='text-white font-title text-xl'>{DESCRIPTION.ALL_ASSISTS}</p>
                                 <p className='text-tiffanyBlue font-content text-4xl'> {stats[0].allAssists}</p>
                             </div>
                         </div>
