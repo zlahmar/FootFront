@@ -183,10 +183,9 @@ export default function Joueur() {
                 </div>
 
                 {/* 3. Player Chrono Graph */}
-                <div className='flex justify-center'>
+                {/* <div className='flex justify-center'>
                     <p className='text-white text-center text-3xl mb-3'>CHRONOLOGIE</p>
-                </div>
-
+                </div> */}
             </div>
         </div>
     );
