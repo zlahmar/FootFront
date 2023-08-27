@@ -59,8 +59,11 @@ const POSITION = {
 const DESCRIPTION = {
     ALL_GAMES : "Tous les matchs",
     ALL_GOALS : "Tous les buts",
-    ALL_ASSISTS : "Toutes les passes décisives",
-    AVG_MINUTES : "Moyenne de minutes jouées",
+    ALL_ASSISTS : "Tous les passes décisives",
+    ALL_ASSISTS_SHORT : "Tous les assists",
+    AVG_MINUTES : "Moyenne de minutes jouées (/90 min.)",
+    AVG_GOALS : "Moyenne de buts (/match)",
+    AVG_ASSISTS : "Moyenne d'assists (/match)",
     YELLOW_CARDS : "Cartons jaunes",
     RED_CARDS : "Cartons rouges",
 

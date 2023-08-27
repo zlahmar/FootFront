@@ -1,7 +1,7 @@
 import '../../../styles/index.css'
 import {Link} from "react-router-dom";
 
-// IMG
+// API
 import { PLAYERS, NATIONALITIES } from '../../../data/Api';
 
 // Images
@@ -10,8 +10,8 @@ import match from '../../../assets/icon/match.png'
 import time from '../../../assets/icon/time.png'
 import shoot from '../../../assets/icon/shoot.png'
 import kickball from '../../../assets/icon/kickball.png'
-import yellow_card_img from '../../../assets/icon/yellow_card.png'
-import red_card_img  from '../../../assets/icon/red_card.png'
+import yellow_card from '../../../assets/icon/yellow_card.png'
+import red_card  from '../../../assets/icon/red_card.png'
 
 // MUI
 import Box from '@mui/material/Box';
@@ -116,7 +116,7 @@ export function JoueurCarte({player, nb_game, minute, goal, assist, yellow_card,
                                         <Tooltip title={DESCRIPTION.YELLOW_CARDS} arrow placement="left">
                                             <Box className="flex" sx={{color: COLOR.GUNMETAL}}>
                                                 <div className='mr-2'>
-                                                    <img className='w-9' src={yellow_card_img} alt="yellow_card"/>
+                                                    <img className='w-9' src={yellow_card} alt="yellow_card"/>
                                                 </div>
                                                 <div className='flex items-center w-full'>
                                                     <p className='text-white font-bold font-content'>{yellow_card} <small>yellow</small></p>
@@ -128,7 +128,7 @@ export function JoueurCarte({player, nb_game, minute, goal, assist, yellow_card,
                                         <Tooltip title={DESCRIPTION.RED_CARDS} arrow placement="right">
                                             <Box className="flex" sx={{color: COLOR.GUNMETAL}}>
                                                 <div className='mr-2'>
-                                                    <img className='w-10' src={red_card_img} alt="red_card"/>
+                                                    <img className='w-10' src={red_card} alt="red_card"/>
                                                 </div>
                                                 <div className='flex items-center w-full'>
                                                     <p className='text-white font-bold font-content'>{red_card} <small>red</small></p>
