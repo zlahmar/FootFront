@@ -19,8 +19,8 @@ module.exports = {
       'darkBlue': '#00010d',
     },
     fontFamily: {
-      title : ['Montserrat', 'sans-serif'],
-      content : ['Karla', 'sans-serif'],
+      title : ['Karla', 'sans-serif'],
+      content : ['Montserrat', 'sans-serif'],
     },
     extend: {},
   },

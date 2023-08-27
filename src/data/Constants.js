@@ -56,5 +56,23 @@ const POSITION = {
     GK : "GK",
 }
 
-export {LEAGUE, COLOR, START_SEASON, NUMBER_OF_SEASONS, DEFAULT_PAGE, DEFAULT_SIZE, FILTER, SORT_BY, POSITION, SORT_ORDER} 
+const DESCRIPTION = {
+    ALL_GAMES : "Tous les matchs",
+    ALL_GOALS : "Tous les buts",
+    ALL_ASSISTS : "Tous les passes décisives",
+    ALL_ASSISTS_SHORT : "Tous les assists",
+    AVG_MINUTES : "Moyenne de minutes jouées (/90 min.)",
+    AVG_GOALS : "Moyenne de buts (/match)",
+    AVG_ASSISTS : "Moyenne d'assists (/match)",
+    YELLOW_CARDS : "Cartons jaunes",
+    RED_CARDS : "Cartons rouges",
+
+    ALL_GOALS_AGAINST : "Tous les buts encaissés",
+    ALL_CLEAN_SHEETS : "Tous les clean sheets",
+    ALL_SAVES : "Tous les arrêts",
+    ALL_WINS : "Tous les matchs gagnés",
+    ALL_LOSES : "Tous les matchs perdus",
+}
+
+export {LEAGUE, COLOR, START_SEASON, NUMBER_OF_SEASONS, DEFAULT_PAGE, DEFAULT_SIZE, FILTER, SORT_BY, POSITION, SORT_ORDER, DESCRIPTION} 
 
