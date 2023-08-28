@@ -3,18 +3,18 @@ import { DataGrid } from '@mui/x-data-grid';
 import { COLOR } from '../../data/Constants';
 import { PLAYERS, NATIONALITIES } from '../../data/Api';
 import { Container, Stack, Button } from '@mui/material';
-import {Link} from "react-router-dom";
+import BlocTitre from '../bloc/BlocTitre';
 
 const columns = [
     {
         field: 'id', headerName: 'ID', width: 70
     },
     {
-        field: 'image',
-        headerName: 'Image',
+        field: 'player_photo',
+        headerName: 'Joueur_Img',
         width: 70,
         editable: false,
-        renderCell: (value) => <img src={PLAYERS.IMG+'/'+value.id} />
+        renderCell: (value) => <img src={PLAYERS.IMG+'/'+value.id} alt={value.id}/>
     },
     {
         field: 'name', headerName: 'Nom', width: 300
@@ -35,20 +35,20 @@ const columns = [
         editable: false,
         renderCell: (value) => {
             const nationality = value.row.nationality.name_original;    
-        return (<img src={NATIONALITIES.IMG+'/'+nationality} />);
+        return (<img src={NATIONALITIES.IMG+'/'+nationality} alt={nationality}/>);
         },
     },
     {
         field: 'action',
-        headerName: 'Action',
-        width: 150,
+        headerName: 'Savoir +',
+        width: 300,
         sortable: true,
         disableClickEventBubbling: true,
         
         renderCell: (params) => {
             return (
               <Stack direction="row">
-                <Button href={`/joueurs/${params.row.id}`} variant="outlined" color="primary" size="small">Savoir Plus</Button>
+                <Button href={`/joueurs/${params.row.id}`} variant="outlined" color="info" size="small">Savoir Plus</Button>
               </Stack>
             );
         },
@@ -76,8 +76,10 @@ export default function Joueurs() {
     }, [pageState.page, pageState.pageSize])
     
     return (
-        <div className=" w-full flex flex-col h-full justify-center items-center">
-            <Container style={{ marginTop: 50, marginBottom: 50, height:850 }}>
+        <div className=" w-full flex flex-col h-full">
+            <BlocTitre title="Tous les joueurs"/> 
+
+            <Container style={{ marginTop: 25, marginBottom: 25, height:850 }}>
                 <DataGrid
                         columns={columns}
                         rows={pageState.data}
