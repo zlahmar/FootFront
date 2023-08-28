@@ -89,7 +89,7 @@ export default function Joueur() {
             setChrono(response.data)
         }
         fetchApiStatsPerSeason()
-    },[])
+    },[player_id])
 
     // ---------------------------------------------
     // (3) LOADING
