@@ -149,14 +149,14 @@ export default function Joueur() {
                                     <img className='w-[2rem] h-[2rem] mr-3' src={shoot} alt="shoot"/>
                                     <p className='text-white font-title text-xl text-center'>{DESCRIPTION.AVG_GOALS}</p>
                                 </div>
-                                <p className='text-tiffanyBlue font-content text-4xl text-center'>{(stats[0].allGoals/stats[0].allNbGames).toFixed(2)} buts (par match)</p>
+                                <p className='text-tiffanyBlue font-content text-4xl text-center'>{(stats[0].allGoals/stats[0].allNbGames).toFixed(2)} buts</p>
                             </div>
                             <div className='basis-1/3 pl-2'>
                                 <div className='flex justify-center items-center'>
                                     <img className='w-[2rem] h-[2rem] mr-3' src={kickball} alt="kickball"/>
                                     <p className='text-white font-title text-xl text-center'>{DESCRIPTION.AVG_ASSISTS}</p>
                                 </div>
-                                <p className='text-tiffanyBlue font-content text-4xl text-center'>{(stats[0].allGoals/stats[0].allNbGames).toFixed(2)} assists (par match)</p>
+                                <p className='text-tiffanyBlue font-content text-4xl text-center'>{(stats[0].allAssists/stats[0].allNbGames).toFixed(2)} assists</p>
                             </div>
                         </div>
 
@@ -183,9 +183,9 @@ export default function Joueur() {
                 </div>
 
                 {/* 3. Player Chrono Graph */}
-                {/* <div className='flex justify-center'>
+                <div className='flex justify-center'>
                     <p className='text-white text-center text-3xl mb-3'>CHRONOLOGIE</p>
-                </div> */}
+                </div>
             </div>
         </div>
     );

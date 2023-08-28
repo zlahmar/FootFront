@@ -83,7 +83,7 @@ function ClubsDansLigue() {
         // This code will execute every time the season state changes
         // resultQueries[6] : nationalities
         resultQueries[6].refetch();
-      }, [season, resultQueries]); // The effect depends on the season state
+      }, [season]); // The effect depends on the season state
     
       const handleSeasonChange = (event) => {
         const insertedSeason = event.target.value;
