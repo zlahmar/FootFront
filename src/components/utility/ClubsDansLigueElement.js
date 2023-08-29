@@ -1,15 +1,13 @@
 import { LEAGUE } from "../../data/Constants";
 
 class ClubsDansLigueElement{
-    constructor(league_name,clubs_id_array, clubs_name_array){
+    constructor(league_name,clubs_id_array){
         this.league_name = league_name;
         this.clubs_id_array = clubs_id_array;
-        this.clubs_name_array = clubs_name_array;
     }
 
     static create3ClubsInEachLeague(league_name) {
         let clubs_id_array = []
-        let clubs_name_array = []
         let MIN = 0;
         let MAX = 0;
         const CONST = 3;        
@@ -17,7 +15,6 @@ class ClubsDansLigueElement{
         switch (league_name) {
             case LEAGUE.ENGLAND:
                 clubs_id_array = []
-                clubs_name_array = []
 
                 MIN = 119;
                 MAX = 159;
