@@ -10,6 +10,7 @@ import { getIdFromUrl } from '../../data/Arrays';
 
 // Components
 import LoadingCarte from "../carte/LoadingCarte";
+import ChronoElement from '../utility/ChronoElement';
 
 // Images
 import match from '../../assets/icon/match.png'
@@ -20,10 +21,13 @@ import yellow_card from '../../assets/icon/yellow_card.png'
 import red_card from '../../assets/icon/red_card.png'
 
 // Constants
-import { DESCRIPTION } from '../../data/Constants';
+import { DESCRIPTION, COLOR } from '../../data/Constants';
 
 // Axios
 import axios from 'axios'
+
+// react-chrono
+import { Chrono } from "react-chrono"
 
 export default function Joueur() {
     const player_id = getIdFromUrl('joueurs')
@@ -71,10 +75,26 @@ export default function Joueur() {
         }
         fetchApiStats()
     }, [player_id])
+
+    // -------------------
+    // (2) INIT DATA - CHRONO : Per Season
+    // -------------------
+    useEffect(() => {
+        const fetchApiStatsPerSeason = async () => {
+            const response = await axios.get(PLAYERS.ALL_STATS_PER_SEASON + `?player_id=${player_id}`)
+            
+            if (response.status === 500) {
+                return;
+            }
+            setChrono(response.data)
+        }
+        fetchApiStatsPerSeason()
+    },[player_id])
+
     // ---------------------------------------------
-    // (2) LOADING
+    // (3) LOADING
     // ---------------------------------------------
-    if (player === null || stats === null) {
+    if (player === null || stats === null || chrono === null) {
         return (
             <div className="h-screen flex flex-col justify-between border-2 border-eerieBlack pt-3 pb-3">
               <LoadingCarte />
@@ -82,9 +102,19 @@ export default function Joueur() {
           );
     }
 
+let chrono_items = []
+for (let i = 0; i < chrono.length; i++) {
+    chrono_items.push(new ChronoElement(chrono[i]).createChronoElements())
+    chrono_items.sort((a, b) => (a.title > b.title) ? 1 : -1)
+}
+
+const items = [
+    ...chrono_items
+];
+
     return (
-        <div className="px-2 pb-3 flex flex-col border border-2 border-tiffanyBlue">
-            <div className="mt-[5rem] mx-[1rem] max-md:mx-[2rem] border border-2 border-tiffanyBlue">
+        <div className="px-2 pb-3 flex flex-col">
+            <div className="mt-[5rem] mx-[1rem] max-md:mx-[2rem]">
                 {/* 1. Player Photo, Name, Important Stats ... */}
                 <div className='flex flex-wrap max-md:flex-col mb-3 bg-eerieBlack rounded-3xl border-b-2 border-tiffanyBlue p-3'>
                     <div className='basis-1/3'>
@@ -149,14 +179,14 @@ export default function Joueur() {
                                     <img className='w-[2rem] h-[2rem] mr-3' src={shoot} alt="shoot"/>
                                     <p className='text-white font-title text-xl text-center'>{DESCRIPTION.AVG_GOALS}</p>
                                 </div>
-                                <p className='text-tiffanyBlue font-content text-4xl text-center'>{(stats[0].allGoals/stats[0].allNbGames).toFixed(2)} buts (par match)</p>
+                                <p className='text-tiffanyBlue font-content text-4xl text-center'>{(stats[0].allGoals/stats[0].allNbGames).toFixed(2)} buts</p>
                             </div>
                             <div className='basis-1/3 pl-2'>
                                 <div className='flex justify-center items-center'>
                                     <img className='w-[2rem] h-[2rem] mr-3' src={kickball} alt="kickball"/>
                                     <p className='text-white font-title text-xl text-center'>{DESCRIPTION.AVG_ASSISTS}</p>
                                 </div>
-                                <p className='text-tiffanyBlue font-content text-4xl text-center'>{(stats[0].allGoals/stats[0].allNbGames).toFixed(2)} assists (par match)</p>
+                                <p className='text-tiffanyBlue font-content text-4xl text-center'>{(stats[0].allAssists/stats[0].allNbGames).toFixed(2)} assists</p>
                             </div>
                         </div>
 
@@ -183,10 +213,26 @@ export default function Joueur() {
                 </div>
 
                 {/* 3. Player Chrono Graph */}
-                <div className='flex justify-center'>
+                <div className='flex flex-col justify-center'>
                     <p className='text-white text-center text-3xl mb-3'>CHRONOLOGIE</p>
+                    <div className='m-auto xl:w-[75rem] lg:w-[60rem] h-full px-5 bg-eerieBlack rounded-3xl border-t-2 border-tiffanyBlue pt-[3rem]'>
+                        <Chrono 
+                            items={items}
+                            theme={{
+                                primary: COLOR.TIFFANYBLUE,
+                                secondary: COLOR.ODYSSEUS,
+                                cardBgColor: COLOR.WHITE,
+                                titleColor: COLOR.WHITE,
+                                titleColorActive: COLOR.TIFFANYBLUE,
+                            }} 
+                            mode="VERTICAL_ALTERNATING"
+                            mediaHeight={300}
+                            cardHeight={500}
+                            textOverlay 
+                        >
+                        </Chrono>
+                    </div>
                 </div>
-
             </div>
         </div>
     );

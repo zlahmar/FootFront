@@ -22,7 +22,7 @@ const CLUBS = {
 }
 
 const PLAYERS = {
-    DATA : API_URL + "players",
+    DATA : API_URL + "players", // ?page= & size=
     IMG : API_URL + "images/players",
 
     // -----------------------------------
