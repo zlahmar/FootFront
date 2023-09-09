@@ -28,7 +28,7 @@ export default function LandingPage() {
                                     <img src={kickball} alt="kickball"/>
                                 </div>
                                 <div>
-                                    <p className='text-tiffanyBlue text-5xl uppercase font-title pb-3'>FootStat</p>
+                                    <p className='text-tiffanyBlue text-5xl uppercase font-title pb-3'>FootStats</p>
                                     <p className='text-white text-lg font-content italic pb-3'>
                                         Suivez les tendances des différentes ligues grâce à notre base de données. 
                                         Comparez les performances de chaque club et de chaque joueur en individuel.
